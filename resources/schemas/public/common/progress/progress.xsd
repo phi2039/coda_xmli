@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:prg="http://www.coda.com/efinance/schemas/progress" targetNamespace="http://www.coda.com/efinance/schemas/progress" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="ProgressKey">
+    <xsd:annotation>
+      <xsd:documentation>Contains the key, or special reference, given to you for monitoring a long-running process on the server. You will be supplied with one of the following keys, depending on the service you are using.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="com:typeULong" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>A unique key which identifies the process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CodeKey" type="com:Key" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>An alternative key for identifying the process, which is used by Archive, for example.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProgressData">
+    <xsd:annotation>
+      <xsd:documentation>Contains information about the progress of the Financials process you are monitoring.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Message" type="com:typeProgressMessage">
+        <xsd:annotation>
+          <xsd:documentation>Contains information about the progress of this process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Status" type="com:typeCtProgressStatus">
+        <xsd:annotation>
+          <xsd:documentation>The current status of the process. This may be Completed successfully, Completed with errors, In progress, or Aborted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StepsProcessed" type="xsd:int" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The number of steps completed so far.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StepsToProcess" type="xsd:int" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The number of steps not yet completed.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

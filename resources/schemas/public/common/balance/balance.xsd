@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:bal="http://www.coda.com/efinance/schemas/balance" targetNamespace="http://www.coda.com/efinance/schemas/balance" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+
+  <xsd:complexType name="balance">
+    <xsd:annotation>
+      <xsd:documentation>This element holds balance information.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company for which this balance is maintained.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Element1" type="com:typeElmCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The element at level 1 in the account intersect.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Element2" type="com:typeElmCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The element at level 2 in the account intersect.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Element3" type="com:typeElmCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The element at level 3 in the account intersect.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Element4" type="com:typeElmCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The element at level 4 in the account intersect.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Element5" type="com:typeElmCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The element at level 5 in the account intersect.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Element6" type="com:typeElmCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The element at level 6 in the account intersect.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Element7" type="com:typeElmCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The element at level 7 in the account intersect.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Element8" type="com:typeElmCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The element at level 8 in the account intersect.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Period" type="com:typePeriod">
+        <xsd:annotation>
+          <xsd:documentation>The year and period for this balance.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BalCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The balance code for this balance. This balance master must exist and not be maintained by Financials.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Currency" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The currency code for this balance.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ReportingBasis" type="com:typeRepBasis" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The reporting basis. The default value is 0.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CurrFlag" type="com:typeCtCurCode">
+        <xsd:annotation>
+          <xsd:documentation>The currency flag for this balance, which specifies how to determine the identity of the currency in which a monetary amount is expressed.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DebitValue" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The debit value of this balance.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CreditValue" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The credit value of this balance.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="FullValue" type="com:typeMoney" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The value of this balance, usually the debit value less the credit value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="balanceKey">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a balance key.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company within which this balance is maintained.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Element1" type="com:typeElmCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The element at level 1 in the account intersect.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Element2" type="com:typeElmCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The element at level 2 in the account intersect.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Element3" type="com:typeElmCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The element at level 3 in the account intersect.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Element4" type="com:typeElmCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The element at level 4 in the account intersect.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Element5" type="com:typeElmCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The element at level 5 in the account intersect.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Element6" type="com:typeElmCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The element at level 6 in the account intersect.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Element7" type="com:typeElmCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The element at level 7 in the account intersect.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Element8" type="com:typeElmCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The element at level 8 in the account intersect.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Period" type="com:typePeriod">
+        <xsd:annotation>
+          <xsd:documentation>The year and period for this balance.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BalCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The balance code for this balance.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Currency" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The currency code for this balance.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ReportingBasis" type="com:typeRepBasis" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The reporting basis.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CurrFlag" type="com:typeCtCurCode">
+        <xsd:annotation>
+          <xsd:documentation>The currency flag for this balance, which specifies how to determine the identity of the currency in which a monetary amount is expressed.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="BalanceList">
+    <xsd:annotation>
+      <xsd:documentation>The list of balances held for this balance master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Balance" type="bal:balance" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>A balance item on the list of balances.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="BalanceKeyList">
+    <xsd:sequence>
+      <xsd:element name="Key" type="bal:balanceKey" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="Balance" type="bal:balance"/>
+
+</xsd:schema>

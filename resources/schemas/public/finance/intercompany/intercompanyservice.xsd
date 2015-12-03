@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:icr="http://www.coda.com/efinance/schemas/intercompany" xmlns:prg="http://www.coda.com/efinance/schemas/progress" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:gsl="http://www.coda.com/efinance/schemas/selectormaster" targetNamespace="http://www.coda.com/efinance/schemas/intercompany" elementFormDefault="qualified" version="1.0">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/service.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/progress" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/progress/progress.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/selectormaster" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/selectormaster/selectormaster.xsd"/>
+  <xsd:include schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/finance/intercompany/intercompany.xsd"/>
+
+  <xsd:complexType name="StartRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="ProcessData" type="icr:ProcessData">
+            <xsd:annotation>
+              <xsd:documentation>This element specifies the data you want to process. The two InterCompany processes are Receiver and Cross-database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Starts the InterCompany process using the parameters you specify.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="icr:StartRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="ReceiverProgressKey" type="prg:ProgressKey" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>This key contains information about the progress of the receiver process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CrossDatabaseProgressKey" type="prg:ProgressKey" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>This key contains information about the progress of the cross-database process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AbortingProgressKey" type="prg:ProgressKey">
+            <xsd:annotation>
+              <xsd:documentation>This key contains information for aborting (stopping) the InterCompany process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="icr:StartResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="InterCompanyRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to process InterCompany documents.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element name="Start" type="icr:StartRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Starts the InterCompany process using the parameters you specify.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="InterCompanyResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you process the InterCompany documents.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element name="Start" type="icr:StartResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="InterCompanyRequest" type="icr:InterCompanyRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to process InterCompany documents.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="InterCompanyResponse" type="icr:InterCompanyResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you process the InterCompany documents.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

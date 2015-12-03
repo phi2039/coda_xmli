@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:etm="http://www.coda.com/efinance/schemas/elementtemplatemaster" xmlns:elm="http://www.coda.com/efinance/schemas/elementmaster" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/efinance/schemas/elementtemplatemaster" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/elementmaster" schemaLocation="s:/schemas/public/common/elementmaster/elementmaster.xsd"/>
+
+  <xsd:complexType name="VocabDataElement">
+    <xsd:annotation>
+      <xsd:documentation>An item on the VocabList which will be available for editing when this template is used.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="VocabID" type="com:typeCtEtmVocabEnum">
+        <xsd:annotation>
+          <xsd:documentation>The vocabulary name of the item which will be available for editing when this template is used.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="VocabTitle" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>A descriptive title for the vocabulary item selected. Note that this description is location dependent, and the text held on the database may be translated into your local language.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabDataList">
+    <xsd:annotation>
+      <xsd:documentation>A list of data items from the default element master which users can see and modify when creating an element master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Vocab" type="etm:VocabDataElement" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>An item on the VocabList which will be available for editing when this template is used.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Master" abstract="true">
+    <xsd:sequence>
+      <xsd:element name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this element template master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of company in which this element template master exists.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this element template master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name for the element template master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for the element template master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElmCode" type="com:typeElmCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the element supplying defaults.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElmMask" type="com:typeElmCode">
+        <xsd:annotation>
+          <xsd:documentation>A code format for new elements created using this template. You can enter a mixture of literal characters and placeholders.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElmLevel" type="com:typeElmLevel">
+        <xsd:annotation>
+          <xsd:documentation>The level, from 1 to 8, at which the default element exists.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElmShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The short name of the element supplying defaults.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TaxIdMandatory" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies that a tax identifier must be specified for new elements created using this template.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AutoGenerate" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies that codes should be automatically generated for new elements created using this template.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Prefix" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The string to use as the prefix for element codes generated by this template.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NumberLength" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The number of digits in the numerical part of the element code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StartNumber" type="com:typeULong">
+        <xsd:annotation>
+          <xsd:documentation>The first number that can be generated by this template.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NextNumber" type="com:typeULong" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The next number that will be generated by this template.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="EndNumber" type="com:typeULong">
+        <xsd:annotation>
+          <xsd:documentation>The last number that can be generated by this template.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElementFilterCode" type="com:typeGeneralCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of an element filter master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ElementTemplateMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds an element template master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="etm:Master">
+        <xsd:sequence>
+          <xsd:element name="VocabList" type="etm:VocabDataList">
+            <xsd:annotation>
+              <xsd:documentation>A list of data items from the default element master which users can see and modify when creating an element master.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="ElementTemplateMaster" type="etm:ElementTemplateMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds an element template master.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

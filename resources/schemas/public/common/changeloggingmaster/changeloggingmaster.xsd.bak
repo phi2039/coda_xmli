@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:clm="http://www.coda.com/common/schemas/changeloggingmaster" xmlns:com="http://www.coda.com/efinance/schemas/common" elementFormDefault="qualified" targetNamespace="http://www.coda.com/common/schemas/changeloggingmaster">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types2.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="ChangeLoggingMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element contains change logging master details.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Product" type="com:typeApplicationName">
+        <xsd:annotation>
+          <xsd:documentation>The CODA product to which the change logging master applies.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Code" type="com:typeOptCode">
+        <xsd:annotation>
+          <xsd:documentation>The change logging master code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The change logging master name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The change logging master short name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="LogEnabled" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, enables logging.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="RetentionLimitUnit" type="com:typeRetentionLimitUnit">
+        <xsd:annotation>
+          <xsd:documentation>The units for the retention limit.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="RetentionLimit" type="com:typeRetentionLimit">
+        <xsd:annotation>
+          <xsd:documentation>The retention limit, expressed in the units specified for RetentionLimitUnit.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="CompanyCheckCount" type="com:typeULong">
+        <xsd:annotation>
+          <xsd:documentation>A checksum value calculated on the number of companies.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ObjectCheckCount" type="com:typeULong">
+        <xsd:annotation>
+          <xsd:documentation>A checksum value calculated on the number of objects.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CompanyList" type="clm:ChangeLoggingMasterCompanyList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of companies.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ObjectList" type="clm:AuditObjectList">
+        <xsd:annotation>
+          <xsd:documentation>A list of objects to audit.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The time stamp.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ChangeLoggingMasterCompanyList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of companies.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Company" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>A company code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ChangeLoggingMasterList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of change logging masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ChangeLoggingMaster" type="clm:ChangeLoggingMaster">
+        <xsd:annotation>
+          <xsd:documentation>This element contains the details of a change logging master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ChangeLoggingMasterKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ChangeLoggingMaster" type="clm:ChangeLoggingMasterKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ChangeLoggingMasterKey">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a change logging master key.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Product" type="com:typeApplicationName">
+        <xsd:annotation>
+          <xsd:documentation>The CODA product code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="Code" type="com:typeOptCode">
+        <xsd:annotation>
+          <xsd:documentation>The change logging master code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Rule">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a change logging rule.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="LstSeqNo" type="com:typeWord">
+        <xsd:annotation>
+          <xsd:documentation>The list sequence number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Logical" type="com:typeLogicalOperator">
+        <xsd:annotation>
+          <xsd:documentation>A logical operator to express the relationship between rules.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="OpenBrackets" type="com:typeUWord">
+        <xsd:annotation>
+          <xsd:documentation>The number of opening brackets.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Vocab" type="com:typeGenericOon">
+        <xsd:annotation>
+          <xsd:documentation>A vocabulary item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Operator" type="com:typeChangeLoggingOperator">
+        <xsd:annotation>
+          <xsd:documentation>The comparison operator.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="FromValue" type="com:typeTextWildFixed">
+        <xsd:annotation>
+          <xsd:documentation>The initial value in a range.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ToValue" type="com:typeTextWildFixed">
+        <xsd:annotation>
+          <xsd:documentation>The final value in a range.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="CloseBrackets" type="com:typeUWord">
+        <xsd:annotation>
+          <xsd:documentation>The number of closing brackets.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RuleList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of change logging rules.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Rule" type="clm:Rule">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of a change logging rule.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RuleKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Rule" type="clm:RuleKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RuleKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Product" type="com:typeApplicationName"/>
+      <xsd:element minOccurs="0" name="Code" type="com:typeOptCode"/>
+      <xsd:element minOccurs="0" name="ObjectType" type="com:typeGenericOon"/>
+      <xsd:element minOccurs="0" name="LstSeqNo" type="com:typeWord"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AuditObject">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of an object to be audited.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ObjectType" type="com:typeGenericOon">
+        <xsd:annotation>
+          <xsd:documentation>The CODA object type.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="LoggingType" type="com:typeChangeLoggingMode">
+        <xsd:annotation>
+          <xsd:documentation>The type of auditing to perform.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ItemFlags" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>A bitmask identifying the masters to log.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Enabled" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, logging is enabled.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="AutoDelete" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, events relating to the object are deleted when the object itself is deleted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="RuleCheckCount" type="com:typeULong">
+        <xsd:annotation>
+          <xsd:documentation>A checksum value calculated on the number of rules.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RuleList" type="clm:RuleList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of change logging rules.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AuditObjectList">
+    <xsd:annotation>
+      <xsd:documentation>A list of objects to audit.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="AuditObject" type="clm:AuditObject">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of an object to be audited.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AuditObjectKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="AuditObject" type="clm:AuditObjectKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AuditObjectKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Product" type="com:typeApplicationName"/>
+      <xsd:element minOccurs="0" name="Code" type="com:typeOptCode"/>
+      <xsd:element minOccurs="0" name="ObjectType" type="com:typeGenericOon"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ChangeLoggingMasterItemList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of change logging items.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ChangeLoggingMasterListItem" type="clm:ChangeLoggingMasterListItem">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of a change logging master list item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ChangeLoggingMasterListItem">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a change logging master list item.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Product" type="com:typeApplicationName">
+        <xsd:annotation>
+          <xsd:documentation>The CODA product code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="Code" type="com:typeOptCode">
+        <xsd:annotation>
+          <xsd:documentation>The change logging master code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The change logging master short name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

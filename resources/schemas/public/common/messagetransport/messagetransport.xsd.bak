@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:mes="http://www.coda.com/common/schemas/messagetransport" xmlns:use="http://www.coda.com/common/schemas/userextension" elementFormDefault="qualified" targetNamespace="http://www.coda.com/common/schemas/messagetransport">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types2.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/userextension" schemaLocation="s:/schemas/public/common/userextension/userextension.xsd"/>
+
+  <xsd:complexType name="MessageTransport">
+    <xsd:annotation>
+      <xsd:documentation>This element contains information for a message transport master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this message transport master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name for this message transport master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for this message transport master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Config" type="use:UserExtensionConfig">
+        <xsd:annotation>
+          <xsd:documentation>The code for the user extension used with this message transport master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="UseAsDefault" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, this message transport master is used as the default transport.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The timestamp value for this message transport master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MessageTransportList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of message transport masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="MessageTransport" type="mes:MessageTransport">
+        <xsd:annotation>
+          <xsd:documentation>This element contains information about a message transport master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MessageTransportKeyList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of message transport master keys.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="MessageTransport" type="mes:MessageTransportKey">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of a message transport master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MessageTransportKey">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a message transport master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this message transport master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MessageTransportItemList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a list of message transport masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="MessageTransportListItem" type="mes:MessageTransportListItem">
+        <xsd:annotation>
+          <xsd:documentation>This element holds details of a message transport master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MessageTransportListItem">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details of a message transport master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this message transport master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for this message transport master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

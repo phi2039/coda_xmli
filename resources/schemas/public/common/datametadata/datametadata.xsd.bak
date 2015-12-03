@@ -1,0 +1,800 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:met="http://www.coda.com/common/schemas/datametadata" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:tra="http://www.coda.com/common/schemas/translation" targetNamespace="http://www.coda.com/common/schemas/datametadata" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types2.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/translation" schemaLocation="s:/schemas/public/common/translation/translation.xsd"/>
+
+  <xsd:complexType name="MetadataObjectDefinitionHeader">
+    <xsd:annotation>
+      <xsd:documentation>This element holds header information for one metadata object definition master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this metadata object definition master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ID" type="met:typeDataMetadataId" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The internal identifier for this metadata object definition master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Description" type="met:typeDataMetadataDescription">
+        <xsd:annotation>
+          <xsd:documentation>The descriptive name for the metadata object.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DataSource" type="met:typeDataMetadataId" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The internal identifier for the data source definition master that identifies the logical database containing the table that this object represents.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DataSourceCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code for the data source definition master that identifies the logical database containing the table that this object represents.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Table" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The name of the physical table this object represents. This can be a database view.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RowLevelChecksum" type="com:typeBool">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether, for the database table this object represents, a single checksum value is calculated for all applicable columns on a row, or whether individual checksum values are calculated for each applicable column.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Protection" type="com:typeDataProtectionTypes">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether users have full (public), read-only (protected), or no (private) access to this metadata item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MetadataObjectDefinitionHeaderList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds header information for a list of metadata object definition masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Entry" type="met:MetadataObjectDefinitionHeader" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element holds header information for one metadata object definition master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MetadataObjectJoinDefinition">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a metadata object join definition.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ID" type="met:typeDataMetadataId" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The object ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Description" type="met:typeDataMetadataDescription">
+        <xsd:annotation>
+          <xsd:documentation>A description of the object.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="JoinType" type="com:typeDataMetadataJoins">
+        <xsd:annotation>
+          <xsd:documentation>The type of metadata join.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SourceObjectCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The source object code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SourceObjectID" type="met:typeDataMetadataId" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The source object ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TargetObjectCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The target object code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TargetObjectID" type="met:typeDataMetadataId">
+        <xsd:annotation>
+          <xsd:documentation>The target object ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AttributeJoins" type="met:MetadataAttributeJoinDefinitionList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of metadata attribute join definitions.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MetadataObjectJoinDefinitionList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of metadata object join definitions.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ObjectJoin" type="met:MetadataObjectJoinDefinition" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of a metadata object join definition.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MetadataAttributeJoinDefinition">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a metadata attribute join definition.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ParentID" type="met:typeDataMetadataId" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The parent object ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SourceColumn" type="com:typeText" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The source column name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SourceAttributeID" type="met:typeDataMetadataId" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The source column attribute ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TargetColumn" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The target column name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TargetAttributeID" type="met:typeDataMetadataId">
+        <xsd:annotation>
+          <xsd:documentation>The target column attribute ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MetadataAttributeJoinDefinitionList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of metadata attribute join definitions.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="AttributeJoin" type="met:MetadataAttributeJoinDefinition" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of a metadata attribute join definition.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MetadataObjectAttribute">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details of one attribute.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ID" type="met:typeDataMetadataId" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The internal identifier for the attribute.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ParentID" type="met:typeDataMetadataId" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The internal identifier for the object.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Description" type="met:typeDataMetadataDescription" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The descriptive name for the attribute.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Type" type="met:typeDataMetadataType">
+        <xsd:annotation>
+          <xsd:documentation>The data type of the database column that this attribute represents.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CodaType" type="met:typeDataMetadataDescription" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The name for the CODA data type of this field.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Length" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The length of the field as displayed on the screen.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NullAllowed" type="com:typeBool">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the database column allows nulls.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Column" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The name of the physical database column that this attribute represents.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="KeyType" type="com:typeDataMetadataKey">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the database column that this attribute represents is a primary key, a foreign key, or not a key. Joins between database tables are reflected in metadata as joins between objects defined using attributes that are primary keys.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="EnumerationID" type="met:typeDataMetadataId" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The internal identifier for the metadata enumeration that describes the possible values, if this attribute represents a column of type enumeration.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="EnumerationCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code for the metadata enumeration that describes the possible values, if this attribute represents a column of type enumeration.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Category" type="met:typeDataMetadataCategoryType">
+        <xsd:annotation>
+          <xsd:documentation>A classification of the attribute in terms of whether values can be grouped or summed. If neither applies, the category is data_metadata_unique. (This field is not used.)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Checksum" type="met:typeDataMetadataChecksumType">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether a checksum value is calculated for this column.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RelatedAttributeID" type="met:typeDataMetadataId" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The internal identifier for the related attribute (if any) for this attribute.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RelatedAttributeColumn" type="com:typeText" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The descriptive name for the related attribute (if any) for this attribute.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MetadataObjectAttributeList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details of the attributes in this object.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Entry" type="met:MetadataObjectAttribute" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element holds details of one attribute.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="EnumerationDefinition">
+    <xsd:annotation>
+      <xsd:documentation>This element holds header information for one enumeration definition master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ID" type="met:typeDataMetadataId" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The internal identifier for this enumeration definition master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this enumeration definition master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Description" type="met:typeDataMetadataDescription">
+        <xsd:annotation>
+          <xsd:documentation>The descriptive name for the master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="EnumerationDefinitionList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds header information for a list of enumeration definition masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Entry" type="met:EnumerationDefinition" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element holds header information for one enumeration definition master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="EnumerationValue">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details for one value in the enumeration.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ParentID" type="met:typeDataMetadataId" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The internal identifier for the enumeration definition master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="I18NMungedKey" type="com:typeTranslatableObjectCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>A key to the translatable object.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DescriptionTranslations" type="tra:TranslatableField" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Translated versions of the descriptive text.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Description" type="met:typeDataMetadataDescription">
+        <xsd:annotation>
+          <xsd:documentation>The descriptive text that you want to use for this enumeration value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Value" type="xsd:int" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The integer value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="EnumerationValueList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the details for the values in the enumeration.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Entry" type="met:EnumerationValue" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element holds details for one value in the enumeration.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MetadataEnumeration">
+    <xsd:annotation>
+      <xsd:documentation>This element holds an enumeration definition master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Definition" type="met:EnumerationDefinition">
+        <xsd:annotation>
+          <xsd:documentation>This element holds header information for the enumeration definition master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Values" type="met:EnumerationValueList">
+        <xsd:annotation>
+          <xsd:documentation>This element holds the details for the values in the enumeration.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MetadataEnumerationList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a list of enumeration definition masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Entry" type="met:MetadataEnumeration" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element holds an enumeration definition master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MetadataObjectDefinition">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a metadata object definition master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Header" type="met:MetadataObjectDefinitionHeader">
+        <xsd:annotation>
+          <xsd:documentation>This element holds the header information for the metadata object definition master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AttributeList" type="met:MetadataObjectAttributeList">
+        <xsd:annotation>
+          <xsd:documentation>This element holds details of the attributes in this object.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="JoinList" type="met:MetadataObjectJoinDefinitionList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of metadata object join definitions.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MetadataObjectDefinitionList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a list of metadata object definition masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Entry" type="met:MetadataObjectDefinition" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element holds one metadata object definition master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Table">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details that identifies a database table.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Catalog" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The database catalog. This field is not used.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Schema" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The database schema name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The database name of the table.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TableList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a list of details that identify database tables.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Entry" type="met:Table" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element holds details for one table in the list.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Column">
+    <xsd:annotation>
+      <xsd:documentation>This elements holds details for one column in the list.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Name" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The name of the column.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Type" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The data type of the column.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Size" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The size of the column.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Nullable" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the column can be null.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ColumnList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details for a list of database columns.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Entry" type="met:Column" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This elements holds details for one column in the list.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AttributeDescription">
+    <xsd:annotation>
+      <xsd:documentation>This element holds identifiers for one attribute.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Description" type="met:typeDataMetadataDescription" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The attribute's description.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ID" type="met:typeDataMetadataId">
+        <xsd:annotation>
+          <xsd:documentation>The internal identifier for the attribute.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AttributeDescriptionList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a list of attribute identifiers.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Entry" type="met:AttributeDescription" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element holds identifiers for one attribute.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="BasicInfo">
+    <xsd:annotation>
+      <xsd:documentation>This element holds key information that identifes a metadata item. The type of the item is not defined.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ID" type="met:typeDataMetadataId" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The internal identifier for the metadata item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code for the metadata item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Description" type="met:typeDataMetadataDescription" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The description for the metadata item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="BasicInfoList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a list of keys that identify metadata items. The type of the items is not defined.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Entry" type="met:BasicInfo" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element holds a key that identifies one metadata item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="FindMetadataObjectDefinitionCriteria">
+    <xsd:annotation>
+      <xsd:documentation>This element is a filter for retrieving key information for object definition masters from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code for the object.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Description" type="met:typeDataMetadataDescription" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The description for the object.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DataSource" type="met:typeDataMetadataId" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The internal identifier for data source containing the object.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PublicOnly" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specifies that you want to retrieve only public objects, that is, those to which you have read-write access.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DataSource">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a data source definition master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this data source definition master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Description" type="met:typeDataMetadataDescription">
+        <xsd:annotation>
+          <xsd:documentation>The descriptive name for the data source definition master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ID" type="met:typeDataMetadataId" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The internal identifier for the data source definition master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="JDBCDriver" type="com:typeTextB">
+        <xsd:annotation>
+          <xsd:documentation>The fully qualified Java class name for the JDBC driver for your database software.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="JDBCUrl" type="com:typeTextB">
+        <xsd:annotation>
+          <xsd:documentation>The URL that identifies the database this data source represents. A JDBC driver may require specific parameters to be present.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Username" type="com:typeTextB">
+        <xsd:annotation>
+          <xsd:documentation>The user name under which the application should log on to this database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Password" type="com:typeTextB">
+        <xsd:annotation>
+          <xsd:documentation>This user's password.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OLEDBDriver" type="com:typeTextB">
+        <xsd:annotation>
+          <xsd:documentation>For future use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DataSourceList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a list of DataSource elements.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Entry" type="met:DataSource" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element holds a data source definition master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:simpleType name="typeDataMetadataDescription">
+    <xsd:annotation>
+      <xsd:documentation>The type of descriptions for metadata items.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1"/>
+      <xsd:maxLength value="40"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="typeDataMetadataId">
+    <xsd:annotation>
+      <xsd:documentation>A system-generated globally unique identifier.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:decimal">
+      <xsd:minInclusive value="-9999999999999999999999999999"/>
+      <xsd:maxInclusive value="9999999999999999999999999999"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="typeDataMetadataType">
+    <xsd:annotation>
+      <xsd:documentation>This enumeration encodes the values for the data types of metadata attributes.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="com:typeBaseEnum">
+      <xsd:enumeration value="data_metadata_code">
+        <xsd:annotation>
+          <xsd:documentation>Code</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="data_metadata_text">
+        <xsd:annotation>
+          <xsd:documentation>Text (String)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="data_metadata_integer">
+        <xsd:annotation>
+          <xsd:documentation>Integer</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="data_metadata_small_integer">
+        <xsd:annotation>
+          <xsd:documentation>Small integer</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="data_metadata_enumeration">
+        <xsd:annotation>
+          <xsd:documentation>Enumeration</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="data_metadata_boolean">
+        <xsd:annotation>
+          <xsd:documentation>Boolean</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="data_metadata_float">
+        <xsd:annotation>
+          <xsd:documentation>Floating point integer</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="data_metadata_decimal">
+        <xsd:annotation>
+          <xsd:documentation>CODA Decimal (two columns, containing the value and the number of decimal places)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="data_metadata_money">
+        <xsd:annotation>
+          <xsd:documentation>Monetary amount</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="data_metadata_id">
+        <xsd:annotation>
+          <xsd:documentation>Identifier</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="data_metadata_datetime">
+        <xsd:annotation>
+          <xsd:documentation>Date and time</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="data_metadata_date">
+        <xsd:annotation>
+          <xsd:documentation>Date</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="data_metadata_time">
+        <xsd:annotation>
+          <xsd:documentation>Time</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="data_metadata_year_period">
+        <xsd:annotation>
+          <xsd:documentation>Year and period</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="typeDataMetadataCategoryType">
+    <xsd:annotation>
+      <xsd:documentation>This enumeration encodes a classification of attributes according to whether they can be grouped or summed.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="com:typeBaseEnum">
+      <xsd:enumeration value="data_metadata_grouped">
+        <xsd:annotation>
+          <xsd:documentation>Attribute values can be grouped.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="data_metadata_summed">
+        <xsd:annotation>
+          <xsd:documentation>Attribute values can be summed.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="data_metadata_unique">
+        <xsd:annotation>
+          <xsd:documentation>Attribute values cannot be either grouped or summed.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="typeDataMetadataChecksumType">
+    <xsd:annotation>
+      <xsd:documentation>This enumeration encodes the options for performing checksum validation.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="com:typeBaseEnum">
+      <xsd:enumeration value="data_metadata_checksum_none">
+        <xsd:annotation>
+          <xsd:documentation>There is no checksum validation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="data_metadata_checksum_column">
+        <xsd:annotation>
+          <xsd:documentation>Individual checksum values are calculated for each applicable column.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="data_metadata_checksum_row">
+        <xsd:annotation>
+          <xsd:documentation>A single checksum value is calculated for all applicable columns on a row.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+
+</xsd:schema>

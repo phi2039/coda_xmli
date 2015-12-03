@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:sup="http://www.coda.com/efinance/schemas/supplier" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/efinance/schemas/supplier" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types2.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="SupplierFinderFilter">
+    <xsd:annotation>
+      <xsd:documentation>The criteria used to retrieve the selected supplier.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="RowLimit" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The maximum number of records to be retrieved.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CompanyCode" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company in which the supplier exists.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeElmCodeWild">
+        <xsd:annotation>
+          <xsd:documentation>The element code of the supplier.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Level" type="com:typeElmLevel" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The supplier's element level (1 to 8)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeNameB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The name of the supplier.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNamebWild" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The short name of the supplier.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CreditReference" type="com:typeCrRef" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The supplier's credit reference.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SupplierGroup" type="com:typeCodeWild" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The supplier's element group.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostCode" type="com:typePostCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The supplier's post code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AccNum" type="com:typeBankAccNum" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The supplier's bank account number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Umbrella" type="com:typeCtYesNoEither" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Is this an umbrella element?</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="EnableMasterSecurityFilter" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>If True, enables the master security filter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AddressName" type="com:typeAddressName" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The name of the supplier to use in the address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Address" type="com:typeAddress" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The supplier's address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Telephone" type="com:typeTel" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The supplier's telephone number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TaxNumber" type="com:typeVATB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The supplier's tax number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="EmailAddress" type="com:typeEmailAddress" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The supplier's e-mail address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CallerIsPIM" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specifies that the supplier is being retrieved by Invoice Matching.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ItemSupDataElement">
+    <xsd:annotation>
+      <xsd:documentation>The supplier of an item.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeElmCode">
+        <xsd:annotation>
+          <xsd:documentation>The supplier's element code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Level" type="com:typeElmLevel">
+        <xsd:annotation>
+          <xsd:documentation>The supplier's element level (1 to 8)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Item" type="com:typeItemCode">
+        <xsd:annotation>
+          <xsd:documentation>The item code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The short name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Rank" type="xsd:int" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The position of this supplier in the preference ranking, for Preferred category suppliers.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ItemSupData">
+    <xsd:annotation>
+      <xsd:documentation>The supplier of an item.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ItemSupplier" type="sup:ItemSupDataElement" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>The supplier of an item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SupplierData">
+    <xsd:annotation>
+      <xsd:documentation>This element contains supplier data</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="SupplierFilter" type="sup:SupplierFinderFilter" minOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>The data used to find the supplier data.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ItemSuppliers" type="sup:ItemSupData" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The supplier of an item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

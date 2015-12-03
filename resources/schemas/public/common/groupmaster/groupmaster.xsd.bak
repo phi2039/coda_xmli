@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:grp="http://www.coda.com/efinance/schemas/groupmaster" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/efinance/schemas/groupmaster" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+
+  <xsd:complexType name="Master" abstract="true">
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company in which the group master exists.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this group master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this group master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name for this group master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for this group master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Level" type="com:typeCtGroupLevelValues">
+        <xsd:annotation>
+          <xsd:documentation>The element level at which the group code is to be used in the overall account code structure. If this is a company group, zero is used.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Shared" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that this master is shared.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="grpKey">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the key data for identifying a group master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of a group master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CmpCode" type="com:typeGeneralCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company in which the group master exists.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Level" type="com:typeCtGroupLevelValues">
+        <xsd:annotation>
+          <xsd:documentation>The element level at which the group master exists.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="grpReqKeys">
+    <xsd:annotation>
+      <xsd:documentation>Contains key information for requesting a number of group masters from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MaxKeys" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The maximum number of items to be returned.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Key" type="grp:grpKey">
+        <xsd:annotation>
+          <xsd:documentation>A group master key.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="EnableMasterSecurityFilter" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>When TRUE, only group masters to which the current user has read/write access are returned. A user's access to group masters is controlled by the master security lists on the user's capability master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="grpUserCompanyKey">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a key for filtering the list of company groups and the companies in them. Only companies visible to the specified user are listed. The optional company code allows you to filter a particular company out of the response data.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="User" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The name of the currently logged on user.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CurrentCompany" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>A company code. This company will be filtered out of the response data.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CompaniesList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a list of the companies in the current group that are visible to the specified user.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Company" type="com:typeGeneralCode" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>A company code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserCompany">
+    <xsd:annotation>
+      <xsd:documentation>This element holds one company group with a list of the companies in that group that are visible to the specified user.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The group code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Companies" type="grp:CompaniesList">
+        <xsd:annotation>
+          <xsd:documentation>This element holds a list of the companies in the current group that are visible to the specified user.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserCompanyList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a list of company groups with, for each group, a list of the companies that are visible to the specified user.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CompanyGroup" type="grp:UserCompany" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element holds one company group with a list of the companies in that group that are visible to the specified user.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="GroupMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a group master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="grp:Master">
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="grpKeyDataElement">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the key data for identifying a group master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the group master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The short name of the group master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Level" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The element level at which the group master exists.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="grpKeyData">
+    <xsd:annotation>
+      <xsd:documentation>Contains the key data for identifying group masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="grp:grpKeyDataElement" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element holds the key data for identifying a group master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="grpReqKeys" type="grp:grpReqKeys">
+    <xsd:annotation>
+      <xsd:documentation>Contains key information for requesting a number of group masters from the database.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="GroupMaster" type="grp:GroupMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a group master.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

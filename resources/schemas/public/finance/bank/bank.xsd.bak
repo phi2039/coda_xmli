@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:bnk="http://www.coda.com/efinance/schemas/bank" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/efinance/schemas/bank" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+
+  <xsd:complexType name="BankMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a bank master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this bank master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company master in which the bank master exists.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this bank master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name for the bank master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The short name for the bank master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankName" type="com:typeBankName">
+        <xsd:annotation>
+          <xsd:documentation>The name of a bank held within a bank master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Address1" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>The first line of the bank address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Address2" type="com:typeAddress" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The second line of the bank address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Address3" type="com:typeAddress" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The third line of the bank address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Address4" type="com:typeAddress" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The fourth line of the bank address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Address5" type="com:typeAddress" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The fifth line of the bank address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Address6" type="com:typeAddress" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The sixth line of the bank address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostCode" type="com:typePostCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The postcode of the bank address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Country" type="com:typeGeneralCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The country where the bank is located.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Telephone" type="com:typeTel" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The telephone number of the bank.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Fax" type="com:typeFax" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The fax number of the bank.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IntermediaryBankName" type="com:typeBankName">
+        <xsd:annotation>
+          <xsd:documentation>The name of an intermediary bank, for example a clearing house.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IntermediaryAddress1" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>The first line of the intermediary bank's address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IntermediaryAddress2" type="com:typeAddress" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The second line of the intermediary bank's address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IntermediaryAddress3" type="com:typeAddress" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The third line of the intermediary bank's address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IntermediaryAddress4" type="com:typeAddress" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The fourth line of the intermediary bank's address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IntermediaryAddress5" type="com:typeAddress" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The fifth line of the intermediary bank's address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IntermediaryAddress6" type="com:typeAddress" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The sixth line of the intermediary bank's address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IntermediaryPostCode" type="com:typePostCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The post code of the intermediary bank's address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IntermediaryCountry" type="com:typeGeneralCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The country where the intermediary bank is located.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IntermediaryTelephone" type="com:typeTel" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The telephone of the intermediary bank.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IntermediaryFax" type="com:typeFax" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The fax number of the intermediary bank.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Sort" type="com:typeBankSort" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The sort code of the bank in which the account is held.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AccountNumber" type="com:typeBankAccNum" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The number of the account at the bank.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Swift" type="com:typeBankSwift" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The unique electronic address of the bank as used by the Society for World-wide Interbank Financial Telecommunications.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Sender" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The text that you want written to the electronic media as a means of identifying the sender.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DefaultAccount" type="com:typeAcCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of a Financials posting account that corresponds to the bank account.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AccountName" type="com:typeBankAccName" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The name by which the account is known at the bank.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AccountReference" type="com:typeBankAccRef" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The bank account reference used when making payments or collections by electronic transfer.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Language" type="com:typeLanguage" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The language used by the bank.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IBAN" type="com:typeIBANB">
+        <xsd:annotation>
+          <xsd:documentation>The International Bank Account Number (IBAN) of the bank account.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="BankMaster" type="bnk:BankMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a bank master.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:dbm="http://www.coda.com/efinance/schemas/databasemaster" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/efinance/schemas/databasemaster" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="DatabaseMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a database master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this database master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this database master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name for this database master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for this database master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NameServerIP" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The Internet Protocol address of a remote server.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LogicalServerName" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The logical server name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NameServerPort" type="com:portNumber">
+        <xsd:annotation>
+          <xsd:documentation>The port number of the remote server.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserName" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The username of the remote server.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Password" type="com:typePassword" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The password of the remote server.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Self" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies that the database master refers to the current database, rather than a remote one. Each database must contain one self-referencing database master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ReqKeys">
+    <xsd:annotation>
+      <xsd:documentation>Contains key information for requesting a number of database masters from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MaxKeys" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The maximum number of items to be returned.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="GlobalKey" type="com:GlobalKey">
+        <xsd:annotation>
+          <xsd:documentation>The code of a database master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExcludeSelfReferential" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, self-referencing database masters (referring to the current database rather than a remote one) are excluded from the list of masters returned.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

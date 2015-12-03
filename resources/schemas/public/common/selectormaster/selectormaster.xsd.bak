@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:gsl="http://www.coda.com/efinance/schemas/selectormaster" targetNamespace="http://www.coda.com/efinance/schemas/selectormaster" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="SelectorType">
+    <xsd:annotation>
+      <xsd:documentation>This element contains information which determines the selector type.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="DataClass" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>Specifies the type of data required and limits the vocabulary items that can be used to obtain it.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Self" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Data located on the same tables as the selected data class will be retrieved.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Books" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Data located in the Books will be retrieved.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Intray" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Documents located on the Financials Intray will be retrieved.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Archive" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Documents located in the internal archive tables will be retrieved.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SourceModeSelectorType">
+    <xsd:annotation>
+      <xsd:documentation>A 32-bit number representing the data class and the data location.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="DataClass" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>Specifies the type of data required and limits the vocabulary items that can be used to obtain it.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Self" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Data located on the same tables as the selected data class will be retrieved.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Books" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Data located in the Books will be retrieved.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Intray" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Documents located on the Financials Intray will be retrieved.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Archive" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Documents located in the internal archive tables will be retrieved.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SourceMode" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, then only selector masters with exactly the given combination of data locations will be returned. If FALSE, selector masters will be returned if the specified data locations are present on it but also those with additional locations specified.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DetailsLocation">
+    <xsd:annotation>
+      <xsd:documentation>This element contains information about the source of the data.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Books" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Data located in the Books will be retrieved.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Intray" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Documents located on the Financials Intray will be retrieved.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Archive" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Documents located in the internal archive tables will be retrieved.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Master" abstract="true">
+    <xsd:sequence>
+      <xsd:element name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The time stamp value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>A company code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The selector master code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The selector master name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SelType" type="gsl:SelectorType">
+        <xsd:annotation>
+          <xsd:documentation>The selector type.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The selector master short name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AllowEdit" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, allows the master to be edited at run time.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Hint" type="com:typeGeneralCodeB">
+        <xsd:annotation>
+          <xsd:documentation>Prompt text displayed when the master is used.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CreateDate" type="com:typeDateB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date the master was created.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ModifyDate" type="com:typeDateB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date the master was last modified.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="User" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The user who last updated the master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Shared" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, the selector master is shared.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocListDataElement">
+    <xsd:annotation>
+      <xsd:documentation>A data element on the vocabulary list.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Logical" type="com:typeLogicalOperator" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The logical connective combining this data element with the preceding data element. There is no logical connective on the first data element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OpenBracket" type="com:typeLeftBrackets" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The number of opening parentheses used to group the data elements.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="VocabID" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The vocabulary name of the data item that you want to select.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OperatorID" type="com:typeCtVocabOp">
+        <xsd:annotation>
+          <xsd:documentation>The symbol signifying the operation to be performed on the selected vocabulary item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="From" type="com:typeGSLValue" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The value of the parameter or start of a range, if applicable.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="To" type="com:typeGSLValue" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The last value in the range, if applicable.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Modify" type="com:typeCtOneOfN" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE specifies that editing of this parameter will be allowed at run time.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Prompt" type="com:typeTextB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The text that prompts the user for input at run time, if you have allowed modification.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CloseBracket" type="com:typeRightBrackets" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The number of closing parentheses used to group the data elements.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectorVocListData">
+    <xsd:sequence>
+      <xsd:element name="Key" type="com:Key"/>
+      <xsd:element name="TimeStamp" type="xsd:short" minOccurs="0"/>
+      <xsd:element name="VocabList" type="gsl:VocListData" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocListData">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the vocabulary items you want to select on, and the values or ranges you require.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Vocab" type="gsl:VocListDataElement" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>A data element on the vocabulary list.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectorMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a selector master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="gsl:Master">
+        <xsd:sequence>
+          <xsd:element name="VocabList" type="gsl:VocListData">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the list of vocabulary used as selection criteria.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="Key">
+    <xsd:annotation>
+      <xsd:documentation>A selector master key.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The company code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the selector master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name of the selector master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Product" type="com:typeApplicationNameb" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The product to which the selector master relates.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ViewType" type="com:typeGenericOon" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The type of the objects that vocabulary items can be based on.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SelType" type="gsl:SourceModeSelectorType" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>A 32-bit number representing the data class and the data location.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ReqKeys">
+    <xsd:sequence>
+      <xsd:element name="MaxKeys" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The maximum number of items to be returned.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Key" type="gsl:Key">
+        <xsd:annotation>
+          <xsd:documentation>A selector master key.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PrintReqKeys">
+    <xsd:annotation>
+      <xsd:documentation>This element contains requirements for the selector masters to be printed.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="gsl:ReqKeys">
+        <xsd:sequence>
+          <xsd:element name="LastModifiedFrom" type="com:typeDateB" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The earliest modification date for selector masters to be printed.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="LastModifiedTo" type="com:typeDateB" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The latest modification date for the selector masters to be printed.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="SelectorMaster" type="gsl:SelectorMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a selector master.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

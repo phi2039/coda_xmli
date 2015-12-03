@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:build="http://www.coda.com/common/schemas/funcsec" xmlns:log="http://www.coda.com/common/schemas/logging" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/common/schemas/logging" version="2.0">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/service.xsd"/>
+  <xsd:include schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/logging/logging.xsd"/>
+
+  <xsd:complexType name="GetListRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Filter" type="log:ListFilter">
+            <xsd:annotation>
+              <xsd:documentation>A filter for retrieving logs from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="IncludeTotals" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:documentation>Specifies whether to include total numbers of the different types of log lines in the response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetListRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Lists the logs selected by the specified filter.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="log:GetListRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetListResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Filter" type="log:ListFilter">
+            <xsd:annotation>
+              <xsd:documentation>The filter sent with the GetListRequest corresponding to this response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Headers" type="log:HeaderData" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains header information identifying the logs that are listed.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetListResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="log:GetListResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="log:LogKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key identifying the log you want to retrieve from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the specified log from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="log:GetRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Key" type="log:LogKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key identifying the log that you attempted to retrieve from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Log" type="log:Log" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the log that has been retrieved from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="log:GetResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="log:LogKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key identifying the log you want to delete.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Deletes the specified log.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="log:DeleteRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Key" type="log:LogKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key identifying the log that you attempted to delete.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="log:DeleteResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="LoggingRequest">
+    <xsd:annotation>
+      <xsd:appinfo build:funcSecValue="400" build:readOnly="true"/>
+      <xsd:documentation>This service allows you to maintain logs.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element name="List" type="log:GetListRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="1" build:readOnly="true"/>
+              <xsd:documentation>Lists the logs selected by the specified filter.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Get" type="log:GetRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="2" build:readOnly="true"/>
+              <xsd:documentation>Retrieves the specified log from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Delete" type="log:DeleteRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="3" build:readOnly="false"/>
+              <xsd:documentation>Deletes the specified log.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetFilteredLog" type="log:GetFilteredLogRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="4" build:readOnly="true"/>
+              <xsd:documentation>Retrieves the specified log from the database, but with the log lines filtered based on certain criteria.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetFilteredLogEx" type="log:GetFilteredLogExRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="5" build:readOnly="true"/>
+              <xsd:documentation>Retrieves the specified log from the database, but with the log lines filtered based on certain criteria.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="LoggingResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you maintain logs.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element name="List" type="log:GetListResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Get" type="log:GetResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Delete" type="log:DeleteResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetFilteredLog" type="log:GetFilteredLogResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetFilteredLogEx" type="log:GetFilteredLogExResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetFilteredLogRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="log:LogKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key identifying the log you want to retrieve from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="LineFilter" type="log:LineListFilter">
+            <xsd:annotation>
+              <xsd:documentation>Contains the criteria to use for filtering the log lines.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetFilteredLogRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the specified log from the database, but with the log lines filtered based on certain criteria.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="log:GetFilteredLogRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetFilteredLogResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Key" type="log:LogKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key identifying the log that you attempted to retrieve from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="FilteredLog" type="log:FilteredLog">
+            <xsd:annotation>
+              <xsd:documentation>Contains the filtered log that has been retrieved from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetFilteredLogResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="log:GetFilteredLogResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetFilteredLogExRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="log:LogKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key identifying the log you want to retrieve from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="LineFilter" type="log:LineListFilter">
+            <xsd:annotation>
+              <xsd:documentation>Contains the criteria to use for filtering the log lines.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetFilteredLogExRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the specified log from the database, but with the log lines filtered based on certain criteria.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="log:GetFilteredLogExRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetFilteredLogExResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Key" type="log:LogKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key identifying the log that you attempted to retrieve from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="FilteredLogEx" type="log:FilteredLogEx">
+            <xsd:annotation>
+              <xsd:documentation>Contains the filtered log that has been retrieved from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetFilteredLogExResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="log:GetFilteredLogExResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="LoggingRequest" type="log:LoggingRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to maintain logs.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="LoggingResponse" type="log:LoggingResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you maintain logs.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

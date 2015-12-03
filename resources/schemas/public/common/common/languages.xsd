@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" elementFormDefault="qualified" targetNamespace="http://www.coda.com/efinance/schemas/common">
+
+  <xsd:include schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+
+  <xsd:simpleType name="typeCtLanguageInf">
+    <xsd:annotation>
+      <xsd:documentation>The language of the item.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="com:typeBaseEnum">
+      <xsd:enumeration value="lang_czech">
+        <xsd:annotation>
+          <xsd:documentation>Czech</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="lang_danish">
+        <xsd:annotation>
+          <xsd:documentation>Danish</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="lang_german">
+        <xsd:annotation>
+          <xsd:documentation>German</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="lang_greek">
+        <xsd:annotation>
+          <xsd:documentation>Greek</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="lang_english">
+        <xsd:annotation>
+          <xsd:documentation>UK English</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="lang_american_english">
+        <xsd:annotation>
+          <xsd:documentation>US English</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="lang_spanish">
+        <xsd:annotation>
+          <xsd:documentation>Spanish</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="lang_american_spanish">
+        <xsd:annotation>
+          <xsd:documentation>Latin American Spanish</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="lang_french">
+        <xsd:annotation>
+          <xsd:documentation>French</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="lang_swiss_french">
+        <xsd:annotation>
+          <xsd:documentation>Swiss French</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="lang_hungarian">
+        <xsd:annotation>
+          <xsd:documentation>Hungarian</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="lang_italian">
+        <xsd:annotation>
+          <xsd:documentation>Italian</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="lang_dutch">
+        <xsd:annotation>
+          <xsd:documentation>Dutch</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="lang_norwegian">
+        <xsd:annotation>
+          <xsd:documentation>Norwegian</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="lang_portugese">
+        <xsd:annotation>
+          <xsd:documentation>Iberian Portuguese</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="lang_swedish">
+        <xsd:annotation>
+          <xsd:documentation>Swedish</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="lang_turkish">
+        <xsd:annotation>
+          <xsd:documentation>Turkish</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="lang_brazilian">
+        <xsd:annotation>
+          <xsd:documentation>Brazilian Portuguese</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="lang_simchi">
+        <xsd:annotation>
+          <xsd:documentation>Simplified Chinese</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="lang_romanian">
+        <xsd:annotation>
+          <xsd:documentation>Romanian</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="lang_polish">
+        <xsd:annotation>
+          <xsd:documentation>Polish</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="lang_qalang">
+        <xsd:annotation>
+          <xsd:documentation>For CODA use only</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="lang_wildcard">
+        <xsd:annotation>
+          <xsd:documentation>Wildcard language</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="typeCtCurGender">
+    <xsd:annotation>
+      <xsd:documentation>The grammatical gender of the currency item.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="com:typeBaseEnum">
+      <xsd:enumeration value="gender_masculine">
+        <xsd:annotation>
+          <xsd:documentation>Masculine gender</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="gender_feminine">
+        <xsd:annotation>
+          <xsd:documentation>Feminine gender</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="gender_neuter">
+        <xsd:annotation>
+          <xsd:documentation>Neuter gender</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+
+</xsd:schema>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:build="http://www.coda.com/common/schemas/funcsec" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:ses="http://www.coda.com/common/schemas/sessioninfo" elementFormDefault="qualified" targetNamespace="http://www.coda.com/common/schemas/sessioninfo" version="1.0">
+
+  <xsd:include schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/sessioninfo/sessioninfo.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/service.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types2.xsd"/>
+
+  <xsd:complexType name="GetRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="SessionInfoKey" type="ses:SessionInfoKey">
+            <xsd:annotation>
+              <xsd:documentation>The key to the session information.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves details of specified sessions.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Request" type="ses:GetRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="SessionInfo" type="ses:SessionInfo">
+            <xsd:annotation>
+              <xsd:documentation>This element contains details of the session information.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="ses:GetResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SessionInfoRequest">
+    <xsd:annotation>
+      <xsd:appinfo build:funcSecValue="436" build:readOnly="true"/>
+      <xsd:documentation>This service allows you to retrieve session details.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element minOccurs="0" name="Get" type="ses:GetRequestVerb">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="1" build:readOnly="true"/>
+              <xsd:documentation>Retrieves details of specified sessions.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SessionInfoResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you have called a session information service.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element minOccurs="0" name="Get" type="ses:GetResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="SessionInfoRequest" type="ses:SessionInfoRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to retrieve session details.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="SessionInfoResponse" type="ses:SessionInfoResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you have called a session information service.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:build="http://www.coda.com/common/schemas/funcsec" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:tasks="http://www.coda.com/common/schemas/tasks" elementFormDefault="qualified" targetNamespace="http://www.coda.com/common/schemas/tasks" version="11.2">
+
+  <xsd:include schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/tasks/tasks.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/service.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types2.xsd"/>
+
+  <xsd:complexType name="ListTaskInfoRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListTaskInfoRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves key information for the specified tasks.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Request" type="tasks:ListTaskInfoRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListTaskInfoResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Task" type="tasks:TaskInfo">
+            <xsd:annotation>
+              <xsd:documentation>The task information.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListTaskInfoResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="tasks:ListTaskInfoResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetTaskInfoRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Type" type="com:typeCode">
+            <xsd:annotation>
+              <xsd:documentation>The type of task.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetTaskInfoRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the specified task information.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Request" type="tasks:GetTaskInfoRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetTaskInfoResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="GetTaskInfo" type="tasks:TaskInfo">
+            <xsd:annotation>
+              <xsd:documentation>The task information.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetTaskInfoResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="tasks:GetTaskInfoResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListTaskTypesRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListTaskTypesRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves a list of task types.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Request" type="tasks:ListTaskTypesRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListTaskTypesResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Type" type="com:typeCode">
+            <xsd:annotation>
+              <xsd:documentation>The task type.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListTaskTypesResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="tasks:ListTaskTypesResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="Parameters">
+    <xsd:annotation>
+      <xsd:documentation>The parameters for the task.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ParamCollection" type="tasks:ParamCollection">
+        <xsd:annotation>
+          <xsd:documentation>A collection of parameters.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:any/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RunRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Type" type="com:typeCode">
+            <xsd:annotation>
+              <xsd:documentation>The type of task.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Parameters" type="tasks:Parameters">
+            <xsd:annotation>
+              <xsd:documentation>The parameters for the task.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ParamCollection">
+    <xsd:annotation>
+      <xsd:documentation>A collection of parameters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Param" type="tasks:Param">
+        <xsd:annotation>
+          <xsd:documentation>The parameter name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RunRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Runs a specified task.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Request" type="tasks:RunRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="RunResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Run" type="com:typeDbGuid">
+            <xsd:annotation>
+              <xsd:documentation>A unique identifier for the task.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="RunResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="tasks:RunResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StopRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Task" type="tasks:TaskKey">
+            <xsd:annotation>
+              <xsd:documentation>The task ID.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StopRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Stops a specified task.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Request" type="tasks:StopRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StopResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StopResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="tasks:StopResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SendControlRequestRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" name="TargetTask" type="tasks:TaskKey">
+            <xsd:annotation>
+              <xsd:documentation>The task ID.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ControlRequest" type="com:typeULongB">
+            <xsd:annotation>
+              <xsd:documentation>The control request.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SendControlRequestRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Sends a control request to a task.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Request" type="tasks:SendControlRequestRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SendControlRequestResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SendControlRequestResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="tasks:SendControlRequestResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="TaskManagerRequest">
+    <xsd:annotation>
+      <xsd:appinfo build:funcSecValue="413" build:readOnly="true"/>
+      <xsd:documentation>This service allows you to manage tasks.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element minOccurs="0" name="ListTaskInfo" type="tasks:ListTaskInfoRequestVerb">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="1" build:readOnly="true"/>
+              <xsd:documentation>Retrieves key information for the specified tasks.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="GetTaskInfo" type="tasks:GetTaskInfoRequestVerb">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="2" build:readOnly="true"/>
+              <xsd:documentation>Retrieves the specified task information.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ListTaskTypes" type="tasks:ListTaskTypesRequestVerb">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="3" build:readOnly="true"/>
+              <xsd:documentation>Retrieves a list of task types.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Run" type="tasks:RunRequestVerb">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="4" build:readOnly="false"/>
+              <xsd:documentation>Runs a specified task.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Stop" type="tasks:StopRequestVerb">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="5" build:readOnly="false"/>
+              <xsd:documentation>Stops a specified task.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="SendControlRequest" type="tasks:SendControlRequestRequestVerb">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="6" build:readOnly="false"/>
+              <xsd:documentation>Sends a control request to a task.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="TaskManagerResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you have issued a task management request.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element minOccurs="0" name="ListTaskInfo" type="tasks:ListTaskInfoResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="GetTaskInfo" type="tasks:GetTaskInfoResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ListTaskTypes" type="tasks:ListTaskTypesResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Run" type="tasks:RunResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Stop" type="tasks:StopResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="SendControlRequest" type="tasks:SendControlRequestResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="TaskManagerRequest" type="tasks:TaskManagerRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to manage tasks.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="TaskManagerResponse" type="tasks:TaskManagerResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you have issued a task management request.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

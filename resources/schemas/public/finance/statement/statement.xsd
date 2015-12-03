@@ -1,0 +1,730 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:spr="http://www.coda.com/efinance/schemas/statement" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:txn="http://www.coda.com/efinance/schemas/transaction" xmlns:sel="http://www.coda.com/efinance/schemas/selector" targetNamespace="http://www.coda.com/efinance/schemas/statement" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/transaction" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/transaction/transaction.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/selector" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/selector/selector.xsd"/>
+  <xsd:include schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/finance/statement/statementline.xsd"/>
+
+  <xsd:complexType name="Key">
+    <xsd:annotation>
+      <xsd:documentation>The key containing the selection criteria for the Reference Number map.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StatementMasterCode" type="com:typeCodeWild">
+        <xsd:annotation>
+          <xsd:documentation>The search string for the statement master that you want statement processing to use. You can use wildcards.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ReferenceNumberCode" type="com:typeCodeWild">
+        <xsd:annotation>
+          <xsd:documentation>The search string for the reference number of the statement that you want to post. You can use wildcards.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="FullKey">
+    <xsd:annotation>
+      <xsd:documentation>The key containing the codes of the masters and the statement you want to use in Statement Processing.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StatementMasterCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the statement master you want statement processing to use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StatementPostingMasterCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the statement posting master you want statement processing to use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ReferenceNumberCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The reference number of the statement you want to post.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TextLines">
+    <xsd:annotation>
+      <xsd:documentation>Contains concatenated text items from the statement.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="TextLine" type="com:typeDescr" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>A line of text from the statement header.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ReferenceNumbers">
+    <xsd:annotation>
+      <xsd:documentation>The list of statement reference numbers valid for this statement master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ReferenceNumber" type="com:typeGeneralCode" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>A statement reference number on the list.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ReferenceNumberMapEntry">
+    <xsd:annotation>
+      <xsd:documentation>An item on the Reference Number map.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="StatementMasterCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the statement master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ReferenceNumbers" type="spr:ReferenceNumbers">
+        <xsd:annotation>
+          <xsd:documentation>The list of statement reference numbers valid for this statement master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ReferenceNumberMap">
+    <xsd:annotation>
+      <xsd:documentation>The list of statement masters, with valid reference numbers mapped against each statement master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ReferenceNumberMapEntry" type="spr:ReferenceNumberMapEntry" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>An item on the Reference Number map.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Header">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of the statement header.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="TextLines" type="spr:TextLines">
+        <xsd:annotation>
+          <xsd:documentation>Contains concatenated text items from the statement.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Date" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The statement date, as in the statement tables.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Version" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The statement version, as in the statement tables.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CurrCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the currency used by the statement.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Status" type="com:typeCtSprUsage">
+        <xsd:annotation>
+          <xsd:documentation>The status of the statement: In Use or Not in Use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OpeningBalance" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The opening balance on the statement header.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ClosingBalance" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The closing balance on the statement header.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Movement" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The difference between the opening balance and the closing balance.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StartDate" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date from which the statement starts.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StartTime" type="com:typeTime" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The time from which the statement starts.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDetailsParams">
+    <xsd:annotation>
+      <xsd:documentation>Contains your requirements for selecting the statement lines you are interested in.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="FullKey" type="spr:FullKey">
+        <xsd:annotation>
+          <xsd:documentation>The key containing the codes of the masters and the statement you want to use in Statement Processing.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LogTitle" type="com:typeLogTitle">
+        <xsd:annotation>
+          <xsd:documentation>The title of the log under which details of the process are recorded.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="YearAndPeriod" type="com:typePeriod">
+        <xsd:annotation>
+          <xsd:documentation>The year and period to which statements are posted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SuppressStatementLineVocabInformation" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that you do not want the response to contain the details of the vocabulary items on the transaction line</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LockToken" type="com:typeText" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>A random alpha-numeric string given to you when the statement is locked, for unlocking the statement when use of it is complete and you want to start another process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="GenerateParams">
+    <xsd:annotation>
+      <xsd:documentation>Contains the requirements for generating documents for posting.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Folders" type="spr:FolderList">
+        <xsd:annotation>
+          <xsd:documentation>The list of folders containing the statement lines.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SuppressTransactionLineVocabInformation" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that you do not want the response to contain the details of the vocabulary items on the transaction line (StatementLineCellList).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DetailsStatistics">
+    <xsd:annotation>
+      <xsd:documentation>Contains the general statistics for the statement.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="LinesLoaded" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The number of statement lines loaded.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LinesRejected" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The number of lines rejected because of an error.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LinesTotal" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The total number of lines in the statement.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TotalStatementValue" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The total value of the statement.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LinesTotalAcrossFolders" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The total number of lines for posting in all folders.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TotalErrors" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The total number of lines with errors.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="FolderSummary">
+    <xsd:annotation>
+      <xsd:documentation>Contains a summary of the information held in the folder.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="StatementValue" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The total value of the lines in the folder.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Lines" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The total number of lines in the folder.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Errors" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The number of lines that are marked as 'Error'.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="FolderLineStatus">
+    <xsd:annotation>
+      <xsd:documentation>Contains the status settings of the statement line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Error" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, indicates that an error occurred when the statement was validated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostingLocation" type="com:typePostingLocation" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The location to which the line will be posted: Books or Intray.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Reconcile" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, the line will be reconciled after posting.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Generated" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, indicates that a posting document has been generated for this line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Selected" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, indicates that this line is selected for posting.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SystemSequenceNumber" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The sequence number of this line within statement processing.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExternalSequenceNumber" type="xsd:int" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The sequence number of this line from the oas_stmdocline table.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ProposalIDReference" type="xsd:long" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The reference number of the proposal containing this line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CanReconcileToBooks" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that, if Reconcile is set to TRUE, the system reconciles the transaction after posting it to the Books.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CanReconcileToIntray" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that, if Reconcile is set to TRUE, the system reconciles the transaction after posting it to the Intray.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="FolderLine">
+    <xsd:annotation>
+      <xsd:documentation>A line displayed within the folder.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="StatementLine" type="spr:StatementLine">
+        <xsd:annotation>
+          <xsd:documentation>Contains details of the statement line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StatementLineCellList" type="sel:CellList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains an alternative view of the statement line, where the information is converted to strings held in a list of cells. This format may be more flexible for your purposes. You can suppress this information using SuppressTransactionLineVocabInformation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Status" type="spr:FolderLineStatus">
+        <xsd:annotation>
+          <xsd:documentation>Contains the status settings of the statement line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserExtensionResults" type="spr:UserExtensionResults" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains information about the user extensions: whether they were successful, and the values they returned.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="FolderLines">
+    <xsd:annotation>
+      <xsd:documentation>Contains details of the lines in the folder.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Line" type="spr:FolderLine" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>A line displayed within the folder.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Folder">
+    <xsd:annotation>
+      <xsd:documentation>A folder on the list.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Title" type="com:typeDescr">
+        <xsd:annotation>
+          <xsd:documentation>The title of the folder.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Type" type="com:typeCtStmFolderType">
+        <xsd:annotation>
+          <xsd:documentation>The type of folder: whether it is user-defined, or contains posted lines or remaining lines.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Id" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The numerical identifier for this folder in the list.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Summary" type="spr:FolderSummary">
+        <xsd:annotation>
+          <xsd:documentation>Contains a summary of the information held in the folder.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Lines" type="spr:FolderLines">
+        <xsd:annotation>
+          <xsd:documentation>Contains details of the lines in the folder.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StatementPresenterCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the presenter master used to display statement lines.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocumentPresenterCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the presenter master used to display document lines.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StatementLinesHeader" type="sel:SelectionRow" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The column heading for all statement lines, which is determined by the display criteria in the presenter master used for the statement lines. Only those vocabulary items included in the presenter will be used in the header.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="FolderList">
+    <xsd:annotation>
+      <xsd:documentation>The list of folders containing the statement lines.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Folder" type="spr:Folder" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>A folder on the list.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserExtension">
+    <xsd:annotation>
+      <xsd:documentation>Contains information about one user extension.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="TransactionTypeMasterCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the transaction type master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExtensionCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the user extension.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SourceExternalValidate" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that a user extension is used to validate the source account.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SourceLookupAccount" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that a user extension is used to look up the source account.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ContraExternalValidate" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that a user extension is used to validate the contra account.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ContraLookupAccount" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that a user extension is used to look up the contra account.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ContraLineSrc" type="com:typeCtContraSource">
+        <xsd:annotation>
+          <xsd:documentation>How the contra line is derived:</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserExtensionError">
+    <xsd:annotation>
+      <xsd:documentation>Contains details of an error which caused the user extension to fail.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ErrorCode" type="com:typeCtUserExtensionError">
+        <xsd:annotation>
+          <xsd:documentation>The code that indicates the type of error.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ErrorText" type="com:typeTextAnyB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Explanatory text relating to the user extension error.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserExtensionResults">
+    <xsd:annotation>
+      <xsd:documentation>Contains information about the user extensions: whether they were successful, and the values they returned.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="SourceExternalValidateOK" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, indicates that the user extension used to validate the statement was successful.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SourceLookupAccountOK" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, indicates that the user extension used to look up the account code was successful.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SourceAccount" type="com:typeAcCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the source account, returned by the user extension.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SourceTraderCode" type="com:typeTraderCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the temporary customer or supplier associated with the source account.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ContraExternalValidateOK" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, indicates that the user extension used to validate the contra account for the statement was successful.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ContraLookupAccountOK" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, indicates that the user extension used to look up the contra account was successful.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ContraAccount" type="com:typeAcCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the contra account, returned by the user extension.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ContraTraderCode" type="com:typeTraderCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the temporary customer or supplier associated with the contra account.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Error" type="spr:UserExtensionError" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains details of an error which caused the user extension to fail.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserExtensions">
+    <xsd:annotation>
+      <xsd:documentation>Contains information about the user extensions used by statement processing.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="UserExtension" type="spr:UserExtension" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Contains information about one user extension.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Details">
+    <xsd:annotation>
+      <xsd:documentation>Contains information about and the results of the Generate command.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Statistics" type="spr:DetailsStatistics">
+        <xsd:annotation>
+          <xsd:documentation>Contains the general statistics for the statement.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Folders" type="spr:FolderList">
+        <xsd:annotation>
+          <xsd:documentation>Contains information about the folders and the lines they contain.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserExtensions" type="spr:UserExtensions">
+        <xsd:annotation>
+          <xsd:documentation>Contains information about the user extensions used by statement processing.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LogID" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The number of the log containing details of the Generate process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TransactionLine">
+    <xsd:annotation>
+      <xsd:documentation>A transaction line, containing a proposed transaction, and other information.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Line" type="txn:Line">
+        <xsd:annotation>
+          <xsd:documentation>The document line, containing the transaction.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LineCellList" type="sel:CellList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains an alternative view of the document line, where the information is converted to strings held in a list of cells. This format may be more flexible for your purposes. You can suppress this information using SuppressTransactionLineVocabInformation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Error" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that an error occurred on this line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SystemCalculated" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that the line was calculated by the system.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Reconcile" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that the line will be reconciled after posting.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StatementSequenceNumber" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>The sequence number of this line on the original statement.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TransactionLineList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the document lines</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="TransactionLine" type="spr:TransactionLine" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>A transaction line, containing a proposed transaction, and other information.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Transaction">
+    <xsd:annotation>
+      <xsd:documentation>The document containing the proposed transactions.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Header" type="txn:Header">
+        <xsd:annotation>
+          <xsd:documentation>The header details of the document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Lines" type="spr:TransactionLineList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains the document lines</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DocProposal">
+    <xsd:annotation>
+      <xsd:documentation>Contains one document proposal from the list of document proposals.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Doc" type="spr:Transaction">
+        <xsd:annotation>
+          <xsd:documentation>The document containing the proposed transactions.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocLinesHeader" type="sel:SelectionRow" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The column heading for all document lines in this document. This is determined by the display criteria in the presenter master used for the document lines. Only those vocabulary items included in the presenter will be used in the header.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ProposalID" type="xsd:long">
+        <xsd:annotation>
+          <xsd:documentation>The identifying number of the proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NumberOfCalculatedContraLines" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>The number of contra lines that have been calculated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostingLocation" type="com:typePostingLocation">
+        <xsd:annotation>
+          <xsd:documentation>The location to which the document will be posted: Books or Intray.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DocProposals">
+    <xsd:annotation>
+      <xsd:documentation>Contains details of the proposed documents for posting the statement details to the Books or the Intray.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="DocProposal" type="spr:DocProposal" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Contains one document proposal from the list of document proposals.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="Key" type="spr:Key">
+    <xsd:annotation>
+      <xsd:documentation>The key containing the selection criteria for the Reference Number map.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="Header" type="spr:Header">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of the statement header.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

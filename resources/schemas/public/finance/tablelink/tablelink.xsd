@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:prg="http://www.coda.com/efinance/schemas/progress" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:tlk="http://www.coda.com/efinance/schemas/tablelink" targetNamespace="http://www.coda.com/efinance/schemas/tablelink" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/service.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/progress" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/progress/progressservice.xsd"/>
+  <xsd:include schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/finance/tablelink/tlkparams.xsd"/>
+
+  <xsd:complexType name="DocumentLinkStartRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="StartParams" type="tlk:DTLStartParams">
+            <xsd:annotation>
+              <xsd:documentation>Contains the parameters for starting the Table Link document transfer process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DocumentLinkStartRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Starts the Table Link document transfer process.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="tlk:DocumentLinkStartRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DocumentLinkStartResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="ProgressKey" type="prg:ProgressKey" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The key, or special reference, given to you for requesting information about the progress of Table Link.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DocumentLinkStartResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="tlk:DocumentLinkStartResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DocumentLinkComStartRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="StartParams" type="tlk:DLNStartParams">
+            <xsd:annotation>
+              <xsd:documentation>Contains the parameters for starting the Table Link document line comments transfer process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DocumentLinkComStartRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Starts the Table Link document line comments transfer process.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="tlk:DocumentLinkComStartRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DocumentLinkComStartResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="ProgressKey" type="prg:ProgressKey" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The key, or special reference, given to you for requesting information about the progress of Table Link.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DocumentLinkComStartResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="tlk:DocumentLinkComStartResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DocumentLinkDescStartRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="StartParams" type="tlk:DLNStartParams">
+            <xsd:annotation>
+              <xsd:documentation>Contains the parameters for starting the Table Link document line descriptions transfer process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DocumentLinkDescStartRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Starts the Table Link document line descriptions transfer process.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="tlk:DocumentLinkDescStartRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DocumentLinkDescStartResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="ProgressKey" type="prg:ProgressKey" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The key, or special reference, given to you for requesting information about the progress of Table Link.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DocumentLinkDescStartResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="tlk:DocumentLinkDescStartResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ElementLinkStartRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="StartParams" type="tlk:ETLStartParams">
+            <xsd:annotation>
+              <xsd:documentation>Contains the parameters for starting the Table Link element transfer process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ElementLinkStartRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Starts the Table Link element transfer process.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="tlk:ElementLinkStartRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ElementLinkStartResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="ProgressKey" type="prg:ProgressKey" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The key, or special reference, given to you for requesting information about the progress of Table Link.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ElementLinkStartResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="tlk:ElementLinkStartResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="TableLinkRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to run Table Link functions.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element name="DocumentLinkStart" type="tlk:DocumentLinkStartRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Starts the Table Link document transfer process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DocumentLinkComStart" type="tlk:DocumentLinkComStartRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Starts the Table Link document line comments transfer process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DocumentLinkDescStart" type="tlk:DocumentLinkDescStartRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Starts the Table Link document line descriptions transfer process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ElementLinkStart" type="tlk:ElementLinkStartRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Starts the Table Link element transfer process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="TableLinkResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you run Table Link functions.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element name="DocumentLinkStart" type="tlk:DocumentLinkStartResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DocumentLinkComStart" type="tlk:DocumentLinkComStartResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DocumentLinkDescStart" type="tlk:DocumentLinkDescStartResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ElementLinkStart" type="tlk:ElementLinkStartResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="TableLinkRequest" type="tlk:TableLinkRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to run Table Link functions.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="TableLinkResponse" type="tlk:TableLinkResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you run Table Link functions.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

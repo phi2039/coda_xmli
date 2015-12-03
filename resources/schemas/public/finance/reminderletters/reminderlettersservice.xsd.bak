@@ -1,0 +1,939 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:gsl="http://www.coda.com/efinance/schemas/selectormaster" xmlns:sel="http://www.coda.com/efinance/schemas/selector" xmlns:prg="http://www.coda.com/efinance/schemas/progress" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:let="http://www.coda.com/efinance/schemas/reminderletters" targetNamespace="http://www.coda.com/efinance/schemas/reminderletters" elementFormDefault="qualified" version="2.0">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/service.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/progress" schemaLocation="s:/schemas/public/common/progress/progressservice.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/selectormaster" schemaLocation="s:/schemas/public/common/selectormaster/selectormaster.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/selector" schemaLocation="s:/schemas/public/common/selector/selector.xsd"/>
+  <xsd:include schemaLocation="s:/schemas/public/finance/reminderletters/reminderletters.xsd"/>
+
+  <xsd:complexType name="GetProposalsRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="com:GlobalKey">
+            <xsd:annotation>
+              <xsd:documentation>A key used to identify the reminder proposals to be retrieved.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetProposalsRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the specified reminder proposals from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="let:GetProposalsRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetProposalsResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Proposals" type="let:ProposalList" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>This element lists all the reminder letter proposals in the company.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Key" type="com:GlobalKey">
+            <xsd:annotation>
+              <xsd:documentation>The key used to identify the reminder proposals to be retrieved.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetProposalsResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="let:GetProposalsResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetNewProposalDetailsRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="let:NewProposalKey">
+            <xsd:annotation>
+              <xsd:documentation>This element is a key which uniquely identifies a new proposal.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetNewProposalDetailsRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the details for a new proposal form the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="let:GetNewProposalDetailsRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetNewProposalDetailsResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="NewProposalDetails" type="let:NewProposalDetails" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>This element holds the details for a new proposal.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Key" type="let:NewProposalKey">
+            <xsd:annotation>
+              <xsd:documentation>A key consisting of the company code and reminder master code used to uniquely identify a new proposal.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetNewProposalDetailsResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="let:GetNewProposalDetailsResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GenerateRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Params" type="let:GenerateParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the parameters which can be specified when generating a proposal.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GenerateRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Generates a reminder letter proposal using the information you provide.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="let:GenerateRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GenerateResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="ProgressKey" type="prg:ProgressKey" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>This key contains information about the progress of the Generate stage.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Key" type="let:ProposalKey">
+            <xsd:annotation>
+              <xsd:documentation>This element is a key which uniquely identifies a proposal.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GenerateResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="let:GenerateResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetSummariesRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="SummaryParams" type="let:SummaryParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the parameters which can be specified for a reminder letter.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetSummariesRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the specified reminder letter summaries from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="let:GetSummariesRequest" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetSummariesResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Summaries" type="let:SummaryList" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Returns a list of reminder letters contained within a proposal.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Key" type="let:ProposalKey">
+            <xsd:annotation>
+              <xsd:documentation>This element is a key which uniquely identifies a proposal.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetSummariesResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="let:GetSummariesResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDetailsRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="let:SummaryKey">
+            <xsd:annotation>
+              <xsd:documentation>This element is a key which uniquely identifies a reminder letter.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Columns" type="sel:VocabIDList">
+            <xsd:annotation>
+              <xsd:documentation>A list of vocabulary items used to retrieve detail lines.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDetailsRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the specified reminder letter detail lines from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="let:GetDetailsRequest" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDetailsResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Details" type="let:Details" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Returns the specified details for manipulation.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Key" type="let:SummaryKey">
+            <xsd:annotation>
+              <xsd:documentation>This element is a key which uniquely identifies a reminder letter.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDetailsResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="let:GetDetailsResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="HoldDetailsRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="let:SummaryKey">
+            <xsd:annotation>
+              <xsd:documentation>This element is a key which uniquely identifies a reminder letter.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Changes" type="let:DetailChangeList">
+            <xsd:annotation>
+              <xsd:documentation>This element stores changes to individual detail lines within a reminder letter.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="HoldDetailsRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Holds the specified detail line(s) back from inclusion in the reminder letter.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="let:HoldDetailsRequest" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="HoldDetailsResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Summary" type="let:Summary" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Returns details of the retrieved reminder letter.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Key" type="let:SummaryKey">
+            <xsd:annotation>
+              <xsd:documentation>This element is a key which uniquely identifies a reminder letter.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="HoldDetailsResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="let:HoldDetailsResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateSummariesRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="let:ProposalKey">
+            <xsd:annotation>
+              <xsd:documentation>A key which uniquely identifies a proposal.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Changes" type="let:SummaryChangeList">
+            <xsd:annotation>
+              <xsd:documentation>This element stores a list of changes to a reminder letter.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateSummariesRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Saves the specified reminder letter changes to the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="let:UpdateSummariesRequest" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateSummariesResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Key" type="let:ProposalKey">
+            <xsd:annotation>
+              <xsd:documentation>This element is a key which uniquely identifies the proposal being updated.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateSummariesResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="let:UpdateSummariesResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProduceRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="let:ProposalKey">
+            <xsd:annotation>
+              <xsd:documentation>A key consisting of the company code and proposal code which identify a proposal.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProduceRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Produces a reminder letter proposal using the information you provide.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="let:ProduceRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProduceResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="ProgressKey" type="prg:ProgressKey" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>This key contains information about the progress of the Produce stage.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Key" type="let:ProposalKey">
+            <xsd:annotation>
+              <xsd:documentation>This element is a key which uniquely identifies the proposal being produced.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProduceResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="let:ProduceResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ConfirmRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Params" type="let:ConfirmParams">
+            <xsd:annotation>
+              <xsd:documentation>This element stores the parameters required for the confirmation stage of the process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ConfirmRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Confirms the production of a reminder letter, using the information you provide.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="let:ConfirmRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ConfirmResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="ProgressKey" type="prg:ProgressKey" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>This key contains information about the progress of the Confirm stage.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Key" type="let:ProposalKey">
+            <xsd:annotation>
+              <xsd:documentation>This element is a key which uniquely identifies the proposal being confirmed.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ConfirmResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="let:ConfirmResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="RecoverRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="let:ProposalKey">
+            <xsd:annotation>
+              <xsd:documentation>This element is a key which identifies the proposal you want to recover.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="RecoverRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Recovers the specified reminder letter proposal.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="let:RecoverRequest" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="RecoverResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Key" type="let:ProposalKey">
+            <xsd:annotation>
+              <xsd:documentation>This element is a key which uniquely identifies the proposal being recovered.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="RecoverResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="let:RecoverResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="let:ProposalKey">
+            <xsd:annotation>
+              <xsd:documentation>This element is a key which identifies the proposal you want to delete from the active list.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Deletes the specified reminder letter proposal from the active list.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="let:DeleteRequest" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Key" type="let:ProposalKey">
+            <xsd:annotation>
+              <xsd:documentation>This element is a key which uniquely identifies the proposal being deleted.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="let:DeleteResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetHistoryLinesRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="let:ProposalKey">
+            <xsd:annotation>
+              <xsd:documentation>This element is a key which identifies the proposal for which you want to retrieve history information.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetHistoryLinesRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves history information for the specified proposal.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="let:GetHistoryLinesRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetHistoryLinesResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Lines" type="let:HistoryLineList" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>This element contains all the details of the actions taken on the specified proposal.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Key" type="let:ProposalKey">
+            <xsd:annotation>
+              <xsd:documentation>This element is a key which uniquely identifies the proposal for which history lines are being retrieved.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetHistoryLinesResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="let:GetHistoryLinesResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDTTRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="let:ProposalKey">
+            <xsd:annotation>
+              <xsd:documentation>This element is a key which identifies the proposal.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDTTRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the data generated by the Produce stage of the reminder letter process.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="let:GetDTTRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDTTResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="LetterProposal" type="let:LetterProposal">
+            <xsd:annotation>
+              <xsd:documentation>This element contains all the reminder letter proposals in the company.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDTTResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="let:GetDTTResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ReminderLettersRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to maintain reminder letter proposals.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element name="GetProposals" type="let:GetProposalsRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves the specified reminder proposals from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetNewProposalDetails" type="let:GetNewProposalDetailsRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves the details for a new proposal form the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Generate" type="let:GenerateRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Generates a reminder letter proposal using the information you provide.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetSummaries" type="let:GetSummariesRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves the specified reminder letter summaries from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetDetails" type="let:GetDetailsRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves the specified reminder letter detail lines from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="HoldDetails" type="let:HoldDetailsRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Holds the specified detail line(s) back from inclusion in the reminder letter.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="UpdateSummaries" type="let:UpdateSummariesRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Saves the specified reminder letter changes to the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Produce" type="let:ProduceRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Produces a reminder letter proposal using the information you provide.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Confirm" type="let:ConfirmRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Confirms the production of a reminder letter, using the information you provide.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Recover" type="let:RecoverRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Recovers the specified reminder letter proposal.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Delete" type="let:DeleteRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Deletes the specified reminder letter proposal from the active list.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetHistoryLines" type="let:GetHistoryLinesRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves history information for the specified proposal.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetDTT" type="let:GetDTTRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves the data generated by the Produce stage of the reminder letter process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ReminderLettersResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you maintain reminder letter proposals.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element name="GetProposals" type="let:GetProposalsResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetNewProposalDetails" type="let:GetNewProposalDetailsResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Generate" type="let:GenerateResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetSummaries" type="let:GetSummariesResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetDetails" type="let:GetDetailsResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="HoldDetails" type="let:HoldDetailsResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="UpdateSummaries" type="let:UpdateSummariesResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Produce" type="let:ProduceResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Confirm" type="let:ConfirmResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Recover" type="let:RecoverResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Delete" type="let:DeleteResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetHistoryLines" type="let:GetHistoryLinesResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetDTT" type="let:GetDTTResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="ReminderLettersRequest" type="let:ReminderLettersRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to maintain reminder letter proposals.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="ReminderLettersResponse" type="let:ReminderLettersResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you maintain reminder letter proposals.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

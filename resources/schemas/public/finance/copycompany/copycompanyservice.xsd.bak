@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ccy="http://www.coda.com/efinance/schemas/copycompany" xmlns:prg="http://www.coda.com/efinance/schemas/progress" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/efinance/schemas/copycompany" elementFormDefault="qualified" version="2.0">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/service.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/progress" schemaLocation="s:/schemas/public/common/progress/progress.xsd"/>
+  <xsd:include schemaLocation="s:/schemas/public/finance/copycompany/copycompany.xsd"/>
+
+  <xsd:complexType name="StartRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="ProcessData" type="ccy:CopyCompany">
+            <xsd:annotation>
+              <xsd:documentation>Contains the parameters you have defined, listing the masters to be copied, and the ranges specified.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Starts the Copy Company process.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="ccy:StartRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="ProcessData" type="ccy:CopyCompany">
+            <xsd:annotation>
+              <xsd:documentation>Contains the parameters you have defined, listing the masters to be copied, and the ranges specified.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ProgressKey" type="prg:ProgressKey" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The key, or special reference, given to you for requesting information about the progress of Copy Company.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="ccy:StartResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartExternalRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="ProcessData" type="ccy:CopyFromExternal">
+            <xsd:annotation>
+              <xsd:documentation>Contains the parameters you have defined, listing the masters to be copied, and the ranges specified.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartExternalRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Starts a Copy Company process from an external database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="ccy:StartExternalRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartExternalResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="ProcessData" type="ccy:CopyFromExternal">
+            <xsd:annotation>
+              <xsd:documentation>Contains the parameters you have defined for the copy from an external database, listing the masters to be copied, and the ranges specified.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ProgressKey" type="prg:ProgressKey" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The key, or special reference, given to you for requesting information about the progress of Copy Company.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartExternalResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="ccy:StartExternalResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CopyCompanyRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to run and monitor the Copy Company process.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element name="Start" type="ccy:StartRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Starts the Copy Company process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="StartExternal" type="ccy:StartExternalRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Starts a Copy Company process from an external database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CopyCompanyResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you run and monitor Copy Company.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element name="Start" type="ccy:StartResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="StartExternal" type="ccy:StartExternalResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="CopyCompanyRequest" type="ccy:CopyCompanyRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to run and monitor the Copy Company process.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="CopyCompanyResponse" type="ccy:CopyCompanyResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you run and monitor Copy Company.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

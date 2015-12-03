@@ -1,0 +1,1030 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:dvw="http://www.coda.com/common/schemas/dataview" xmlns:tra="http://www.coda.com/common/schemas/translation" elementFormDefault="qualified" targetNamespace="http://www.coda.com/common/schemas/dataview">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types2.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/translation" schemaLocation="s:/schemas/public/common/translation/translation.xsd"/>
+
+  <xsd:complexType name="VocabAccElm3">
+    <xsd:complexContent>
+      <xsd:extension base="dvw:VocabAccSplitter">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabAccElm3List">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="VocabAccElm3" type="dvw:VocabAccElm3"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabAccElm3KeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="VocabAccElm3" type="dvw:VocabAccElm3Key"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabAccElm3Key">
+    <xsd:complexContent>
+      <xsd:extension base="dvw:VocabAccSplitterKey">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabAccElm2">
+    <xsd:complexContent>
+      <xsd:extension base="dvw:VocabAccSplitter">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabAccElm2List">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="VocabAccElm2" type="dvw:VocabAccElm2"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabAccElm2KeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="VocabAccElm2" type="dvw:VocabAccElm2Key"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabAccElm2Key">
+    <xsd:complexContent>
+      <xsd:extension base="dvw:VocabAccSplitterKey">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabAccElm1">
+    <xsd:complexContent>
+      <xsd:extension base="dvw:VocabAccSplitter">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabAccElm1List">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="VocabAccElm1" type="dvw:VocabAccElm1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabAccElm1KeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="VocabAccElm1" type="dvw:VocabAccElm1Key"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabAccElm1Key">
+    <xsd:complexContent>
+      <xsd:extension base="dvw:VocabAccSplitterKey">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabYP">
+    <xsd:complexContent>
+      <xsd:extension base="dvw:Vocab">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabYPList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="VocabYP" type="dvw:VocabYP"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabYPKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="VocabYP" type="dvw:VocabYPKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabYPKey">
+    <xsd:complexContent>
+      <xsd:extension base="dvw:VocabKey">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabAccElm7">
+    <xsd:complexContent>
+      <xsd:extension base="dvw:VocabAccSplitter">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabAccElm7List">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="VocabAccElm7" type="dvw:VocabAccElm7"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabAccElm7KeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="VocabAccElm7" type="dvw:VocabAccElm7Key"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabAccElm7Key">
+    <xsd:complexContent>
+      <xsd:extension base="dvw:VocabAccSplitterKey">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabAccElm6">
+    <xsd:complexContent>
+      <xsd:extension base="dvw:VocabAccSplitter">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabAccElm6List">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="VocabAccElm6" type="dvw:VocabAccElm6"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabAccElm6KeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="VocabAccElm6" type="dvw:VocabAccElm6Key"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabAccElm6Key">
+    <xsd:complexContent>
+      <xsd:extension base="dvw:VocabAccSplitterKey">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabAccElm5">
+    <xsd:complexContent>
+      <xsd:extension base="dvw:VocabAccSplitter">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabAccElm5List">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="VocabAccElm5" type="dvw:VocabAccElm5"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabAccElm5KeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="VocabAccElm5" type="dvw:VocabAccElm5Key"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabAccElm5Key">
+    <xsd:complexContent>
+      <xsd:extension base="dvw:VocabAccSplitterKey">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ObjectJoin">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details of one join between objects.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ObjectSeq" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>An index number that is specific to the source and target objects in this join.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="SourceSeq" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>The source sequence number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Description" type="com:typeDataMetadataDescription">
+        <xsd:annotation>
+          <xsd:documentation>The metadata description.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Optional" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, indicates that the join is optional.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TargetObjectID" type="com:typeDbGuidb">
+        <xsd:annotation>
+          <xsd:documentation>The identifier for the target object of the join.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="JoinType" type="com:typeDataMetadataJoins">
+        <xsd:annotation>
+          <xsd:documentation>The type of the join: inner, left outer, or right outer.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AttributeList" type="dvw:AttributeJoinList">
+        <xsd:annotation>
+          <xsd:documentation>This element holds details of the attributes joins that make up this object join.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="FilterList" type="dvw:FilterList">
+        <xsd:annotation>
+          <xsd:documentation>This element holds details of the filter that has been applied to this object join. The filter, which is a set of conditions on the values that attributes can assume, restricts the rows in the virtual table formed by the join.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ObjectJoinList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details of the joins between objects that have been specified for this dataview.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ObjectJoin" type="dvw:ObjectJoin">
+        <xsd:annotation>
+          <xsd:documentation>This element holds details of one join between objects.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ObjectJoinKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ObjectJoin" type="dvw:ObjectJoinKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ObjectJoinKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode"/>
+      <xsd:element minOccurs="0" name="ObjectSeq" type="com:typeLong"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabAccElm4">
+    <xsd:complexContent>
+      <xsd:extension base="dvw:VocabAccSplitter">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabAccElm4List">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="VocabAccElm4" type="dvw:VocabAccElm4"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabAccElm4KeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="VocabAccElm4" type="dvw:VocabAccElm4Key"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabAccElm4Key">
+    <xsd:complexContent>
+      <xsd:extension base="dvw:VocabAccSplitterKey">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabAccElm8">
+    <xsd:complexContent>
+      <xsd:extension base="dvw:VocabAccSplitter">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabAccElm8List">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="VocabAccElm8" type="dvw:VocabAccElm8"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabAccElm8KeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="VocabAccElm8" type="dvw:VocabAccElm8Key"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabAccElm8Key">
+    <xsd:complexContent>
+      <xsd:extension base="dvw:VocabAccSplitterKey">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabAccSplitter">
+    <xsd:complexContent>
+      <xsd:extension base="dvw:Vocab">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabAccSplitterList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="VocabAccSplitter" type="dvw:VocabAccSplitter"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabAccSplitterKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="VocabAccSplitter" type="dvw:VocabAccSplitterKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabAccSplitterKey">
+    <xsd:complexContent>
+      <xsd:extension base="dvw:VocabKey">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="Filter">
+    <xsd:annotation>
+      <xsd:documentation>One condition on the values that a particular attribute can assume.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="FilterSeq" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>A sequence number that specifies the position of this condition in the filter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Logical" type="com:typeLogicalOperator">
+        <xsd:annotation>
+          <xsd:documentation>The logical connective combining this condition with the preceding condition. There is no logical connective on the first condition.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="OpenBracket" type="com:typeLeftBrackets">
+        <xsd:annotation>
+          <xsd:documentation>The number of opening parentheses used to group the conditions.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="MetadataAttributeId" type="com:typeDbGuidb">
+        <xsd:annotation>
+          <xsd:documentation>The internal identifier for the attribute whose value is tested.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Operator" type="com:typeVocabOpList">
+        <xsd:annotation>
+          <xsd:documentation>The comparison operator used in the test.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="From" type="com:typeTextWildFixed">
+        <xsd:annotation>
+          <xsd:documentation>The target value that actual values are compared to, or, when the selected operator requires a range of values, the start of the range.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="To" type="com:typeTextWildFixed">
+        <xsd:annotation>
+          <xsd:documentation>The end of the range of values. Applies only when the selected operator requires a range of values.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="CloseBracket" type="com:typeRightBrackets">
+        <xsd:annotation>
+          <xsd:documentation>The number of closing parentheses used to group the conditions.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="FilterList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details of the filter that has been applied to this object join. The filter, which is a set of conditions on the values that attributes can assume, restricts the rows in the virtual table formed by the join.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Filter" type="dvw:Filter">
+        <xsd:annotation>
+          <xsd:documentation>One condition on the values that a particular attribute can assume.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="FilterKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Filter" type="dvw:FilterKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="FilterKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode"/>
+      <xsd:element minOccurs="0" name="ObjectSeq" type="com:typeLong"/>
+      <xsd:element minOccurs="0" name="FilterSeq" type="com:typeLong"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabDec">
+    <xsd:complexContent>
+      <xsd:extension base="dvw:Vocab">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabDecList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="VocabDec" type="dvw:VocabDec"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabDecKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="VocabDec" type="dvw:VocabDecKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabDecKey">
+    <xsd:complexContent>
+      <xsd:extension base="dvw:VocabKey">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DataView">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a dataview master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this dataview master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="I18NMungedKey" type="com:typeTranslatableObjectCode">
+        <xsd:annotation>
+          <xsd:documentation>A key to the translatable object.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="I18NObjectType" type="com:typeGenericOon">
+        <xsd:annotation>
+          <xsd:documentation>The type of translatable object.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="DescriptionTranslationID" type="com:typeGenericOon">
+        <xsd:annotation>
+          <xsd:documentation>The translation description ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="DescriptionTranslations" type="tra:TranslatableField">
+        <xsd:annotation>
+          <xsd:documentation>The translated text for the object.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Description" type="com:typeDataMetadataDescription">
+        <xsd:annotation>
+          <xsd:documentation>The descriptive name for the dataview master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Product" type="com:typeApplicationName">
+        <xsd:annotation>
+          <xsd:documentation>The product to which this dataview relates.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ViewType" type="com:typeGenericOon">
+        <xsd:annotation>
+          <xsd:documentation>The type of objects that this dataview may contain.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="PrimaryObject" type="com:typeDbGuidb">
+        <xsd:annotation>
+          <xsd:documentation>The object in the metadata set that this dataview is based on. The rows in the primary object are expected to correspond one-to-one with the rows in the dataview.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="DelDateAttribute" type="com:typeDbGuidb">
+        <xsd:annotation>
+          <xsd:documentation>The attribute representing the column containing deletion dates (when soft deletion applies).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Protection" type="com:typeDataProtectionTypes">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether users have full (public), read-only (protected), or no (private) access to this metadata item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="VocabList" type="dvw:VocabList">
+        <xsd:annotation>
+          <xsd:documentation>This element holds details of the vocabulary items in the dataview.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="JoinList" type="dvw:ObjectJoinList">
+        <xsd:annotation>
+          <xsd:documentation>This element holds details of the joins between objects that have been specified for this dataview.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this dataview master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DataViewList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a list of DataView elements.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="DataView" type="dvw:DataView">
+        <xsd:annotation>
+          <xsd:documentation>This element holds one dataview master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DataViewKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="DataView" type="dvw:DataViewKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DataViewKey">
+    <xsd:annotation>
+      <xsd:documentation>This is a key for dataviews. It is used with the Get and Delete verbs, for example.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The dataview master code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AttributeJoin">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details of one attribute join.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="AttributeSeq" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>An sequence number that specifies the position of this attribute join in the object join.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="SourceAttributeId" type="com:typeDbGuidb">
+        <xsd:annotation>
+          <xsd:documentation>The identifier for the source attribute of the join.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TargetAttributeId" type="com:typeDbGuidb">
+        <xsd:annotation>
+          <xsd:documentation>The identifier for the target attribute of the join.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AttributeJoinList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details of the attributes joins that make up this object join.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="AttributeJoin" type="dvw:AttributeJoin">
+        <xsd:annotation>
+          <xsd:documentation>This element holds details of one attribute join.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AttributeJoinKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="AttributeJoin" type="dvw:AttributeJoinKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AttributeJoinKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode"/>
+      <xsd:element minOccurs="0" name="ObjectSeq" type="com:typeLong"/>
+      <xsd:element minOccurs="0" name="AttributeSeq" type="com:typeLong"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabCombined">
+    <xsd:complexContent>
+      <xsd:extension base="dvw:Vocab">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabCombinedList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="VocabCombined" type="dvw:VocabCombined"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabCombinedKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="VocabCombined" type="dvw:VocabCombinedKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabCombinedKey">
+    <xsd:complexContent>
+      <xsd:extension base="dvw:VocabKey">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="Vocab">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details of one vocabulary item.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="VocabID" type="com:typeVocabid">
+        <xsd:annotation>
+          <xsd:documentation>The name for this vocabulary item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="I18NMungedKey" type="com:typeTranslatableObjectCode">
+        <xsd:annotation>
+          <xsd:documentation>A key to the translatable object.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="I18NObjectType" type="com:typeGenericOon">
+        <xsd:annotation>
+          <xsd:documentation>The type of translatable object.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="JoinSeq" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>The join sequence number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="VocabType" type="com:typeDataviewVocabTypes">
+        <xsd:annotation>
+          <xsd:documentation>A classification of the vocabulary item according to the type of values it can assume. One of Account Code, Combined, Decimal, Element n, General, or Year/Period.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="DescriptionTranslationID" type="com:typeGenericOon">
+        <xsd:annotation>
+          <xsd:documentation>The translation description ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="DescriptionTranslations" type="tra:TranslatableField">
+        <xsd:annotation>
+          <xsd:documentation>The translated text for the object.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Description" type="com:typeDataMetadataDescription">
+        <xsd:annotation>
+          <xsd:documentation>A descriptive name for the vocabulary item. Users identify the vocabulary item by this name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="MetadataAttributeId" type="com:typeDbGuidb">
+        <xsd:annotation>
+          <xsd:documentation>The attribute that this vocabulary item refers to.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="VocabUsage" type="com:typeDataviewVocabUsage">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether this vocabulary item may be used in selector masters, presenter masters, or both.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="AssociatedCurrency" type="com:typeVocabid">
+        <xsd:annotation>
+          <xsd:documentation>The attribute that identifies the currency. Applies only to fields holding monetary values.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="CodeType" type="com:typeCodetype">
+        <xsd:annotation>
+          <xsd:documentation>Not used.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="El2Id" type="com:typeDbGuidb">
+        <xsd:annotation>
+          <xsd:documentation>The element 2 ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="El3Id" type="com:typeDbGuidb">
+        <xsd:annotation>
+          <xsd:documentation>The element 3 ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="El4Id" type="com:typeDbGuidb">
+        <xsd:annotation>
+          <xsd:documentation>The element 4 ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="El5Id" type="com:typeDbGuidb">
+        <xsd:annotation>
+          <xsd:documentation>The element 5 ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="El6Id" type="com:typeDbGuidb">
+        <xsd:annotation>
+          <xsd:documentation>The element 6 ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="El7Id" type="com:typeDbGuidb">
+        <xsd:annotation>
+          <xsd:documentation>The element 7 ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="El8Id" type="com:typeDbGuidb">
+        <xsd:annotation>
+          <xsd:documentation>The element 8 ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="MetadataAttributeId2" type="com:typeDbGuidb">
+        <xsd:annotation>
+          <xsd:documentation>The second attribute that this vocabulary item refers to, when the vocabulary type is Combined.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="CombineFormat" type="com:typeCombineFormat">
+        <xsd:annotation>
+          <xsd:documentation>The format string that specifies how the two attribute values are combined. The character sequences {0} and {1} indicate where the values of the first and second attributes, respectively, are inserted. All other characters are treated as literals.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details of the vocabulary items in the dataview.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Vocab" type="dvw:Vocab">
+        <xsd:annotation>
+          <xsd:documentation>This element holds details of one vocabulary item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Vocab" type="dvw:VocabKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode"/>
+      <xsd:element minOccurs="0" name="VocabID" type="com:typeVocabid"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabAccBuilder">
+    <xsd:complexContent>
+      <xsd:extension base="dvw:Vocab">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabAccBuilderList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="VocabAccBuilder" type="dvw:VocabAccBuilder"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabAccBuilderKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="VocabAccBuilder" type="dvw:VocabAccBuilderKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabAccBuilderKey">
+    <xsd:complexContent>
+      <xsd:extension base="dvw:VocabKey">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PickDataViewQuery">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the selection criteria used to retrieve pick list information about dataview masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="0" name="RowLimit" type="com:typeULongB">
+        <xsd:annotation>
+          <xsd:documentation>The maximum number of rows to return.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Code" type="com:typeCodeWild">
+        <xsd:annotation>
+          <xsd:documentation>The dataview master code. This may contain wildcards.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Description" type="com:typeTextWild">
+        <xsd:annotation>
+          <xsd:documentation>The dataview master description This may contain wildcards.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Product" type="com:typeApplicationNameb">
+        <xsd:annotation>
+          <xsd:documentation>The product to which the dataviews relate.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ViewType" type="com:typeGenericOon">
+        <xsd:annotation>
+          <xsd:documentation>The type of objects that the dataviews may contain.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PickDataViewQueryList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="PickDataViewQuery" type="dvw:PickDataViewQuery"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DataViewPickList">
+    <xsd:annotation>
+      <xsd:documentation>This element is a wrapper around pick list information for a list of dataview masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ItemList" type="dvw:DataViewPickListItemList">
+        <xsd:annotation>
+          <xsd:documentation>This element holds pick list information for a list of dataview masters.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DataViewPickListItemList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds pick list information for a list of dataview masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Item" type="dvw:DataViewPickItem">
+        <xsd:annotation>
+          <xsd:documentation>This element holds pick list information for one dataview master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DataViewPickListList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="DataViewPickList" type="dvw:DataViewPickList"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DataViewTypeInformation">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a stripped-down version of a dataview that expands the MetadataAttributeId field in vocabulary lists to extract the Type and CodaType information.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this dataview master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Description" type="com:typeDataMetadataDescription">
+        <xsd:annotation>
+          <xsd:documentation>The descriptive name for the dataview master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Product" type="com:typeApplicationName">
+        <xsd:annotation>
+          <xsd:documentation>Product to which this dataview relates.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="VocabList" type="dvw:DataViewTypeInformationVocabList">
+        <xsd:annotation>
+          <xsd:documentation>This elementals details of the vocabulary items in the dataview.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DataViewTypeInformationVocabList">
+    <xsd:annotation>
+      <xsd:documentation>This elementals details of the vocabulary items in the dataview.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Vocab" type="dvw:VocabTypeInformation">
+        <xsd:annotation>
+          <xsd:documentation>This element holds details of one vocabulary item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DataViewTypeInformationList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="DataViewTypeInformation" type="dvw:DataViewTypeInformation"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabTypeInformation">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details of one vocabulary item.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Id" type="com:typeVocabid">
+        <xsd:annotation>
+          <xsd:documentation>The name for this vocabulary item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Type" type="com:typeDataMetadataTypes">
+        <xsd:annotation>
+          <xsd:documentation>The type of this vocabulary item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="CodaType" type="com:typeDataMetadataDescription">
+        <xsd:annotation>
+          <xsd:documentation>A description for the type of this vocabulary item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Description" type="com:typeDataMetadataDescription">
+        <xsd:annotation>
+          <xsd:documentation>A descriptive name for the vocabulary item. Users identify the vocabulary item by this name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="VocabUsage" type="com:typeDataviewVocabUsage">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether this vocabulary item may be used in selector masters, presenter masters, or both.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabTypeInformationList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="VocabTypeInformation" type="dvw:VocabTypeInformation"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DataViewPickItem">
+    <xsd:annotation>
+      <xsd:documentation>This element holds pick list information for one dataview master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Code" type="com:typeCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The code for the dataview master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Description" type="com:typeDataMetadataDescription">
+        <xsd:annotation>
+          <xsd:documentation>The description for the dataview master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DataViewPickItemList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="DataViewPickItem" type="dvw:DataViewPickItem"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

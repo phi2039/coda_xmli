@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:gsl="http://www.coda.com/efinance/schemas/selectormaster" xmlns:sel="http://www.coda.com/efinance/schemas/selector" xmlns:uma="http://www.coda.com/efinance/schemas/undomatching" targetNamespace="http://www.coda.com/efinance/schemas/undomatching" elementFormDefault="qualified" version="2.0">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/service.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/selectormaster" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/selectormaster/selectormaster.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/selector" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/selector/selector.xsd"/>
+  <xsd:include schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/finance/undomatching/undomatching.xsd"/>
+
+  <xsd:complexType name="ValidateParamsRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="UndoMatchingParams" type="uma:UndoMatchingParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the parameters which can be specified when performing undomatching.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ValidateParamsRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Validates the parameters supplied at runtime.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="uma:ValidateParamsRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ValidateParamsResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="UndoMatchingParams" type="uma:UndoMatchingParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the parameters you specified in the ValidateParamsRequest corresponding to this Response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ValidateParamsResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="uma:ValidateParamsResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectMatchesRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="UndoMatchingParams" type="uma:UndoMatchingParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the parameters which can be specified when performing undomatching.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="SelectionFilter" type="gsl:VocListData">
+            <xsd:annotation>
+              <xsd:documentation>This element contains a list of the selector vocabulary that determines which matches are selected.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectMatchesRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Selects matches, based on the criteria you specify, that can be undone.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="uma:SelectMatchesRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectMatchesResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="UndoMatchingParams" type="uma:UndoMatchingParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the parameters you specified in the SelectMatchesRequest corresponding to this Response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Header" type="sel:SelectionRow">
+            <xsd:annotation>
+              <xsd:documentation>This element contains vocabulary item names, identifying the columns of data returned in the Matches element.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Matches" type="uma:SelectedMatches">
+            <xsd:annotation>
+              <xsd:documentation>This element contains details of the matches that are selected.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectMatchesResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="uma:SelectMatchesResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UndoMatchesRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="UndoMatchingParams" type="uma:UndoMatchingParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the parameters which can be specified when performing undomatching.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Matches" type="uma:MatchesToUndo">
+            <xsd:annotation>
+              <xsd:documentation>This element contains details of the matches that will be undone.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UndoMatchesRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Undoes the specified matches.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="uma:UndoMatchesRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UndoMatchesResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="UndoMatchingParams" type="uma:UndoMatchingParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the parameters you specified in the UndoMatchesRequest corresponding to this Response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Matches" type="uma:UndoResults">
+            <xsd:annotation>
+              <xsd:documentation>This element contains details of the matches that have been undone.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UndoMatchesResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="uma:UndoMatchesResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectSuppressedLinesRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="UndoMatchingParams" type="uma:UndoMatchingParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the parameters which can be specified when performing undomatching.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="SelectionFilter" type="gsl:VocListData">
+            <xsd:annotation>
+              <xsd:documentation>This element contains a list of the selector vocabulary that determines which lines are selected.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectSuppressedLinesRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Selects suppressed lines, based on the criteria you specify, that can be undone.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="uma:SelectSuppressedLinesRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectSuppressedLinesResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="UndoMatchingParams" type="uma:UndoMatchingParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the parameters you specified in the SelectSuppressedLinesRequest corresponding to this Response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Header" type="sel:SelectionRow">
+            <xsd:annotation>
+              <xsd:documentation>This element contains vocabulary item names, identifying the columns of data returned in the Lines element.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Lines" type="uma:SuppressedLines">
+            <xsd:annotation>
+              <xsd:documentation>This element contains details of the lines that have been undone.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectSuppressedLinesResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="uma:SelectSuppressedLinesResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UndoSuppressedLinesRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="UndoMatchingParams" type="uma:UndoMatchingParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the parameters which can be specified when performing undomatching.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Lines" type="uma:SuppressedLinesToUndo">
+            <xsd:annotation>
+              <xsd:documentation>This element contains details of the suppressed lines that will be undone.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UndoSuppressedLinesRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Undoes the specified matches.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="uma:UndoSuppressedLinesRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UndoSuppressedLinesResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="UndoMatchingParams" type="uma:UndoMatchingParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the parameters you specified in the UndoSuppressedLinesRequest corresponding to this Response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Lines" type="uma:UndoSuppressedResults">
+            <xsd:annotation>
+              <xsd:documentation>This element contains details of the lines that have been undone.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UndoSuppressedLinesResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="uma:UndoSuppressedLinesResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UndoMatchingRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to undo matches.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element name="ValidateParams" type="uma:ValidateParamsRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Validates the parameters supplied at runtime.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="SelectMatches" type="uma:SelectMatchesRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Selects matches, based on the criteria you specify, that can be undone.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="UndoMatches" type="uma:UndoMatchesRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Undoes the specified matches.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="SelectSuppressedLines" type="uma:SelectSuppressedLinesRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Selects suppressed lines, based on the criteria you specify, that can be undone.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="UndoSuppressedLines" type="uma:UndoSuppressedLinesRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Undoes the specified matches.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UndoMatchingResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you undo matches.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element name="ValidateParams" type="uma:ValidateParamsResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="SelectMatches" type="uma:SelectMatchesResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="UndoMatches" type="uma:UndoMatchesResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="SelectSuppressedLines" type="uma:SelectSuppressedLinesResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="UndoSuppressedLines" type="uma:UndoSuppressedLinesResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="UndoMatchingRequest" type="uma:UndoMatchingRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to undo matches.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="UndoMatchingResponse" type="uma:UndoMatchingResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you undo matches.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

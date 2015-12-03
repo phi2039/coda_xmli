@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:itm="http://www.coda.com/efinance/schemas/inputtemplate" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/efinance/schemas/inputtemplate" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+
+  <xsd:simpleType name="typeRowItemRange">
+    <xsd:annotation>
+      <xsd:documentation>The range of values that are valid for the GeneratedFieldsPerRow element.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:int">
+      <xsd:minInclusive value="3"/>
+      <xsd:maxInclusive value="8"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:complexType name="itmReqKey">
+    <xsd:annotation>
+      <xsd:documentation>Contains key information about an input template master. The information includes the company within which the input template exists and the code for the linked document master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the input template master is being maintained.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The input template master code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the linked document master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="itmReqKeys">
+    <xsd:annotation>
+      <xsd:documentation>This is an input template key used when requesting a list of input templates.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MaxKeys" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The maximum number of items to be returned.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Key" type="itm:itmReqKey">
+        <xsd:annotation>
+          <xsd:documentation>Contains key information about an input template master. The information includes the company within which the input template exists and the code for the linked document master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PrintListKeys">
+    <xsd:annotation>
+      <xsd:documentation>Contains key information for input template masters that are returned by a ListRequest.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="itm:itmReqKeys">
+        <xsd:sequence>
+          <xsd:element name="LastModifiedFrom" type="com:typeDateB" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The start date of a date range for selecting input template masters that were last modified within this date range.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="LastModifiedTo" type="com:typeDateB" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The end date of a date range for selecting input template masters that were last modified within this date range.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ElementFilter">
+    <xsd:annotation>
+      <xsd:documentation>Contains an element filter for one element level in the account code on this document line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the element filter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Level" type="com:typeElmLevel">
+        <xsd:annotation>
+          <xsd:documentation>The element level to which this filter applies.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LimitToFilter" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Set to TRUE to force the user to specify an element in the filtered list; when FALSE, the user may specify any valid element regardless of whether or not it is in the filtered list.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ElementFilters">
+    <xsd:annotation>
+      <xsd:documentation>Contains element filters for the account code on this document line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Filter" type="itm:ElementFilter" minOccurs="0" maxOccurs="8">
+        <xsd:annotation>
+          <xsd:documentation>Contains an element filter for one element level in the account code on this document line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabEntity">
+    <xsd:sequence>
+      <xsd:element name="VocabID" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The system name for the field, used for identification. Each field can appear only once in the header.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Index" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>An identifier for the field, used to refer to it in derivation formulae.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Caption" type="com:typeItmCaption">
+        <xsd:annotation>
+          <xsd:documentation>The label for the field, displayed during Input.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="HeaderItem">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details of one document header field.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="itm:VocabEntity">
+        <xsd:sequence>
+          <xsd:element name="Value" type="com:typeItmHeaderValueB" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>A default value for the field during Input, or a fixed value if the field is hidden or protected using Screen Customisation. This field may be left blank.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Mandatory" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:documentation>Specifies that a value must be provided for this field during Input. This value can either be entered by the user or the fixed, default value for the field.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="LstSeqNo" type="xsd:short">
+            <xsd:annotation>
+              <xsd:documentation>Identifies the position of this field in the sequence of fields on the document header.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CaptionHidden" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:documentation>Specifies whether the caption for this field is displayed during Input. This can only be set when ValueHidden is FALSE. That is, you can only choose whether or not to display the caption when the value itself is displayed. If the value is hidden, by default the caption is also hidden.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ValueHidden" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:documentation>Specifies whether this field is displayed during Input.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="HeaderItems">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details of the document header fields that have been included in the template.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Item" type="itm:HeaderItem" minOccurs="3" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element holds details of one document header field.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="LineItem">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details of one field on this defined line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="itm:VocabEntity">
+        <xsd:sequence>
+          <xsd:element name="Value" type="com:typeTextB" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>A default value for the field during Input, or a fixed value if the field is hidden or protected using Screen Customisation. This field may be left blank.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Mandatory" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:documentation>Specifies that a value must be provided for this field during Input. This value can either be entered by the user or the fixed, default value for the field.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Derived" type="com:typeItmDerivedB" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The derivation formula used to calculate the value of this field. If a formula is entered here, the field becomes a derived field.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="LstSeqNo" type="xsd:short">
+            <xsd:annotation>
+              <xsd:documentation>Identifies the position of this field in the sequence of fields on the defined line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CaptionHidden" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:documentation>Specifies whether the caption for this field is displayed during Input. This can only be set when ValueHidden is FALSE. That is, you can only choose whether or not to display the caption when the value itself is displayed. If the value is hidden, by default the caption is also hidden.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ValueHidden" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:documentation>Specifies whether this field is displayed during Input.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ElementFilters" type="itm:ElementFilters" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains element filters for the account code on this document line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="LineItems">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details of the fields on this defined line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Item" type="itm:LineItem" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element holds details of one field on this defined line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DefinedLine">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details of one defined line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="LineNumber" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The line number of the document line within the document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostIfZeroValue" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies that the current document line is to be included in the document and posted to its account, even when it has zero value in all currencies.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NextDefLineIndex" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The index for the next defined line item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OrigLineNumber" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The original line number of this line in the input template. This number is used by the system when lines are added to, or rearranged on, the input template.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Items" type="itm:LineItems">
+        <xsd:annotation>
+          <xsd:documentation>This element holds details of the fields on this defined line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DefinedLines">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details of the defined lines that have been set up on the template.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Line" type="itm:DefinedLine" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element holds details of one defined line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="GeneratedLineItem">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details of one generated tax line field.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="itm:VocabEntity">
+        <xsd:sequence>
+          <xsd:element name="LstSeqNo" type="xsd:short">
+            <xsd:annotation>
+              <xsd:documentation>Identifies the position of this field in the sequence of fields on the generated tax line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CaptionHidden" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:documentation>Specifies whether the caption for this field is displayed during Input. This can only be set when ValueHidden is FALSE. That is, you can only choose whether or not to display the caption when the value itself is displayed. If the value is hidden, by default the caption is also hidden.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ValueHidden" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:documentation>Specifies whether this field is displayed during Input.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GeneratedLineItems">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details of the generated tax lines that have been included in the template.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Item" type="itm:GeneratedLineItem" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element holds details of one generated tax line field.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="FooterItem">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details of one document footer field.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="itm:VocabEntity">
+        <xsd:sequence>
+          <xsd:element name="Derived" type="com:typeItmDerivedB" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>A derivation formula specifying how a value for this field is calculated during Input from the values of other fields.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="LstSeqNo" type="xsd:short">
+            <xsd:annotation>
+              <xsd:documentation>Identifies the position of this field in the sequence of fields on the document footer.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CaptionHidden" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:documentation>Specifies whether the caption for this field is displayed during Input. This can only be set when ValueHidden is FALSE. That is, you can only choose whether or not to display the caption when the value itself is displayed. If the value is hidden, by default the caption is also hidden.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ValueHidden" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:documentation>Specifies whether this field is displayed during Input.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="FooterItems">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details of the document footer fields that have been included in the template.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Item" type="itm:FooterItem" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element holds details of one document footer field.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DocCodeList">
+    <xsd:annotation>
+      <xsd:documentation>The list of document masters to which the specified input template master is linked.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="DocCode" type="com:typeGeneralCode" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>The code of a document master to which the specified input template master is linked. This document master must exist in the current company.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Master" abstract="true">
+    <xsd:sequence>
+      <xsd:element name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this input template master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the input template master is being maintained.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this input template master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name for the input template.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for the input template.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ResolveOptional" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether use of the Resolve button is mandatory when using this template for Input.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UseElementExtension" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether account codes should be validated using the extension. When TRUE, the extension is invoked when the user posts the document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CreateDate" type="com:typeDateB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date when this input template master was created.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ModifyDate" type="com:typeDateB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date when this input template master was last modified.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="User" type="com:typeGeneralCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The user who last modified this input template master (or the user who created this input template master if no modify date exists).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CopyHeaderDescription" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the document description value is copied to the line description for any defined and additional lines that do not have default line description values.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NextAdditionalLineIndex" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The index for the next additional line item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NextBalanceLineIndex" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The index for the next balancing line item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NextFooterIndex" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The index for the next footer item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NextHeaderIndex" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The index for the next header item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NextGeneratedLineIndex" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The index for the next generated tax line item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UseNeonFormLayout" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates that this input template creates forms with the new tabular layout.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="GeneratedFieldsPerRow" type="itm:typeRowItemRange" default="4" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The maximum number of fields per row on an Input form.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ValidateAccountOnTabOut" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether you want to validate the account code on tabbing out. This is available only if UseNeonFormLayout above is TRUE.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DefaultAccountFromPrevious" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies that the account code on the first line of a document provides a default for additional lines.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="InputTemplate">
+    <xsd:annotation>
+      <xsd:documentation>This element holds an input template master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="itm:Master">
+        <xsd:sequence>
+          <xsd:element name="Header" type="itm:HeaderItems">
+            <xsd:annotation>
+              <xsd:documentation>This element holds details of the document header fields that have been included in the template.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DefinedLines" type="itm:DefinedLines">
+            <xsd:annotation>
+              <xsd:documentation>This element holds details of the defined lines that have been set up on the template.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AdditionalLines" type="itm:LineItems">
+            <xsd:annotation>
+              <xsd:documentation>This element holds details of the additional line fields that have been included in the template.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GeneratedTaxLines" type="itm:GeneratedLineItems">
+            <xsd:annotation>
+              <xsd:documentation>This element holds details of the generated tax lines that have been included in the template.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="BalancingLines" type="itm:GeneratedLineItems" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>This element holds details of the generated balancing lines that have been included in the template.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Footer" type="itm:FooterItems">
+            <xsd:annotation>
+              <xsd:documentation>This element holds details of the document footer fields that have been included in the template.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DocCodes" type="itm:DocCodeList">
+            <xsd:annotation>
+              <xsd:documentation>The list of document masters to which this input template master is linked.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="InputTemplate" type="itm:InputTemplate">
+    <xsd:annotation>
+      <xsd:documentation>This element holds an input template master.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

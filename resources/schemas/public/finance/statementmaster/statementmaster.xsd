@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:stm="http://www.coda.com/efinance/schemas/statementmaster" targetNamespace="http://www.coda.com/efinance/schemas/statementmaster" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="StatementMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a statement type master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company in which the statement type master exists.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this statement type master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TimeStamp" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp for this master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name of the master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortName" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name of the master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PreCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the default presenter you want this statement type master to use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Balancing" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that statements of this type are self-balancing.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="StatementMaster" type="stm:StatementMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a statement type master.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

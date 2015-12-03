@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:txn="http://www.coda.com/efinance/schemas/transaction" targetNamespace="http://www.coda.com/efinance/schemas/transaction" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="ChkAccCodeData">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details of the account code you want to validate and the type of validation you want to perform.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which you want the account code validated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Destination" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The InterCompany destination code prefix to the account code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AccountCode" type="com:typeAcCode">
+        <xsd:annotation>
+          <xsd:documentation>The account code to be validated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CodeComplete" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the account code supplied is complete or just an initial fragment.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Period" type="com:typePeriod" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The period for which you want the account code validated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CheckingType" type="com:typeChkAccode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specifies the type of validation you want performed.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ChkAccCodeResult">
+    <xsd:annotation>
+      <xsd:documentation>Holds the short names of the elements in the account code. Applies only when the account code is valid.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ShortName" type="com:typeShortNameB" minOccurs="0" maxOccurs="8">
+        <xsd:annotation>
+          <xsd:documentation>The short name of an element in the account code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ChkAccCodeFailed">
+    <xsd:annotation>
+      <xsd:documentation>Holds details of why the account code failed the validation. Applies only when the account code is invalid.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Reason" type="com:Reason">
+        <xsd:annotation>
+          <xsd:documentation>A description of why the account code did not validate.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Level" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The element level of the leftmost element which is not valid.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StartIndex" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The starting character position in the account code of the leftmost element which is not valid.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="EndIndex" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The ending character position in the account code of the leftmost element which is not valid.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ChkAccCodeAnswer">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the result of the validation.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Good" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If True, specifies that the account code is valid.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Failed" type="txn:ChkAccCodeFailed" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Holds details of why the account code failed the validation. Applies only when the account code is invalid.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Passed" type="txn:ChkAccCodeResult" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Holds the short names of the elements in the account code. Applies only when the account code is valid.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AccessLevelParams">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of access level parameters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>A company code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocCode" type="com:typeGeneralCodeB">
+        <xsd:annotation>
+          <xsd:documentation>A document master code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AccountCode" type="com:typeAcCode">
+        <xsd:annotation>
+          <xsd:documentation>An account code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SubstituteAccountParams">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of substitute account parameters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>A company code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AccountCode" type="com:typeAcCode">
+        <xsd:annotation>
+          <xsd:documentation>An account code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserCodeList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of user codes.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="UserCode" type="com:typeGeneralCode" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>A user code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserAndTolerance">
+    <xsd:annotation>
+      <xsd:documentation>A user code and tolerance master code combination.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="User" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>A user code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Tolerance" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>A tolerance master code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserAndToleranceList">
+    <xsd:annotation>
+      <xsd:documentation>A list of users and associated tolerances.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="UserAndTolerance" type="txn:UserAndTolerance" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>A user code and tolerance master code combination.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UsersAndTolerances">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of tolerances associated with users.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="UsersAndTolerances" type="txn:UserAndToleranceList" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>A list of users and associated tolerances.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DestAndAccount">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of destination and account combinations.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="DestinationCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>A destination code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AccountCode" type="com:typeAcCode">
+        <xsd:annotation>
+          <xsd:documentation>An account code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DestAndAccountList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of destination and account combinations.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Account" type="txn:DestAndAccount" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of destination and account combinations.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeniedAccounts">    <xsd:sequence>
+      <xsd:element name="DeniedAccounts" type="txn:DestAndAccountList" maxOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="ChkAccCodeData" type="txn:ChkAccCodeData">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details of the account code you want to validate and the type of validation you want to perform.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:elm="http://www.coda.com/efinance/schemas/elementmaster" targetNamespace="http://www.coda.com/efinance/schemas/elementmaster" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+  <xsd:include schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/elementmaster/elementmaster.xsd"/>
+
+  <xsd:complexType name="Trader">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a trader.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="TimeStamp" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this trader in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the trader is being maintained.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElmCode" type="com:typeElmCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the umbrella element within which the trader is held.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElmLevel" type="com:typeElmLevel">
+        <xsd:annotation>
+          <xsd:documentation>The level of the umbrella element within which the trader is held. A number from 1 to 8 inclusive.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeTraderCode">
+        <xsd:annotation>
+          <xsd:documentation>The trader code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeAddressName">
+        <xsd:annotation>
+          <xsd:documentation>The name for the trader.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Tax" type="elm:Tax">
+        <xsd:annotation>
+          <xsd:documentation>Holds tax information for the specified trader.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Address" type="elm:TraderAddress" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Holds address information for the specified trader.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Bank" type="elm:TraderBank" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Holds information about the specified trader's bank.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Tax">
+    <xsd:annotation>
+      <xsd:documentation>Holds tax information for the specified trader.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="VAT" type="com:typeVATB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The tax number for this trader.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Ten99Code" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the 1099 tax master that applies to the specified trader.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="FederalTax" type="com:typeFederalTax" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The Federal tax ID of the specified trader. The format of a Federal tax ID is NN-NNNNNNN, where N is any digit. Typically, a Federal tax ID is used by suppliers who have employees.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SocialSecurity" type="com:typeSocialSecurity" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The Social security number of the specified trader. The format of a Social security number is NNN-NN-NNNN, where N is any digit. Typically, a Social security number is used by suppliers who do not have employees.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SecondTIN" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether a second tax identification notice (TIN) has been sent.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TraderAddress">
+    <xsd:annotation>
+      <xsd:documentation>Holds address information for the specified trader.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Address1" type="com:typeAddress" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>An address line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Address2" type="com:typeAddress" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>An address line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Address3" type="com:typeAddress" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>An address line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Address4" type="com:typeAddress" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>An address line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Address5" type="com:typeAddress" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>An address line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Address6" type="com:typeAddress" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>An address line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostCode" type="com:typePostCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The post code for this address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Tel" type="com:typeTel" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The telephone number for this address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Fax" type="com:typeFax" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The fax number for this address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Country" type="com:typeTextB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code for the country master for this address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Language" type="com:typeLanguage" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The language used at this address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="EMail" type="com:typeEMailAddrB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The email address for this address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TraderBank">
+    <xsd:annotation>
+      <xsd:documentation>Holds information about the specified trader's bank.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="AccountNumber" type="com:typeBankAccNum">
+        <xsd:annotation>
+          <xsd:documentation>The bank account number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SortCode" type="com:typeBankSort" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The bank's sort code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AccountName" type="com:typeBankAccName">
+        <xsd:annotation>
+          <xsd:documentation>An account name for the bank.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AccountRef" type="com:typeBankAccRef" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The bank account reference, which is used when making payments or collections by electronic transfer.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankName" type="com:typeBankName">
+        <xsd:annotation>
+          <xsd:documentation>A name for the person or company at this bank address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Address1" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>An address line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Address2" type="com:typeAddress" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>An address line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Address3" type="com:typeAddress" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>An address line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Address4" type="com:typeAddress" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>An address line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Address5" type="com:typeAddress" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>An address line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Address6" type="com:typeAddress" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>An address line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostCode" type="com:typePostCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The postal code for this bank address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Country" type="com:typeGeneralCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code for a country master for this bank address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SWIFT" type="com:typeBankSwift" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The bank's SWIFT address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IBAN" type="com:typeIBANB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The International Bank Account Number (IBAN) of the bank account.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TraderKey">
+    <xsd:annotation>
+      <xsd:documentation>This element is a key consisting of a company code, element code, element level and trader code which uniquely identifies a trader.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the trader is being maintained.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElmCode" type="com:typeElmCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the umbrella element within which the trader is held.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElmLevel" type="com:typeElmLevel">
+        <xsd:annotation>
+          <xsd:documentation>The level of the umbrella element within which the trader is held.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeTraderCode">
+        <xsd:annotation>
+          <xsd:documentation>A code identifying the trader.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TraderKeys">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of trader keys, identifying the traders being purged by the PurgeTraderRequest.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="elm:TraderKey" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element is a key consisting of a company code, element code, element level and trader code which uniquely identifies a trader.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TraderDetail">
+    <xsd:annotation>
+      <xsd:documentation>Contains parameters you can complete to determine which traders are listed by a ListTraderRequest.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="elm:TraderKey">
+        <xsd:annotation>
+          <xsd:documentation>This element is a key consisting of a company code, element code, element level and trader code which uniquely identifies a trader.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeAddressName" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The trader name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Address1" type="com:typeAddress" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The first address line for the trader.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Address2" type="com:typeAddress" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The second address line for the trader.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostCode" type="com:typePostCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The postal code for the trader.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Telephone" type="com:typeTel" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The telephone number for the trader.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="EMail" type="com:typeEMailAddr" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The e-mail address for the trader.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TraderDetails">
+    <xsd:annotation>
+      <xsd:documentation>Contains extended key information for the listed traders.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Detail" type="elm:TraderDetail" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Contains extended key information for a listed trader.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TraderSelectFilter">
+    <xsd:annotation>
+      <xsd:documentation>A filter for selecting traders.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="LastUsed" type="com:typeDateB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Filter for traders that were last used on or before this date.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Created" type="com:typeDateB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Filter for traders that were created on or before this date.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CmpCode" type="com:typeGeneralCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Filter for traders in this company. This can be wildcarded.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElmCode" type="com:typeElmCodeWild" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Filter for traders in this umbrella element. This can be wildcarded.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElmLevel" type="com:typeElmLevel">
+        <xsd:annotation>
+          <xsd:documentation>Filter for traders in umbrella elements at this element level.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeTraderCodeWild" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Filter for a trader with this trader code. This can be wildcarded.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MaxRows" type="xsd:int" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The maximum number of traders to be returned from the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TraderSelectDetail">
+    <xsd:annotation>
+      <xsd:documentation>Contains details of a trader selected by the TraderSelectFilter defined in the SelectTraderRequest.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="elm:TraderKey">
+        <xsd:annotation>
+          <xsd:documentation>This element is a key consisting of a company code, element code, element level and trader code which uniquely identifies a trader.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeAddressName">
+        <xsd:annotation>
+          <xsd:documentation>The trader name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Address1" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>The first address line for the trader.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Address2" type="com:typeAddress" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The second address line for the trader.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Address3" type="com:typeAddress" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The third address line for the trader.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Address4" type="com:typeAddress" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The fourth address line for the trader.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Address5" type="com:typeAddress" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The fifth address line for the trader.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Address6" type="com:typeAddress" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The sixth address line for the trader.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LastUsed" type="com:typeDate">
+        <xsd:annotation>
+          <xsd:documentation>The date when the trader was last used.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Created" type="com:typeDate">
+        <xsd:annotation>
+          <xsd:documentation>The date when the trader was created.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TraderSelectDetails">
+    <xsd:annotation>
+      <xsd:documentation>Contains details of the traders selected by the TraderSelectFilter defined in the SelectTraderRequest.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Detail" type="elm:TraderSelectDetail" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Contains details of a trader selected by the TraderSelectFilter defined in the SelectTraderRequest.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Validation">
+    <xsd:annotation>
+      <xsd:documentation>Contains the document and media master codes selected in the current input session, against which the new or updated trader details will be validated.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="DocCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the document master being used in this input session.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MediaCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the media master being used in this input session.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AllCmpTraderFilter">
+    <xsd:annotation>
+      <xsd:documentation>A filter for selecting all trader codes in the specified company regardless of which umbrella element the traders belong to.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company to search for trader codes.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeTraderCodeWild" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The trader code to search for in the specified company. This can be wildcarded.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MaxCodes" type="xsd:integer">
+        <xsd:annotation>
+          <xsd:documentation>The maximum number of trader codes to be returned from the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TraderCodes">
+    <xsd:annotation>
+      <xsd:documentation>Contains the list of trader codes returned by the ListAllTraderRequest.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeTraderCode" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>A trader code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="Trader" type="elm:Trader">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a trader.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

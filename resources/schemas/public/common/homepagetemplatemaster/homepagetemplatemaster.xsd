@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:htm="http://www.coda.com/common/schemas/homepagetemplatemaster" xmlns:hmp="http://www.coda.com/common/schemas/homepage" targetNamespace="http://www.coda.com/common/schemas/homepagetemplatemaster" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/homepage" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/homepage/homepage.xsd"/>
+
+  <xsd:complexType name="ContentProvider">
+    <xsd:annotation>
+      <xsd:documentation>This element holds key information for a content provider master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this content provider master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ContentProviders">
+    <xsd:annotation>
+      <xsd:documentation>This element holds key information for content provider masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ContentProvider" type="htm:ContentProvider" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element holds key information for a content provider master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="HomePageTemplate">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a Homepage template master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this Homepage template master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name for this Homepage template master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for this Homepage template master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this Homepage template master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Modify" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether users are permitted to modify this Homepage template via their own Homepage.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ContentProviders" type="htm:ContentProviders">
+        <xsd:annotation>
+          <xsd:documentation>This element holds key information for the content provider masters used in this Homepage template.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PageDefinition" type="hmp:Page">
+        <xsd:annotation>
+          <xsd:documentation>This element holds the definition of this Homepage template.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:yr="http://www.coda.com/efinance/schemas/year" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/efinance/schemas/year" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="YearKey">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the key used to identify a year master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode"/>
+      <xsd:element name="YearCode" type="com:typeGeneralCode"/>
+    </xsd:sequence>
+  </xsd:complexType>  
+
+  <xsd:simpleType name="typeCtYearPeriodEndInterval">
+    <xsd:restriction base="com:typeBaseEnum">
+      <xsd:enumeration value="period_months"/>
+      <xsd:enumeration value="period_monthend"/>
+      <xsd:enumeration value="period_days"/>
+      <xsd:enumeration value="period_454"/>
+      <xsd:enumeration value="period_445"/>
+      <xsd:enumeration value="period_544"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:complexType name="Master">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the base properties for a year within a company.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode"/>
+      <xsd:element name="Year" type="com:typeYear"/>
+      <xsd:element name="TimeStamp" type="com:typeWord"/>
+      <xsd:element name="Name" type="com:typeName"/>
+      <xsd:element name="ShortName" type="com:typeShortNameB"/>
+      <xsd:element name="Interval" type="yr:typeCtYearPeriodEndInterval"/>
+      <xsd:element name="NumDays"  type="xsd:short"/>
+      <xsd:element name="FirstYearDate" type="com:typeDate"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  
+  <xsd:complexType name="YearRange">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the year range information for a company.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="TimeStamp" type="com:typeWord"/>
+      <xsd:element name="Code" type="com:typeGeneralCode"/>
+      <xsd:element name="BaseYear" type="com:typeYear"/>
+      <xsd:element name="YearMin" type="com:typeYear"/>
+      <xsd:element name="YearMax" type="com:typeYear"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Period">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the information for a period within a year.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element type="xsd:short" name="PeriodNum"/>
+      <xsd:element type="xsd:byte" name="Summary"/>
+      <xsd:element type="xsd:byte" name="Sec1"/>
+      <xsd:element type="xsd:byte" name="Sec2"/>
+      <xsd:element type="xsd:byte" name="Sec3"/>
+      <xsd:element type="xsd:dateTime" name="EndDate"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Periods">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the information for all periods within a year.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Period" type="yr:Period" maxOccurs="unbounded" minOccurs="0" />
+    </xsd:sequence>
+  </xsd:complexType>
+  
+  <xsd:complexType name="Year">
+    <xsd:sequence>
+      <xsd:element name="Yea" type="yr:Master"/>
+      <xsd:element name="Cmp" type="yr:YearRange"/>
+      <xsd:element name="Periods" type="yr:Periods"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+</xsd:schema>

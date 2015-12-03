@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:gsl="http://www.coda.com/efinance/schemas/selectormaster" xmlns:sel="http://www.coda.com/efinance/schemas/selector" targetNamespace="http://www.coda.com/efinance/schemas/selector" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/selectormaster" schemaLocation="s:/schemas/public/common/selectormaster/selectormaster.xsd"/>
+
+  <xsd:complexType name="VocListDataList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of vocabulary list data items.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Item" type="gsl:VocListData" minOccurs="1" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>A vocabulary list data item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabIDList">
+    <xsd:annotation>
+      <xsd:documentation>Contains the list of columns for holding the selected data.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Cell" type="com:typeCtVocabEnum" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>One data cell within the table.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CellList">
+    <xsd:annotation>
+      <xsd:documentation>Contains the list of columns for holding the selected data.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Cell" type="xsd:string" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>One data cell within the table.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectionRow">
+    <xsd:annotation>
+      <xsd:documentation>A row of data that has been selected.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="RowType" type="com:typeCtSelRowType" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This allows the server to indicate the type of row that it has returned. However, this is not currently in use since the type of row is determined by the client.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Cells" type="sel:CellList">
+        <xsd:annotation>
+          <xsd:documentation>Contains the list of columns for holding the selected data.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RowList">
+    <xsd:annotation>
+      <xsd:documentation>Contains the actual data that has been selected.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Row" type="sel:SelectionRow" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>One row of data that has been selected.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Selection">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the selected data, which is returned from the server.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="SelType" type="gsl:SelectorType">
+        <xsd:annotation>
+          <xsd:documentation>Indicates the type of selector: the data class you are using, and the source of the data, retrieved from Books, Intray, Archive or Self.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Header" type="sel:SelectionRow">
+        <xsd:annotation>
+          <xsd:documentation>Contains vocabulary items (representing columns) for the display of data, which is determined by the display criteria in the presenter master which was specified. Only those vocabulary items included in the presenter are used in the header.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DataSet" type="sel:RowList">
+        <xsd:annotation>
+          <xsd:documentation>Contains the actual data that has been selected.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RowLimitExceeded" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that the data returned is subject to a limit, since the response to your selection criteria exceeded the allowed number of rows.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="Selection" type="sel:Selection">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the selected data, which is returned from the server.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

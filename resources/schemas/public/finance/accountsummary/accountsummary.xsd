@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:elm="http://www.coda.com/efinance/schemas/elementmaster" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:asr="http://www.coda.com/efinance/schemas/accountsummary" targetNamespace="http://www.coda.com/efinance/schemas/accountsummary" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/elementmaster" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/elementmaster/elementmaster.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+
+  <xsd:complexType name="Key">
+    <xsd:annotation>
+      <xsd:documentation>This element is a key consisting of a company code, element level, element code and account summary master which uniquely identifies an account summary. It is used to specify search criteria for the retrieval of one or more account summaries.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which you want to view the account summary information.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElmLevel" type="com:typeElmLevel">
+        <xsd:annotation>
+          <xsd:documentation>The level of the element (1 to 8) for which you want to view the account summary information.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElmCode" type="com:typeElmCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the element for which you want to view the account summary information.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AsmCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the account summary master used to display the account summary information.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Summary">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the summary data for each of the retrieved summaries.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="SequenceNumber" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The number assigned to each control in the account summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Value" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The numeric value contained within the control.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Status" type="com:typeCtCtlValuStatus">
+        <xsd:annotation>
+          <xsd:documentation>The status of the control.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SummaryList">
+    <xsd:annotation>
+      <xsd:documentation>A list of balance summary and details summary data values retrieved from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Summary" type="asr:Summary" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains the summary data for each of the retrieved summaries.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AccountSummaryContext">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the data that will be displayed in the account summary.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Element" type="elm:Element" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The element for which account summary information will be displayed.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LastTransactions" type="elm:LastTransactions" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The last transaction (payment or invoice) made with this element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Summaries" type="asr:SummaryList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>A list of balance summary and details summary data values retrieved from the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ElementFinderNumberRange">
+    <xsd:annotation>
+      <xsd:documentation>The subset of the list of elements to be retrieved. Use an extent of zero to list all elements.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Begin" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The position, counting from 0, of the first element in the list to retrieve.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Extent" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The number of elements to retrieve.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="FindElementFilter">
+    <xsd:annotation>
+      <xsd:documentation>This element contains filter criteria for finding elements. Items left blank select all values.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="NumberRange" type="asr:ElementFinderNumberRange">
+        <xsd:annotation>
+          <xsd:documentation>The subset of the list of elements to be retrieved. Use an extent of zero to list all elements.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company in which the element is maintained.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Level" type="com:typeElmLevel" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The element level to which the element you want to find belongs.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeElmCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the element you want to find.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The short name of the element you want to find.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NameOrShortName" type="com:typeTextB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The name or short name of the element you want to find.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ReturnNames" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specifies that the element full name is displayed.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="GroupCode" type="com:typeGeneralCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The element group to which the required element belongs.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CreditReference" type="com:typeCrRef" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The credit reference assigned to the element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AddressName" type="com:typeAddressName" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The address name, as defined in the name and address list of the element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Address1" type="com:typeAddress" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Line one of an address defined in the element's address list.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Address2" type="com:typeAddress" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Line two of an address defined in the element's address list.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostCode" type="com:typePostCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The postcode defined in the element's address list.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Country" type="com:typeTextB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The country defined in the element's address list.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AccNum" type="com:typeBankAccNum" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The bank account number of the element you want to find.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Tel" type="com:typeTel" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The telephone number defined in the element's address list.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="elmKeyDataElement">
+    <xsd:annotation>
+      <xsd:documentation>Contains key information for each of the retrieved elements.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The company code of this element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Level" type="com:typeElmLevel">
+        <xsd:annotation>
+          <xsd:documentation>The level of this element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeElmCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The code of this element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name of this element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeNameB">
+        <xsd:annotation>
+          <xsd:documentation>The full name of this element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DefAccSumm" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The default account summary of this element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TemporaryElm" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Is this element a temporary supplier?</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="elmKeyData">
+    <xsd:annotation>
+      <xsd:documentation>This data is used when retrieving elements from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="asr:elmKeyDataElement" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Contains key information for each of the retrieved elements.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

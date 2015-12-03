@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:dry="http://www.coda.com/efinance/schemas/diary" targetNamespace="http://www.coda.com/efinance/schemas/diary" elementFormDefault="qualified" version="1.0">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/service.xsd"/>
+  <xsd:include schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/finance/diary/diary.xsd"/>
+
+  <xsd:complexType name="ListRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Filter" type="dry:SelectInfo">
+            <xsd:annotation>
+              <xsd:documentation>A filter that selects the diary events to be listed</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves a list of diary events from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="dry:ListRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Filter" type="dry:SelectInfo">
+            <xsd:annotation>
+              <xsd:documentation>This element holds the filter criteria used to determine which diary events are selected from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Entries" type="dry:EntryList" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Lists the diary events you have retrieved from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="dry:ListResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AddRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Entry" type="dry:Entry">
+            <xsd:annotation>
+              <xsd:documentation>This element contains details about the diary event you want to add.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Phasing" type="dry:Phasing" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>This element contains details about the rules applied when the diary event is replicated, and set to recur at regular intervals.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Comment" type="dry:Comment" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the comments for the diary event you want to add.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AddRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Adds a diary event to the database using the information you provide.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="dry:AddRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AddResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Keys" type="dry:AddKeyList">
+            <xsd:annotation>
+              <xsd:documentation>The keys identifying the diary events added to the database by the 'Adddry' request.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AddResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="dry:AddResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Entry" type="dry:UpdateEntry">
+            <xsd:annotation>
+              <xsd:documentation>Contains the information for the diary event you want to update.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Updates diary events in the database using the information you provide.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="dry:UpdateRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Key" type="dry:Key">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key information for the diary event you want to update.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="dry:UpdateResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetInfoRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="dry:Key">
+            <xsd:annotation>
+              <xsd:documentation>The key identifying the diary event you want to retrieve from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetInfoRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves more detailed information about the diary event.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="dry:GetInfoRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetInfoResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Key" type="dry:Key">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key information for the diary event you have retrieved.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="EntryInfo" type="dry:EntryInfo" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains information about the diary event you have retrieved from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetInfoResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="dry:GetInfoResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetCommentsRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="dry:Key">
+            <xsd:annotation>
+              <xsd:documentation>The key identifying the diary event for which you want to retrieve comments.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetCommentsRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the comments attached to a diary event.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="dry:GetCommentsRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetCommentsResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Key" type="dry:Key">
+            <xsd:annotation>
+              <xsd:documentation>The key identifying the diary event for which comments have been retrieved.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Comments" type="dry:EntryCommentList" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains a list comments associated with the selected diary events.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetCommentsResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="dry:GetCommentsResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AddCommentRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="dry:Key">
+            <xsd:annotation>
+              <xsd:documentation>The key identifying the diary event to which you want to add comments.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Comment" type="dry:Comment">
+            <xsd:annotation>
+              <xsd:documentation>Contains the comment text that you want to add to the diary event.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AddCommentRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Adds a comment to the diary event, using the information you provide.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="dry:AddCommentRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AddCommentResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Key" type="dry:Key">
+            <xsd:annotation>
+              <xsd:documentation>The key identifying the diary event to which the comment was added.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CommentData" type="dry:CommentData" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains details about when the diary event comment was created, and by which user.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AddCommentResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="dry:AddCommentResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DiaryRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to maintain diary events.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element name="List" type="dry:ListRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves a list of diary events from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Add" type="dry:AddRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Adds a diary event to the database using the information you provide.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Update" type="dry:UpdateRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Updates diary events in the database using the information you provide.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetInfo" type="dry:GetInfoRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves more detailed information about the diary event.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetComments" type="dry:GetCommentsRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves the comments attached to a diary event.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AddComment" type="dry:AddCommentRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Adds a comment to the diary event, using the information you provide.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DiaryResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you request to retrieve a list of diary events.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element name="List" type="dry:ListResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Add" type="dry:AddResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Update" type="dry:UpdateResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetInfo" type="dry:GetInfoResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetComments" type="dry:GetCommentsResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AddComment" type="dry:AddCommentResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="DiaryRequest" type="dry:DiaryRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to maintain diary events.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="DiaryResponse" type="dry:DiaryResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you request to retrieve a list of diary events.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

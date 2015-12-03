@@ -1,0 +1,1012 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:let="http://www.coda.com/efinance/schemas/reminderletters" xmlns:sel="http://www.coda.com/efinance/schemas/selector" xmlns:gsl="http://www.coda.com/efinance/schemas/selectormaster" targetNamespace="http://www.coda.com/efinance/schemas/reminderletters" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/selector" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/selector/selector.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/selectormaster" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/selectormaster/selectormaster.xsd"/>
+
+  <xsd:complexType name="ProposalKey">
+    <xsd:annotation>
+      <xsd:documentation>This element is a key consisting of the company code and proposal code used to identify a proposal.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the proposal is being maintained.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ProposalCode" type="com:typePrlCode">
+        <xsd:annotation>
+          <xsd:documentation>The code that identifies the proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Proposal">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the details for a proposal.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="let:ProposalKey">
+        <xsd:annotation>
+          <xsd:documentation>This element is a key consisting of the company code and proposal code used to identify a proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Status" type="com:typeCtLetPrlStatus">
+        <xsd:annotation>
+          <xsd:documentation>The stage that the proposal has reached in the reminder letter generation process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CreationDate" type="com:typeDate">
+        <xsd:annotation>
+          <xsd:documentation>The date on which the proposal was created.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ReminderMasterCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the reminder master used to create the proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ReminderMasterShortName" type="com:typeShortName">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name of the reminder master used to create the proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OpenBy" type="com:typeGeneralCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The code of the user who currently has the proposal open.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NumberOfSummaries" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The number of reminder letters contained in this proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NumberOfSummariesHeld" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The number of reminder letters held back from production for this proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Manipulated" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether this proposal has been manipulated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Produced" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether this proposal has been produced.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PresCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the presenter master used to display the exploded view of reminder letter detail, as specified in the reminder master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MaximumSeverity" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The maximum severity level of reminder letters within this proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProposalList">
+    <xsd:annotation>
+      <xsd:documentation>This element lists all the reminder letter proposals in the company.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Proposal" type="let:Proposal" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element holds the details for a proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="NewProposalKey">
+    <xsd:annotation>
+      <xsd:documentation>This element is a key consisting of the company code and reminder master code used to uniquely identify a new proposal.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the proposal is being maintained.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ReminderMasterCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the reminder master used by this proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="GenerateParams">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the parameters which can be specified when generating a proposal.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="NewProposalKey" type="let:NewProposalKey">
+        <xsd:annotation>
+          <xsd:documentation>This element is a key consisting of the company code and reminder master code used to uniquely identify a new proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ProposalCode" type="com:typePrlCode">
+        <xsd:annotation>
+          <xsd:documentation>The code that identifies the proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SelectorVocabList" type="gsl:VocListData">
+        <xsd:annotation>
+          <xsd:documentation>This element holds the selection criteria that determine which documents/detail lines are selected for inclusion in the proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="NewProposalDetails">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the parameters which can be specified for a new reminder letter proposal.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ProposalCode" type="com:typePrlCode">
+        <xsd:annotation>
+          <xsd:documentation>The code that identifies the proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SelCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the selector master used to retrieve the documents/detail lines for inclusion in the proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SummaryKey">
+    <xsd:annotation>
+      <xsd:documentation>This element is a key which uniquely identifies a reminder letter within a proposal.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ProposalKey" type="let:ProposalKey">
+        <xsd:annotation>
+          <xsd:documentation>This element is a key consisting of the company code and proposal code which identify a proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LineID" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>A system allocated number used to identify a reminder letter within a proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Summary">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details about a reminder letter.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="let:SummaryKey">
+        <xsd:annotation>
+          <xsd:documentation>This element is a key which uniquely identifies a reminder letter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Held" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the reminder letter is held back from production.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElmCode" type="com:typeElmCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the customer/supplier element to which the reminder letter is sent. This is the element at the level specified in the reminder master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElmLevel" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The level of the element that holds the address to which the reminder letter is sent.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElmName" type="com:typeShortName">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name of the element that holds the address to which the reminder letter is sent.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CurrCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the currency in which the values in the reminder letter are held, as specified on the reminder master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TriggerValue" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The sum of the values which triggered the letter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="HomeTriggerValue" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The sum of the values which triggered the letter in home currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TotalValue" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The sum of all the values that are included in the letter: the trigger value and any other transactions.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="HomeTotalValue" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The sum of all the values that are included in the letter: the trigger value and any other transactions, in home currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Severity" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The severity level of the reminder letter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Confirmed" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Confirms whether the reminder letter has been produced.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SummaryList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of the reminder letters within a proposal.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Summary" type="let:Summary" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details about a reminder letter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SummaryParams">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the parameters which can be specified when retrieving reminder letter summaries.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="let:ProposalKey">
+        <xsd:annotation>
+          <xsd:documentation>This element is a key consisting of the company code and proposal code which identify a proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IncludeAll" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>This specifies whether all or some reminder letters are retrieved. When manipulating a proposal, pass TRUE. When confirming or producing a proposal, pass FALSE. (Generally, when manipulating, you want to retrieve all reminder letters, but when confirming or producing, you want to retrieve only those reminder letters that have not yet reached the confirmed or produced stage.)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DetailKey">
+    <xsd:sequence>
+      <xsd:element name="SummaryKey" type="let:SummaryKey"/>
+      <xsd:element name="LineID" type="xsd:int"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Details">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the trigger details for a reminder letter.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="TriggerDetails" type="sel:Selection">
+        <xsd:annotation>
+          <xsd:documentation>Contains the detail lines which form part of the trigger value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NonTriggerDetails" type="sel:Selection" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains any additional details lines included in the reminder letter that do not form part of the trigger value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SummaryChangeItem">
+    <xsd:annotation>
+      <xsd:documentation>This element stores a change to a reminder letter.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="LineID" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>A system allocated number used to identify a reminder letter within a proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Severity" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The severity level of a reminder letter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Deleted" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether a reminder letter should be deleted from the proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Held" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether a reminder letter should be held back from production.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SummaryChangeList">
+    <xsd:annotation>
+      <xsd:documentation>This element stores a list of changes to a reminder letter.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Change" type="let:SummaryChangeItem" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element stores a change to a reminder letter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DetailChangeItem">
+    <xsd:annotation>
+      <xsd:documentation>This element stores a change to a detail line within a proposal.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="LineID" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>A system allocated number used to identify a detail line within a reminder letter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Held" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the detail line will be included in the reminder letter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DetailChangeList">
+    <xsd:annotation>
+      <xsd:documentation>This element stores changes to individual detail lines within a reminder letter.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Change" type="let:DetailChangeItem" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element stores a change to a detail line within a proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ConfirmParams">
+    <xsd:annotation>
+      <xsd:documentation>This element stores the parameters required for the confirmation stage of the process.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="let:ProposalKey">
+        <xsd:annotation>
+          <xsd:documentation>This element is a key consisting of the company code and proposal code which identify a proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Changes" type="let:SummaryChangeList">
+        <xsd:annotation>
+          <xsd:documentation>This element stores a list of changes made to a proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="EffectiveDate" type="com:typeDate">
+        <xsd:annotation>
+          <xsd:documentation>The date on which the reminder letters are sent.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="HistoryLineItem">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a proposal's history.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="StartStatus" type="com:typeCtLetPrlStatus">
+        <xsd:annotation>
+          <xsd:documentation>The proposal's status before running the process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="EndStatus" type="com:typeCtLetPrlStatus">
+        <xsd:annotation>
+          <xsd:documentation>The proposal's status after running that process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="User" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the user who performed that process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StartDate" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date when the process started.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StartTime" type="com:typeTime" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The time when the process started.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="EndDate" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date when the process ended.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="EndTime" type="com:typeTime" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The time when the process ended.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExitType" type="com:typeCtExitType">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the process was completed successfully.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Message" type="com:typeLogText">
+        <xsd:annotation>
+          <xsd:documentation>The last message generated by that process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LogID" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The ID of the log for this reminder proposal history line (if a log exists).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="HistoryLineList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of proposals and their history.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Line" type="let:HistoryLineItem" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of a proposal's history.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="LetterProposal">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the settings for a reminder letter proposal.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the proposal is being maintained.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RemCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the reminder master being used for this proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserName" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The name of the user who created this proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ProposalCode" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code that identifies the proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LetterSummaryList" type="let:LetterSummaryList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of the reminder letters within a proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="LetterSummaryList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of the reminder letters within a proposal.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="LetterSummary" type="let:LetterSummary" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details about a reminder letter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="LetterSummary">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details about a reminder letter.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="SummaryLine" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>A system allocated number used to identify a reminder letter within a proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElementCode" type="com:typeElmCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the customer/supplier element to which the reminder letter is sent. This is the element at the level specified in the reminder master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElementName" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The descriptive name of the customer/supplier element to which the reminder letter is sent.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElementShortName" type="com:typeShortName">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name of the customer/supplier element to which the reminder letter is sent.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElementCurrency" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>A currency code identifying the currency associated with this element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserStatus" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The user status of the element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PayStatus" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The pay status of the element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AddressName" type="com:typeBankName">
+        <xsd:annotation>
+          <xsd:documentation>A name for the person or company associated with this address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AddressLine1" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>Line 1 of the element address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AddressLine2" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>Line 2 of the element address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AddressLine3" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>Line 3 of the element address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AddressLine4" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>Line 4 of the element address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AddressLine5" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>Line 5 of the element address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AddressLine6" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>Line 6 of the element address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostCode" type="com:typePostCode">
+        <xsd:annotation>
+          <xsd:documentation>The postal code of the address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Telephone" type="com:typeTel">
+        <xsd:annotation>
+          <xsd:documentation>The telephone number of the named person or location.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Fax" type="com:typeFax">
+        <xsd:annotation>
+          <xsd:documentation>The fax number of the named person or location.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="VAT" type="com:typeVATB">
+        <xsd:annotation>
+          <xsd:documentation>The VAT number for this element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Country" type="com:typeTextB">
+        <xsd:annotation>
+          <xsd:documentation>The country in which this customer/supplier is situated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Language" type="com:typeLanguage">
+        <xsd:annotation>
+          <xsd:documentation>The language used by this customer/supplier.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AccountNumber" type="com:typeBankAccNum">
+        <xsd:annotation>
+          <xsd:documentation>The account number of the bank account</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SortCode" type="com:typeBankSort">
+        <xsd:annotation>
+          <xsd:documentation>The sort code of the specified AccountNumber.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AccountName" type="com:typeBankAccName">
+        <xsd:annotation>
+          <xsd:documentation>The name of the specified bank account.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AccountReference" type="com:typeBankAccRef">
+        <xsd:annotation>
+          <xsd:documentation>The bank account reference to use when making payments or collections by electronic transfer.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankName" type="com:typeBankName">
+        <xsd:annotation>
+          <xsd:documentation>The name of the bank.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankAddress1" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>Line 1 of the bank's address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankAddress2" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>Line 2 of the bank's address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankPostCode" type="com:typePostCode">
+        <xsd:annotation>
+          <xsd:documentation>The bank's postal code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BranchName" type="com:typeBankName">
+        <xsd:annotation>
+          <xsd:documentation>The branch name of the bank.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BranchAddress1" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>Line 1 of the branch's address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BranchAddress2" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>Line 2 of the branch's address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BranchPostCode" type="com:typePostCode">
+        <xsd:annotation>
+          <xsd:documentation>The postal code for the branch.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SwiftAddress" type="com:typeBankSwift">
+        <xsd:annotation>
+          <xsd:documentation>The SWIFT code for the bank.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IBAN" type="com:typeIBANB">
+        <xsd:annotation>
+          <xsd:documentation>The IBAN for the bank account.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankCountry" type="com:typeTextB">
+        <xsd:annotation>
+          <xsd:documentation>The country in which the bank is situated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CreditLimitForced" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the credit limit is enforced.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CreditLimit" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The element's credit limit (matchable elements only).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Terms" type="com:typeTerm">
+        <xsd:annotation>
+          <xsd:documentation>The terms, expressed as a soft date, used to calculate a document's due date.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="FederalTax" type="com:typeFederalTax">
+        <xsd:annotation>
+          <xsd:documentation>The Federal Tax identification number (for tax purposes in the United States).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SocialSecurity" type="com:typeSocialSecurity">
+        <xsd:annotation>
+          <xsd:documentation>The Social Security number for the element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LetterTemplate" type="com:typeLetterTemplateB">
+        <xsd:annotation>
+          <xsd:documentation>A free-format text field where you can enter the name of the word processing template that you use to produce the reminder letter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ReminderCurrency" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code that identifies the currency used on the reminder letter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TriggerValue" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The sum of the values that triggered the letter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IncludedTotal" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The total of items that were not due for payment. This comprises those items that would not trigger a letter but are included in the letter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TotalValue" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The sum of all the values that are included in the letter: the trigger value and any other transactions.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ReminderCurrencyShortName" type="com:typeShortName">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name of the currency in which payments are overdue.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CurrencyUnitS" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The name of a single unit of the currency. For example, Pound.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CurrencyDecimalS" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The name of a single decimal unit of the currency. For example, Pence.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CurrencyUnitP" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The name of multiple units of the currency. For example, Pounds.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CurrencyDecimalP" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The name of multiple decimal units of the currency. For example, Pennies.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SymbolUnits" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The string that represents the unit of the currency (for example, British pounds).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SymbolDecimals" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The string that represents the decimal part of the currency (for example, pence).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SymbolPosition" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The string that specifies where the decimal appears in a currency value (for example, before or after the number).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LetterSeverity" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The severity level of the reminder letter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LetterDetailList" type="let:LetterDetailList">
+        <xsd:annotation>
+          <xsd:documentation>This element holds a list of details for the reminder letters in a proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="LetterDetailList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a list of details for the reminder letters in a proposal.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="LetterDetail" type="let:LetterDetail" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element holds the details of a reminder letter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="LetterDetail">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the details of a reminder letter.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="SequenceNumber" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>A number assigned to this reminder letter; sequence numbers are unique for the letters within a proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocumentCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The document code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocumentNumber" type="com:typeDocNum">
+        <xsd:annotation>
+          <xsd:documentation>The document number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Year" type="com:typeYear">
+        <xsd:annotation>
+          <xsd:documentation>The document year.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Period" type="com:typePeriod">
+        <xsd:annotation>
+          <xsd:documentation>The document period.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocumentCurrency" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the document currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocumentDate" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The document date.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="InputDate" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date when the document was input.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AuthorisingUser" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The user who can authorise the document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ReminderCurrency" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The currency in which payments are overdue.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Batch" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The document batch number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ReminderValue" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The value on each individual document line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Element1" type="com:typeElmCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for Element 1.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Element2" type="com:typeElmCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for Element 2.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Element3" type="com:typeElmCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for Element 3.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Element4" type="com:typeElmCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for Element 4.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Element5" type="com:typeElmCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for Element 5.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Element6" type="com:typeElmCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for Element 6.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Element7" type="com:typeElmCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for Element 7.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Element8" type="com:typeElmCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for Element 8.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DueDate" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date when the document becomes due for payment.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ValueDate" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date when the document will clear.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserStatus" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The user status value for the document line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PayStatus" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The pay status, indicating how far a document has progressed through the pay process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Description" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The line description as entered during Input.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExternalReference1" type="com:typeExtRefB">
+        <xsd:annotation>
+          <xsd:documentation>The value of External Reference 1.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExternalReference2" type="com:typeExtRefB">
+        <xsd:annotation>
+          <xsd:documentation>The value of External Reference 2.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExternalReference3" type="com:typeExtRefB">
+        <xsd:annotation>
+          <xsd:documentation>The value of External Reference 3.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExternalReference4" type="com:typeExtRefB">
+        <xsd:annotation>
+          <xsd:documentation>The value of External Reference 4.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExternalReference5" type="com:typeExtRefB">
+        <xsd:annotation>
+          <xsd:documentation>The value of External Reference 5.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExternalReference6" type="com:typeExtRefB">
+        <xsd:annotation>
+          <xsd:documentation>The value of External Reference 6.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DebitCreditIndicator" type="com:typeCtDocLineDrCr">
+        <xsd:annotation>
+          <xsd:documentation>This indicates whether the document line was a debit or credit line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SumTaxDocCurrency" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The total tax on the document line, in document currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SumTaxHomeCurrency" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The total tax on the document line, in home currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DetailSeverity" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The severity level of a detail line within a reminder letter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LetterSeverity" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The severity level of a reminder letter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ReminderDate" type="com:typeDateB">
+        <xsd:annotation>
+          <xsd:documentation>The date of the reminder letter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

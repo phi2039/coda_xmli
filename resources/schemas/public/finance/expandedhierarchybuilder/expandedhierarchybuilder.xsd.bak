@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:hib="http://www.coda.com/efinance/schemas/expandedhierarchybuilder" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:gsl="http://www.coda.com/efinance/schemas/selectormaster" targetNamespace="http://www.coda.com/efinance/schemas/expandedhierarchybuilder" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/selectormaster" schemaLocation="s:/schemas/public/common/selectormaster/selectormaster.xsd"/>
+
+  <xsd:complexType name="HierarchyItem">
+    <xsd:annotation>
+      <xsd:documentation>This element contains information about one hierarchy in the HierarchyList.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="HierarchyCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the hierarchy master to update.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LastUpdatedDate" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date on which the hierarchy was last updated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LastUpdatedTime" type="com:typeTime" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The time at which the hierarchy was last updated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="HierarchyList">
+    <xsd:annotation>
+      <xsd:documentation>This element stores a list of hierarchies which are available for inclusion in the table build.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="HierarchyItem" type="hib:HierarchyItem" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains information about one hierarchy in the HierarchyList.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="BuildHierarchyItem">
+    <xsd:annotation>
+      <xsd:documentation>This element contains information about one hierarchy in the BuildHierarchies list.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="HierarchyCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the hierarchy master to update.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company used to determine which selector masters are available.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SelectorCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code for the selector master to use. Only selector masters with a data class of balances and a location of self are available.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Update" type="com:typeBool" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether you want to update the information that already exists for this hierarchy. If you do not want to update, the hierarchy is removed and then rebuilt, and the existing data is replaced.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="BuildHierarchyList">
+    <xsd:annotation>
+      <xsd:documentation>This element stores a list of hierarchies which are included in the table build.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="BuildItem" type="hib:BuildHierarchyItem" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains information about one hierarchy in the BuildHierarchies list.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Params">
+    <xsd:annotation>
+      <xsd:documentation>This element stores the parameters that can be specified for a table build.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="BuildHierarchies" type="hib:BuildHierarchyList">
+        <xsd:annotation>
+          <xsd:documentation>This element stores a list of hierarchies which are included in the table build.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LogTitle" type="com:typeLogTitle">
+        <xsd:annotation>
+          <xsd:documentation>The title of the log that will be generated by the build.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="HierarchyCodeList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of hierarchy codes.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeGeneralCode" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>The code for a hierarchy master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="BuildProgressItem">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the name and code for one item in the build list.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the hierarchy master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The descriptive name for the hierarchy master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="BuildProgressList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains information about the progress of the build.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="BuildProgressItem" type="hib:BuildProgressItem" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains the name and code for one item in the build list.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:adh="http://www.coda.com/efinance/schemas/auditdocstatus" xmlns:prg="http://www.coda.com/efinance/schemas/progress" targetNamespace="http://www.coda.com/efinance/schemas/auditdocstatus" elementFormDefault="qualified" version="1.0">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/service.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/progress" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/progress/progress.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/progress" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/progress/progressservice.xsd"/>
+  <xsd:include schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/finance/auditdocstatus/auditdocstatus.xsd"/>
+
+  <xsd:complexType name="StartRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Params" type="adh:StartParams">
+            <xsd:annotation>
+              <xsd:documentation>Contains the parameters used to select the documents from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Starts the process using the parameters you specify.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="adh:StartRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Params" type="adh:StartParams">
+            <xsd:annotation>
+              <xsd:documentation>The parameters used to select the documents to recover.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ProgressKey" type="prg:ProgressKey" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The key used to request information about the progress of this document recovery process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="LogID" type="xsd:int" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The ID of the log for this document recovery process (if a log exists).</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="adh:StartResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProgressResponse">
+    <xsd:complexContent>
+      <xsd:extension base="prg:progressGetResponse">
+        <xsd:sequence>
+          <xsd:element name="ProgressStatistics" type="adh:ProgressStatistics" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>This element contains statistical information about the progress of the document recovery process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProgressResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="adh:ProgressResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AuditDocStatusRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to recover documents from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element name="Start" type="adh:StartRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Starts the process using the parameters you specify.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetProgress" type="prg:progressGetRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves statistical information about the progress of the document recovery process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AuditDocStatusResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you recover documents from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element name="Start" type="adh:StartResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetProgress" type="adh:ProgressResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="AuditDocStatusRequest" type="adh:AuditDocStatusRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to recover documents from the database.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="AuditDocStatusResponse" type="adh:AuditDocStatusResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you recover documents from the database.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

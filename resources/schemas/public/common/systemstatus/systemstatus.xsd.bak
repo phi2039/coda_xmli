@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:sys="http://www.coda.com/common/schemas/systemstatus" elementFormDefault="qualified" targetNamespace="http://www.coda.com/common/schemas/systemstatus">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types2.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="TestObject">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Id" type="com:typeDbGuid"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Value" type="com:typeLong"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TimeStamp" type="xsd:short"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TestObjectList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="TestObject" type="sys:TestObject"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TestObjectKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="TestObject" type="sys:TestObjectKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TestObjectKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Id" type="com:typeDbGuid"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManagedAttributeValueSet">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a set of managed attributes and their values.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ManagedAttributeValuesList" type="sys:ManagedAttributeValueSetManagedAttributeValuesList">
+        <xsd:annotation>
+          <xsd:documentation>A list of values for managed attributes.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManagedAttributeValueSetManagedAttributeValuesList">
+    <xsd:annotation>
+      <xsd:documentation>A list of values for managed attributes.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ManagedAttributeValues" type="sys:ManagedAttributeValues">
+        <xsd:annotation>
+          <xsd:documentation>Details of managed attribute values.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManagedAttributeValueSetList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ManagedAttributeValueSet" type="sys:ManagedAttributeValueSet"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RunningTest">
+    <xsd:annotation>
+      <xsd:documentation>Details of a running test.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TestType" type="com:typeGenericOon">
+        <xsd:annotation>
+          <xsd:documentation>The type of test.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="LogId" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>The log ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Status" type="com:typeComSelftestStatus">
+        <xsd:annotation>
+          <xsd:documentation>The status of the test.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="StartTime" type="com:typeHardTime">
+        <xsd:annotation>
+          <xsd:documentation>The date and time the test started.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="EndTime" type="com:typeHardTime">
+        <xsd:annotation>
+          <xsd:documentation>The date and time the test ended.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RunningTestList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="RunningTest" type="sys:RunningTest">
+        <xsd:annotation>
+          <xsd:documentation>Details of a running test.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="NodesTests">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details of tests for a specified node.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Node" type="sys:Node">
+        <xsd:annotation>
+          <xsd:documentation>The details of a node.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TestSetId" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The test set ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RunningTestList" type="sys:NodesTestsRunningTestList">
+        <xsd:annotation>
+          <xsd:documentation>A list of running tests.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="NodesTestsRunningTestList">
+    <xsd:annotation>
+      <xsd:documentation>A list of running tests.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="RunningTest" type="sys:RunningTest">
+        <xsd:annotation>
+          <xsd:documentation>Details of a running test.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="NodesTestsList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="NodesTests" type="sys:NodesTests">
+        <xsd:annotation>
+          <xsd:documentation>The details of nodes and associated tests.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Node">
+    <xsd:annotation>
+      <xsd:documentation>The details of a node.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Hostname" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The host name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Product" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The CODA product.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="InstanceUUID" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The instance ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Name" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The name of the node.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Port" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>The port number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="NodeList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Node" type="sys:Node"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManagedAttribute">
+    <xsd:annotation>
+      <xsd:documentation>Details of a managed attribute.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Type" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The attribute type.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Name" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="AttributeName" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The attribute name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManagedAttributeList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ManagedAttribute" type="sys:ManagedAttribute">
+        <xsd:annotation>
+          <xsd:documentation>The details of a managed attribute.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManagedAttributes">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of managed attributes.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ManagedAttributeList" type="sys:ManagedAttributesManagedAttributeList">
+        <xsd:annotation>
+          <xsd:documentation>A list of managed attributes.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManagedAttributesManagedAttributeList">
+    <xsd:annotation>
+      <xsd:documentation>A list of managed attributes.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ManagedAttribute" type="sys:ManagedAttribute">
+        <xsd:annotation>
+          <xsd:documentation>The details of a managed attribute.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManagedAttributesList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ManagedAttributes" type="sys:ManagedAttributes"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TestMessage">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a test message.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Data" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The data for the test message.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TestMessageList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="TestMessage" type="sys:TestMessage"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManagedAttributeValues">
+    <xsd:annotation>
+      <xsd:documentation>Details of managed attribute values.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Node" type="sys:Node">
+        <xsd:annotation>
+          <xsd:documentation>The details of a node.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ManagedAttributeValueList" type="sys:ManagedAttributeValuesManagedAttributeValueList">
+        <xsd:annotation>
+          <xsd:documentation>A list of values for managed attributes.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManagedAttributeValuesManagedAttributeValueList">
+    <xsd:annotation>
+      <xsd:documentation>A list of values for managed attributes.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ManagedAttributeValue" type="sys:ManagedAttributeValue">
+        <xsd:annotation>
+          <xsd:documentation>Details of managed attribute values.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManagedAttributeValuesList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ManagedAttributeValues" type="sys:ManagedAttributeValues">
+        <xsd:annotation>
+          <xsd:documentation>Details of managed attribute values.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AvailableTests">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of available tests.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="TestIdList" type="sys:AvailableTestsTestIdList">
+        <xsd:annotation>
+          <xsd:documentation>A list of test IDs.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AvailableTestsTestIdList">
+    <xsd:annotation>
+      <xsd:documentation>A list of test IDs.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="TestId" type="com:typeGenericOon">
+        <xsd:annotation>
+          <xsd:documentation>The test ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AvailableTestsList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="AvailableTests" type="sys:AvailableTests"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelfTestSet">
+    <xsd:annotation>
+      <xsd:documentation>The details of a set of system tests.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="TestTypeList" type="sys:SelfTestSetTestTypeList">
+        <xsd:annotation>
+          <xsd:documentation>A list of test types.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TestSetId" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The test set ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelfTestSetTestTypeList">
+    <xsd:annotation>
+      <xsd:documentation>A list of test types.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="TestType" type="com:typeGenericOon">
+        <xsd:annotation>
+          <xsd:documentation>The type of test.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelfTestSetList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="SelfTestSet" type="sys:SelfTestSet"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="NodesTestsSet">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of system tests for specified nodes.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="NodesTestsList" type="sys:NodesTestsSetNodesTestsList">
+        <xsd:annotation>
+          <xsd:documentation>A list of nodes and associated tests.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="NodesTestsSetNodesTestsList">
+    <xsd:annotation>
+      <xsd:documentation>A list of nodes and associated tests.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="NodesTests" type="sys:NodesTests">
+        <xsd:annotation>
+          <xsd:documentation>The details of nodes and associated tests.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="NodesTestsSetList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="NodesTestsSet" type="sys:NodesTestsSet"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManagedAttributeValue">
+    <xsd:annotation>
+      <xsd:documentation>Details of managed attribute values.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Value" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>A value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="CodaType" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>A CODA type.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ManagedAttribute" type="sys:ManagedAttribute">
+        <xsd:annotation>
+          <xsd:documentation>Details of a managed attribute.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManagedAttributeValueList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ManagedAttributeValue" type="sys:ManagedAttributeValue">
+        <xsd:annotation>
+          <xsd:documentation>Details of managed attribute values.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

@@ -1,0 +1,685 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:build="http://www.coda.com/common/schemas/funcsec" xmlns:usrpref="http://www.coda.com/common/schemas/userpreferences" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/common/schemas/userpreferences" elementFormDefault="qualified" version="2.0">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/service.xsd"/>
+  <xsd:include schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/userpreferences/userpreferences.xsd"/>
+  <xsd:include schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/userpreferences/preferencesmaster.xsd"/>
+
+  <xsd:complexType name="GetPreferencesMasterRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="com:GlobalKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key identifying the preferences master you want to retrieve from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Expand" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:documentation>Indicates whether any attributes inherited from parent components are resolved when the preferences master is retrieved.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetPreferencesMasterRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the specified preferences masters from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="usrpref:GetPreferencesMasterRequest" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetPreferencesMasterResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Code" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the preferences master you attempted to retrieve from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PreferencesMaster" type="usrpref:PreferencesMaster">
+            <xsd:annotation>
+              <xsd:documentation>Contains the preferences master you have retrieved from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetPreferencesMasterResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="usrpref:GetPreferencesMasterResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdatePreferencesMasterRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="PreferencesMaster" type="usrpref:PreferencesMaster">
+            <xsd:annotation>
+              <xsd:documentation>Contains the information for the preferences master you want to update.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdatePreferencesMasterRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Updates preferences masters in the database using the information you provide.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="usrpref:UpdatePreferencesMasterRequest" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdatePreferencesMasterResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Code" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the preferences master that you attempted to update.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="TimeStamp" type="com:typeWord">
+            <xsd:annotation>
+              <xsd:documentation>The TimeStamp value for this preferences master in the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdatePreferencesMasterResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="usrpref:UpdatePreferencesMasterResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AddPreferencesMasterRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="PreferencesMaster" type="usrpref:PreferencesMaster">
+            <xsd:annotation>
+              <xsd:documentation>Contains the information for the preferences master you want to create.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AddPreferencesMasterRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Creates new preferences masters in the database using the information you provide.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="usrpref:AddPreferencesMasterRequest" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AddPreferencesMasterResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Code" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the preferences master that you attempted to create.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="TimeStamp" type="com:typeWord">
+            <xsd:annotation>
+              <xsd:documentation>The TimeStamp value for this preferences master in the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AddPreferencesMasterResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="usrpref:AddPreferencesMasterResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeletePreferencesMasterRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="com:GlobalKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key identifying the preferences master you want to delete.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeletePreferencesMasterRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Deletes the specified preferences masters from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="usrpref:DeletePreferencesMasterRequest" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeletePreferencesMasterResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Code" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the preferences master that you attempted to delete.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeletePreferencesMasterResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="usrpref:DeletePreferencesMasterResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListPreferencesMasterRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Filter" type="com:ReqKeysWithShortName">
+            <xsd:annotation>
+              <xsd:documentation>A filter that selects the preferences masters to be listed.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListPreferencesMasterRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves key information for the specified preferences masters from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="usrpref:ListPreferencesMasterRequest" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListPreferencesMasterResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Filter" type="com:ReqKeysWithShortName">
+            <xsd:annotation>
+              <xsd:documentation>The filter that was used to select the preferences masters to be listed.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Keys" type="com:KeyData" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key information for the listed preferences masters.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListPreferencesMasterResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="usrpref:ListPreferencesMasterResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetPreferenceValuesRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="com:GlobalKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key identifying the preferences master whose settings you want to retrieve.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetPreferenceValuesRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the preferences settings for the specified master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="usrpref:GetPreferenceValuesRequest" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetPreferenceValuesResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Code" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the preferences master whose settings you attempted to retrieve.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PreferencesMaster" type="usrpref:PreferencesMaster">
+            <xsd:annotation>
+              <xsd:documentation>Contains the preferences master you have retrieved from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetPreferenceValuesResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="usrpref:GetPreferenceValuesResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdatePreferenceValuesRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="PreferencesMaster" type="usrpref:PreferencesMaster">
+            <xsd:annotation>
+              <xsd:documentation>Contains the information for the preferences master whose settings you want to update.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdatePreferenceValuesRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Updates a master's preferences settings using the information you provide.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="usrpref:UpdatePreferenceValuesRequest" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdatePreferenceValuesResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Code" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the preferences master whose settings you attempted to update.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="TimeStamp" type="com:typeWord">
+            <xsd:annotation>
+              <xsd:documentation>The TimeStamp value for this preferences master in the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdatePreferenceValuesResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="usrpref:UpdatePreferenceValuesResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ResetPreferenceValuesRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="com:GlobalKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key identifying the preferences master whose settings you want to reset to the default.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ResetPreferenceValuesRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Restores a master's preferences settings to the default.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="usrpref:ResetPreferenceValuesRequest" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ResetPreferenceValuesResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Code" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the preferences master whose settings you attempted to reset to the default.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PreferencesMaster" type="usrpref:PreferencesMaster">
+            <xsd:annotation>
+              <xsd:documentation>Contains the preferences master whose settings you attempted to reset to the default.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ResetPreferenceValuesResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="usrpref:ResetPreferenceValuesResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ApplyPreferencesMasterRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="PreferencesMasterCode" type="com:typeGeneralCode" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>A preferences master code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Users" type="usrpref:ApplyUsersList" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>A list of user codes to which the operation will apply.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="RemoveUserPreferences" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:documentation>If set, removes the specified users' preferences.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ApplyPreferencesMasterRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Applies the specified preferences settings.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="usrpref:ApplyPreferencesMasterRequest" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ApplyPreferencesMasterResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="PreferencesMasterCode" type="com:typeGeneralCode" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>A preferences master code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Users" type="usrpref:ApplyUsersList" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>A list of user codes.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ApplyPreferencesMasterResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="usrpref:ApplyPreferencesMasterResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PreferencesMasterRequest">
+    <xsd:annotation>
+      <xsd:appinfo build:funcSecValue="403" build:readOnly="true"/>
+      <xsd:documentation>This service allows you to maintain preferences masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element name="GetPreferencesMaster" type="usrpref:GetPreferencesMasterRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="1" build:readOnly="true"/>
+              <xsd:documentation>Retrieves the specified preferences masters from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="UpdatePreferencesMaster" type="usrpref:UpdatePreferencesMasterRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="2" build:readOnly="false"/>
+              <xsd:documentation>Updates preferences masters in the database using the information you provide.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AddPreferencesMaster" type="usrpref:AddPreferencesMasterRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="3" build:readOnly="false"/>
+              <xsd:documentation>Creates new preferences masters in the database using the information you provide.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DeletePreferencesMaster" type="usrpref:DeletePreferencesMasterRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="4" build:readOnly="false"/>
+              <xsd:documentation>Deletes the specified preferences masters from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ListPreferencesMaster" type="usrpref:ListPreferencesMasterRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="5" build:readOnly="true"/>
+              <xsd:documentation>Retrieves key information for the specified preferences masters from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetPreferenceValues" type="usrpref:GetPreferenceValuesRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="6" build:readOnly="true"/>
+              <xsd:documentation>Retrieves the preferences settings for the specified master.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="UpdatePreferenceValues" type="usrpref:UpdatePreferenceValuesRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="7" build:readOnly="false"/>
+              <xsd:documentation>Updates a master's preferences settings using the information you provide.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ResetPreferenceValues" type="usrpref:ResetPreferenceValuesRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="8" build:readOnly="false"/>
+              <xsd:documentation>Restores a master's preferences settings to the default.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ApplyPreferencesMaster" type="usrpref:ApplyPreferencesMasterRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="9" build:readOnly="false"/>
+              <xsd:documentation>Applies the specified preferences settings.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PreferencesMasterResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you maintain capability masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element name="GetPreferencesMaster" type="usrpref:GetPreferencesMasterResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="UpdatePreferencesMaster" type="usrpref:UpdatePreferencesMasterResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AddPreferencesMaster" type="usrpref:AddPreferencesMasterResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DeletePreferencesMaster" type="usrpref:DeletePreferencesMasterResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ListPreferencesMaster" type="usrpref:ListPreferencesMasterResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetPreferenceValues" type="usrpref:GetPreferenceValuesResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="UpdatePreferenceValues" type="usrpref:UpdatePreferenceValuesResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ResetPreferenceValues" type="usrpref:ResetPreferenceValuesResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ApplyPreferencesMaster" type="usrpref:ApplyPreferencesMasterResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="PreferencesMasterRequest" type="usrpref:PreferencesMasterRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to maintain preferences masters.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="PreferencesMasterResponse" type="usrpref:PreferencesMasterResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you maintain capability masters.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

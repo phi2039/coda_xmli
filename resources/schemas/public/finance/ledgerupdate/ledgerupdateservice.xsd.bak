@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ult="http://www.coda.com/efinance/schemas/ledgerupdate" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/efinance/schemas/ledgerupdate" elementFormDefault="qualified" version="2.0">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/service.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:include schemaLocation="s:/schemas/public/finance/ledgerupdate/ledgerupdate.xsd"/>
+
+  <xsd:complexType name="StartRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Params" type="ult:StartParams">
+            <xsd:annotation>
+              <xsd:documentation>Contains the parameters needed to select the ledgers to update.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Starts updating ledger information using the parameters you specify.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="ult:StartRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the company for which ledger updates are currently running.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="UpdateMode" type="com:typeCtUpdateMode">
+            <xsd:annotation>
+              <xsd:documentation>Specifies the update method being used. The available values are Single update (ledger information is updated only once) or Continuous update (ledger information is updated repeatedly at intervals specified in the IdleInterval field).</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="IdleInterval" type="com:typeULong" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The interval in hours between each ledger update. This option is available only when the UpdateMode is Continuous.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AllCompanies" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:documentation>Specifies whether you are updating all ledgers for all companies to which you have access.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="LedgerSelection" type="com:typeGeneralCodeB" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The code for the ledger master to update. This field is blank if all ledger masters for the current company are being updated.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AllLedgers" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:documentation>Specifies whether you are updating all ledgers for the current company.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="ult:StartResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetProgressRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves statistical information about the progress of the ledger update process.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="com:Request" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetProgressResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="ProgressStatistics" type="ult:ProgressStatistics" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>This element contains statistical information about the progress of the ledger update process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetProgressResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="ult:GetProgressResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="IsOneRunningRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Indicates whether a ledger update process is running and contains information about the parameters used to start the last, or currently running, update.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="com:Request" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="IsOneRunningResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="IsOneRunningStatistics" type="ult:IsOneRunningStatistics" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Indicates whether a ledger update process is running and returns statistical information about the parameters used to start the last, or currently running, update.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="IsOneRunningResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="ult:IsOneRunningResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StopRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Stops the ledger update process at the end of the current update cycle. This is available only when the UpdateMode is Continuous.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="com:Request" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StopResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="com:Response" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AbortRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Aborts the ledger update process immediately (or as soon as it is safe to do so).</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="com:Request" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AbortResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="com:Response" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ClearLocksRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Clears any update cycle that the server believes is still running but which has actually stopped.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="com:Request" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ClearLocksResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="com:Response" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="LedgerUpdateRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to update ledger information.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element name="Start" type="ult:StartRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Starts updating ledger information using the parameters you specify.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Stop" type="ult:StopRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Stops the ledger update process at the end of the current update cycle. This is available only when the UpdateMode is Continuous.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Abort" type="ult:AbortRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Aborts the ledger update process immediately (or as soon as it is safe to do so).</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetProgress" type="ult:GetProgressRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves statistical information about the progress of the ledger update process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ClearLocks" type="ult:ClearLocksRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Clears any update cycle that the server believes is still running but which has actually stopped.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="IsOneRunning" type="ult:IsOneRunningRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Indicates whether a ledger update process is running and contains information about the parameters used to start the last, or currently running, update.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="LedgerUpdateResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you update ledger information.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element name="Start" type="ult:StartResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Stop" type="ult:StopResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Abort" type="ult:AbortResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetProgress" type="ult:GetProgressResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ClearLocks" type="ult:ClearLocksResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="IsOneRunning" type="ult:IsOneRunningResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="LedgerUpdateRequest" type="ult:LedgerUpdateRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to update ledger information.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="LedgerUpdateResponse" type="ult:LedgerUpdateResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you update ledger information.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

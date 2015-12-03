@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:atl="http://www.coda.com/common/schemas/audittrail" xmlns:com="http://www.coda.com/efinance/schemas/common" elementFormDefault="qualified" targetNamespace="http://www.coda.com/common/schemas/audittrail">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types2.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="AuditField">
+    <xsd:annotation>
+      <xsd:documentation>This element contains audit field details.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="FieldId" type="com:typeGenericOon">
+        <xsd:annotation>
+          <xsd:documentation>The field ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ValueBefore" type="com:typeTextAnyDb">
+        <xsd:annotation>
+          <xsd:documentation>The value of the field before the audited event.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ValueAfter" type="com:typeTextAnyDb">
+        <xsd:annotation>
+          <xsd:documentation>The value of the field after the audited event.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ColumnIds" type="com:typeTextAnyDb">
+        <xsd:annotation>
+          <xsd:documentation>A CSV list of column IDs.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DetailList" type="atl:AuditDetailList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of audit details.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AuditFieldList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of audit fields.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="AuditField" type="atl:AuditField">
+        <xsd:annotation>
+          <xsd:documentation>This element contains audit field details.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AuditFieldKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="AuditField" type="atl:AuditFieldKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AuditFieldKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Product" type="com:typeApplicationName"/>
+      <xsd:element minOccurs="0" name="ObjectType" type="com:typeGenericOon"/>
+      <xsd:element minOccurs="0" name="CmpCode" type="com:typeOptCode"/>
+      <xsd:element minOccurs="0" name="ObjectCode" type="com:typeOptCodeLong"/>
+      <xsd:element minOccurs="0" name="SequenceNumber" type="com:typeULong"/>
+      <xsd:element minOccurs="0" name="FieldId" type="com:typeGenericOon"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AuditDetail">
+    <xsd:annotation>
+      <xsd:documentation>This element contains audit details.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="LstSeqNo" type="com:typeWord">
+        <xsd:annotation>
+          <xsd:documentation>The list sequence number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Which" type="com:typeUWord">
+        <xsd:annotation>
+          <xsd:documentation>Identifies whether this is the old list or the new list.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ColumnValues" type="com:typeTextAnyDb">
+        <xsd:annotation>
+          <xsd:documentation>A CSV list of column values.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AuditDetailList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of audit details.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="AuditDetail" type="atl:AuditDetail">
+        <xsd:annotation>
+          <xsd:documentation>This element contains audit details.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AuditDetailKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="AuditDetail" type="atl:AuditDetailKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AuditDetailKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Product" type="com:typeApplicationName"/>
+      <xsd:element minOccurs="0" name="ObjectType" type="com:typeGenericOon"/>
+      <xsd:element minOccurs="0" name="CmpCode" type="com:typeOptCode"/>
+      <xsd:element minOccurs="0" name="ObjectCode" type="com:typeOptCodeLong"/>
+      <xsd:element minOccurs="0" name="SequenceNumber" type="com:typeULong"/>
+      <xsd:element minOccurs="0" name="FieldId" type="com:typeGenericOon"/>
+      <xsd:element minOccurs="0" name="LstSeqNo" type="com:typeWord"/>
+      <xsd:element minOccurs="0" name="Which" type="com:typeUWord"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AuditTrail">
+    <xsd:annotation>
+      <xsd:documentation>This element contains audit trail details.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Product" type="com:typeApplicationName">
+        <xsd:annotation>
+          <xsd:documentation>The CODA product subject to audit.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ObjectType" type="com:typeGenericOon">
+        <xsd:annotation>
+          <xsd:documentation>The CODA object subject to audit.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="CmpCode" type="com:typeOptCode">
+        <xsd:annotation>
+          <xsd:documentation>The company code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ObjectCode" type="com:typeOptCodeLong">
+        <xsd:annotation>
+          <xsd:documentation>The code of the object subject to audit.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="SequenceNumber" type="com:typeULong">
+        <xsd:annotation>
+          <xsd:documentation>The sequence number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="BatchNumber" type="com:typeULong">
+        <xsd:annotation>
+          <xsd:documentation>The batch number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Action" type="com:typeGenericOon">
+        <xsd:annotation>
+          <xsd:documentation>The action audited.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Status" type="com:typeGenericOon">
+        <xsd:annotation>
+          <xsd:documentation>The log status.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Comment" type="com:typeTextB">
+        <xsd:annotation>
+          <xsd:documentation>A text comment.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Details" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, indicates further details are available.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="AddDate" type="com:typeHardTime">
+        <xsd:annotation>
+          <xsd:documentation>The date the event was added.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="UsrName" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The user ID associated with the event.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="FieldList" type="atl:AuditFieldList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of audit fields.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The timestamp value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AuditTrailList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of audit trail details.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="AuditTrail" type="atl:AuditTrail">
+        <xsd:annotation>
+          <xsd:documentation>This element contains audit trail details.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AuditTrailKeyList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of audit trail keys.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="AuditTrail" type="atl:AuditTrailKey">
+        <xsd:annotation>
+          <xsd:documentation>This element contains audit trail key details.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AuditTrailKey">
+    <xsd:annotation>
+      <xsd:documentation>This element contains audit trail key details.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Product" type="com:typeApplicationName">
+        <xsd:annotation>
+          <xsd:documentation>The CODA product subject to audit.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="ObjectType" type="com:typeGenericOon">
+        <xsd:annotation>
+          <xsd:documentation>The CODA object type subject to audit.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="CmpCode" type="com:typeOptCode">
+        <xsd:annotation>
+          <xsd:documentation>The company code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="ObjectCode" type="com:typeOptCodeLong">
+        <xsd:annotation>
+          <xsd:documentation>The code of the object subject to audit.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="SequenceNumber" type="com:typeULong">
+        <xsd:annotation>
+          <xsd:documentation>The sequence number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

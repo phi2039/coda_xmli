@@ -1,0 +1,887 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:atc="http://www.coda.com/common/schemas/attachment" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:fmt="http://www.coda.com/common/schemas/formatmaster" xmlns:pri="http://www.coda.com/common/schemas/printformatmaster" elementFormDefault="qualified" targetNamespace="http://www.coda.com/common/schemas/printformatmaster">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types2.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/attachment" schemaLocation="s:/schemas/public/common/attachment/attachment.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/formatmaster" schemaLocation="s:/schemas/public/common/formatmaster/formatmaster.xsd"/>
+
+  <xsd:complexType name="GeneralProperties">
+    <xsd:annotation>
+      <xsd:documentation>This element holds general properties for a section.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The name of the section.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="X" type="com:typeRawPosition">
+        <xsd:annotation>
+          <xsd:documentation>The size of the grid squares on the X axis.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Y" type="com:typeRawPosition">
+        <xsd:annotation>
+          <xsd:documentation>The size of the grid squares on the Y axis.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Width" type="com:typeRawDimension">
+        <xsd:annotation>
+          <xsd:documentation>The width of the selected object.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Height" type="com:typeRawDimension">
+        <xsd:annotation>
+          <xsd:documentation>The height of the selected object.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="VisibleFirst" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the selected item is printed on the first page only.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="VisibleBetween" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the selected object is printed on all pages excluding the first and last.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="VisibleLast" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the selected object is printed on the last page only.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="VisibleOnePage" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether this section is visible on one page documents.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Section">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details of a</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="SectionSequence" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>The sequence number of the section.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="FormType" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>Specifies the type of document that can be produced using forms based on this master. This field classifies the master for applications that use the output infrastructure.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Embedded" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether this section is a subsection. A subsection can be embedded in a table.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="General" type="pri:GeneralProperties">
+        <xsd:annotation>
+          <xsd:documentation>This element holds general properties for a section.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="UseFormat" type="com:typeComPrintformatUseFormat">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether you want to use a format master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="FormatCode" type="com:typeCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The code for the format master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Format" type="fmt:FormatData">
+        <xsd:annotation>
+          <xsd:documentation>This element holds formatting information.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ItemList" type="pri:ItemList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of items.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SectionList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details of sections in the header.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Section" type="pri:Section">
+        <xsd:annotation>
+          <xsd:documentation>This element holds details of a</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SectionKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Section" type="pri:SectionKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SectionKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode"/>
+      <xsd:element minOccurs="0" name="SectionSequence" type="com:typeLong"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TextProperties">
+    <xsd:annotation>
+      <xsd:documentation>This element holds information about text properties.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Text" type="com:typeTextAnyWideb">
+        <xsd:annotation>
+          <xsd:documentation>A description of the text property.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TextPropertiesList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="TextProperties" type="pri:TextProperties"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TextPropertiesKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="TextProperties" type="pri:TextPropertiesKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TextPropertiesKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode"/>
+      <xsd:element minOccurs="0" name="SectionSequence" type="com:typeLong"/>
+      <xsd:element minOccurs="0" name="ItemSequence" type="com:typeLong"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Item">
+    <xsd:annotation>
+      <xsd:documentation>This element holds an item.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ItemSequence" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>The sequence number of the item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ItemType" type="com:typeComPrintformatItem">
+        <xsd:annotation>
+          <xsd:documentation>The type of a print format item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="General" type="pri:GeneralProperties">
+        <xsd:annotation>
+          <xsd:documentation>This element holds general properties for an item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="UseFormat" type="com:typeComPrintformatUseFormat">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether you want to use a format master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="FormatCode" type="com:typeCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The code of the format master you want to apply to the selected item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Format" type="fmt:FormatData">
+        <xsd:annotation>
+          <xsd:documentation>This element holds formatting information</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Data" type="pri:DataProperties">
+        <xsd:annotation>
+          <xsd:documentation>This contains column properties.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Text" type="pri:TextProperties">
+        <xsd:annotation>
+          <xsd:documentation>This element holds information about text properties.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Image" type="pri:ImageProperties">
+        <xsd:annotation>
+          <xsd:documentation>This element holds information about image properties.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Table" type="pri:TableProperties">
+        <xsd:annotation>
+          <xsd:documentation>This element holds information about table properties.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="PageNum" type="pri:PageNumProperties">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details about page numbering.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ItemList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of items.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Item" type="pri:Item">
+        <xsd:annotation>
+          <xsd:documentation>This element holds an item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ItemKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Item" type="pri:ItemKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ItemKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode"/>
+      <xsd:element minOccurs="0" name="SectionSequence" type="com:typeLong"/>
+      <xsd:element minOccurs="0" name="ItemSequence" type="com:typeLong"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SortOrder">
+    <xsd:annotation>
+      <xsd:documentation>This element holds sort order details.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="SortSequence" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>The sort sequence number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="VocabId" type="com:typeTextfield">
+        <xsd:annotation>
+          <xsd:documentation>The identifier of the vocabulary displayed in this column.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Ascending" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, sort order is ascending.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SortOrderList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a list of sort orders.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="SortOrder" type="pri:SortOrder">
+        <xsd:annotation>
+          <xsd:documentation>This element holds sort order details.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SortOrderKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="SortOrder" type="pri:SortOrderKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SortOrderKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode"/>
+      <xsd:element minOccurs="0" name="SortSequence" type="com:typeLong"/>
+      <xsd:element minOccurs="0" name="VocabId" type="com:typeTextfield"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PageNumProperties">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details about page numbering.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="CurrentPageNumber" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>If True, the current page number is shown on each page. For example, 1.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="LastPageNumber" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>If True, the last page number is shown on each page. For example, 1 of 5.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="TextBefore" type="com:typeDescription">
+        <xsd:annotation>
+          <xsd:documentation>The text that you want to display before the current page number. For example, page 1.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="TextAfter" type="com:typeDescription">
+        <xsd:annotation>
+          <xsd:documentation>The text that you want to display after the last page number. For example, 1 of 2 pages.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="TextBetween" type="com:typeDescription">
+        <xsd:annotation>
+          <xsd:documentation>The text that you to display between the current and last page number. For example, page 1 of 2.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PageNumPropertiesList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="PageNumProperties" type="pri:PageNumProperties"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PageNumPropertiesKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="PageNumProperties" type="pri:PageNumPropertiesKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PageNumPropertiesKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode"/>
+      <xsd:element minOccurs="0" name="SectionSequence" type="com:typeLong"/>
+      <xsd:element minOccurs="0" name="ItemSequence" type="com:typeLong"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ImageProperties">
+    <xsd:annotation>
+      <xsd:documentation>This element holds information about image properties.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Attachment" type="atc:Attachment">
+        <xsd:annotation>
+          <xsd:documentation>The identifier for the attachment.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ResizeToFit" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the image will be resized to fit the specified area.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ImagePropertiesList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ImageProperties" type="pri:ImageProperties"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ImagePropertiesKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ImageProperties" type="pri:ImagePropertiesKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ImagePropertiesKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode"/>
+      <xsd:element minOccurs="0" name="SectionSequence" type="com:typeLong"/>
+      <xsd:element minOccurs="0" name="ItemSequence" type="com:typeLong"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DataProperties">
+    <xsd:annotation>
+      <xsd:documentation>This contains column properties.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="VocabId" type="com:typeTextfield">
+        <xsd:annotation>
+          <xsd:documentation>The identifier of the vocabulary displayed in this column.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="NumberBoxing" type="com:typeWord">
+        <xsd:annotation>
+          <xsd:documentation>The digit to display for boxed numbers.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Accumulate" type="com:typeComPrintformatDataAccumulate">
+        <xsd:annotation>
+          <xsd:documentation>Where the field value is numeric this states what accumulation is carried out. This can be: None, Document, Start of page, End of page.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="PageTable" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>A reference to the table which shows the rows of "this page" when accumulating values to "page start" or "page end".</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DataPropertiesList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="DataProperties" type="pri:DataProperties"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DataPropertiesKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="DataProperties" type="pri:DataPropertiesKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DataPropertiesKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode"/>
+      <xsd:element minOccurs="0" name="SectionSequence" type="com:typeLong"/>
+      <xsd:element minOccurs="0" name="ItemSequence" type="com:typeLong"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PrintFormat">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details for a print format master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this print format master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The name of this print format master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The abbrieviated name for this print format master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Template" type="com:typeComPrintformatTemplate">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether this master is a 'template' for creating other print formats.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Locale" type="com:typeLocale">
+        <xsd:annotation>
+          <xsd:documentation>The locale of the form, for example, English (UK).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="FormType" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>Specifies the type of document that can be produced using forms based on this master. This field classifies the master for applications that use the output infrastructure.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="UseFormat" type="com:typeYesno">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether you want to use a format master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="FormatCode" type="com:typeCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The code for the format master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Format" type="fmt:FormatData">
+        <xsd:annotation>
+          <xsd:documentation>This element holds formatting information</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="CmpCodeVocabId" type="com:typeTextfield">
+        <xsd:annotation>
+          <xsd:documentation>The identifier of the company from which the form has been generated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="FixedPosition" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies that this value has a fixed position.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Orientation" type="com:typeComPrintformatPageOrientation">
+        <xsd:annotation>
+          <xsd:documentation>The orientation of the page. This can be: portrait or landscape.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="PageHeight" type="com:typeRawDimension">
+        <xsd:annotation>
+          <xsd:documentation>The height of the page.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="PageWidth" type="com:typeRawDimension">
+        <xsd:annotation>
+          <xsd:documentation>The width of the page.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="PaperSize" type="com:typeComPrintformatPaperSize">
+        <xsd:annotation>
+          <xsd:documentation>The page size. This can be: A4, A4, A5, foolscap or custom.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="MarginTop" type="com:typeRawDimension">
+        <xsd:annotation>
+          <xsd:documentation>Specifies the height of the margin between the edge of the form design and the margin.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="MarginBottom" type="com:typeRawDimension">
+        <xsd:annotation>
+          <xsd:documentation>Specifies the height of the margin between the edge of the form design and the margin.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="MarginLeft" type="com:typeRawDimension">
+        <xsd:annotation>
+          <xsd:documentation>Specifies the width of the margin between the edge of the form design and the margin.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="MarginRight" type="com:typeRawDimension">
+        <xsd:annotation>
+          <xsd:documentation>Specifies the width of the margin between the edge of the form design and the margin.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Uom" type="com:typeComPrintformatUom">
+        <xsd:annotation>
+          <xsd:documentation>The Unit of Measurement for the page size: centimetres (cm) or inches (inch).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="GridSizeX" type="com:typeRawDimension">
+        <xsd:annotation>
+          <xsd:documentation>The size of the grid squares on the X axis.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="GridSizeY" type="com:typeRawDimension">
+        <xsd:annotation>
+          <xsd:documentation>The size of the grid squares on the Y axis.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="GridOn" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the grid squares are displayed.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="HeaderHeight" type="com:typeRawDimension">
+        <xsd:annotation>
+          <xsd:documentation>The height of the header.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="HeaderList" type="pri:SectionList">
+        <xsd:annotation>
+          <xsd:documentation>This element holds details of sections in the header.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="FooterHeight" type="com:typeRawDimension">
+        <xsd:annotation>
+          <xsd:documentation>The height of the footer.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="FooterList" type="pri:SectionList">
+        <xsd:annotation>
+          <xsd:documentation>Holds a list of sections in a footer.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BodyList" type="pri:SectionList">
+        <xsd:annotation>
+          <xsd:documentation>Holds a list of sections in the body.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SortOrderList" type="pri:SortOrderList">
+        <xsd:annotation>
+          <xsd:documentation>This element holds a list of sort orders.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="VirtualCanvasHeight" type="com:typeRawDimension">
+        <xsd:annotation>
+          <xsd:documentation>The height of the page canvas.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The time stamp value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PrintFormatList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of print format masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="PrintFormat" type="pri:PrintFormat">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a print format master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PrintFormatKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="PrintFormat" type="pri:PrintFormatKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PrintFormatKey">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a key to a print format.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of a print format master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TableProperties">
+    <xsd:annotation>
+      <xsd:documentation>This element holds information about table properties.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="NumberOfRows" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>The number of rows in the table.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="SubSection" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>Allows you to specify the subsection that will be nested within this table. The embedded element for the specified subsection must be set to True.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Qualifier" type="com:typeComPrintformatSubsectionQualifier">
+        <xsd:annotation>
+          <xsd:documentation>Specifies when a table should render nested rows (with its sub-section).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="GroupBy" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>The vocabulary to group data by on aggregate tables (for example, a tax list can be aggregated by TAXCODE).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ColumnList" type="pri:ColumnList">
+        <xsd:annotation>
+          <xsd:documentation>Contains a list of columns.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TablePropertiesList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="TableProperties" type="pri:TableProperties"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TablePropertiesKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="TableProperties" type="pri:TablePropertiesKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TablePropertiesKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode"/>
+      <xsd:element minOccurs="0" name="SectionSequence" type="com:typeLong"/>
+      <xsd:element minOccurs="0" name="ItemSequence" type="com:typeLong"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Column">
+    <xsd:annotation>
+      <xsd:documentation>Contains a column.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ListSequence" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>The sequence number of the list item in the column.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="VocabId" type="com:typeTextfield">
+        <xsd:annotation>
+          <xsd:documentation>The identifier of the vocabulary displayed in this column.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="NumberBoxing" type="com:typeWord">
+        <xsd:annotation>
+          <xsd:documentation>The digit to display for boxed numbers.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Width" type="com:typeRawDimension">
+        <xsd:annotation>
+          <xsd:documentation>The width of the column.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Title" type="com:typeColumnTitleb">
+        <xsd:annotation>
+          <xsd:documentation>The title of the column.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="UseTitleFormat" type="com:typeComPrintformatUseFormat">
+        <xsd:annotation>
+          <xsd:documentation>Set to True if you want to specify a format master to use for the column title.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TitleFormatCode" type="com:typeCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The code for the format master that you want to apply to the title. If you do not select a master here the format master specified in the form properties is used by default.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TitleFormat" type="fmt:FormatData">
+        <xsd:annotation>
+          <xsd:documentation>The title format.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="UseDataFormat" type="com:typeComPrintformatUseFormat">
+        <xsd:annotation>
+          <xsd:documentation>Set to True if you want to specify a format master to use for the column data.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="DataFormatCode" type="com:typeCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The code for the format master that you want to apply to the data in this column. If you do not select a master here the format master specified in the form properties is used by default.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="DataFormat" type="fmt:FormatData">
+        <xsd:annotation>
+          <xsd:documentation>The data format.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ColumnList">
+    <xsd:annotation>
+      <xsd:documentation>Contains a list of columns.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Column" type="pri:Column">
+        <xsd:annotation>
+          <xsd:documentation>Contains a column.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ColumnKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Column" type="pri:ColumnKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ColumnKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode"/>
+      <xsd:element minOccurs="0" name="SectionSequence" type="com:typeLong"/>
+      <xsd:element minOccurs="0" name="ItemSequence" type="com:typeLong"/>
+      <xsd:element minOccurs="0" name="ListSequence" type="com:typeLong"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="LocalesSupported">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of supported locales.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="LocaleList" type="pri:LocalesSupportedLocaleList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of locales.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="LocalesSupportedLocaleList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of locales.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Locale" type="pri:LocaleData">
+        <xsd:annotation>
+          <xsd:documentation>This element contains locale details.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="LocalesSupportedList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="LocalesSupported" type="pri:LocalesSupported"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="LocaleData">
+    <xsd:annotation>
+      <xsd:documentation>This element contains locale details.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Name" type="com:typeLocale">
+        <xsd:annotation>
+          <xsd:documentation>The name of a locale.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Description" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The description of the locale.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="LocaleDataList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="LocaleData" type="pri:LocaleData"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PrintFormatItemList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a list of print format items.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="PrintFormatListItem" type="pri:PrintFormatListItem">
+        <xsd:annotation>
+          <xsd:documentation>This element holds details of a print format list item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PrintFormatListItem">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details of a print format list item.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>A print format code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name of the item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="Template" type="com:typeComPrintformatTemplate">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether this master is a 'template' for creating other print formats.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="FormType" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>Specifies the type of document that can be produced using forms based on this master. This field classifies the master for applications that use the output infrastructure.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

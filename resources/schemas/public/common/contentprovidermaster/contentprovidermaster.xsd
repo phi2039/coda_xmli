@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:cpm="http://www.coda.com/common/schemas/contentprovidermaster" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/common/schemas/contentprovidermaster" elementFormDefault="qualified" version="2.0">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="ProviderConfigurationItem">
+    <xsd:annotation>
+      <xsd:documentation>Contains a setting which may be configured for the specified content provider master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:string">
+        <xsd:attribute name="name" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>The name of the configurable setting.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProviderConfiguration">
+    <xsd:annotation>
+      <xsd:documentation>Contains the settings which may be configured for the specified content provider master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ConfigurationItem" type="cpm:ProviderConfigurationItem" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Contains a setting which may be configured for the specified content provider master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProviderModifiableConfiguration">
+    <xsd:annotation>
+      <xsd:documentation>Contains the name of a configurable setting which users are permitted to modify via their own Homepage.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Name" type="xsd:string" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>The name of the configurable setting which users may modify.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ContentProvider">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a content provider master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this content provider master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name for this content provider master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for this content provider master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this content provider master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExtensionRef" type="com:ExtensionRef">
+        <xsd:annotation>
+          <xsd:documentation>Identifies the system extension used by this content provider master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Configuration" type="cpm:ProviderConfiguration">
+        <xsd:annotation>
+          <xsd:documentation>Contains the settings which may be configured for this content provider master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ModifiableConfiguration" type="cpm:ProviderModifiableConfiguration">
+        <xsd:annotation>
+          <xsd:documentation>Contains the name of a configurable setting which users are permitted to modify via their own Homepage.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AllowManualRefresh" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether users are permitted to refresh the data displayed by this content provider master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RefreshUnit" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The numerical part of the frequency with which the data displayed by this content provider master is refreshed. For example, if the refresh frequency is 5 hours, this value is 5.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RefreshType" type="com:typeProviderRefreshType">
+        <xsd:annotation>
+          <xsd:documentation>The time period part of the frequency with which the data displayed by this content provider master is refreshed. For example, if the refresh frequency is 5 hours, this value is Hours.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AddToActiveDesktop" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether this content provider can be displayed on the user's Active Desktop.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ContentProviderMasterList">
+    <xsd:sequence>
+      <xsd:element name="ContentProvider" type="cpm:ContentProvider" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

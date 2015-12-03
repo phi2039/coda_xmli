@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:tasks="http://www.coda.com/common/schemas/tasks" elementFormDefault="qualified" targetNamespace="http://www.coda.com/common/schemas/tasks">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types2.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="Task">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a task.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Id" type="com:typeDbGuid">
+        <xsd:annotation>
+          <xsd:documentation>The unique identifier for the task.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Type" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The type of task.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Name" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The name of the task.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="SecurityLevel" type="com:typeWord">
+        <xsd:annotation>
+          <xsd:documentation>The security level of the user who runs this task.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="User" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the user responsible for this task.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Company" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The company where the task is set up.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Product" type="com:typeApplicationName">
+        <xsd:annotation>
+          <xsd:documentation>The application in which the task is set up.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="LogType" type="com:typeGenericOon">
+        <xsd:annotation>
+          <xsd:documentation>The type of log used to</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="LogID" type="com:typeULongB">
+        <xsd:annotation>
+          <xsd:documentation>A unique identifier for the log.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="StartTime" type="com:typeDateTimeb">
+        <xsd:annotation>
+          <xsd:documentation>The date and time when the task was started.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Status" type="com:typeTaskStatus">
+        <xsd:annotation>
+          <xsd:documentation>The status of the task.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="RichStatus" type="com:typeTranslatable">
+        <xsd:annotation>
+          <xsd:documentation>A description of the task status.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="UnitsComplete" type="com:typeULongB">
+        <xsd:annotation>
+          <xsd:documentation>The number of units already completed by the task.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="UnitsTotal" type="com:typeULongB">
+        <xsd:annotation>
+          <xsd:documentation>The total number of units in this task.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="PercentageComplete" type="com:typePercentageb">
+        <xsd:annotation>
+          <xsd:documentation>The percentage of the task which has been completed.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ControlRequest" type="com:typeULongB">
+        <xsd:annotation>
+          <xsd:documentation>A control request.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="LastTouched" type="com:typeDateTimeb">
+        <xsd:annotation>
+          <xsd:documentation>Indicates the date and time on which the task last modified its status.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="SavedState" type="tasks:SavedTaskState">
+        <xsd:annotation>
+          <xsd:documentation>Saved task state details.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>A time stamp.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TaskList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Task" type="tasks:Task"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TaskKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Task" type="tasks:TaskKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TaskKey">
+    <xsd:annotation>
+      <xsd:documentation>A key identifying the task.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Id" type="com:typeDbGuid">
+        <xsd:annotation>
+          <xsd:documentation>A unique ID for the task.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SavedTaskState">
+    <xsd:annotation>
+      <xsd:documentation>Saved task state details.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ItemList" type="tasks:SavedTaskStateItemList">
+        <xsd:annotation>
+          <xsd:documentation>A list of saved task state items.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SavedTaskStateList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="SavedTaskState" type="tasks:SavedTaskState"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SavedTaskStateKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="SavedTaskState" type="tasks:SavedTaskStateKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SavedTaskStateKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Id" type="com:typeDbGuid"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SavedTaskStateItem">
+    <xsd:annotation>
+      <xsd:documentation>A saved task item.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Name" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The item name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Value" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The item value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SavedTaskStateItemList">
+    <xsd:annotation>
+      <xsd:documentation>A list of saved task state items.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="SavedTaskStateItem" type="tasks:SavedTaskStateItem">
+        <xsd:annotation>
+          <xsd:documentation>A saved task item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SavedTaskStateItemKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="SavedTaskStateItem" type="tasks:SavedTaskStateItemKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SavedTaskStateItemKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Id" type="com:typeDbGuid"/>
+      <xsd:element minOccurs="0" name="Name" type="com:typeCode"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ControlRequestInfo">
+    <xsd:annotation>
+      <xsd:documentation>A control request.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Request" type="com:typeULong"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Info" type="com:typeTextAny">
+        <xsd:annotation>
+          <xsd:documentation>Information about the request.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ControlRequestInfoList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ControlRequestInfo" type="tasks:ControlRequestInfo"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Param">
+    <xsd:annotation>
+      <xsd:documentation>Contains the parameters for running the task.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Key" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The key used to trigger the task.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Value" type="com:typeTextAny">
+        <xsd:annotation>
+          <xsd:documentation>The value which will trigger the task.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ParamList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Param" type="tasks:Param">
+        <xsd:annotation>
+          <xsd:documentation>A parameter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ParamInfo">
+    <xsd:annotation>
+      <xsd:documentation>A parameter.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Param" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The parameter name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Info" type="com:typeTextAny">
+        <xsd:annotation>
+          <xsd:documentation>Information about the parameter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Type" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The type of parameter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="CodeType" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The type of code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ParamInfoList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ParamInfo" type="tasks:ParamInfo"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TaskInfo">
+    <xsd:annotation>
+      <xsd:documentation>This element contains task information.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Type" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The type of task.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Name" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The name of the task.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="System" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether this is a system task.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ControlRequestList" type="tasks:TaskInfoControlRequestList">
+        <xsd:annotation>
+          <xsd:documentation>A list of control requests.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ParamList" type="tasks:TaskInfoParamList">
+        <xsd:annotation>
+          <xsd:documentation>A list of parameters.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TaskInfoControlRequestList">
+    <xsd:annotation>
+      <xsd:documentation>A list of control requests.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ControlRequest" type="tasks:ControlRequestInfo">
+        <xsd:annotation>
+          <xsd:documentation>A control request.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TaskInfoParamList">
+    <xsd:annotation>
+      <xsd:documentation>A list of parameters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Param" type="tasks:ParamInfo">
+        <xsd:annotation>
+          <xsd:documentation>A parameter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TaskInfoList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="TaskInfo" type="tasks:TaskInfo"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

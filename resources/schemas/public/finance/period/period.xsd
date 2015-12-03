@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:per="http://www.coda.com/efinance/schemas/period" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/efinance/schemas/period" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="DateKey">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the company and date for which you want to retrieve the containing period.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The company code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Date" type="com:typeDate">
+        <xsd:annotation>
+          <xsd:documentation>The date for which you want to retrieve the containing period.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PeriodForDate">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the period that contains the specified date.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The company code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Period" type="com:typePeriod">
+        <xsd:annotation>
+          <xsd:documentation>The system period in the specified company that contains the specified date.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Date" type="com:typeDate">
+        <xsd:annotation>
+          <xsd:documentation>The date for which you requested the containing period.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

@@ -1,0 +1,738 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:atc="http://www.coda.com/common/schemas/attachment" xmlns:build="http://www.coda.com/common/schemas/funcsec" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:datatypes="http://www.coda.com/common/schemas/datatypes" xmlns:gra="http://www.coda.com/common/schemas/graphlayout" xmlns:spec="http://www.coda.com/common/schemas/workflow" xmlns:use="http://www.coda.com/common/schemas/userextension" xmlns:wor="http://www.coda.com/common/schemas/workflowapi" xmlns:wsd="http://www.coda.com/common/schemas/wsdl" elementFormDefault="qualified" targetNamespace="http://www.coda.com/common/schemas/workflowapi" version="11.1">
+
+  <xsd:include schemaLocation="s:/schemas/public/common/workflowapi/workflowapi.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/service.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types2.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/attachment" schemaLocation="s:/schemas/public/common/attachment/attachment.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/datatypes" schemaLocation="s:/schemas/public/common/datatypes/datatypes.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/graphlayout" schemaLocation="s:/schemas/public/common/graphlayout/graphlayout.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/userextension" schemaLocation="s:/schemas/public/common/userextension/userextension.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/workflow" schemaLocation="s:/schemas/public/common/workflow/workflow.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/wsdl" schemaLocation="s:/schemas/public/common/wsdl/wsdl.xsd"/>
+
+  <xsd:complexType name="ModifyWorkflowInstanceRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Id" type="com:typeDbGuid">
+            <xsd:annotation>
+              <xsd:documentation>The workflow instance ID.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Priority" type="com:typeComWorkflowPriority">
+            <xsd:annotation>
+              <xsd:documentation>The new priority for the workflow instance.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Status" type="com:typeComWorkflowInstanceStatus">
+            <xsd:annotation>
+              <xsd:documentation>The new status for the workflow instance.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Comment" type="com:typeText">
+            <xsd:annotation>
+              <xsd:documentation>A comment describing the modification.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ModifyWorkflowInstanceRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Modifies a workflow instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Request" type="wor:ModifyWorkflowInstanceRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ModifyWorkflowInstanceResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="OutId" type="com:typeDbGuid">
+            <xsd:annotation>
+              <xsd:documentation>A workflow instance ID.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ModifyWorkflowInstanceResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="wor:ModifyWorkflowInstanceResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ReassignRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Id" type="com:typeDbGuid">
+            <xsd:annotation>
+              <xsd:documentation>The workflow instance ID.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="1" name="User" type="com:typeCode">
+            <xsd:annotation>
+              <xsd:documentation>The new user for the workflow instance.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Comment" type="com:typeText">
+            <xsd:annotation>
+              <xsd:documentation>A comment describing the reassignment.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ReassignRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Reassigns a workflow instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Request" type="wor:ReassignRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ReassignResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="OutId" type="com:typeDbGuid">
+            <xsd:annotation>
+              <xsd:documentation>A workflow instance ID.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ReassignResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="wor:ReassignResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetWorkflowSettingsRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetWorkflowSettingsRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves workflow application settings.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Request" type="wor:GetWorkflowSettingsRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetWorkflowSettingsResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Settings" type="wor:ApplicationSettings">
+            <xsd:annotation>
+              <xsd:documentation>This element contains details of the workflow application settings.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetWorkflowSettingsResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="wor:GetWorkflowSettingsResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateWorkflowSettingsRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Settings" type="wor:ApplicationSettings">
+            <xsd:annotation>
+              <xsd:documentation>This element contains details of workflow application settings.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateWorkflowSettingsRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Updates workflow application settings.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Request" type="wor:UpdateWorkflowSettingsRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateWorkflowSettingsResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateWorkflowSettingsResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="wor:UpdateWorkflowSettingsResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ResumeWorkflowApplicationRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ResumeWorkflowApplicationRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Resumes workflow application processing.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Request" type="wor:ResumeWorkflowApplicationRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ResumeWorkflowApplicationResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ResumeWorkflowApplicationResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="wor:ResumeWorkflowApplicationResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PauseWorkflowApplicationRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PauseWorkflowApplicationRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Pauses workflow application processing.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Request" type="wor:PauseWorkflowApplicationRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PauseWorkflowApplicationResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PauseWorkflowApplicationResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="wor:PauseWorkflowApplicationResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DisableNewInstancesRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DisableNewInstancesRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Disables creation of new workflow instances.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Request" type="wor:DisableNewInstancesRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DisableNewInstancesResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DisableNewInstancesResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="wor:DisableNewInstancesResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="EnableNewInstancesRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="EnableNewInstancesRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Enables creation of new workflow instances.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Request" type="wor:EnableNewInstancesRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="EnableNewInstancesResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="EnableNewInstancesResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="wor:EnableNewInstancesResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetScopeRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Code" type="com:typeCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the scope.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetScopeRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves details of a WSDL scope.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Request" type="wor:GetScopeRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetScopeResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Scope" type="wor:WSDLScope">
+            <xsd:annotation>
+              <xsd:documentation>The details of a WSDL scope.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetScopeResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="wor:GetScopeResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateScopeRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Scope" type="wor:WSDLScope">
+            <xsd:annotation>
+              <xsd:documentation>The details of a WSDL scope</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateScopeRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Updates a WSDL scope.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Request" type="wor:UpdateScopeRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateScopeResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateScopeResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="wor:UpdateScopeResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateScopeAsyncRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Scope" type="wor:WSDLScope">
+            <xsd:annotation>
+              <xsd:documentation>The details of a WSDL scope.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateScopeAsyncRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Updates a WSDL scope asynchronously. This verb returns a task ID, so that you can monitor the update.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Request" type="wor:UpdateScopeAsyncRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateScopeAsyncResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="UpdateScopeAsync" type="com:typeDbGuid">
+            <xsd:annotation>
+              <xsd:documentation>The task ID, so that you can monitor the update.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateScopeAsyncResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="wor:UpdateScopeAsyncResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowAdministrationRequest">
+    <xsd:annotation>
+      <xsd:appinfo build:funcSecValue="428" build:readOnly="true"/>
+      <xsd:documentation>This service allows you to submit workflow administration requests.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element minOccurs="0" name="ModifyWorkflowInstance" type="wor:ModifyWorkflowInstanceRequestVerb">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="1" build:readOnly="false"/>
+              <xsd:documentation>Modifies a workflow instance.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Reassign" type="wor:ReassignRequestVerb">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="2" build:readOnly="false"/>
+              <xsd:documentation>Reassigns a workflow instance.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="GetWorkflowSettings" type="wor:GetWorkflowSettingsRequestVerb">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="3" build:readOnly="true"/>
+              <xsd:documentation>Retrieves workflow application settings.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="UpdateWorkflowSettings" type="wor:UpdateWorkflowSettingsRequestVerb">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="4" build:readOnly="false"/>
+              <xsd:documentation>Updates workflow application settings.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ResumeWorkflowApplication" type="wor:ResumeWorkflowApplicationRequestVerb">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="5" build:readOnly="false"/>
+              <xsd:documentation>Resumes workflow application processing.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="PauseWorkflowApplication" type="wor:PauseWorkflowApplicationRequestVerb">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="6" build:readOnly="false"/>
+              <xsd:documentation>Pauses workflow application processing.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="DisableNewInstances" type="wor:DisableNewInstancesRequestVerb">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="7" build:readOnly="false"/>
+              <xsd:documentation>Disables creation of new workflow instances.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="EnableNewInstances" type="wor:EnableNewInstancesRequestVerb">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="8" build:readOnly="false"/>
+              <xsd:documentation>Enables creation of new workflow instances.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="GetScope" type="wor:GetScopeRequestVerb">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="9" build:readOnly="true"/>
+              <xsd:documentation>Retrieves details of a WSDL scope.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="UpdateScope" type="wor:UpdateScopeRequestVerb">
+            <xsd:annotation>
+              <xsd:appinfo build:readOnly="false"/>
+              <xsd:documentation>Updates a WSDL scope.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="UpdateScopeAsync" type="wor:UpdateScopeAsyncRequestVerb">
+            <xsd:annotation>
+              <xsd:appinfo build:readOnly="false"/>
+              <xsd:documentation>Updates a WSDL scope asynchronously. This verb returns a task ID, so that you can monitor the update.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowAdministrationResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you issue a workflow administration request.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element minOccurs="0" name="ModifyWorkflowInstance" type="wor:ModifyWorkflowInstanceResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Reassign" type="wor:ReassignResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="GetWorkflowSettings" type="wor:GetWorkflowSettingsResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="UpdateWorkflowSettings" type="wor:UpdateWorkflowSettingsResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ResumeWorkflowApplication" type="wor:ResumeWorkflowApplicationResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="PauseWorkflowApplication" type="wor:PauseWorkflowApplicationResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="DisableNewInstances" type="wor:DisableNewInstancesResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="EnableNewInstances" type="wor:EnableNewInstancesResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="GetScope" type="wor:GetScopeResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="UpdateScope" type="wor:UpdateScopeResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="UpdateScopeAsync" type="wor:UpdateScopeAsyncResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="WorkflowAdministrationRequest" type="wor:WorkflowAdministrationRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to submit workflow administration requests.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="WorkflowAdministrationResponse" type="wor:WorkflowAdministrationResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you issue a workflow administration request.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

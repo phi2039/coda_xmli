@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:for="http://www.coda.com/common/schemas/formtypemaster" elementFormDefault="qualified" targetNamespace="http://www.coda.com/common/schemas/formtypemaster">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types2.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="Section">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details for one section.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Title" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The title for this section.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MetaDataObjectList" type="for:MetaDataObjectList">
+        <xsd:annotation>
+          <xsd:documentation>This element holds the list of metadata objects (database tables) that describe the data that can be inserted into the section.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="TableListDisplay" type="com:typeTextB">
+        <xsd:annotation>
+          <xsd:documentation>This element contains table list display text.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SectionList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details for the sections that have been defined.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Section" type="for:Section">
+        <xsd:annotation>
+          <xsd:documentation>This element holds details for one section.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SectionKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Section" type="for:SectionKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SectionKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode"/>
+      <xsd:element minOccurs="0" name="Title" type="com:typeName"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MetaDataAttribute">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a metadata attribute.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="AttributeID" type="com:typeDbGuidb">
+        <xsd:annotation>
+          <xsd:documentation>The ID of the metadata attribute.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="AttributeName" type="com:typeTextB">
+        <xsd:annotation>
+          <xsd:documentation>The name of the metadata attribute.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ParentID" type="com:typeDbGuidb">
+        <xsd:annotation>
+          <xsd:documentation>The parent object ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MetaDataAttributeList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a list of metadata attributes.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="MetaDataAttribute" type="for:MetaDataAttribute">
+        <xsd:annotation>
+          <xsd:documentation>This element holds a metadata attribute.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MetaDataAttributeKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="MetaDataAttribute" type="for:MetaDataAttributeKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MetaDataAttributeKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode"/>
+      <xsd:element minOccurs="0" name="Title" type="com:typeName"/>
+      <xsd:element minOccurs="0" name="ObjectID" type="com:typeDbGuidb"/>
+      <xsd:element minOccurs="0" name="AttributeID" type="com:typeDbGuidb"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MetaDataObject">
+    <xsd:annotation>
+      <xsd:documentation>This element holds one metadata object.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ObjectID" type="com:typeDbGuidb">
+        <xsd:annotation>
+          <xsd:documentation>The internal identifier for this metadata object.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ObjectName" type="com:typeTextB">
+        <xsd:annotation>
+          <xsd:documentation>The name for the metadata object.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MetaDataAttributeList" type="for:MetaDataAttributeList">
+        <xsd:annotation>
+          <xsd:documentation>This element holds a list of metadata attributes.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MetaDataObjectList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the list of metadata objects (database tables) that describe the data that can be inserted into the section.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="MetaDataObject" type="for:MetaDataObject">
+        <xsd:annotation>
+          <xsd:documentation>This element holds one metadata object.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MetaDataObjectKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="MetaDataObject" type="for:MetaDataObjectKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MetaDataObjectKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode"/>
+      <xsd:element minOccurs="0" name="Title" type="com:typeName"/>
+      <xsd:element minOccurs="0" name="ObjectID" type="com:typeDbGuidb"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="FormType">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a form type master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this form type master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The name of the form type master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The short name for the form type master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="DataView" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The dataview that describes the data that can be inserted into the form.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="FormatType" type="com:typeComForm">
+        <xsd:annotation>
+          <xsd:documentation>The form type - the type of document that can be produced using forms based on this master. This field classifies the master for applications that use the output infrastructure.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Readonly" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether this master is read-only.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SectionList" type="for:SectionList">
+        <xsd:annotation>
+          <xsd:documentation>This element holds details for the sections that have been defined.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this form type master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="FormTypeList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a list of form type masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="FormType" type="for:FormType">
+        <xsd:annotation>
+          <xsd:documentation>This element holds one form type master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="FormTypeKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="FormType" type="for:FormTypeKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="FormTypeKey">
+    <xsd:annotation>
+      <xsd:documentation>Contains the key identifying the form type master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for a form type master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="FormTypeItemList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a list of form type masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="FormTypeListItem" type="for:FormTypeListItem">
+        <xsd:annotation>
+          <xsd:documentation>This element holds selective details of one form type master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="FormTypeListItem">
+    <xsd:annotation>
+      <xsd:documentation>This element holds selective details of one form type master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for a form type master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The short name for the form type master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="FormatType" type="com:typeComForm">
+        <xsd:annotation>
+          <xsd:documentation>The form type.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="Readonly" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether this master is read-only.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

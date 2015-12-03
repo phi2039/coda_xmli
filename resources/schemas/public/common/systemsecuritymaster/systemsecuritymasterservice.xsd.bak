@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:build="http://www.coda.com/common/schemas/funcsec" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:sys="http://www.coda.com/common/schemas/systemsecuritymaster" targetNamespace="http://www.coda.com/common/schemas/systemsecuritymaster" elementFormDefault="qualified" version="2.0">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/service.xsd"/>
+  <xsd:include schemaLocation="s:/schemas/public/common/systemsecuritymaster/systemsecuritymaster.xsd"/>
+
+  <xsd:complexType name="UpdateRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="SystemSecurityMaster" type="sys:SystemSecurityMaster">
+            <xsd:annotation>
+              <xsd:documentation>Contains the information for updating the system security parameters.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Updates the system security parameters, using the information you provide.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="sys:UpdateRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="TimeStamp" type="xsd:short">
+            <xsd:annotation>
+              <xsd:documentation>The TimeStamp for the system security master.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="sys:UpdateResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the system security parameters from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="sys:GetRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="SystemSecurityMaster" type="sys:SystemSecurityMaster" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the system security parameters you have retrieved.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="sys:GetResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectLogListRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="LogSelect" type="sys:LogSelect">
+            <xsd:annotation>
+              <xsd:documentation>The search criteria you want to use to retrieve the logon details.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectLogListRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the log containing users' logon details.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="sys:SelectLogListRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectLogListResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="LogSelect" type="sys:LogSelect">
+            <xsd:annotation>
+              <xsd:documentation>The search criteria you used to retrieve the logon details.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="LogDataList" type="sys:LogDataList" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The list of users' logon details which you have retrieved.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectLogListResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="sys:SelectLogListResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteLogSelectionRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="LogSelection" type="sys:LogSelection">
+            <xsd:annotation>
+              <xsd:documentation>The criteria for selecting the logon details to be deleted.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteLogSelectionRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Deletes logon details relating to one CODA user from the logon audit trail.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="sys:DeleteLogSelectionRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteLogSelectionResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="LogSelection" type="sys:LogSelection">
+            <xsd:annotation>
+              <xsd:documentation>The criteria you used for selecting the logon details to be deleted.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteLogSelectionResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="sys:DeleteLogSelectionResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteLogSublistRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="LogDataItemKey" type="sys:LogDataItemKey">
+            <xsd:annotation>
+              <xsd:documentation>The key which identifies an item in the log.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteLogSublistRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Deletes one item from the logon audit trail.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="sys:DeleteLogSublistRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteLogSublistResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="LogDataItemKey" type="sys:LogDataItemKey">
+            <xsd:annotation>
+              <xsd:documentation>The key which identifies an item in the log.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteLogSublistResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="sys:DeleteLogSublistResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetLockoutListRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetLockoutListRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the list of locked out users from the logon audit trail.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="sys:GetLockoutListRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetLockoutListResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="LockoutDataList" type="sys:LockoutDataList" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The list of locked out users you have retrieved from the logon audit trail.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetLockoutListResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="sys:GetLockoutListResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteLockoutRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="sys:LockoutKey">
+            <xsd:annotation>
+              <xsd:documentation>The key which identifies a user who is locked out.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteLockoutRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Reinstates locked out users by turning off the locked out status.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="sys:DeleteLockoutRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteLockoutResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Key" type="sys:LockoutKey">
+            <xsd:annotation>
+              <xsd:documentation>The key which identifies a user who is locked out.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteLockoutResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="sys:DeleteLockoutResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SystemSecurityMasterRequest">
+    <xsd:annotation>
+      <xsd:appinfo build:funcSecValue="112" build:readOnly="true"/>
+      <xsd:documentation>This service allows you to maintain system security via the Administration Console server.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element name="Update" type="sys:UpdateRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="1" build:readOnly="false"/>
+              <xsd:documentation>Updates the system security parameters, using the information you provide.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Get" type="sys:GetRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="2" build:readOnly="true"/>
+              <xsd:documentation>Retrieves the system security parameters from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="SelectLogList" type="sys:SelectLogListRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="3" build:readOnly="true"/>
+              <xsd:documentation>Retrieves the log containing users' logon details.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DeleteLogSelection" type="sys:DeleteLogSelectionRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="4" build:readOnly="false"/>
+              <xsd:documentation>Deletes logon details relating to one CODA user from the logon audit trail.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DeleteLogSublist" type="sys:DeleteLogSublistRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="5" build:readOnly="false"/>
+              <xsd:documentation>Deletes one item from the logon audit trail.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetLockoutList" type="sys:GetLockoutListRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="6" build:readOnly="true"/>
+              <xsd:documentation>Retrieves the list of locked out users from the logon audit trail.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DeleteLockout" type="sys:DeleteLockoutRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="7" build:readOnly="false"/>
+              <xsd:documentation>Reinstates locked out users by turning off the locked out status.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SystemSecurityMasterResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you maintain system security via the Administration Console server.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element name="Update" type="sys:UpdateResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Get" type="sys:GetResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="SelectLogList" type="sys:SelectLogListResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DeleteLogSelection" type="sys:DeleteLogSelectionResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DeleteLogSublist" type="sys:DeleteLogSublistResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetLockoutList" type="sys:GetLockoutListResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DeleteLockout" type="sys:DeleteLockoutResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="SystemSecurityMasterRequest" type="sys:SystemSecurityMasterRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to maintain system security via the Administration Console server.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="SystemSecurityMasterResponse" type="sys:SystemSecurityMasterResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you maintain system security via the Administration Console server.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:cancap="http://www.coda.com/eassets/schemas/cancelrevaluation" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:gsl="http://www.coda.com/efinance/schemas/selectormaster" targetNamespace="http://www.coda.com/eassets/schemas/cancelrevaluation" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/selectormaster" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/selectormaster/selectormaster.xsd"/>
+
+  <xsd:complexType name="CancelRevaluation">
+    <xsd:annotation>
+      <xsd:documentation>This element contains parameters specifying which revaluation should be cancelled.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="SelectorCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the selector master that you want to use to select assets for cancelling revaluation. Only assets selectors can be specified.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SelectorMaster" type="gsl:SelectorMaster">
+        <xsd:annotation>
+          <xsd:documentation>This element holds the selector master specified by SelectorCode.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CancelToYearPeriod" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The period up to which revaluation is cancelled. All revaluation events in the selected period and later will be cancelled. For example, if you revalued your assets in period 6, and you specify period 4 here, all revaluations in periods 4-6 inclusive will be cancelled unless prevented by the presence of other transactions.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocYearPeriod" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The year and period to which the cancel revaluation transactions are posted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocumentDate" type="xsd:dateTime">
+        <xsd:annotation>
+          <xsd:documentation>The date of the document which posts the cancelling financial transactions to the Financials Books.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LogTitle" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The title of the log file storing details of the cancel revaluation process. This is mandatory.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AggrCapCostRevalued" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether financial transactions that would be posted to the same capital cost revaluation account are summarised.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AggrAccumDepnRevalued" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether financial transactions that would be posted to the same accumulated depreciation revaluation account are summarised.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AggrRevalReserve" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether financial transactions that would be posted to the same revaluation reserve account are summarised.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which revaluation is being cancelled.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RunNumber" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>A number identifying this cancel revaluation process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AssetList">
+    <xsd:sequence>
+      <xsd:element name="AssetListElement" type="cancap:AssetListElement" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AssetListElement">
+    <xsd:sequence>
+      <xsd:element name="AssetCode" type="com:typeGeneralCode"/>
+      <xsd:element name="BookCode" type="com:typeGeneralCode"/>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode"/>
+      <xsd:element name="LastRunYear" type="xsd:int"/>
+      <xsd:element name="LastRunPeriod" type="xsd:int"/>
+      <xsd:element name="DepnStartYear" type="xsd:int"/>
+      <xsd:element name="DepnStartPeriod" type="xsd:int"/>
+      <xsd:element name="CapnYear" type="xsd:int"/>
+      <xsd:element name="CapnPeriod" type="xsd:int"/>
+      <xsd:element name="AssetBookStatus" type="com:typeCtAssetBookStatus"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="CancelRevaluation" type="cancap:CancelRevaluation">
+    <xsd:annotation>
+      <xsd:documentation>This element contains parameters specifying which revaluation should be cancelled.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

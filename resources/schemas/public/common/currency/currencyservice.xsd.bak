@@ -1,0 +1,710 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:cur="http://www.coda.com/efinance/schemas/currency" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/efinance/schemas/currency" elementFormDefault="qualified" version="3.0">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/service.xsd"/>
+  <xsd:include schemaLocation="s:/schemas/public/common/currency/currency.xsd"/>
+
+  <xsd:complexType name="AddRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Currency" type="cur:Currency">
+            <xsd:annotation>
+              <xsd:documentation>Contains the information for the currency master you want to create.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AddRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Creates new currency masters in the database using the currency information you provide.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:MultiCompanyRequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="cur:AddRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AddResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:MultiCompanyResponse">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the company in which you attempted to create the currency master.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Code" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the currency master that you attempted to create.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="TimeStamp" type="com:typeWord">
+            <xsd:annotation>
+              <xsd:documentation>The TimeStamp value for this currency master in the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AddResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Companies" type="com:Companies" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the list of additional companies in which you want to create the masters. This is part of the multi-company functionality for maintaining masters in multiple companies.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Response" type="cur:AddResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Currency" type="cur:Currency">
+            <xsd:annotation>
+              <xsd:documentation>Contains the information for the currency master you want to update.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Updates currency masters in the database using the currency information you provide.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:MultiCompanyRequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="cur:UpdateRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:MultiCompanyResponse">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the company in which you attempted to update the currency master.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Code" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the currency master that you attempted to update.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="TimeStamp" type="com:typeWord">
+            <xsd:annotation>
+              <xsd:documentation>The TimeStamp value for this currency master in the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Companies" type="com:Companies" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the list of additional companies in which you want to update the masters. This is part of the multi-company functionality for maintaining masters in multiple companies.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Response" type="cur:UpdateResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="com:Key">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key identifying the currency master you want to retrieve from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the specified currency masters from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="cur:GetRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Currency" type="cur:Currency" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the currency master you have retrieved from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="cur:GetResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="com:Key">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key identifying the currency master you want to delete.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Deletes the specified currency masters from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="cur:DeleteRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the company in which you attempted to delete the currency master.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Code" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the currency master that you attempted to delete.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="cur:DeleteResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Filter" type="cur:CurrencyListFilter">
+            <xsd:annotation>
+              <xsd:documentation>A filter that selects the currencies to be listed.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves key information for the specified currency masters from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="cur:ListRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Filter" type="cur:CurrencyListFilter">
+            <xsd:annotation>
+              <xsd:documentation>The filter that was used to select the currencies to be listed.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Keys" type="com:KeyData" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key information for the listed currency masters.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="cur:ListResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListAllRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Filter" type="com:ReqAllKeys">
+            <xsd:annotation>
+              <xsd:documentation>A filter where you specify the maximum number of currencies to be listed.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListAllRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves key information for all currency masters from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="cur:ListAllRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListAllResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Filter" type="com:ReqAllKeys">
+            <xsd:annotation>
+              <xsd:documentation>The filter that was used to select the currencies to be listed.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Keys" type="com:AllKeysData" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key information for the listed currency masters.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListAllResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="cur:ListAllResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetRateRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="CurrencyRateKey" type="cur:CurrencyRateKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key identifying the exchange rates you want to retrieve from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetRateRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the specified exchange rates from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="cur:GetRateRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetRateResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="RateInfo" type="cur:CurrencyRate">
+            <xsd:annotation>
+              <xsd:documentation>Contains the exchange rate information you have retrieved from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetRateResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="cur:GetRateResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AddRateRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Currency" type="cur:CurrencyExchangeRate">
+            <xsd:annotation>
+              <xsd:documentation>Contains the exchange rate information that you want to add.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AddRateRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Adds the exchange rate information that you supply to the database for the specified currency.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:MultiCompanyRequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="cur:AddRateRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AddRateResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:MultiCompanyResponse">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the company in which you attempted to add exchange rates.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Code" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the currency master to which you attempted to add exchange rates.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="MasterTimeStamp" type="com:typeWord" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The TimeStamp value for the currency master in the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AddRateResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Companies" type="com:Companies" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the list of additional companies in which you want to add exchange rate information. This is part of the multi-company functionality for maintaining masters in multiple companies.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Response" type="cur:AddRateResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateRateRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Currency" type="cur:CurrencyExchangeRate">
+            <xsd:annotation>
+              <xsd:documentation>Contains the exchange rate information that you want to update.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateRateRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Updates exchange rates in the database using the exchange rate information you provide.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:MultiCompanyRequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="cur:UpdateRateRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateRateResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:MultiCompanyResponse">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the company in which you attempted to update exchange rate information.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Code" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the currency master whose exchange rate you attempted to update.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="MasterTimeStamp" type="com:typeWord" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The TimeStamp value for the currency master in the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateRateResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="cur:UpdateRateResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CurrencyRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to maintain currency masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element name="Add" type="cur:AddRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Creates new currency masters in the database using the currency information you provide.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Update" type="cur:UpdateRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Updates currency masters in the database using the currency information you provide.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Get" type="cur:GetRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves the specified currency masters from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Delete" type="cur:DeleteRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Deletes the specified currency masters from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="List" type="cur:ListRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves key information for the specified currency masters from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ListAll" type="cur:ListAllRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves key information for all currency masters from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ListChildren" type="cur:ListRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves the codes and short names for the currency's child currencies from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ListParents" type="cur:ListRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves the code and short name for a currency's parent currency from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetRates" type="cur:GetRateRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves the specified exchange rates from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AddRates" type="cur:AddRateRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Adds the exchange rate information that you supply to the database for the specified currency.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="UpdateRates" type="cur:UpdateRateRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Updates exchange rates in the database using the exchange rate information you provide.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CurrencyResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you maintain currency masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element name="Add" type="cur:AddResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Update" type="cur:UpdateResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Get" type="cur:GetResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Delete" type="cur:DeleteResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="List" type="cur:ListResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ListAll" type="cur:ListAllResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ListChildren" type="cur:ListResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ListParents" type="cur:ListResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetRates" type="cur:GetRateResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AddRates" type="cur:AddRateResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="UpdateRates" type="cur:UpdateRateResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="CurrencyRequest" type="cur:CurrencyRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to maintain currency masters.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="CurrencyResponse" type="cur:CurrencyResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you maintain currency masters.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

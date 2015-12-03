@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:secv="http://www.coda.com/common/schemas/securityvariables" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/common/schemas/securityvariables" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="SecurityVariables">
+    <xsd:annotation>
+      <xsd:documentation>This element is reserved for future use.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="TimeStamp" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Reserved for future use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SecurityVariableList" type="secv:SecurityVariableList">
+        <xsd:annotation>
+          <xsd:documentation>Reserved for future use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SecurityVariableList">
+    <xsd:annotation>
+      <xsd:documentation>Reserved for future use.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Variable" type="secv:SecurityVariable" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Reserved for future use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SecurityVariable">
+    <xsd:annotation>
+      <xsd:documentation>Reserved for future use.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>Reserved for future use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Description" type="com:typeDescr">
+        <xsd:annotation>
+          <xsd:documentation>Reserved for future use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Value" type="com:typeSecVarValueB">
+        <xsd:annotation>
+          <xsd:documentation>Reserved for future use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

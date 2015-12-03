@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:txn="http://www.coda.com/efinance/schemas/transaction" xmlns:all="http://www.coda.com/efinance/schemas/allocation" targetNamespace="http://www.coda.com/efinance/schemas/allocation" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/transaction" schemaLocation="s:/schemas/public/common/transaction/transaction.xsd"/>
+
+  <xsd:complexType name="RuleParams">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the requirements for running an allocation rule.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company in which you will run Allocation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RuleCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the allocation rule master you want to use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LogTitle" type="com:typeLogTitle">
+        <xsd:annotation>
+          <xsd:documentation>The title of the log in which you want the details of the allocation to be recorded.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ChainParams">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the requirements for running an allocation chain.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company in which you will run Allocation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ChainCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the chain master which you want to use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="FirstRuleIndex" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The code of the rule at which you want the chain to start, if you do not want it to start at the beginning.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LogTitle" type="com:typeLogTitle">
+        <xsd:annotation>
+          <xsd:documentation>The title of the log in which you want the details of the allocation to be recorded.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AllocationRequirements">
+    <xsd:annotation>
+      <xsd:documentation>Contains the requirements for an Allocation run.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="RuleCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the rule master you want to use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NeedFixedHomeValue" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that a fixed value in home currency will be allocated instead of a value determined by a selector master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NeedFixedDualValue" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that a fixed value in dual currency will be allocated instead of a value determined by a selector master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AllocationRequirementsList">
+    <xsd:annotation>
+      <xsd:documentation>Cntains the requirements in a rule master listed in an allocation chain master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Requirements" type="all:AllocationRequirements" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>The requirements for an Allocation run contained in one rule master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AllocationPrompts">
+    <xsd:annotation>
+      <xsd:documentation>This element contains prompts for those values which have not been specified in the rule master, but are required by the Allocation run.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="RuleCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the rule master you want to use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="FixedHomeValue" type="com:typeMoney" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The fixed value in home currency to be allocated instead of a value determined by a selector master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="FixedDualValue" type="com:typeMoney" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The fixed value in home currency to be allocated instead of a value determined by a selector master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AllocationPromptsList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains prompts for those values which have not been specified in any of the rule masters listed in a chain master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="PromptData" type="all:AllocationPrompts" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>The values which are required by one rule master in the chain.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="txnPostData">
+    <xsd:sequence>
+      <xsd:element name="Key" type="txn:txnKey"/>
+      <xsd:element name="SuppliedNumber" type="com:typeGeneralCode" minOccurs="0"/>
+      <xsd:element name="PostTo" type="com:typeCtDocPost"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ale="http://www.coda.com/common/schemas/alerts" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:domcapability="http://www.coda.com/common/schemas/domcapability" xmlns:mes="http://www.coda.com/common/schemas/messagetransport" xmlns:sch="http://www.coda.com/common/schemas/scheduler" xmlns:use="http://www.coda.com/common/schemas/users" elementFormDefault="qualified" targetNamespace="http://www.coda.com/common/schemas/users">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types2.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/alerts" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/alerts/alerts.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/domcapability" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/domcapability/domcapability.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/messagetransport" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/messagetransport/messagetransport.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/scheduler" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/scheduler/scheduler.xsd"/>
+
+  <xsd:complexType name="User">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>A user code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="FrameworkCode" type="com:typeUserCode"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Name" type="com:typeName"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ShortName" type="com:typeShortName"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Password" type="com:typeText"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="CapabilityCode" type="com:typeCode"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Language" type="com:typeLanguageb"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="EMail" type="com:typeEmailAddress"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="MobilePhoneNumber" type="com:typeTelephone"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="EnableAlerts" type="com:typeBoolean"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="AlertWindowFrom" type="com:typeTime"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="AlertWindowTo" type="com:typeTime"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="AlertDays" type="com:typeWord"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="AlertInterval" type="com:typeComUserAlertInterval"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="AlertIntervalPeriod" type="com:typeWord"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="AlertIntervalUnits" type="com:typeComUserAlertUnits"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="AlertTriggerVolume" type="com:typeWord"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Timezone" type="com:typeTimezone"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Country" type="com:typeIsoCountryCode"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="BrowseWorkListPresenter" type="com:typeCode"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="OutOfOfficeStatus" type="com:typeComOutOfOfficeStatus"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="OutOfOfficeFrom" type="com:typeHard"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="OutOfOfficeTo" type="com:typeHard"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="StoreAlerts" type="com:typeBoolean"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="DelegateTo" type="com:typeCode"/>
+      <xsd:element name="UserTransportList" type="use:UserTransportList"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="AlertScheduledTask" type="sch:ScheduledTaskKey"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="UnsentAlerts" type="ale:UnsentAlertsKey"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Capability" type="domcapability:CapabilityKey"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TimeStamp" type="xsd:short"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="User" type="use:User"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserKeyList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a list of keys to user codes.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="User" type="use:UserKey">
+        <xsd:annotation>
+          <xsd:documentation>This element holds a key to a user code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserKey">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a key to a user code.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>A user code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserTransport">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Transport" type="mes:MessageTransportKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserTransportList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="UserTransport" type="use:UserTransport"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserTransportKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="UserTransport" type="use:UserTransportKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserTransportKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode"/>
+      <xsd:element minOccurs="0" name="Transport" type="mes:MessageTransportKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Users">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a list of users.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="UserKeyList" type="use:UserKeyList">
+        <xsd:annotation>
+          <xsd:documentation>This element holds a list of keys to user codes.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UsersList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Users" type="use:Users"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

@@ -1,0 +1,1226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/efinance/schemas/common" elementFormDefault="qualified">
+
+  <xsd:include schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:include schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types2.xsd"/>
+
+  <xsd:simpleType name="typeContentType">
+    <xsd:annotation>
+      <xsd:documentation>The content type that a content provider stores with CODA.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="com_content_xml">
+        <xsd:annotation>
+          <xsd:documentation>XML content type.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="typeProviderRefreshType">
+    <xsd:annotation>
+      <xsd:documentation>An enumeration for the time interval after which the data displayed by a content provider is refreshed.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="com:typeBaseEnum">
+      <xsd:enumeration value="com_cp_refresh_hour">
+        <xsd:annotation>
+          <xsd:documentation>The data is refreshed after the specified number of hours.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_cp_refresh_day">
+        <xsd:annotation>
+          <xsd:documentation>The data is refreshed after the specified number of days.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_cp_refresh_month">
+        <xsd:annotation>
+          <xsd:documentation>The data is refreshed after the specified number of months.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="typeGSLValue">
+    <xsd:annotation>
+      <xsd:documentation>The value retrieved from the database by the selector master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="com:typeTextWild">
+      <xsd:maxLength value="80"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="typeLogText">
+    <xsd:annotation>
+      <xsd:documentation>The text contained in a line from the log file.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:maxLength value="250"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="typeScriptText">
+    <xsd:annotation>
+      <xsd:documentation>The free format text entered as the Matching Assistant script.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:maxLength value="250"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="typePayee">
+    <xsd:annotation>
+      <xsd:documentation>The name of the payee.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:maxLength value="80"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="typeChar">
+    <xsd:annotation>
+      <xsd:documentation>A generic single character, which has multiple uses in different areas of the application.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1"/>
+      <xsd:maxLength value="1"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="typeElmSubsLevel">
+    <xsd:annotation>
+      <xsd:documentation>The element level (1-8) at which element substitution is set.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:short">
+      <xsd:minInclusive value="0"/>
+      <xsd:maxInclusive value="8"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="typeOpenBracket">
+    <xsd:annotation>
+      <xsd:documentation>A count of the number of opening brackets on a line of selection criteria (up to 5).</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:short">
+      <xsd:minInclusive value="0"/>
+      <xsd:maxInclusive value="5"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="typeCloseBracket">
+    <xsd:annotation>
+      <xsd:documentation>A count of the number of closing brackets on a line of selection criteria (up to 5).</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:short">
+      <xsd:minInclusive value="0"/>
+      <xsd:maxInclusive value="5"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="portNumber">
+    <xsd:annotation>
+      <xsd:documentation>The port number of the server to connect to.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:int">
+      <xsd:minInclusive value="0"/>
+      <xsd:maxInclusive value="65535"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:complexType name="ReasonText">
+    <xsd:annotation>
+      <xsd:documentation>The explanation in words.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:string">
+        <xsd:attribute name="code" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>The internal numerical identifier for the message.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="Reason">
+    <xsd:annotation>
+      <xsd:documentation>This element holds an explanation of why the operation failed.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Text" type="com:ReasonText" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>The explanation in words.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Path" type="xsd:string" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Identifies the element that has caused the problem.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Hint" type="xsd:string" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Provides more information on the cause of the problem when appropriate. For example, when the problem element contains an account code, this field specifies the element level.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="EmbeddedReason">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a message stating why something went wrong, which is embedded in a response for a process that has otherwise successfully completed.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Reason" type="com:Reason">
+        <xsd:annotation>
+          <xsd:documentation>This element holds an explanation of why the operation failed.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Warning">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a warning.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Reason" type="com:Reason">
+        <xsd:annotation>
+          <xsd:documentation>This element holds an explanation of why the operation failed.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="KeyDataElement">
+    <xsd:annotation>
+      <xsd:documentation>This element holds generic key information for one item.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The item's code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The item's short name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="KeyData">
+    <xsd:annotation>
+      <xsd:documentation>This element holds generic key information for a list of items, consisting of each item's code and short name.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="com:KeyDataElement" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>The generic key information for one item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="FullKeyDataElement">
+    <xsd:complexContent>
+      <xsd:extension base="com:KeyDataElement">
+        <xsd:sequence>
+          <xsd:element name="Name" type="com:typeName"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="FullKeyData">
+    <xsd:sequence>
+      <xsd:element name="FullKey" type="com:FullKeyDataElement" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AllKeysDataElement">
+    <xsd:annotation>
+      <xsd:documentation>The generic key information for one item.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the item exists.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The item's code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The item's short name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AllKeysData">
+    <xsd:annotation>
+      <xsd:documentation>This element holds generic key information for a list of items, consisting of the company code and each item's code and short name.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="com:AllKeysDataElement" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>The generic key information for one item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Key">
+    <xsd:annotation>
+      <xsd:documentation>This element is a generic key consisting of a company code and a code.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The company code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ReqKeys">
+    <xsd:annotation>
+      <xsd:documentation>This element is a generic key for requesting a series of data items from the server. It consists of a company code, a code and the maximum number of items to be returned.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MaxKeys" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The maximum number of items to be returned. The value zero has the special meaning of 'no limit'.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Key" type="com:Key">
+        <xsd:annotation>
+          <xsd:documentation>The generic key. It consists of a company code and a code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ReqKeysWithShortName">
+    <xsd:annotation>
+      <xsd:documentation>This element is a generic key for requesting a series of data items from the server. It consists of a company code, a code, a short name, and the maximum number of items to be returned.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ReqKeys">
+        <xsd:sequence>
+          <xsd:element name="ShortName" type="com:typeShortName">
+            <xsd:annotation>
+              <xsd:documentation>The short name.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListFilter">
+    <xsd:annotation>
+      <xsd:documentation>This element contains parameters for filtering a list of data items to be returned from the server. It consists of a company code, a code, a short name, and the maximum number of items to be returned.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MaxKeys" type="xsd:int" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The maximum number of items to be returned. The value zero has the special meaning of 'no limit'.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CmpCode" type="com:typeCodeWild" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The company code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeCodeWild" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeTextWild" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The short name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ReqAllKeys">
+    <xsd:annotation>
+      <xsd:documentation>This element is used to specify the maximum number of items to be returned when requesting all data items of a particular type from the server.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MaxKeys" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The maximum number of items to be returned. The value zero has the special meaning of 'no limit'.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabItem">
+    <xsd:sequence>
+      <xsd:element name="VocabID" type="xsd:short"/>
+      <xsd:element name="Name" type="com:typeText"/>
+      <xsd:element name="Help" type="com:typeText" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Vocabs">
+    <xsd:sequence>
+      <xsd:element name="Vocab" type="com:VocabItem" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="GlobalKey">
+    <xsd:annotation>
+      <xsd:documentation>This element is a generic key.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeGeneralCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="GlobalKeyData">
+    <xsd:annotation>
+      <xsd:documentation>This element holds multiple generic keys.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="GlobalKey" type="com:GlobalKey" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>A general key.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ReqGlobalKeys">
+    <xsd:annotation>
+      <xsd:documentation>This element is a generic key that allows you to specify the maximum number of items to be returned.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MaxKeys" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The maximum number of items to be returned. The value zero has the special meaning of 'no limit'.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="GlobalKey" type="com:GlobalKey">
+        <xsd:annotation>
+          <xsd:documentation>This element is a generic key.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CurrValue">
+    <xsd:annotation>
+      <xsd:documentation>The currency value.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CurrCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Value" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The value in the specified currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CurrRateValue">
+    <xsd:complexContent>
+      <xsd:extension base="com:CurrValue">
+        <xsd:sequence>
+          <xsd:element name="Rate" type="com:typeRate" minOccurs="0"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ExtensionRef">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details of an extension.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The extension master code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ConfigurationID" type="xsd:int" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The configuration identification number, a system generated number that identifies the configuration details.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:simpleType name="typeBrowseBalanceHFVocab">
+    <xsd:annotation>
+      <xsd:documentation>An enumeration for the vocabulary to be printed in the header and footer of the browse report.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="com:typeBaseEnum">
+      <xsd:enumeration value="brp_hf_report_master_code">
+        <xsd:annotation>
+          <xsd:documentation>The code of the browse report master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="brp_hf_report_master_name">
+        <xsd:annotation>
+          <xsd:documentation>The full name of the browse report master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="brp_hf_report_master_sname">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name of the browse report master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="brp_hf_balance_master_code">
+        <xsd:annotation>
+          <xsd:documentation>The code of the browse balance master used by the browse report master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="brp_hf_balance_master_name">
+        <xsd:annotation>
+          <xsd:documentation>The full name of the browse balance master used by the browse report master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="brp_hf_balance_master_sname">
+        <xsd:annotation>
+          <xsd:documentation>The abbrieviated name of the browse balance master used by the browse report master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="brp_hf_selector_master_code">
+        <xsd:annotation>
+          <xsd:documentation>The code of the selector master used by the browse report master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="brp_hf_selector_master_name">
+        <xsd:annotation>
+          <xsd:documentation>The full name of the selector master used by the browse report master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="brp_hf_selector_master_sname">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name of the selector master used by the browse report master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="typeBrowseBalanceHFAddVocab">
+    <xsd:annotation>
+      <xsd:documentation>An enumeration for the additional vocabulary to be printed in the header and footer of the browse report.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="com:typeBaseEnum">
+      <xsd:enumeration value="brp_hf_user_name">
+        <xsd:annotation>
+          <xsd:documentation>The name of the user who ran the report.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="brp_hf_user_code">
+        <xsd:annotation>
+          <xsd:documentation>The code of the user who ran the report.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="brp_hf_short_date">
+        <xsd:annotation>
+          <xsd:documentation>The short version of the date when the report was run.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="brp_hf_long_date">
+        <xsd:annotation>
+          <xsd:documentation>The long version of the date when the report was run.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="typeBrowseBalanceHFOccurrence">
+    <xsd:annotation>
+      <xsd:documentation>An enumeration for the number of occurrences of header and footer text in the browse report.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="com:typeBaseEnum">
+      <xsd:enumeration value="brp_hf_none">
+        <xsd:annotation>
+          <xsd:documentation>No headers and footers.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="brp_hf_every_page">
+        <xsd:annotation>
+          <xsd:documentation>Header and footer displayed on every page.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="brp_hf_start_and_end">
+        <xsd:annotation>
+          <xsd:documentation>Header and footer displayed on the first and last pages only.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="typeReadOnly">
+    <xsd:annotation>
+      <xsd:documentation>An enumeration for the type of access available with the capability master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="com:typeBaseEnum">
+      <xsd:enumeration value="com_cap_readonly_false">
+        <xsd:annotation>
+          <xsd:documentation>The user has read and write access to all functions made available via the CapabilityMaster.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_cap_readonly_true">
+        <xsd:annotation>
+          <xsd:documentation>The user has read-only access to all functions.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_cap_readonly_true_workflow">
+        <xsd:annotation>
+          <xsd:documentation>The user has only write access via XML<i>i</i> Workflow requests.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="typeComFavouritesType">
+    <xsd:annotation>
+      <xsd:documentation>An enumeration for the type of Favourite item.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="com:typeBaseEnum">
+      <xsd:enumeration value="com_favourites_type_static">
+        <xsd:annotation>
+          <xsd:documentation>Static favourite (fixed item chosen by the user).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_favourites_type_dynamic">
+        <xsd:annotation>
+          <xsd:documentation>Dynamic favourite (changing item derived from the most recently used Favourite items).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="typeDPComponent">
+    <xsd:annotation>
+      <xsd:documentation>An enumeration for the type of component which is personalised in the preferences master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="com:typeBaseEnum">
+      <xsd:enumeration value="com_dp_comp_common">
+        <xsd:annotation>
+          <xsd:documentation>Common properties component for Intelligence charts.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_dp_comp_bar">
+        <xsd:annotation>
+          <xsd:documentation>Intelligence bar chart component properties.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_dp_comp_dial">
+        <xsd:annotation>
+          <xsd:documentation>Intelligence dial chart component properties.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_dp_comp_graded_bar">
+        <xsd:annotation>
+          <xsd:documentation>Intelligence graded bar component properties.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_dp_comp_line">
+        <xsd:annotation>
+          <xsd:documentation>Intelligence line graph component properties.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_dp_comp_pie">
+        <xsd:annotation>
+          <xsd:documentation>Intelligence pie chart component properties.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_dp_comp_traffic_light">
+        <xsd:annotation>
+          <xsd:documentation>Intelligence traffic light component properties.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="typeDPItem">
+    <xsd:annotation>
+      <xsd:documentation>An enumeration for the item which is personalised in the preferences master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="com:typeBaseEnum">
+      <xsd:enumeration value="com_dp_itm_backgound">
+        <xsd:annotation>
+          <xsd:documentation>Background</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_dp_itm_ideal">
+        <xsd:annotation>
+          <xsd:documentation>Intelligence chart, ideal value</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_dp_itm_title">
+        <xsd:annotation>
+          <xsd:documentation>Chart title</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_dp_itm_legend_background">
+        <xsd:annotation>
+          <xsd:documentation>Legend background</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_dp_itm_legend_text">
+        <xsd:annotation>
+          <xsd:documentation>Text style</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_dp_itm_axis">
+        <xsd:annotation>
+          <xsd:documentation>Chart axis</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_dp_itm_arrow">
+        <xsd:annotation>
+          <xsd:documentation>Intelligence dial arrow</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_dp_itm_very_good_band">
+        <xsd:annotation>
+          <xsd:documentation>Intelligence chart, very good band</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_dp_itm_good_band">
+        <xsd:annotation>
+          <xsd:documentation>Intelligence chart, good band</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_dp_itm_acceptable_band">
+        <xsd:annotation>
+          <xsd:documentation>Intelligence chart, acceptable band</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_dp_itm_bad_band">
+        <xsd:annotation>
+          <xsd:documentation>Intelligence chart, bad band</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_dp_itm_very_bad_band">
+        <xsd:annotation>
+          <xsd:documentation>Intelligence chart, very bad band</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_dp_itm_trend_better">
+        <xsd:annotation>
+          <xsd:documentation>Intelligence chart, trend better</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_dp_itm_trend_stable">
+        <xsd:annotation>
+          <xsd:documentation>Intelligence chart, trend stable</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_dp_itm_trend_worse">
+        <xsd:annotation>
+          <xsd:documentation>Intelligence chart, trend worse</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_dp_itm_data_series_1">
+        <xsd:annotation>
+          <xsd:documentation>Intelligence chart, data series 1</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_dp_itm_data_series_2">
+        <xsd:annotation>
+          <xsd:documentation>Intelligence chart, data series 2</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_dp_itm_data_series_3">
+        <xsd:annotation>
+          <xsd:documentation>Intelligence chart, data series 3</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_dp_itm_data_series_4">
+        <xsd:annotation>
+          <xsd:documentation>Intelligence chart, data series 4</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_dp_itm_data_series_5">
+        <xsd:annotation>
+          <xsd:documentation>Intelligence chart, data series 5</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_dp_itm_data_series_6">
+        <xsd:annotation>
+          <xsd:documentation>Intelligence chart, data series 6</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_dp_itm_data_series_7">
+        <xsd:annotation>
+          <xsd:documentation>Intelligence chart, data series 7</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_dp_itm_data_series_8">
+        <xsd:annotation>
+          <xsd:documentation>Intelligence chart, data series 8</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_dp_itm_data_series_9">
+        <xsd:annotation>
+          <xsd:documentation>Intelligence chart, data series 9</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_dp_itm_data_series_10">
+        <xsd:annotation>
+          <xsd:documentation>Intelligence chart, data series 10</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_dp_itm_data_series_11">
+        <xsd:annotation>
+          <xsd:documentation>Intelligence chart, data series 11</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_dp_itm_data_series_12">
+        <xsd:annotation>
+          <xsd:documentation>Intelligence chart, data series 12</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_dp_itm_data_series_13">
+        <xsd:annotation>
+          <xsd:documentation>Intelligence chart, data series 13</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_dp_itm_data_series_14">
+        <xsd:annotation>
+          <xsd:documentation>Intelligence chart, data series 14</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_dp_itm_data_series_15">
+        <xsd:annotation>
+          <xsd:documentation>Intelligence chart, data series 15</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_dp_itm_data_series_16">
+        <xsd:annotation>
+          <xsd:documentation>Intelligence chart, data series 16</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_dp_itm_data_series_17">
+        <xsd:annotation>
+          <xsd:documentation>Intelligence chart, data series 17</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_dp_itm_data_series_18">
+        <xsd:annotation>
+          <xsd:documentation>Intelligence chart, data series 18</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_dp_itm_data_series_19">
+        <xsd:annotation>
+          <xsd:documentation>Intelligence chart, data series 19</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_dp_itm_data_series_20">
+        <xsd:annotation>
+          <xsd:documentation>Intelligence chart, data series 20</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="typeCtWorkflowSecurityLevel">
+    <xsd:annotation>
+      <xsd:documentation>The type of access to workflow functionality.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="com:typeBaseEnum">
+      <xsd:enumeration value="com_wf_sec_level_participant">
+        <xsd:annotation>
+          <xsd:documentation>Participant users may send and receive workflow e-mail messages.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_wf_sec_level_designer">
+        <xsd:annotation>
+          <xsd:documentation>Designer users may create and modify workflow designs.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_wf_sec_level_administrator">
+        <xsd:annotation>
+          <xsd:documentation>Administrator users may view workflow designs, cancel workflows, re-route workflows and adjust the workflow scheduling processes.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_wf_sec_level_super">
+        <xsd:annotation>
+          <xsd:documentation>Super users may perform any workflow activity.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="typeCtMessageFrequencyScale">
+    <xsd:annotation>
+      <xsd:documentation>The frequency that workflow e-mail messages are sent to a user.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="com:typeBaseEnum">
+      <xsd:enumeration value="com_wf_time_resolution_minutes">
+        <xsd:annotation>
+          <xsd:documentation>The number of minutes between workflow e-mail messages.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_wf_time_resolution_hours">
+        <xsd:annotation>
+          <xsd:documentation>The number of hours between workflow e-mail messages.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_wf_time_resolution_days">
+        <xsd:annotation>
+          <xsd:documentation>The number of days between workflow e-mail messages.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="typeCtDeputyRerouteFrequencyScale">
+    <xsd:annotation>
+      <xsd:documentation>The time period that must elapse before a workflow e-mail sent to a user is forwarded to the deputy user.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="com:typeBaseEnum">
+      <xsd:enumeration value="com_wf_time_resolution_minutes">
+        <xsd:annotation>
+          <xsd:documentation>The number of elapsed minutes before forwarding a workflow message to the deputy user.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_wf_time_resolution_hours">
+        <xsd:annotation>
+          <xsd:documentation>The number of elapsed hours before forwarding a workflow message to the deputy user.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_wf_time_resolution_days">
+        <xsd:annotation>
+          <xsd:documentation>The number of elapsed days before forwarding a workflow message to the deputy user.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="typeCtAuthorisationLimitSource">
+    <xsd:annotation>
+      <xsd:documentation>The user authorisation limit to be used by Workflow.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="com:typeBaseEnum">
+      <xsd:enumeration value="com_wf_auth_limit_procurement">
+        <xsd:annotation>
+          <xsd:documentation>The user's authorisation limit as set up in CODA-Procurement.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="com_wf_auth_limit_workflow">
+        <xsd:annotation>
+          <xsd:documentation>The user's authorisation limit as set up in Workflow.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="typeCtWorkflowResponsibilityVocabEnum">
+    <xsd:annotation>
+      <xsd:documentation>An enumeration for the vocabulary item on which Workflow documents are selected for authorisation.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="com:typeBaseEnum">
+      <xsd:enumeration value="vocab_el1">
+        <xsd:annotation>
+          <xsd:documentation>Element 1</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="vocab_el2">
+        <xsd:annotation>
+          <xsd:documentation>Element 2</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="vocab_el3">
+        <xsd:annotation>
+          <xsd:documentation>Element 3</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="vocab_el4">
+        <xsd:annotation>
+          <xsd:documentation>Element 4</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="vocab_el5">
+        <xsd:annotation>
+          <xsd:documentation>Element 5</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="vocab_el6">
+        <xsd:annotation>
+          <xsd:documentation>Element 6</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="vocab_el7">
+        <xsd:annotation>
+          <xsd:documentation>Element 7</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="vocab_el8">
+        <xsd:annotation>
+          <xsd:documentation>Element 8</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="vocab_wf_document">
+        <xsd:annotation>
+          <xsd:documentation>Document</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="vocab_wf_item">
+        <xsd:annotation>
+          <xsd:documentation>Item</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="vocab_wf_item_group">
+        <xsd:annotation>
+          <xsd:documentation>Item group</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="vocab_wf_item_type">
+        <xsd:annotation>
+          <xsd:documentation>Item type</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="typeCtWorkflowResponsibilityOperator">
+    <xsd:annotation>
+      <xsd:documentation>The operator used in the selection criteria for submitting Workflow documents for authorisation.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="com:typeBaseEnum">
+      <xsd:enumeration value="op_eq">
+        <xsd:annotation>
+          <xsd:documentation>= (equal to) 7 8 9 (In range) 10</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="op_ne">
+        <xsd:annotation>
+          <xsd:documentation>&lt;&gt; (not equal to)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="op_lt">
+        <xsd:annotation>
+          <xsd:documentation>&lt; (less than)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="op_gt">
+        <xsd:annotation>
+          <xsd:documentation>&gt; (greater than)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="op_lte">
+        <xsd:annotation>
+          <xsd:documentation>&lt;= (less than or equal to)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="op_gte">
+        <xsd:annotation>
+          <xsd:documentation>&gt;= (greater than or equal to)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="op_like">
+        <xsd:annotation>
+          <xsd:documentation>LIKE (matches wildcard string)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="op_unlike">
+        <xsd:annotation>
+          <xsd:documentation>NOTLIKE (does not match wildcard string)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="op_range">
+        <xsd:annotation>
+          <xsd:documentation>RANGE (in the specified range)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="op_nrange">
+        <xsd:annotation>
+          <xsd:documentation>NRANGE (not in the specified range)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:complexType name="Money">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details of a money object.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:decimal">
+        <xsd:attribute name="companycode" type="com:typeCode" use="optional">
+          <xsd:annotation>
+            <xsd:documentation>A company code.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="currencycode" type="com:typeCode" use="optional">
+          <xsd:annotation>
+            <xsd:documentation>A currency code.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="Criteria">
+    <xsd:annotation>
+      <xsd:documentation>The details of a query.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Operator" type="com:typeQueryOpList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>An operator for the query.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>An item name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Value" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The value for the item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CompoundCriteria">
+    <xsd:complexContent>
+      <xsd:extension base="com:Criteria">
+        <xsd:sequence>
+          <xsd:element name="Conjunction" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>A logical operator.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Criteria" type="com:Criteria" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation>
+              <xsd:documentation>The details of a query.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="Query">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details of a query.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:CompoundCriteria">
+        <xsd:sequence>
+          <xsd:element name="RowLimit" type="xsd:int">
+            <xsd:annotation>
+              <xsd:documentation>The maximum number of rows to retrieve.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ShortcutParameter">
+    <xsd:annotation>
+      <xsd:documentation>The shortcut parameters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="name" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The name of the shortcut.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="value" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The value of the shortcut.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Shortcut">
+    <xsd:annotation>
+      <xsd:documentation>A shortcut command.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ShortcutParameters" type="com:ShortcutParameter" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>The shortcut parameters.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MenuItem">
+    <xsd:annotation>
+      <xsd:documentation>The details of a menu item.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Text" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The text for the menu item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="URL" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The URL for the menu item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Application" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The CODA application.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Shortcut" type="com:Shortcut">
+        <xsd:annotation>
+          <xsd:documentation>A shortcut command.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MenuItems" type="com:MenuItems">
+        <xsd:annotation>
+          <xsd:documentation>The details of menu items.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OpenInNewWindow" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, opens the target in a new window.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MenuItems">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details of menu items.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MenuItem" type="com:MenuItem" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>The details of a menu item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

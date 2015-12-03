@@ -1,0 +1,794 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:txn="http://www.coda.com/efinance/schemas/transaction" targetNamespace="http://www.coda.com/efinance/schemas/transaction" elementFormDefault="qualified" version="11.3">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/service.xsd"/>
+  <xsd:include schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/transaction/account.xsd"/>
+
+  <xsd:complexType name="CheckCodeRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="ChkCodeData" type="txn:ChkAccCodeData">
+            <xsd:annotation>
+              <xsd:documentation>This element holds details of the account code you want to validate and the type of validation you want to perform.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CheckCodeRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Validates the account code.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="txn:CheckCodeRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CheckCodeResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Answer" type="txn:ChkAccCodeAnswer" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>This element holds the result of the validation.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CheckCodeResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="txn:CheckCodeResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SubstituteAccountRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="SubstituteAccount" type="txn:SubstituteAccountParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains details of substitute account parameters.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SubstituteAccountRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves details of a substitute account.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="txn:SubstituteAccountRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SubstituteAccountResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="SubstituteAccount" type="txn:SubstituteAccountParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains details of substitute account parameters.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AccountCode" type="com:typeAcCode" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>An account code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SubstituteAccountResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="txn:SubstituteAccountResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDefaultTaxCodeRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="CompanyCode" type="com:typeCode">
+            <xsd:annotation>
+              <xsd:documentation>A company code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DestinationCode" type="com:typeCodeB" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>An intercompany destination code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AccountCode" type="com:typeAcCode">
+            <xsd:annotation>
+              <xsd:documentation>An account code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDefaultTaxCodeRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves details of the default tax code.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="txn:GetDefaultTaxCodeRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDefaultTaxCodeResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CompanyCode" type="com:typeCode">
+            <xsd:annotation>
+              <xsd:documentation>A company code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DestinationCode" type="com:typeCodeB" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>An intercompany destination code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AccountCode" type="com:typeAcCode">
+            <xsd:annotation>
+              <xsd:documentation>An account code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="TaxCode" type="com:typeCode" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>A tax code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDefaultTaxCodeResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="txn:GetDefaultTaxCodeResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDestSource">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the company code and InterCompany destination code.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Company" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The company code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Destination" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The InterCompany destination code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="DestCmpSource" type="txn:GetDestSource">
+            <xsd:annotation>
+              <xsd:documentation>This element holds the company code and InterCompany destination code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDestRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the specified InterCompany destination company from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="txn:GetRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Company" type="com:typeGeneralCode" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The company code retrieved from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Destination" type="com:typeGeneralCodeB" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The InterCompany destination code retrieved from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDestResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="txn:GetResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetAccessLevelRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="AccessLevelParams" type="txn:AccessLevelParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains details of access level parameters.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetAccessLevelRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves access level details.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="txn:GetAccessLevelRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetAccessLevelResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="AccessLevelParams" type="txn:AccessLevelParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains details of access level parameters.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AccessLevel" type="com:typeCtAcCodeAccessLevel" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The type of access available.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetAccessLevelResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="txn:GetAccessLevelResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetResponsibleUsersRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="CompanyCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>A company code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Accounts" type="txn:DestAndAccountList" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>A list of destination and account combinations</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Usage" type="com:typeCtResponsibilityUsage">
+            <xsd:annotation>
+              <xsd:documentation>The scope of an element responsibilty.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Users" type="txn:UserCodeList" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>A list of user codes.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CurrencyCode" type="com:typeGeneralCodeB" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>A currency code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Value" type="com:typeMoneyB" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>A monetary value.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetResponsibleUsersRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves a list of responsible users.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="txn:GetResponsibleUsersRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetResponsibleUsersResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CompanyCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>A company code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Accounts" type="txn:DestAndAccountList" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>A list of destination and account combinations</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Usage" type="com:typeCtResponsibilityUsage">
+            <xsd:annotation>
+              <xsd:documentation>The scope of an element responsibilty.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Users" type="txn:UserCodeList" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>A list of user codes.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CurrencyCode" type="com:typeGeneralCodeB" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>A currency code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Value" type="com:typeMoneyB" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>A monetary value.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ResponsibleUsers" type="txn:UserCodeList" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>A list of responsible user codes.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="FirstFailedAccount" type="txn:DestAndAccount" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The details of the first failed account.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="OverLimit" type="xsd:boolean" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Indicates whether the values exceeds the specified limit.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetResponsibleUsersResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="txn:GetResponsibleUsersResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetResponsibleUsersWithToleranceRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="CompanyCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>A company code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Account" type="txn:DestAndAccount">
+            <xsd:annotation>
+              <xsd:documentation>A destination and account combination.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Usage" type="com:typeCtResponsibilityUsage">
+            <xsd:annotation>
+              <xsd:documentation>The scope of an element responsibilty.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Users" type="txn:UserCodeList" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>A list of user codes.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetResponsibleUsersWithToleranceRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves details of responsible users and associated tolerance masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="txn:GetResponsibleUsersWithToleranceRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetResponsibleUsersWithToleranceResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="ResponsibleUsersWithTolerance" type="txn:UsersAndTolerances" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Details of tolerances associated with users.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetResponsibleUsersWithToleranceResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="txn:GetResponsibleUsersWithToleranceResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CheckElementResponsibilityAccountAccessRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="CompanyCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>A company code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Accounts" type="txn:DestAndAccountList" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>A list of destination and account combinations</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Usage" type="com:typeCtResponsibilityUsage">
+            <xsd:annotation>
+              <xsd:documentation>The scope of an element responsibilty.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="User" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>A user code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CheckElementResponsibilityAccountAccessRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Checks a user's access to specified accounts.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="txn:CheckElementResponsibilityAccountAccessRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CheckElementResponsibilityAccountAccessResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="NotResponsibleAccounts" type="txn:DeniedAccounts" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>A list of accounts to which the specified user has no access.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CheckElementResponsibilityAccountAccessResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="txn:CheckElementResponsibilityAccountAccessResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetResponsibleUsersWithReasonRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="CompanyCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>A company code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Account" type="txn:DestAndAccount">
+            <xsd:annotation>
+              <xsd:documentation>A destination and account combination.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Usage" type="com:typeCtResponsibilityUsage">
+            <xsd:annotation>
+              <xsd:documentation>The scope of an element responsibilty.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Users" type="txn:UserCodeList" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The initial list of user codes.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ReasonCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The discrepancy reason code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetResponsibleUsersWithReasonRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves a list of users with responsibility for the specified discrepancy reason code.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="txn:GetResponsibleUsersWithReasonRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetResponsibleUsersWithReasonResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="ResponsibleUsers" type="txn:UserCodeList" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>A list of users with responsibility for the specified account code and discrepancy reason code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetResponsibleUsersWithReasonResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="txn:GetResponsibleUsersWithReasonResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AccountRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to validate account codes.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element name="CheckCode" type="txn:CheckCodeRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Validates the account code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetDestCmp" type="txn:GetDestRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves the specified InterCompany destination company from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetAccessLevel" type="txn:GetAccessLevelRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves access level details.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetResponsibleUsers" type="txn:GetResponsibleUsersRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves a list of responsible users.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetResponsibleUsersWithTolerance" type="txn:GetResponsibleUsersWithToleranceRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves details of responsible users and associated tolerance masters.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetResponsibleUsersWithReason" type="txn:GetResponsibleUsersWithReasonRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves a list of users with responsibility for the specified discrepancy reason code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CheckElementResponsibilityAccountAccess" type="txn:CheckElementResponsibilityAccountAccessRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Checks a user's access to specified accounts.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="SubstituteAccount" type="txn:SubstituteAccountRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves details of a substitute account.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetDefaultTaxCode" type="txn:GetDefaultTaxCodeRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves details of the default tax code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AccountResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you validate account codes.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element name="CheckCode" type="txn:CheckCodeResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetDestCmp" type="txn:GetDestResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetAccessLevel" type="txn:GetAccessLevelResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetResponsibleUsers" type="txn:GetResponsibleUsersResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetResponsibleUsersWithTolerance" type="txn:GetResponsibleUsersWithToleranceResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetResponsibleUsersWithReason" type="txn:GetResponsibleUsersWithReasonResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CheckElementResponsibilityAccountAccess" type="txn:CheckElementResponsibilityAccountAccessResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="SubstituteAccount" type="txn:SubstituteAccountResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetDefaultTaxCode" type="txn:GetDefaultTaxCodeResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="AccountRequest" type="txn:AccountRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to validate account codes.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="AccountResponse" type="txn:AccountResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you validate account codes.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

@@ -1,0 +1,639 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:build="http://www.coda.com/common/schemas/funcsec" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:pos="http://www.coda.com/common/schemas/positions" xmlns:udf="http://www.coda.com/common/schemas/udfmaster" xmlns:use="http://www.coda.com/common/schemas/users" elementFormDefault="qualified" targetNamespace="http://www.coda.com/common/schemas/positions" version="11.3">
+
+  <xsd:include schemaLocation="s:/schemas/public/common/positions/positions.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/service.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types2.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/udfmaster" schemaLocation="s:/schemas/public/common/udfmaster/udfmaster.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/users" schemaLocation="s:/schemas/public/common/users/users.xsd"/>
+
+  <xsd:complexType name="GetHierarchyRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Code" type="com:typeCode">
+            <xsd:annotation>
+              <xsd:documentation>The position hierarchy master code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Version" type="com:typeWord">
+            <xsd:annotation>
+              <xsd:documentation>The position hierarchy master version number.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetHierarchyRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves a specified position hierarchy master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Request" type="pos:GetHierarchyRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetHierarchyResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Code" type="com:typeCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the position hierarchy retrieved.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Version" type="com:typeWord">
+            <xsd:annotation>
+              <xsd:documentation>The version of the position hierarchy retrieved.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Hierarchy" type="pos:Hierarchy">
+            <xsd:annotation>
+              <xsd:documentation>Details of the position hierarchy.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Positions" type="pos:Positions">
+            <xsd:annotation>
+              <xsd:documentation>Details of the positions within the position hierarchy.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetHierarchyResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="pos:GetHierarchyResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetCurrentHierarchyRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Code" type="com:typeCode">
+            <xsd:annotation>
+              <xsd:documentation>The position hierarchy master code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetCurrentHierarchyRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the current version of a specified position hierarchy master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Request" type="pos:GetCurrentHierarchyRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetCurrentHierarchyResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Code" type="com:typeCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the position hierarchy retrieved.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Hierarchy" type="pos:Hierarchy">
+            <xsd:annotation>
+              <xsd:documentation>Details of the position hierarchy.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Positions" type="pos:Positions">
+            <xsd:annotation>
+              <xsd:documentation>Details of the positions within the position hierarchy.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetCurrentHierarchyResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="pos:GetCurrentHierarchyResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AddHierarchyRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Hierarchy" type="pos:Hierarchy">
+            <xsd:annotation>
+              <xsd:documentation>The position hierarchy details.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Positions" type="pos:Positions">
+            <xsd:annotation>
+              <xsd:documentation>The position details.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AddHierarchyRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Adds a position hierarchy.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Request" type="pos:AddHierarchyRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AddHierarchyResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Code" type="com:typeCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the position hierarchy added.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Version" type="com:typeWord">
+            <xsd:annotation>
+              <xsd:documentation>The version of the position hierarchy added.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="TimeStamp" type="com:typeWord">
+            <xsd:annotation>
+              <xsd:documentation>A time stamp value.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Positions" type="pos:PositionReturns">
+            <xsd:annotation>
+              <xsd:documentation>A list of position codes.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AddHierarchyResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="pos:AddHierarchyResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateHierarchyRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Hierarchy" type="pos:Hierarchy">
+            <xsd:annotation>
+              <xsd:documentation>The position hierarchy details.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Positions" type="pos:Positions">
+            <xsd:annotation>
+              <xsd:documentation>The position details.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateHierarchyRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Updates a position hierarchy.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Request" type="pos:UpdateHierarchyRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateHierarchyResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Code" type="com:typeCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the position hierarchy updated.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Version" type="com:typeWord">
+            <xsd:annotation>
+              <xsd:documentation>The version of the position hierarchy updated.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="TimeStamp" type="com:typeWord">
+            <xsd:annotation>
+              <xsd:documentation>A time stamp value.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Positions" type="pos:PositionReturns">
+            <xsd:annotation>
+              <xsd:documentation>A list of position codes.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateHierarchyResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="pos:UpdateHierarchyResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteHierarchyRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="HierarchyKey" type="pos:HierarchyKey">
+            <xsd:annotation>
+              <xsd:documentation>A key to the position hierarchy to delete.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteHierarchyRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Deletes a specified position hierarchy.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Request" type="pos:DeleteHierarchyRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteHierarchyResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteHierarchyResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="pos:DeleteHierarchyResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListCurrentHierarchiesRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Query" type="com:Query">
+            <xsd:annotation>
+              <xsd:documentation>The query used to retrieve the list of current hierarchies.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListCurrentHierarchiesRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves a list of current position hierarchies.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Request" type="pos:ListCurrentHierarchiesRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListCurrentHierarchiesResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="HierarchyItemList" type="pos:HierarchyItemList">
+            <xsd:annotation>
+              <xsd:documentation>A list of current position hierarchies.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListCurrentHierarchiesResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="pos:ListCurrentHierarchiesResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UseCurrentHierarchyRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Code" type="com:typeCode">
+            <xsd:annotation>
+              <xsd:documentation>The position hierarchy code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UseCurrentHierarchyRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Requests the use of the current versionof a position hierarchy.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Request" type="pos:UseCurrentHierarchyRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UseCurrentHierarchyResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Code" type="com:typeCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the current position hierarchy.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Hierarchy" type="pos:Hierarchy">
+            <xsd:annotation>
+              <xsd:documentation>Details of the current position hierarchy.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UseCurrentHierarchyResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="pos:UseCurrentHierarchyResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListHierarchiesForPositionsRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Positions" type="pos:PositionCodeList">
+            <xsd:annotation>
+              <xsd:documentation>A list of position master codes.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListHierarchiesForPositionsRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the list of hierarchies that contain one or more of the supplied positions. The latest version of a hierarchy is used in determining whether it contains a position.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Request" type="pos:ListHierarchiesForPositionsRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListHierarchiesForPositionsResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Hierarchies" type="pos:HierarchyCodeList">
+            <xsd:annotation>
+              <xsd:documentation>A list of hierarchy master codes.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListHierarchiesForPositionsResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="pos:ListHierarchiesForPositionsResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PositionHierarchyRequest">
+    <xsd:annotation>
+      <xsd:appinfo build:funcSecValue="425" build:readOnly="true"/>
+      <xsd:documentation>This service allows you to maintain position hierarchy masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element minOccurs="0" name="GetHierarchy" type="pos:GetHierarchyRequestVerb">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="1" build:readOnly="true"/>
+              <xsd:documentation>Retrieves a specified position hierarchy master.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="GetCurrentHierarchy" type="pos:GetCurrentHierarchyRequestVerb">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="2" build:readOnly="true"/>
+              <xsd:documentation>Retrieves the current version of a specified position hierarchy master.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="AddHierarchy" type="pos:AddHierarchyRequestVerb">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="3" build:readOnly="false"/>
+              <xsd:documentation>Adds a position hierarchy.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="UpdateHierarchy" type="pos:UpdateHierarchyRequestVerb">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="4" build:readOnly="false"/>
+              <xsd:documentation>Updates a position hierarchy.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="DeleteHierarchy" type="pos:DeleteHierarchyRequestVerb">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="5" build:readOnly="false"/>
+              <xsd:documentation>Deletes a specified position hierarchy.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ListCurrentHierarchies" type="pos:ListCurrentHierarchiesRequestVerb">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="6" build:readOnly="true"/>
+              <xsd:documentation>Retrieves a list of current position hierarchies.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="UseCurrentHierarchy" type="pos:UseCurrentHierarchyRequestVerb">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="7" build:readOnly="false"/>
+              <xsd:documentation>Requests the use of the current versionof a position hierarchy.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ListHierarchiesForPositions" type="pos:ListHierarchiesForPositionsRequestVerb">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="8" build:readOnly="true"/>
+              <xsd:documentation>Retrieves the list of hierarchies that contain one or more of the supplied positions. The latest version of a hierarchy is used in determining whether it contains a position.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PositionHierarchyResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you make a position hierarchy master request.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element minOccurs="0" name="GetHierarchy" type="pos:GetHierarchyResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="GetCurrentHierarchy" type="pos:GetCurrentHierarchyResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="AddHierarchy" type="pos:AddHierarchyResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="UpdateHierarchy" type="pos:UpdateHierarchyResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="DeleteHierarchy" type="pos:DeleteHierarchyResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ListCurrentHierarchies" type="pos:ListCurrentHierarchiesResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="UseCurrentHierarchy" type="pos:UseCurrentHierarchyResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ListHierarchiesForPositions" type="pos:ListHierarchiesForPositionsResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="PositionHierarchyRequest" type="pos:PositionHierarchyRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to maintain position hierarchy masters.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="PositionHierarchyResponse" type="pos:PositionHierarchyResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you make a position hierarchy master request.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

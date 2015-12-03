@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ten="http://www.coda.com/efinance/schemas/ten99" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/efinance/schemas/ten99" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+
+  <xsd:complexType name="Master" abstract="true">
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the 1099 master is being maintained.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this 1099 master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="ten:Ten99Code">
+        <xsd:annotation>
+          <xsd:documentation>The code for this 1099 master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name for this 1099 master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortName" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for this 1099 master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:simpleType name="Ten99Code">
+    <xsd:annotation>
+      <xsd:documentation>The maximum number of characters that a 1099 master code can contain.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="com:typeGeneralCode">
+      <xsd:maxLength value="4"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:complexType name="Ten99">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a 1099 master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="ten:Master">
+        <xsd:sequence>
+          <xsd:element name="UsageIndicator" type="com:typeSingleDigit1To9">
+            <xsd:annotation>
+              <xsd:documentation>An indicator for your own use, for example to enable you to group similar codes during reporting. You must enter a single digit from 1 to 9.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="Ten99" type="ten:Ten99">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a 1099 master.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

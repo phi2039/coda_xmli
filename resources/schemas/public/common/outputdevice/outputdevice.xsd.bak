@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:mes="http://www.coda.com/common/schemas/messagetransport" xmlns:odm="http://www.coda.com/common/schemas/outputdevice" elementFormDefault="qualified" targetNamespace="http://www.coda.com/common/schemas/outputdevice">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types2.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/messagetransport" schemaLocation="s:/schemas/public/common/messagetransport/messagetransport.xsd"/>
+
+  <xsd:complexType name="OutputDeviceMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds an output device master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this output device master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The name of the output device master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The short name for the output device master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="DeviceType" type="com:typeComDevice">
+        <xsd:annotation>
+          <xsd:documentation>Specifies the type of the device.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="PhysicalLocation" type="com:typePhysicalLocation">
+        <xsd:annotation>
+          <xsd:documentation>The physical location of the device (applies only to printers).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="DevicePath" type="com:typeLocation">
+        <xsd:annotation>
+          <xsd:documentation>The physical location of the device (if a printer), or the default e-mail address (if e-mail), or the full path for the filename (if a file).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Format" type="com:typeComDeviceFormat">
+        <xsd:annotation>
+          <xsd:documentation>The file formats that the device accepts.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Transport" type="mes:MessageTransportKey">
+        <xsd:annotation>
+          <xsd:documentation>The key which identifies the message transport master to use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this output device master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="OutputDeviceMasterList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a list of output device masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="OutputDeviceMaster" type="odm:OutputDeviceMaster">
+        <xsd:annotation>
+          <xsd:documentation>This element holds one output device master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="OutputDeviceMasterKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="OutputDeviceMaster" type="odm:OutputDeviceMasterKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="OutputDeviceMasterKey">
+    <xsd:annotation>
+      <xsd:documentation>Contains the key identifying the output device master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for an output device master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="OutputDeviceMasterItemList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a list of output device masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="OutputDeviceMasterListItem" type="odm:OutputDeviceMasterListItem">
+        <xsd:annotation>
+          <xsd:documentation>This element holds selective details of one output device master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="OutputDeviceMasterListItem">
+    <xsd:annotation>
+      <xsd:documentation>This element holds selective details of one output device master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for an output device master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The short name for the output device master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="DeviceType" type="com:typeComDevice">
+        <xsd:annotation>
+          <xsd:documentation>The name of the output device master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

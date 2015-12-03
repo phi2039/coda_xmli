@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:usrpref="http://www.coda.com/common/schemas/userpreferences" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/common/schemas/userpreferences" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="PreferenceValue">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a preference value, such as a value for the Administration Console header background, text, and logo.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Type" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The preference type. For example, whether this preference value holds a colour or an image.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Value" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The value of the preference type. For example, a specific colour or the filename for an image.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PreferenceValues">
+    <xsd:annotation>
+      <xsd:documentation>This element holds preference values such as those for the Administration Console header background, text, and logo.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="PreferenceValue" type="usrpref:PreferenceValue" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element holds a preference value, such as a value for the Administration Console header background, text, and logo.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PreferenceSetting">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a setting in the preferences master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Application" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The application to which this setting applies. For example, common or intelligence.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Component" type="com:typeDPComponent">
+        <xsd:annotation>
+          <xsd:documentation>The component that this setting applies to. For example: bar chart, pie chart or traffic light display styles used in KPI content providers. When this component is common, the settings apply to all KPI display styles.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Item" type="com:typeDPItem">
+        <xsd:annotation>
+          <xsd:documentation>The item that this setting applies to. For example: background, bands, trends or data items used in KPI content providers.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ParentComponent" type="com:typeDPComponent">
+        <xsd:annotation>
+          <xsd:documentation>The parent of this component. For example, common is the parent component for the different KPI display styles.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Key" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>A label identifying the key to which this setting applies. For example, the setting may apply to a particular company.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PreferenceValues" type="usrpref:PreferenceValues">
+        <xsd:annotation>
+          <xsd:documentation>This element holds preference values such as those for the Administration Console header background, text, and logo.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="isInherited" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether this setting inherits its attributes from its parent. For example, if this setting is for the background colour of bar chart KPI display styles, this boolean determines whether its colour is inherited from the common background colour.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PreferenceSettings">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the settings in the preferences master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="PreferenceSetting" type="usrpref:PreferenceSetting" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element holds a setting in the preferences master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PreferencesMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a preferences master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the preferences master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name for the preferences master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for the preferences master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for the preferences master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PreferenceSettings" type="usrpref:PreferenceSettings">
+        <xsd:annotation>
+          <xsd:documentation>This element holds the settings in the preferences master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ApplyUsersList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a list of user codes.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="UserCode" type="com:typeGeneralCode" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element holds a user code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

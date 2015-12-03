@@ -1,0 +1,806 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:gsl="http://www.coda.com/efinance/schemas/selectormaster" xmlns:sel="http://www.coda.com/efinance/schemas/selector" xmlns:prg="http://www.coda.com/efinance/schemas/progress" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:int="http://www.coda.com/efinance/schemas/interestcharging" targetNamespace="http://www.coda.com/efinance/schemas/interestcharging" elementFormDefault="qualified" version="1.0">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/service.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/progress" schemaLocation="s:/schemas/public/common/progress/progressservice.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/selectormaster" schemaLocation="s:/schemas/public/common/selectormaster/selectormaster.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/selector" schemaLocation="s:/schemas/public/common/selector/selector.xsd"/>
+  <xsd:include schemaLocation="s:/schemas/public/finance/interestcharging/interestcharging.xsd"/>
+
+  <xsd:complexType name="GetProposalsRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="com:GlobalKey">
+            <xsd:annotation>
+              <xsd:documentation>This element is a key which uniquely identifies an interest charge proposal</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetProposalsRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the specified proposals from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="int:GetProposalsRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetProposalsResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Proposals" type="int:ProposalList">
+            <xsd:annotation>
+              <xsd:documentation>This element lists all the interest charge proposals in the company.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Key" type="com:GlobalKey">
+            <xsd:annotation>
+              <xsd:documentation>The key used to identify the interest charge proposals to be retrieved.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetProposalsResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="int:GetProposalsResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetNewProposalDetailsRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="int:NewProposalKey">
+            <xsd:annotation>
+              <xsd:documentation>This key contains the company code and interest master code that will be used to generate the proposal.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetNewProposalDetailsRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Gets a new proposal code which may be used for the new proposal you create with Generate..</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="int:GetNewProposalDetailsRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetNewProposalDetailsResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="NewProposalDetails" type="int:NewProposalDetails">
+            <xsd:annotation>
+              <xsd:documentation>This element holds the details for a new proposal.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Key" type="int:NewProposalKey">
+            <xsd:annotation>
+              <xsd:documentation>This key contains the company code and interest master code that will be used to generate the proposal.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetNewProposalDetailsResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="int:GetNewProposalDetailsResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GenerateRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Params" type="int:GenerateParams">
+            <xsd:annotation>
+              <xsd:documentation>Contains the parameters required to generate the proposals. The parameters include the interest master, selector master and proposal code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GenerateRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Generates the proposals using the parameters you specify.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="int:GenerateRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GenerateResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="ProgressKey" type="prg:ProgressKey" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>This key contains information about the progress of the Generate stage.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Key" type="int:ProposalKey">
+            <xsd:annotation>
+              <xsd:documentation>This element is a key which uniquely identifies a proposal.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GenerateResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="int:GenerateResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetSummariesRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="int:ProposalKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key identifying the interest charge summary lines you want to retrieve from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetSummariesRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the specified interest charge summaries from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="int:GetSummariesRequest" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetSummariesResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Summaries" type="int:SummaryList">
+            <xsd:annotation>
+              <xsd:documentation>Returns a list of interest charges contained within a proposal.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Key" type="int:ProposalKey">
+            <xsd:annotation>
+              <xsd:documentation>This element is a key which uniquely identifies a proposal..</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetSummariesResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="int:GetSummariesResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDetailsRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="int:SummaryKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key identifying the interest charge summaries you want to retrieve from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Columns" type="sel:VocabIDList">
+            <xsd:annotation>
+              <xsd:documentation>The list of vocabulary items you want to use to display the proposal details.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDetailsRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the detail lines for the specified interest charge summaries from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="int:GetDetailsRequest" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDetailsResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Details" type="sel:Selection">
+            <xsd:annotation>
+              <xsd:documentation>Returns the specified details for manipulation.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Key" type="int:SummaryKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key identifying the interest charge summaries retrieved from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDetailsResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="int:GetDetailsResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="HoldDetailsRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="int:SummaryKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains the summary key for the detail lines held from the interest charge.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Changes" type="int:DetailChangeList">
+            <xsd:annotation>
+              <xsd:documentation>This element stores changes to individual detail lines within an interest charge.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="HoldDetailsRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Holds the specified detail lines back from inclusion in the interest charge.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="int:HoldDetailsRequest" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="HoldDetailsResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Summary" type="int:Summary">
+            <xsd:annotation>
+              <xsd:documentation>Returns details of the retrieved interest charge.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Key" type="int:SummaryKey">
+            <xsd:annotation>
+              <xsd:documentation>This element is a key which uniquely identifies an interest charge.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="HoldDetailsResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="int:HoldDetailsResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateSummariesRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="int:ProposalKey">
+            <xsd:annotation>
+              <xsd:documentation>This element contains parameters for you to specify which proposal to retrieve for manipulation.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Changes" type="int:SummaryChangeList">
+            <xsd:annotation>
+              <xsd:documentation>This element stores a list of changes to an interest charge.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateSummariesRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Saves the changes to the specified interest charges to the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="int:UpdateSummariesRequest" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateSummariesResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Key" type="int:ProposalKey">
+            <xsd:annotation>
+              <xsd:documentation>This element is a key which uniquely identifies the proposal being updated.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateSummariesResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="int:UpdateSummariesResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PostRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Params" type="int:PostParams">
+            <xsd:annotation>
+              <xsd:documentation>Contains parameters specified for posting the proposals.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PostRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Posts the selected interest charges to the destination specified in the interest master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="int:PostRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PostResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="ProgressKey" type="prg:ProgressKey" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>This key contains information about the progress of the Post stage.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Key" type="int:ProposalKey">
+            <xsd:annotation>
+              <xsd:documentation>This element is a key which uniquely identifies the proposal being posted.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PostResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="int:PostResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="RecoverRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="int:ProposalKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key identifying the interest charge you want to recover.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="RecoverRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Recovers the selected interest charge to its previous stage in the process.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="int:RecoverRequest" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="RecoverResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Key" type="int:ProposalKey">
+            <xsd:annotation>
+              <xsd:documentation>This element is a key which uniquely identifies the proposal being recovered.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="RecoverResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="int:RecoverResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="int:ProposalKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key identifying the interest charges you want to delete.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Deletes the selected interest charges from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="int:DeleteRequest" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Key" type="int:ProposalKey">
+            <xsd:annotation>
+              <xsd:documentation>This element is a key which uniquely identifies the proposal being deleted.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="int:DeleteResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetHistoryLinesRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="int:ProposalKey">
+            <xsd:annotation>
+              <xsd:documentation>This element is a key which identifies the proposal for which you want to retrieve history information</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetHistoryLinesRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves history information for the specified proposal.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="int:GetHistoryLinesRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetHistoryLinesResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Lines" type="int:HistoryLineList" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>This element contains all the details of the actions taken on the specified proposal.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Key" type="int:ProposalKey">
+            <xsd:annotation>
+              <xsd:documentation>This element is a key which uniquely identifies the proposal for which history lines are being retrieved.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetHistoryLinesResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="int:GetHistoryLinesResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="InterestChargingRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to produce interest charges.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element name="GetProposals" type="int:GetProposalsRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves the specified proposals from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetNewProposalDetails" type="int:GetNewProposalDetailsRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Gets a new proposal code which may be used for the new proposal you create with Generate..</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Generate" type="int:GenerateRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Generates the proposals using the parameters you specify.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetSummaries" type="int:GetSummariesRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves the specified interest charge summaries from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetDetails" type="int:GetDetailsRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves the detail lines for the specified interest charge summaries from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="HoldDetails" type="int:HoldDetailsRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Holds the specified detail lines back from inclusion in the interest charge.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="UpdateSummaries" type="int:UpdateSummariesRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Saves the changes to the specified interest charges to the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Post" type="int:PostRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Posts the selected interest charges to the destination specified in the interest master.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Recover" type="int:RecoverRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Recovers the selected interest charge to its previous stage in the process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Delete" type="int:DeleteRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Deletes the selected interest charges from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetHistoryLines" type="int:GetHistoryLinesRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves history information for the specified proposal.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="InterestChargingResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you produce interest charges.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element name="GetProposals" type="int:GetProposalsResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetNewProposalDetails" type="int:GetNewProposalDetailsResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Generate" type="int:GenerateResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetSummaries" type="int:GetSummariesResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetDetails" type="int:GetDetailsResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="HoldDetails" type="int:HoldDetailsResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="UpdateSummaries" type="int:UpdateSummariesResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Post" type="int:PostResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Recover" type="int:RecoverResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Delete" type="int:DeleteResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetHistoryLines" type="int:GetHistoryLinesResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="InterestChargingRequest" type="int:InterestChargingRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to produce interest charges.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="InterestChargingResponse" type="int:InterestChargingResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you produce interest charges.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

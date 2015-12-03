@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:elm="http://www.coda.com/efinance/schemas/elementmaster" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:med="http://www.coda.com/efinance/schemas/media" targetNamespace="http://www.coda.com/efinance/schemas/media" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/elementmaster" schemaLocation="s:/schemas/public/common/elementmaster/elementmaster.xsd"/>
+
+  <xsd:complexType name="MediaMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a media master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this media master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CmpCode" type="com:typeGeneralCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company in which the media master exists.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the media master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name for the media master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for the media master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PayMethod" type="com:typeCtPayMedia">
+        <xsd:annotation>
+          <xsd:documentation>The method by which the payment will be made, either electronic or paper.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MaxTransaction" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The maximum value of an individual payable instrument. Valid for an electronic payment.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MaxTotal" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The maximum of the sum of all the payable instrument values. Valid for an electronic payment.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LinesPerPage" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The number of lines to be printed per page of the remittance advice. Valid for an electronic payment.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AutoNumber" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that the documents are numbered automatically at the appropriate time. Valid for an electronic payment.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NoSummarization" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that the element summary and split levels are ignored when being paid by the current medium.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PreNum" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that documents will be numbered before the production stage of a payment or collection process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SeperateChequeAndRemittance" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that separate stationery for printing cheques and remittance notes will be used.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MediaReqKeys">
+    <xsd:annotation>
+      <xsd:documentation>This is a media master key used when requesting a list of media masters. It incorporates the company within which the media master exists and a value for the maximum number of items to return.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MaxKeys" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The maximum number of items to be returned.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Key" type="com:Key" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>A key consisting of a company code and a media master code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="WantElectronic" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether media masters with an electronic payment method should be included in the list.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="WantPaper" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether media masters with a paper payment method should be included in the list.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElmKey" type="elm:elmFullKey" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>An element key that is used to filter the list of media masters returned. The list contains only the media masters appropriate to this element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MediaKeyDataElement">
+    <xsd:annotation>
+      <xsd:documentation>Contains the extended key information for one media master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the media master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for the media master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PayMethod" type="com:typeCtPayMedia">
+        <xsd:annotation>
+          <xsd:documentation>The payment method.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MediaKeyData">
+    <xsd:annotation>
+      <xsd:documentation>Contains the extended key information for the specified media masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="med:MediaKeyDataElement" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Contains the extended key information for one media master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="MediaMaster" type="med:MediaMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a media master.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="MediaReqKeys" type="med:MediaReqKeys">
+    <xsd:annotation>
+      <xsd:documentation>This is a media master key used when requesting a list of media masters. It incorporates the company within which the media master exists and a value for the maximum number of items to return.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:pre="http://www.coda.com/efinance/schemas/presenter" targetNamespace="http://www.coda.com/efinance/schemas/presenter" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="UserExit">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a user exit routine which can be invoked from Browse details.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="File" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The path and filename of the DLL to run from this user exit. If a .DLL file is named here, it MUST NOT be changed by the XML<i>i</i> programmer, since it is not maintainable in Financials or XML<i>i</i>. It is maintained only in the Client/server version, and must be resent to the server with the .DLL intact, so that future use of this presenter by a Client/Server user is not adversely affected.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ActionCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The name of the action code argument passed to a user-defined exit routine in a DLL file. You can leave this blank to pass an empty action code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Caption" type="com:typeShortName">
+        <xsd:annotation>
+          <xsd:documentation>A label for this user exit routine.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserExtension" type="com:ExtensionRef" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the user extension which will be available to users when this presenter is used in Browse Details.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserExitList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of user exit routines which can be invoked from Browse details.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Exit" type="pre:UserExit" minOccurs="0" maxOccurs="4">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of a user exit routine which can be invoked from Browse details.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManipulateByListItem">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a vocabulary item to sort by.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="VocabID" type="com:typeCtOneOfN">
+        <xsd:annotation>
+          <xsd:documentation>The name of a vocabulary item by which the data will be sorted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SortOrder" type="com:typeCtBalSortOrder">
+        <xsd:annotation>
+          <xsd:documentation>The sort order.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SubTotal" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, indicates that subtotals are displayed at each break in the sorted list for this vocabulary item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="HideDetail" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, detail lines are hidden.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SubColourSet" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, subtotal lines are displayed in a different colour.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SubColour" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The colour of a subtotal line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManipulateByList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of vocabulary items controlling the sort order and presentation of data lines.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ManipulateBy" type="pre:ManipulateByListItem" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of a vocabulary item to sort by.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Master">
+    <xsd:sequence>
+      <xsd:element name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this presenter master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company in which the presenter master exists.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this presenter master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name for the presenter master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for the presenter master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Restrict" type="com:typeBaseEnumList">
+        <xsd:annotation>
+          <xsd:documentation>Unused (For future use)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Exits" type="pre:UserExitList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of user exit routines which can be invoked from Browse details.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ManipulateByList" type="pre:ManipulateByList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of how the information will be sorted, and whether monetary values will be totalled.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AllowColumnSort" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that sorting on column headings is enabled.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="GrandTotal" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that grand totals are displayed for columns containing monetary values, quantities, or calculations.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="GrandColourSet" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that the grand total should be a different colour.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="GrandColour" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The colour of the grand total.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UseAbsoluteNumbers" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that sorting should ignore negative numbers.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AllowTitleWrap" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that titles can wrap across multiple lines.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CreateDate" type="com:typeDateB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date the master was created.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ModifyDate" type="com:typeDateB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date the master was last updated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="User" type="com:typeGeneralCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the user who last modified the presenter master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DataClass" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specifies the type of data required and limits the vocabulary items that can be used to obtain it.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Shared" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that this master is shared.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabListItem">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a vocabulary item used by this presenter master, and its display settings .</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="VocabID" type="com:typeCtOneOfN">
+        <xsd:annotation>
+          <xsd:documentation>Specifies the vocabulary item to use in this presenter master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Protected" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether users may change the vocabulary item at run time. When TRUE, the value is protected and cannot be changed.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ColTitle" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>Specifies the title to use for this vocabulary item. This defaults to the first 20 characters of the vocabulary name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DispWidth" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The number of characters (or width) reserved for displaying the information determined by this vocabulary item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DispOffset" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The character position where the displayed information will start. The required number of characters of information, determined by DispWidth, is presented from this position onwards. The offset is measured from the left. This number cannot be greater than the DispWidth value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Cumulative" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that an accumulated value will be displayed. This is only valid when the VocabID is Document, Dual, Element, or Home value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ReverseSign" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that the sign on column values is reversed. For example, an original value of 100 is displayed as -100, and an original value of -100 is displayed as 100.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of the vocabulary items used by this presenter master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Vocab" type="pre:VocabListItem" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a vocabulary item used by this presenter master, and its display settings .</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Presenter">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a presenter master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="pre:Master">
+        <xsd:sequence>
+          <xsd:element name="VocabList" type="pre:VocabList">
+            <xsd:annotation>
+              <xsd:documentation>This element contains details of the vocabulary items used by this presenter master.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PresenterListFilter">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the selection parameters for the presenters you want to include in a list.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ReqKeys">
+        <xsd:sequence>
+          <xsd:element name="ShortName" type="com:typeShortNameB" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The abbreviated name of the presenter master.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Product" type="com:typeApplicationNameb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The product to which the presenter relates.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ViewType" type="com:typeGenericOon" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The type of the objects that vocabulary items can be based on.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DataView" type="com:typeTextfield" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The dataview from which the presenter draws its vocabulary items.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="LastModifiedFrom" type="com:typeDateB" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The earliest modification date for masters you want to include in your selection.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="LastModifiedTo" type="com:typeDateB" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The latest modification date for masters you want to include in your selection.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="Presenter" type="pre:Presenter">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a presenter master.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

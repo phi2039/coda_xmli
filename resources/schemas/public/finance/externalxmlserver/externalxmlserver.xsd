@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsr="http://www.coda.com/efinance/schemas/externalxmlserver" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/efinance/schemas/externalxmlserver" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="XMLActiveServerKey">
+    <xsd:annotation>
+      <xsd:documentation>This element contains key information for detecting the presence of a specified application server.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="IsActive" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Set to TRUE to detect whether the server is active.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ServerRegKey" type="com:typeTextAny">
+        <xsd:annotation>
+          <xsd:documentation>A string that identifies the name of the application server's registry key.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="XMLActiveServer">
+    <xsd:annotation>
+      <xsd:documentation>This element contains information on whether the specified application server is present and/or active.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Present" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>TRUE indicates that the server is present (under the ServerRegKey it found a NameServer entry of non-zero length).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Active" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>TRUE if the server is active (logon was successful).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

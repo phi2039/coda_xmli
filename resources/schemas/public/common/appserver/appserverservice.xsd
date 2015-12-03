@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:aps="http://www.coda.com/efinance/schemas/appserver" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/efinance/schemas/appserver" elementFormDefault="qualified" version="2.0">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/service.xsd"/>
+  <xsd:include schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/appserver/appserver.xsd"/>
+
+  <xsd:complexType name="GetEnvironmentRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetEnvironmentRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Displays information about the application server's environment.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="aps:GetEnvironmentRequest" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetEnvironmentResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Environment" type="aps:Environment">
+            <xsd:annotation>
+              <xsd:documentation>Contains information about the application server's environment.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetEnvironmentResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="aps:GetEnvironmentResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListUserCompaniesRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="aps:UserCmpsListKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key identifying the user master whose visible companies you want to list.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListUserCompaniesRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves a list of the companies that are visible to the specified user.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="aps:ListUserCompaniesRequest" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListUserCompaniesResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Companies" type="com:KeyData">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key information for the listed company masters.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListUserCompaniesResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="aps:ListUserCompaniesResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SoftToHardDateRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="SoftDate" type="aps:SoftToHardDateData">
+            <xsd:annotation>
+              <xsd:documentation>This element contains details of a soft date for conversion to a hard date.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SoftToHardDateRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Converts a soft date to a hard date.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="aps:SoftToHardDateRequest" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SoftToHardDateResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="SoftDate" type="aps:SoftToHardDateData">
+            <xsd:annotation>
+              <xsd:documentation>Contains the soft date you specified in the SoftToHardDateRequest corresponding to this Response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="HardDate" type="com:typeDate" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the hard date resulting from the SoftToHardDateRequest corresponding to this Response. The hard date format is CCYY-MM-DDT00.00.00.000. For example, 2001-10-03T00:00:00.000.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SoftToHardDateResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="aps:SoftToHardDateResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AppServerRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to request environment and user company information from the server.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element name="GetEnvironment" type="aps:GetEnvironmentRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Displays information about the application server's environment.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ListUserCompanies" type="aps:ListUserCompaniesRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves a list of the companies that are visible to the specified user.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="SoftToHardDate" type="aps:SoftToHardDateRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Converts a soft date to a hard date.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AppServerResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you request environment and user company information from the server.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element name="GetEnvironment" type="aps:GetEnvironmentResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ListUserCompanies" type="aps:ListUserCompaniesResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="SoftToHardDate" type="aps:SoftToHardDateResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="AppServerRequest" type="aps:AppServerRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to request environment and user company information from the server.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="AppServerResponse" type="aps:AppServerResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you request environment and user company information from the server.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

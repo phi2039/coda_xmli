@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:dsm="http://www.coda.com/efinance/schemas/destinationmaster" targetNamespace="http://www.coda.com/efinance/schemas/destinationmaster" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+
+  <xsd:complexType name="DestinationMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a destination master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this destination master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the destination master is being maintained.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this destination master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name for this destination master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for this destination master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UseWithAllocation" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether this master is used within InterCompany allocation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TransferMethod" type="com:typeCtDesTransMethod">
+        <xsd:annotation>
+          <xsd:documentation>Controls the database where the transaction will be processed.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Validation" type="com:typeCtDocPost">
+        <xsd:annotation>
+          <xsd:documentation>Specifies the type of validation applied to destination document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SubstituteAcc" type="com:typeAcCode">
+        <xsd:annotation>
+          <xsd:documentation>The account code for the control account in the sending company.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DatabaseCode" type="com:typeGeneralCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The code for the database master which contains network and logon details for the remote database containing the receiving company.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ReceivingCmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company that will receive the transaction.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RefCmpCode" type="com:typeGeneralCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The code for the local reference company.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ReceiverCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the receiver master that is used for posting the transaction.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DsmReqKeys">
+    <xsd:annotation>
+      <xsd:documentation>Contains key information for requesting a number of destination masters from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ReqKeys">
+        <xsd:sequence>
+          <xsd:element name="SelfOnly" type="xsd:boolean" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>If TRUE, only destination masters of type 'Self' are returned. (If 'Self' is set the receiving company is the same as the sending company.)</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+
+</xsd:schema>

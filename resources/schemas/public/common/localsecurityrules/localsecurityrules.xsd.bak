@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:lsecr="http://www.coda.com/common/schemas/localsecurityrules" targetNamespace="http://www.coda.com/common/schemas/localsecurityrules" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="LocalSecurityList">
+    <xsd:annotation>
+      <xsd:documentation>This element is reserved for future use.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="LocalSecurity" type="lsecr:LocalSecurity" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Reserved for future use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="LocalSecurity">
+    <xsd:annotation>
+      <xsd:documentation>Reserved for future use.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="User" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>Reserved for future use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DataType" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>Reserved for future use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Object" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>Reserved for future use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:datatypes="http://www.coda.com/common/schemas/datatypes" elementFormDefault="qualified" targetNamespace="http://www.coda.com/common/schemas/datatypes">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types2.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="CurrencyValue">
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:decimal">
+        <xsd:attribute name="calculated" type="com:typeBoolean" use="optional"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="Week">
+    <xsd:annotation>
+      <xsd:documentation>This element contains information on which days are valid working days.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Monday" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, Monday is a valid day of the working week.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Tuesday" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, Tuesday is a valid day of the working week.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Wednesday" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, Wednesday is a valid day of the working week.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Thursday" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, Thursday is a valid day of the working week.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Friday" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, Friday is a valid day of the working week.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Saturday" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, Saturday is a valid day of the working week.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Sunday" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, Sunday is a valid day of the working week.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Rate">
+    <xsd:annotation>
+      <xsd:documentation>This element contains information about exchange rates.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:decimal">
+        <xsd:attribute name="scale" type="com:typeLong" use="optional">
+          <xsd:annotation>
+            <xsd:documentation>The scaling factor to apply to currency values.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="rule" type="com:typeRateRule" use="optional">
+          <xsd:annotation>
+            <xsd:documentation>Specifies whether the calculation of exchange rates is based on the document date or the input date.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="conversionpath" type="com:typeConversionPath" use="optional">
+          <xsd:annotation>
+            <xsd:documentation>The path between the currency and the home currency.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+
+
+</xsd:schema>

@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:app="http://www.coda.com/common/schemas/appparams" xmlns:com="http://www.coda.com/efinance/schemas/common" elementFormDefault="qualified" targetNamespace="http://www.coda.com/common/schemas/appparams">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types2.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="CommonAppParams">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the application parameters for Administration Console.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="OverriddenParamsList" type="app:CommonAppParamsOverriddenParamsList">
+        <xsd:annotation>
+          <xsd:documentation>This element holds a list of application parameters that have been overridden by the user.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="SchedulerUser" type="com:typeDomainUser">
+        <xsd:annotation>
+          <xsd:documentation>The user code used by the task scheduler process to log on to Administration Console.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="SchedulerPassword" type="com:typePasswordb">
+        <xsd:annotation>
+          <xsd:documentation>The user password used by the task scheduler process to log on to Administration Console. The password value is not returned to the client.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="SchedulerCompany" type="com:typeCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The company used by the task scheduler process to log on to the Administration Console.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="SystemUser" type="com:typeDomainUser">
+        <xsd:annotation>
+          <xsd:documentation>The user code used by the system to log on to Administration Console.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="SystemPassword" type="com:typePasswordb">
+        <xsd:annotation>
+          <xsd:documentation>The password for the user used by the system to log on to Administration Console.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="SystemCompany" type="com:typeCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The company used by the system to log on to Administration Console. This parameter is optional.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="SystemDefaultUser" type="com:typeCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The CODA user code that the system will use to log on for background or workflow purposes if you are using an LDAP host for user authentication.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="TaskCleanupDelay" type="com:typeULong">
+        <xsd:annotation>
+          <xsd:documentation>The time before completed tasks with logs are removed from the list.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="AllowNTPasswordStorage" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>Reserved for future use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="AlertsSenderEmail" type="com:typeEmailAddressb">
+        <xsd:annotation>
+          <xsd:documentation>The originator email address used when issuing email alerts.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="UseLdapAuthentication" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, indicates that an LDAP host is used for user authentication.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="LdapProtocol" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The LDAP protocol to use - LDAP or LDAPS.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="LdapHost" type="com:typeTextAnyDb">
+        <xsd:annotation>
+          <xsd:documentation>The LDAP host name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="LdapPort" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>The LDAP host port.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="LdapBaseDn" type="com:typeTextAnyDb">
+        <xsd:annotation>
+          <xsd:documentation>The root of the LDAP directory.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="LdapUserRootDn" type="com:typeTextAnyDb">
+        <xsd:annotation>
+          <xsd:documentation>The location of users in the LDAP store.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="LdapAuthenticationMethod" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The strength of the test applied to authenticate users: Simple or Strong.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="LdapUserFilter" type="com:typeTextAnyDb">
+        <xsd:annotation>
+          <xsd:documentation>A string specifying how to recognise users in the LDAP store.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="LdapUserIdentifierAttribute" type="com:typeTextAnyDb">
+        <xsd:annotation>
+          <xsd:documentation>The LDAP attribute holding the user ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="LdapUserDisplayAttribute" type="com:typeTextAnyDb">
+        <xsd:annotation>
+          <xsd:documentation>The LDAP attribute holding the user display name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="LdapUserGroupRootDn" type="com:typeTextAnyDb">
+        <xsd:annotation>
+          <xsd:documentation>The location of user groups in the LDAP store.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="LdapUserGroupFilter" type="com:typeTextAnyDb">
+        <xsd:annotation>
+          <xsd:documentation>A string specifying how to recognise user groups in the LDAP store.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="LdapUserGroupIdentifierAttribute" type="com:typeTextAnyDb">
+        <xsd:annotation>
+          <xsd:documentation>The LDAP attribute holding the user group ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="LdapUserGroupDisplayAttribute" type="com:typeTextAnyDb">
+        <xsd:annotation>
+          <xsd:documentation>The LDAP attribute holding the user group display name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="CodaWebAppUrl" type="com:typeTextAnyDb">
+        <xsd:annotation>
+          <xsd:documentation>The URL for the CODA Web server.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="CodaWebServicesUrl" type="com:typeTextAnyDb">
+        <xsd:annotation>
+          <xsd:documentation>The URL for the CODA Web services adapter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="DefaultAttachmentMethod" type="com:typeAttachmentMethod">
+        <xsd:annotation>
+          <xsd:documentation>The method used to store attachments.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="AttachmentBaseURL" type="com:typeTextAnyDb">
+        <xsd:annotation>
+          <xsd:documentation>The base URL used to generate the full URL when a document is attached as a partial reference.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="AttachmentValidationExtension" type="com:typeTextAnyDb">
+        <xsd:annotation>
+          <xsd:documentation>The java path to a user-written extension to validate URLs for attachment references.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ExtRef1BaseURL" type="com:typeTextAnyDb">
+        <xsd:annotation>
+          <xsd:documentation>The base URL used to generate the full URL for external reference 1 in Financials.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ExtRef2BaseURL" type="com:typeTextAnyDb">
+        <xsd:annotation>
+          <xsd:documentation>The base URL used to generate the full URL for external reference 2 in Financials.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ExtRef3BaseURL" type="com:typeTextAnyDb">
+        <xsd:annotation>
+          <xsd:documentation>The base URL used to generate the full URL for external reference 3 in Financials.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ExtRef4BaseURL" type="com:typeTextAnyDb">
+        <xsd:annotation>
+          <xsd:documentation>The base URL used to generate the full URL for external reference 4 in Financials.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ExtRef5BaseURL" type="com:typeTextAnyDb">
+        <xsd:annotation>
+          <xsd:documentation>The base URL used to generate the full URL for external reference 5 in Financials.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ExtRef6BaseURL" type="com:typeTextAnyDb">
+        <xsd:annotation>
+          <xsd:documentation>The base URL used to generate the full URL for external reference 6 in Financials.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="UserRef1BaseURL" type="com:typeTextAnyDb">
+        <xsd:annotation>
+          <xsd:documentation>The base URL used to generate the full URL for user reference 1 in Financials.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="UserRef2BaseURL" type="com:typeTextAnyDb">
+        <xsd:annotation>
+          <xsd:documentation>The base URL used to generate the full URL for user reference 2 in Financials.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="UserRef3BaseURL" type="com:typeTextAnyDb">
+        <xsd:annotation>
+          <xsd:documentation>The base URL used to generate the full URL for user reference 3 in Financials.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="LicenceUser" type="com:typeCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The code for the user to whom alerts are sent when a user logs on in excess of the number of users your licence specifies (provided that your licence allows this small overdraft). If your licence has an expiry date and specifies a warning period, and you set up a Licence Expiry Warning scheduled task, this user is also sent alerts when you enter this warning period.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="LicenceSlot1Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The name given to licence slot 1. Licence slots are used by XML<i>i</i> and Web services.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="LicenceSlot2Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The name given to licence slot 2.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="LicenceSlot3Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The name given to licence slot 3.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="LicenceSlot4Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The name given to licence slot 4.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="LicenceSlot5Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The name given to licence slot 5.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="LicenceSlot6Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The name given to licence slot 6.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="LicenceSlot7Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The name given to licence slot 7.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="LicenceSlot8Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The name given to licence slot 8.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="LicenceSlot9Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The name given to licence slot 9.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="LicenceSlot10Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The name given to licence slot 10.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for the parameter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CommonAppParamsOverriddenParamsList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a list of application parameters that have been overridden by the user.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="OverriddenParams" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>An application parameter that has been overridden by the user.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CommonAppParamsList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="CommonAppParams" type="app:CommonAppParams"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CommonAppParamsKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="CommonAppParams" type="app:CommonAppParamsKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CommonAppParamsKey">
+    <xsd:annotation>
+      <xsd:documentation>Contains key information for requesting application parameters from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AppParams">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="AppID" type="com:typeApplicationName"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ParamName" type="com:typeParamName"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ParamValue" type="com:typeTextAnyDb"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TimeStamp" type="xsd:short"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AppParamsList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="AppParams" type="app:AppParams"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AppParamsKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="AppParams" type="app:AppParamsKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AppParamsKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="AppID" type="com:typeApplicationName"/>
+      <xsd:element minOccurs="0" name="ParamName" type="com:typeParamName"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

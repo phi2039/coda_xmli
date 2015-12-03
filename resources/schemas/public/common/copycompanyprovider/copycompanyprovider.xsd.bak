@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:cpc="http://www.coda.com/common/schemas/copycompany" xmlns:cpcp="http://www.coda.com/common/schemas/copycompanyprovider" elementFormDefault="qualified" targetNamespace="http://www.coda.com/common/schemas/copycompanyprovider">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types2.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/copycompany" schemaLocation="s:/schemas/public/common/copycompany/copycompany.xsd"/>
+
+  <xsd:complexType name="CopyCompanyEvent">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ProgressId" type="com:typeDbGuid"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Sequence" type="com:typeULong"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="MasterCode" type="com:typeTextAnyDb"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Result" type="com:typeComCpcMessage"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Message" type="com:typeTranslatable"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TimeStamp" type="xsd:short"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CopyCompanyEventList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="CopyCompanyEvent" type="cpcp:CopyCompanyEvent"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CopyCompanyEventKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="CopyCompanyEvent" type="cpcp:CopyCompanyEventKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CopyCompanyEventKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="ProgressId" type="com:typeDbGuid"/>
+      <xsd:element minOccurs="0" name="Sequence" type="com:typeULong"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MasterTypeInfos">
+    <xsd:sequence>
+      <xsd:element name="MasterTypeInfoList" type="cpcp:MasterTypeInfosMasterTypeInfoList"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MasterTypeInfosMasterTypeInfoList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="MasterTypeInfo" type="cpcp:MasterTypeInfo"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MasterTypeInfosList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="MasterTypeInfos" type="cpcp:MasterTypeInfos"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MasterTypeInfo">
+    <xsd:complexContent>
+      <xsd:extension base="cpc:MasterTypeKey">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0" name="DataViewCode" type="com:typeCode"/>
+          <xsd:element name="DependenciesList" type="cpcp:MasterTypeInfoDependenciesList"/>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Singleton" type="com:typeBoolean"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="MasterTypeInfoDependenciesList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Dependencies" type="cpc:MasterTypeKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MasterTypeInfoList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="MasterTypeInfo" type="cpcp:MasterTypeInfo"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MasterCodes">
+    <xsd:sequence>
+      <xsd:element name="CodeList" type="cpcp:MasterCodesCodeList"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MasterCodesCodeList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Code" type="com:typeCode"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MasterCodesList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="MasterCodes" type="cpcp:MasterCodes"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

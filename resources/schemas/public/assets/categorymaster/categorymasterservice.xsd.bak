@@ -1,0 +1,711 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:cms="http://www.coda.com/eassets/schemas/categorymaster" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/eassets/schemas/categorymaster" elementFormDefault="qualified" version="11.3">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/service.xsd"/>
+  <xsd:include schemaLocation="s:/schemas/public/assets/categorymaster/categorymaster.xsd"/>
+
+  <xsd:complexType name="AddRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="CategoryMaster" type="cms:CategoryMaster">
+            <xsd:annotation>
+              <xsd:documentation>Contains information for the category master you want to create.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AddRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Creates new category masters in the database using the information you provide.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Companies" type="com:Companies" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the list of additional companies in which you want to create the masters. This is part of the multi-company functionality for maintaining masters in multiple companies.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Request" type="cms:AddRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AddResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the company in which you attempted to create the category master.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Code" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the category master that you attempted to create.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="TimeStamp" type="com:typeWord" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The TimeStamp value for this category master in the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AddResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Companies" type="com:Companies" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the list of additional companies in which you want to create the masters. This is part of the multi-company functionality for maintaining masters in multiple companies.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Response" type="cms:AddResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="CategoryMaster" type="cms:CategoryMaster">
+            <xsd:annotation>
+              <xsd:documentation>Contains the information for the category master you want to update.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Updates category masters in the database using the information you provide.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Companies" type="com:Companies" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the list of additional companies in which you want to create the masters. This is part of the multi-company functionality for maintaining masters in multiple companies.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Request" type="cms:UpdateRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the company in which you attempted to update the category master.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Code" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the category master that you attempted to update.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="TimeStamp" type="com:typeWord" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The TimeStamp value for this category master in the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Companies" type="com:Companies" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the list of additional companies in which you want to create the masters. This is part of the multi-company functionality for maintaining masters in multiple companies.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Response" type="cms:UpdateResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="com:Key">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key identifying the category master you want to retrieve from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the specified category masters from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="cms:GetRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the company in which you attempted to retrieve the category master.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Code" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the category master that you attempted to retrieve.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CategoryMaster" type="cms:CategoryMaster">
+            <xsd:annotation>
+              <xsd:documentation>Contains the category master you have retrieved from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="cms:GetResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="com:Key">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key identifying the category master you want to delete.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Deletes the specified category masters from the database</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="cms:DeleteRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the company in which you attempted to delete the category master.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Code" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the category master that you attempted to delete.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="cms:DeleteResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="ReqKeys" type="cms:cmsReqKeys">
+            <xsd:annotation>
+              <xsd:documentation>Contains key information identifying the category masters you want to list.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves key information for the specified category masters from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="cms:ListRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the company in which you attempted to list category masters.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Code" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the category masters you want to list.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="MaxKeys" type="xsd:int">
+            <xsd:annotation>
+              <xsd:documentation>The maximum number of items to be returned.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Keys" type="com:KeyData">
+            <xsd:annotation>
+              <xsd:documentation>This element contains key information for the listed category masters.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="cms:ListResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="InUseRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="ReqKeys" type="com:Key">
+            <xsd:annotation>
+              <xsd:documentation>Contains key information for the category masters that you want to check.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="InUseRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Determines whether the specified category master is already referenced by an asset.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="cms:InUseRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="InUseResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="InUse" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:documentation>Indicates whether the category master is being used by an asset. Returns True if the category master is in use, and False if not.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Keys" type="com:Key">
+            <xsd:annotation>
+              <xsd:documentation>This element contains key information for the category masters that are in use.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="InUseResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="cms:InUseResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="InUseAndChangedRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="CategoryMaster" type="cms:CategoryMaster">
+            <xsd:annotation>
+              <xsd:documentation>The category master that you want to check.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="InUseAndChangedRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Determines whether the specified category master has been changed and is already referenced by an asset. Changing a master that is already referenced by an asset may have repercussions.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="cms:InUseAndChangedRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="InUseAndChangedResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="InUseAndChanged" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:documentation>Indicates whether the category master has changed and is already referenced by an asset.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Associated" type="xsd:boolean" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Indicates whether the category master is associated with a WIP category.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="InUseAndChangedResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="cms:InUseAndChangedResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListMappingsRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="com:Key">
+            <xsd:annotation>
+              <xsd:documentation>Contains key information for the listed field mappings.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListMappingsRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves key information for the specified field mappings from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="cms:ListMappingsRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListMappingsResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Key" type="com:Key">
+            <xsd:annotation>
+              <xsd:documentation>Contains key information for the category masters which contain the mappings you want to list.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="MappingList" type="cms:MappingList">
+            <xsd:annotation>
+              <xsd:documentation>Lists the specified field mappings, retrieved from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListMappingsResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="cms:ListMappingsResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetWIPDefaultsRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="AssociatedCategoryKey" type="com:Key">
+            <xsd:annotation>
+              <xsd:documentation>Contains key information identifying the associated category.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="WIPCategoryCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the WIP category.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetWIPDefaultsRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Loads default values for the specified WIP category from the specified associated category.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="cms:GetWIPDefaultsRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetWIPDefaultsResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CategoryMaster" type="cms:CategoryMaster">
+            <xsd:annotation>
+              <xsd:documentation>Contains the category master constructed from the default values of the capitalisation category, combined with the WIP category settings.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetWIPDefaultsResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="cms:GetWIPDefaultsResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CategoryMasterRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to maintain category masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element name="Add" type="cms:AddRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Creates new category masters in the database using the information you provide.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Update" type="cms:UpdateRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Updates category masters in the database using the information you provide.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Get" type="cms:GetRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves the specified category masters from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Delete" type="cms:DeleteRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Deletes the specified category masters from the database</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="List" type="cms:ListRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves key information for the specified category masters from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="InUse" type="cms:InUseRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Determines whether the specified category master is already referenced by an asset.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="InUseAndChanged" type="cms:InUseAndChangedRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Determines whether the specified category master has been changed and is already referenced by an asset. Changing a master that is already referenced by an asset may have repercussions.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ListMappings" type="cms:ListMappingsRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves key information for the specified field mappings from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetWIPDefaults" type="cms:GetWIPDefaultsRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Loads default values for the specified WIP category from the specified associated category.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CategoryMasterResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you maintain category masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element name="Add" type="cms:AddResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Update" type="cms:UpdateResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Get" type="cms:GetResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Delete" type="cms:DeleteResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="List" type="cms:ListResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="InUse" type="cms:InUseResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="InUseAndChanged" type="cms:InUseAndChangedResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ListMappings" type="cms:ListMappingsResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetWIPDefaults" type="cms:GetWIPDefaultsResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="CategoryMasterRequest" type="cms:CategoryMasterRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to maintain category masters.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="CategoryMasterResponse" type="cms:CategoryMasterResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you maintain category masters.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

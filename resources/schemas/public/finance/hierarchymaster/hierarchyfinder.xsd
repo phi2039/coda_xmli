@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:elm="http://www.coda.com/efinance/schemas/hierarchymaster" targetNamespace="http://www.coda.com/efinance/schemas/hierarchymaster" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="HierarchyFinderFilter">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the filter that is used to select the hierarchy masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MaxKeys" type="xsd:long">
+        <xsd:annotation>
+          <xsd:documentation>The maximum number of hierarchy masters you want to retrieve from the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SortBy" type="com:typeCtOneOfN">
+        <xsd:annotation>
+          <xsd:documentation>Specifies the sort key that determines the order in which matching nodes are listed.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="HierarchyCode" type="com:typeCodeWild" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code for the hierarchy.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="HierarchyLevel" type="com:typeCtHimLevel" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The hierarchy level on which you want to filter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="HierarchyLevelName" type="com:typeCodeWild">
+        <xsd:annotation>
+          <xsd:documentation>The name associated with HierarchyLevel.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AccGrpCode" type="com:typeCodeWild" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code for the account group (only meaningful for leaf nodes).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElmGrpCode" type="com:typeCodeWild" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code for the element group (only meaningful for leaf nodes).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElmCode" type="com:typeElmCodeWild" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code for the element (only meaningful for leaf nodes).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="HierarchyFinderKeyDataElement">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the node information which matches the HierarchyFinderFilter.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this hierarchy node.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="HierarchyCode" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this hierarchy.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="HierarchyLevel" type="com:typeCtHimLevel">
+        <xsd:annotation>
+          <xsd:documentation>The hierarchy level at which the node exists.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="GrpType" type="com:typeCtHimGrpType" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the leaf node represents an element group or an account group.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CmpCode" type="com:typeGeneralCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the element group exists.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="GrpCode" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code for the element group or account group, whichever applies.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="HierarchyFinderKeyData">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of node keys which match the HierarchyFinderFilter.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="elm:HierarchyFinderKeyDataElement" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains the node information which matches the HierarchyFinderFilter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

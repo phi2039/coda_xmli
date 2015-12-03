@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:stm="http://www.coda.com/efinance/schemas/statementmaster" targetNamespace="http://www.coda.com/efinance/schemas/statementmaster" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/service.xsd"/>
+
+  <xsd:complexType name="Key">
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode"/>
+      <xsd:element name="StmCode" type="com:typeElmCode"/>
+      <xsd:element name="ExternalCode" type="com:typeElmCode"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CopyExtRefList">
+    <xsd:annotation>
+      <xsd:documentation>The list of external references which you want to copy.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CopyExtRef" type="xsd:boolean" minOccurs="0" maxOccurs="6">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that the external reference is copied from the last source line to the contra lines, if you specified Calculated in the ContraLineSrc.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TransactionMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a transaction type master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company in which the transaction type master exists.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this transaction type master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TimeStamp" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for the transaction type master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name of the master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortName" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name of the master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StmCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the statement type master that you want to use with this transaction type.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExternalCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The transaction identifier that appears in the statement for lines of this type.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocSrcType" type="com:typeCtDocumType">
+        <xsd:annotation>
+          <xsd:documentation>Where the document for posting the statement lines is derived from: Specify, or From file.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the document used to post the statement lines, if the DocSrcType is Specify.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocNumType" type="com:typeCtDocumentNumbering">
+        <xsd:annotation>
+          <xsd:documentation>How often a separate document is created, determining the number of documents: Document per item, Document per process, or From file.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Location" type="com:typePostingLocation">
+        <xsd:annotation>
+          <xsd:documentation>The location to which the document will be posted: Books or Intray.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Reconcile" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that lines of this transaction type may be automatically reconciled after posting.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExtensionDLL" type="com:typeExtDLL">
+        <xsd:annotation>
+          <xsd:documentation>The full path for the DLL file you want to use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SrcAccSrc" type="com:typeCtAcccodeSource">
+        <xsd:annotation>
+          <xsd:documentation>How the account code to which the source lines are posted is derived: Specified, Lookup Account or From File.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SrcAccCode" type="com:typeAcCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the account to which source lines of this type are posted, if you have selected Specified in SrcAccSrc.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SrcDesc" type="com:typeDescr" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The description to be used instead of any description that is in the statement file. You must enter at least one printable character.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SrcLineType" type="com:typeCtDoclinetypeNotax">
+        <xsd:annotation>
+          <xsd:documentation>The line type of the source lines: Summary, Analysis or taken From file.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SrcCheckExtRefs" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that external references are checked for source lines of this type when you validate a statement. The checking rules specified on the document master are used.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SrcValidateAcc" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that the account code is validated for source lines of this type when you validate a statement. The standard Financials validation is used.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SrcExtValidation" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies that the user extension named in UserExtension is called for source lines of this type when you validate a statement. This user extension can check and modify any of the external references.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ContraLineSrc" type="com:typeCtContraSource">
+        <xsd:annotation>
+          <xsd:documentation>How the value of the contra line is derived: Calculated or From file.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ContraAccSrc" type="com:typeCtAcccodeContra">
+        <xsd:annotation>
+          <xsd:documentation>How the account code to which contra lines are posted is derived: Specified, Lookup account, or From file.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ContraAccCode" type="com:typeAcCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the account to which contra lines of this type are posted, if you have selected Specified in ContraAccSrc.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ContraDesc" type="com:typeDescr" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The description to be used instead of any description that is in the statement file. You must enter at least one printable character.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CopyExtRefList" type="stm:CopyExtRefList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The list of external references which you want to copy.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ContraLineType" type="com:typeCtDoclinetypeNotax">
+        <xsd:annotation>
+          <xsd:documentation>The line type of the contra lines: Summary, Analysis or taken From file.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ContraCheckExtRefs" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies that external references are checked for contra lines of this type when you validate a statement. The checking rules specified in the document master are used.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ContraValidateAcc" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies that the account code is validated for contra lines of this type when you validate a statement. The standard Financials validation is used.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ContraExtValidation" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies that the user extension master named in UserExtension is called for contra lines of this type when you validate a statement. This implementation can check and modify any of the external references.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RelaxTriangulation" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that the EMU triangulation rules for currency conversion do not apply to the calculation of the contra line values.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserExtension" type="com:ExtensionRef" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the extension master you want to use for validation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="TransactionMaster" type="stm:TransactionMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a transaction type master.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

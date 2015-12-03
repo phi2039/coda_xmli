@@ -1,0 +1,771 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:pos="http://www.coda.com/common/schemas/positions" xmlns:udf="http://www.coda.com/common/schemas/udfmaster" xmlns:use="http://www.coda.com/common/schemas/users" elementFormDefault="qualified" targetNamespace="http://www.coda.com/common/schemas/positions">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types2.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/udfmaster" schemaLocation="s:/schemas/public/common/udfmaster/udfmaster.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/users" schemaLocation="s:/schemas/public/common/users/users.xsd"/>
+
+  <xsd:complexType name="PositionAttributeDefinition">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the definition of a position attribute.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="FieldCode" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The name of the field.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Label" type="com:typeShortName">
+        <xsd:annotation>
+          <xsd:documentation>A descriptive text label for the field.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Sequence" type="com:typeWord">
+        <xsd:annotation>
+          <xsd:documentation>The sequence ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="UDFMaster" type="udf:UDFMasterKey">
+        <xsd:annotation>
+          <xsd:documentation>The code of the UDF master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ReferenceCount" type="com:typeULongB">
+        <xsd:annotation>
+          <xsd:documentation>A count of the number of times the data is referenced.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The timestamp value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PositionAttributeDefinitionList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of position attribute definitions.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="PositionAttributeDefinition" type="pos:PositionAttributeDefinition">
+        <xsd:annotation>
+          <xsd:documentation>This element contains the definition of a position attribute.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PositionAttributeDefinitionKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="PositionAttributeDefinition" type="pos:PositionAttributeDefinitionKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PositionAttributeDefinitionKey">
+    <xsd:annotation>
+      <xsd:documentation>This element contains an attribute definition.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="FieldCode" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of an attribute field.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PositionAttribute">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of an attribute.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Definition" type="pos:PositionAttributeDefinitionKey">
+        <xsd:annotation>
+          <xsd:documentation>This element contains an attribute definition.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Value" type="com:typeUdfTextb">
+        <xsd:annotation>
+          <xsd:documentation>The attribute label.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="DefinedValue" type="udf:UDFDefinedValueKey">
+        <xsd:annotation>
+          <xsd:documentation>The value of the attribute.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PositionAttributeList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of attributes of the position.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="PositionAttribute" type="pos:PositionAttribute">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of an attribute.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PositionAttributeKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="PositionAttribute" type="pos:PositionAttributeKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PositionAttributeKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode"/>
+      <xsd:element minOccurs="0" name="Definition" type="pos:PositionAttributeDefinitionKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="HierarchyNode">
+    <xsd:annotation>
+      <xsd:documentation>The root node of the position hierarchy.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Position" type="pos:PositionKey">
+        <xsd:annotation>
+          <xsd:documentation>The key to a position.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Parent" type="pos:HierarchyNodeKey">
+        <xsd:annotation>
+          <xsd:documentation>The name of the parent node.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ChildList" type="pos:HierarchyNodeList">
+        <xsd:annotation>
+          <xsd:documentation>A list of child nodes.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="HierarchyNodeList">
+    <xsd:annotation>
+      <xsd:documentation>A list of child nodes.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="HierarchyNode" type="pos:HierarchyNode">
+        <xsd:annotation>
+          <xsd:documentation>The details of a hierarchy node.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="HierarchyNodeKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="HierarchyNode" type="pos:HierarchyNodeKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="HierarchyNodeKey">
+    <xsd:annotation>
+      <xsd:documentation>The name of the parent node.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The position code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="Version" type="com:typeWord">
+        <xsd:annotation>
+          <xsd:documentation>The position version number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="Position" type="pos:PositionKey">
+        <xsd:annotation>
+          <xsd:documentation>The key to a position.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AuthorisationLimit">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of an authorisation limit for the position.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Sequence" type="com:typeWord">
+        <xsd:annotation>
+          <xsd:documentation>The sequence number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="CompanyCode" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The company code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="CurrencyCode" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The currency code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="DocumentType" type="com:typeComDoc">
+        <xsd:annotation>
+          <xsd:documentation>The document type.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Tolerance" type="com:typeCodeB">
+        <xsd:annotation>
+          <xsd:documentation>A tolerance master code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="AccountGroupCode" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>An account group code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Limit" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The value of the authorisation limit.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AuthorisationLimitList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of authorisation limits of the position.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="AuthorisationLimit" type="pos:AuthorisationLimit">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of an authorisation limit for the position.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AuthorisationLimitKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="AuthorisationLimit" type="pos:AuthorisationLimitKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AuthorisationLimitKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode"/>
+      <xsd:element minOccurs="0" name="Sequence" type="com:typeWord"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Position">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a position master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The position master code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The position master name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The position master short name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PositionMemberList" type="pos:PositionMemberList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of members of the position.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AttributeList" type="pos:PositionAttributeList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of attributes of the position.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AuthorisationLimitList" type="pos:AuthorisationLimitList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of authorisation limits of the position.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ReferenceCount" type="com:typeULongB">
+        <xsd:annotation>
+          <xsd:documentation>A count of the number of times this record is referenced.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>A time stamp value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PositionList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of positions.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Position" type="pos:Position">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of a position.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PositionKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Position" type="pos:PositionKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PositionKey">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a key to a position.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>A position code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PositionMember">
+    <xsd:annotation>
+      <xsd:documentation>A member of the position.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="User" type="use:UserKey">
+        <xsd:annotation>
+          <xsd:documentation>A user ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PositionMemberList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of members of the position.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="PositionMember" type="pos:PositionMember">
+        <xsd:annotation>
+          <xsd:documentation>A member of the position.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PositionMemberKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="PositionMember" type="pos:PositionMemberKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PositionMemberKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode"/>
+      <xsd:element minOccurs="0" name="User" type="use:UserKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Hierarchy">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a position hierarchy.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The position hierarchy code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Version" type="com:typeWord">
+        <xsd:annotation>
+          <xsd:documentation>The position hierarchy version number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The position hierarchy name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The position hierarchy short name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Root" type="pos:HierarchyNode">
+        <xsd:annotation>
+          <xsd:documentation>The root node of the position hierarchy.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="LifecycleStatus" type="com:typeComPosHierarchyStatus">
+        <xsd:annotation>
+          <xsd:documentation>The position hierarchy status.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>A time stamp value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="HierarchyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Hierarchy" type="pos:Hierarchy"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="HierarchyKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Hierarchy" type="pos:HierarchyKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="HierarchyKey">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a key to a position hierarchy.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The position hierarchy code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="Version" type="com:typeWord">
+        <xsd:annotation>
+          <xsd:documentation>The position hierarchy version.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="HierarchyCodeList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of position hierarchy codes.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CodeList" type="pos:HierarchyCodeListCodeList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of position hierarchy codes.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="HierarchyCodeListCodeList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of position hierarchy codes.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>A position hierarchy code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="HierarchyCodeListList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="HierarchyCodeList" type="pos:HierarchyCodeList"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MultipleAccountLimitInformation">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of account limits for multiple accounts.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="PositionCode" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>A position code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="CompanyCode" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>A company code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="DocumentType" type="com:typeComDoc">
+        <xsd:annotation>
+          <xsd:documentation>A document type.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="CurrencyCode" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>A currency code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Amount" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>A monetary value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DestinationAndAccountList" type="pos:MultipleAccountLimitInformationDestinationAndAccountList">
+        <xsd:annotation>
+          <xsd:documentation>A list of destination and account code combinations.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MultipleAccountLimitInformationDestinationAndAccountList">
+    <xsd:annotation>
+      <xsd:documentation>A list of destination and account code combinations.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="DestinationAndAccount" type="pos:DestinationAndAccount">
+        <xsd:annotation>
+          <xsd:documentation>A destination and account code combination.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MultipleAccountLimitInformationList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="MultipleAccountLimitInformation" type="pos:MultipleAccountLimitInformation"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PositionReturn">
+    <xsd:annotation>
+      <xsd:documentation>Details of a position.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The position code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TimeStamp" type="com:typeWord">
+        <xsd:annotation>
+          <xsd:documentation>The timestamp value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PositionReturnList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="PositionReturn" type="pos:PositionReturn">
+        <xsd:annotation>
+          <xsd:documentation>Details of a position.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PositionAttributeDefinitions">
+    <xsd:annotation>
+      <xsd:documentation>This element contains lists of position attribute definitions.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="DefinitionList" type="pos:PositionAttributeDefinitionList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of position attribute definitions.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PositionAttributeDefinitionsList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="PositionAttributeDefinitions" type="pos:PositionAttributeDefinitions"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DestinationAndAccount">
+    <xsd:annotation>
+      <xsd:documentation>A destination and account code combination.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="0" name="DestinationCode" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>A destination code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="AccountCode" type="com:typeAcCode">
+        <xsd:annotation>
+          <xsd:documentation>An account code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DestinationAndAccountList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="DestinationAndAccount" type="pos:DestinationAndAccount">
+        <xsd:annotation>
+          <xsd:documentation>A destination and account code combination.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PositionCodeList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of position master codes.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CodeList" type="pos:PositionCodeListCodeList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of position master codes.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PositionCodeListCodeList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of position master codes.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>A position master code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PositionCodeListList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="PositionCodeList" type="pos:PositionCodeList"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PositionReturns">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of position codes added to a position hierarchy.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="PositionReturnList" type="pos:PositionReturnsPositionReturnList">
+        <xsd:annotation>
+          <xsd:documentation>The list of positions returned.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PositionReturnsPositionReturnList">
+    <xsd:annotation>
+      <xsd:documentation>The list of positions returned.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="PositionReturn" type="pos:PositionReturn">
+        <xsd:annotation>
+          <xsd:documentation>Details of a position.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PositionReturnsList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="PositionReturns" type="pos:PositionReturns"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Positions">
+    <xsd:annotation>
+      <xsd:documentation>This element contains lists of positions.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="PositionList" type="pos:PositionList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of positions.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PositionsList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Positions" type="pos:Positions"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PositionItemList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of position master codes and short names.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="PositionListItem" type="pos:PositionListItem">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a position master code and short name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PositionListItem">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a position master code and short name.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>A position master code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>A position master short name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="HierarchyItemList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of position hierarchy masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="HierarchyListItem" type="pos:HierarchyListItem">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of an item in a list of position hierarchy masters.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="HierarchyListItem">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of an item in a list of position hierarchy masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of a position hierarchy master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="Version" type="com:typeWord">
+        <xsd:annotation>
+          <xsd:documentation>The version of a position hierarchy master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The short name of a position hierarchy master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

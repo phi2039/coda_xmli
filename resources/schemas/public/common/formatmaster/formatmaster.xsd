@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:fmt="http://www.coda.com/common/schemas/formatmaster" elementFormDefault="qualified" targetNamespace="http://www.coda.com/common/schemas/formatmaster">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types2.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="FormatData">
+    <xsd:annotation>
+      <xsd:documentation>This element holds formatting information.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="BackgroundColour" type="com:typeULong">
+        <xsd:annotation>
+          <xsd:documentation>The background colour for the field, in standard RGB format.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="HAlign" type="com:typeComAlignHorizontal">
+        <xsd:annotation>
+          <xsd:documentation>How the value is to be aligned horizontally.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="VAlign" type="com:typeComAlignVertical">
+        <xsd:annotation>
+          <xsd:documentation>How the value is to be aligned vertically.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LineSpacing" type="com:typeULong">
+        <xsd:annotation>
+          <xsd:documentation>An adjustment to the line spacing, expressed as a percentage.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Padding" type="com:typePaddingb">
+        <xsd:annotation>
+          <xsd:documentation>The character to insert as padding. No padding is signified by the empty string.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BorderTop" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the top edge of the field has a border.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BorderLeft" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the left edge of the field has a border.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BorderBottom" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the bottom edge of the field has a border.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BorderRight" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the right edge of the field has a border.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BorderStyle" type="com:typeComLineStyle">
+        <xsd:annotation>
+          <xsd:documentation>The style of line used to draw borders.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BorderColour" type="com:typeULong">
+        <xsd:annotation>
+          <xsd:documentation>The colour used to draw the border, in standard RGB format.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BorderWeight" type="com:typeComLineWeight">
+        <xsd:annotation>
+          <xsd:documentation>The weight of the lines used to draw borders.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DateTimeFormat" type="com:typeDataFormat">
+        <xsd:annotation>
+          <xsd:documentation>The formula that specifies how Date/Time values are to be formatted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NumberFormat" type="com:typeDataFormat">
+        <xsd:annotation>
+          <xsd:documentation>The formula that specifies how numeric values are to be formatted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NegativeColour" type="com:typeULong">
+        <xsd:annotation>
+          <xsd:documentation>The colour used to display negative values, in standard RGB format.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DisplayAsWords" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>Whether to convert numeric values into words.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DecimalsAsDigits" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, the decimal component of the value is displayed as digits even though the whole number value is displayed as words. This column is only used when DisplayAsWords is set.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AppendOnly" type="com:typeComAppendOnly">
+        <xsd:annotation>
+          <xsd:documentation>Whether to append the word 'only' to the amount in words.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="FontFamily" type="com:typeTextfield">
+        <xsd:annotation>
+          <xsd:documentation>The name of the font in which to output the value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="FontSize" type="com:typeWord">
+        <xsd:annotation>
+          <xsd:documentation>The font size.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="FontColour" type="com:typeULong">
+        <xsd:annotation>
+          <xsd:documentation>The font colour, in standard RGB format.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="FontBold" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>Whether to display the value in bold.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="FontItalic" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>Whether to display the value in italic.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="FontUnderline" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>Whether to display the value with underlining.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="FontStrikethrough" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>Whether to display the value with strikethrough effect.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="FormatMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a format master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this format master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ReadOnly" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether this master is read-only (CODA provided masters are read-only).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The name of the format master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The short name for the format master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Format" type="fmt:FormatData">
+        <xsd:annotation>
+          <xsd:documentation>This element holds formatting information.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this format master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="FormatMasterList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a list of format masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="FormatMaster" type="fmt:FormatMaster">
+        <xsd:annotation>
+          <xsd:documentation>This element holds one format master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="FormatMasterKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="FormatMaster" type="fmt:FormatMasterKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="FormatMasterKey">
+    <xsd:annotation>
+      <xsd:documentation>Contains the key identifying the format master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for a format master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="FormatMasterItemList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a list of format masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="FormatMasterListItem" type="fmt:FormatMasterListItem">
+        <xsd:annotation>
+          <xsd:documentation>This element holds selective details of one format master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="FormatMasterListItem">
+    <xsd:annotation>
+      <xsd:documentation>This element holds selective details of one format master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for a format master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The short name for the format master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

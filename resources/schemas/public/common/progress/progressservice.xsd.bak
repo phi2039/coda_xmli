@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:prg="http://www.coda.com/efinance/schemas/progress" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/efinance/schemas/progress" elementFormDefault="qualified" version="1.0">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/service.xsd"/>
+  <xsd:include schemaLocation="s:/schemas/public/common/progress/progress.xsd"/>
+
+  <xsd:complexType name="progressGetRequest">
+
+    <xsd:annotation>
+      <xsd:documentation>This element contains a request about a long-running process.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="prg:ProgressKey">
+            <xsd:annotation>
+              <xsd:documentation>The key, or special reference, which identifies the process you started. This is given to you when you start the process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="progressGetRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Requests progress information about a current server process.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="prg:progressGetRequest" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="progressGetResponse">
+
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you send a request about a long-running process on the server.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Key" type="prg:ProgressKey">
+            <xsd:annotation>
+              <xsd:documentation>The key, or special reference, which identifies the process you are sending the request to. This is given to you when you start the process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Progress" type="prg:ProgressData" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains information about the status and progress of the process you are running.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="progressGetResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="prg:progressGetResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="progressAbortRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="prg:ProgressKey">
+            <xsd:annotation>
+              <xsd:documentation>The key, or special reference, which identifies the process you want to abort. This is given to you when you start the process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="progressAbortRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Requests the server to abort a current process.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="prg:progressAbortRequest" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="progressAbortResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Key" type="prg:ProgressKey">
+            <xsd:annotation>
+              <xsd:documentation>The key, or special reference which identifies the process you want to abort.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="progressAbortResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>This is the response to the Abort request.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="prg:progressAbortResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="progressPauseRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="prg:ProgressKey">
+            <xsd:annotation>
+              <xsd:documentation>The key, or special reference, which identifies the process you want to pause. This is given to you when you start the process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="progressPauseRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Requests the server to pause a current server process.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="prg:progressPauseRequest" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="progressPauseResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Key" type="prg:ProgressKey">
+            <xsd:annotation>
+              <xsd:documentation>The key, or special reference, which identifies the process you want to pause.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="progressPauseResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>This is the response to the Pause request.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="prg:progressPauseResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="progressResumeRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="prg:ProgressKey">
+            <xsd:annotation>
+              <xsd:documentation>The key, or special reference, which identifies the process you want to resume. This is given to you when you pause the process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="progressResumeRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Requests the server to resume a process which you have paused.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="prg:progressResumeRequest" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="progressResumeResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Key" type="prg:ProgressKey">
+            <xsd:annotation>
+              <xsd:documentation>The key, or special reference, which identifies the process you want to resume.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="progressResumeResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>This is the response to the Resume request.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="prg:progressResumeResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProgressRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to request information from the server about a long-running process, or to abort it. It is used by several processes, including Archive, Tax Transfer, Allocation, and Pay.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element name="GetProgress" type="prg:progressGetRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves information about the progress of a long-running process on the server.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Abort" type="prg:progressAbortRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Aborts a long-running process on the server.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProgressResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you use the GetProgress or Abort request for a long-running process on the server.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element name="GetProgress" type="prg:progressGetResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Abort" type="prg:progressAbortResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="ProgressRequest" type="prg:ProgressRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to request information from the server about a long-running process, or to abort it. It is used by several processes, including Archive, Tax Transfer, Allocation, and Pay.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="ProgressResponse" type="prg:ProgressResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you use the GetProgress or Abort request for a long-running process on the server.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

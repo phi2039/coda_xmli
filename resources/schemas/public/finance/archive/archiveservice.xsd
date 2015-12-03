@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:arc="http://www.coda.com/efinance/schemas/archive" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:prg="http://www.coda.com/efinance/schemas/progress" targetNamespace="http://www.coda.com/efinance/schemas/archive" elementFormDefault="qualified" version="2.0">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/service.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/progress" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/progress/progress.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/progress" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/progress/progressservice.xsd"/>
+  <xsd:include schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/finance/archive/archive.xsd"/>
+
+  <xsd:complexType name="StartArchivingDocumentsRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="ArchiveDocumentsParams" type="arc:ArchiveDocumentsParams">
+            <xsd:annotation>
+              <xsd:documentation>Contains the parameters for starting the Archive Documents process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartArchivingDocumentsRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Starts the Archive Documents process.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="arc:StartArchivingDocumentsRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartArchivingDocumentsResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the company in which you are attempting to archive documents.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ArchiveHeaderMasterCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the archive header master you are using to archive documents.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="BalanceWarning" type="arc:BalanceWarning" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>A warning that not all documents for the year have been archived. Archive Documents should be run before archiving balances.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ProgressKey" type="prg:ProgressKey" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The key, or special reference, given to you for requesting information about the progress of Archive Documents.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartArchivingDocumentsResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="arc:StartArchivingDocumentsResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetArchiveDocumentsInformationRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="ArchiveHeaderMasterKey" type="com:Key">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key identifying the archive header master you want to use for archiving documents.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetArchiveDocumentsInformationRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves default parameters and current status for the Archive Documents process (prior to starting Archive Documents).</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="arc:GetArchiveDocumentsInformationRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetArchiveDocumentsInformationResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the company in which the Archive process is running.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ArchiveHeaderMasterCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the header master being used to archive documents.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ArchiveDocumentsInformation" type="arc:ArchiveDocumentsInformation" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the default parameters and current status for the Archive Documents process. The parameters can be edited if required.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetArchiveDocumentsInformationResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="arc:GetArchiveDocumentsInformationResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProgressResponse">
+    <xsd:complexContent>
+      <xsd:extension base="prg:progressGetResponse">
+        <xsd:sequence>
+          <xsd:element name="ArchiveMonitor" type="arc:ArchiveMonitor" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains details of the progress made by the Archive process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Error" type="com:EmbeddedReason" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains information about an error that occurred.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProgressResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="arc:ProgressResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetArchiveLoadUnloadSelectionRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="ArchiveHeaderMasterKey" type="com:Key">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key identifying the archive header master you want to use for loading or unloading documents.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetArchiveLoadUnloadSelectionRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the default parameters and current status for Load/Unload Documents (prior to starting Load/Unload Documents).</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="arc:GetArchiveLoadUnloadSelectionRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetArchiveLoadUnloadSelectionResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the company in which Load/Unload Archived Documents is running.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ArchiveHeaderMasterCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the header master being used to Load/Unload Archived Documents.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ArchiveLoadUnloadSelection" type="arc:ArchiveLoadUnloadSelection" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the default parameters and current status for the Load/Unload Documents process. The parameters can be edited if required.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetArchiveLoadUnloadSelectionResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="arc:GetArchiveLoadUnloadSelectionResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartLoadingArchivedDocumentsRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="ArchiveLoadUnloadSelection" type="arc:ArchiveLoadUnloadSelectionParams">
+            <xsd:annotation>
+              <xsd:documentation>Contains the selection parameters for the documents you want to load or unload.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartLoadingArchivedDocumentsRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Starts the Load Documents process.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="arc:StartLoadingArchivedDocumentsRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartLoadingArchivedDocumentsResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the company in which are attempting to load archived documents.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ArchiveHeaderMasterCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the archive header master you are using to load archived documents.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ProgressKey" type="prg:ProgressKey" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The key, or special reference, given to you for requesting information about the progress of Load Documents.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartLoadingArchivedDocumentsResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="arc:StartLoadingArchivedDocumentsResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartUnloadingArchivedDocumentsRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="ArchiveLoadUnloadSelection" type="arc:ArchiveLoadUnloadSelectionParams">
+            <xsd:annotation>
+              <xsd:documentation>Contains the selection parameters for the documents you want to load or unload.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartUnloadingArchivedDocumentsRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Starts the Unload Documents process.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="arc:StartUnloadingArchivedDocumentsRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartUnloadingArchivedDocumentsResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the company in which you are attempting to unload archived documents.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ArchiveHeaderMasterCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the archive header master you are using to unload archived documents.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ProgressKey" type="prg:ProgressKey" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The key, or special reference, given to you for requesting information about the progress of Unload Documents.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartUnloadingArchivedDocumentsResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="arc:StartUnloadingArchivedDocumentsResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="RestartRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="ArchiveHeaderMasterKey" type="com:Key">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key identifying the archive header master you want to use to restart the Archive process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="RestartRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Restarts an Archive process which has failed. You need to send this request if the response in the Recovery section of GetArchiveDocumentsInformation advises that the process has failed.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="arc:RestartRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="RestartResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the company in which you attempted to restart a failed Archive process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ArchiveHeaderMasterCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the archive header master you specified for the restarted Archive process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ProgressKey" type="prg:ProgressKey" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The key, or special reference, given to you for requesting information about the progress of the Archive process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="RestartResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="arc:RestartResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ArchiveRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to run and monitor Archive functions.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element name="StartArchivingDocuments" type="arc:StartArchivingDocumentsRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Starts the Archive Documents process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetArchiveDocumentsInformation" type="arc:GetArchiveDocumentsInformationRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves default parameters and current status for the Archive Documents process (prior to starting Archive Documents).</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetArchiveLoadUnloadSelection" type="arc:GetArchiveLoadUnloadSelectionRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves the default parameters and current status for Load/Unload Documents (prior to starting Load/Unload Documents).</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="StartLoadingArchivedDocuments" type="arc:StartLoadingArchivedDocumentsRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Starts the Load Documents process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="StartUnloadingArchivedDocuments" type="arc:StartUnloadingArchivedDocumentsRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Starts the Unload Documents process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Abort" type="prg:progressAbortRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Stops the Archive process, which cannot then be restarted.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Pause" type="prg:progressPauseRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Pauses the Archive process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Resume" type="prg:progressResumeRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Resumes an Archive process which you have paused.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetProgress" type="prg:progressGetRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves information on the progress of the Archive process. You need the key, or special reference, given to you for the process you started.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Restart" type="arc:RestartRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Restarts an Archive process which has failed. You need to send this request if the response in the Recovery section of GetArchiveDocumentsInformation advises that the process has failed.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ArchiveResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you run and monitor Archive functions.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element name="StartArchivingDocuments" type="arc:StartArchivingDocumentsResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetArchiveDocumentsInformation" type="arc:GetArchiveDocumentsInformationResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetArchiveLoadUnloadSelection" type="arc:GetArchiveLoadUnloadSelectionResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="StartLoadingArchivedDocuments" type="arc:StartLoadingArchivedDocumentsResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="StartUnloadingArchivedDocuments" type="arc:StartUnloadingArchivedDocumentsResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Abort" type="prg:progressAbortResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Pause" type="prg:progressPauseResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Resume" type="prg:progressResumeResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetProgress" type="arc:ProgressResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Restart" type="arc:RestartResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="ArchiveRequest" type="arc:ArchiveRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to run and monitor Archive functions.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="ArchiveResponse" type="arc:ArchiveResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you run and monitor Archive functions.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

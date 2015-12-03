@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:agm="http://www.coda.com/efinance/schemas/accountgroupmaster" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/efinance/schemas/accountgroupmaster" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/service.xsd"/>
+
+  <xsd:complexType name="Master" abstract="true">
+    <xsd:sequence>
+      <xsd:element name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this account group master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this account group master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name for this account group master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for this account group master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CreateDate" type="com:typeDateB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date when this account group master was created.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ModifyDate" type="com:typeDateB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date when this account group master was last modified.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="User" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The user who last modified this account group master (or the user who created this account group master if no modify date exists).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CmpRange">
+    <xsd:annotation>
+      <xsd:documentation>The company range information.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="IncludeFrom" type="com:typeCodeWild">
+        <xsd:annotation>
+          <xsd:documentation>The starting code in the range.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IncludeTo" type="com:typeCodeWild">
+        <xsd:annotation>
+          <xsd:documentation>The ending code in the range.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExcludeFrom" type="com:typeCodeWild" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The starting code in the excluded subrange.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExcludeTo" type="com:typeCodeWild" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The ending code in the excluded subrange.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ElmRange">
+    <xsd:annotation>
+      <xsd:documentation>The element range information for one element level.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="IncludeFrom" type="com:typeElmCodeWild">
+        <xsd:annotation>
+          <xsd:documentation>The starting code in the range.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IncludeTo" type="com:typeElmCodeWild">
+        <xsd:annotation>
+          <xsd:documentation>The ending code in the range.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExcludeFrom" type="com:typeElmCodeWild" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The starting code in the excluded subrange.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExcludeTo" type="com:typeElmCodeWild" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The ending code in the excluded subrange.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ElmRangeList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the element range information for all element levels.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ElmRange" type="agm:ElmRange" minOccurs="0" maxOccurs="8">
+        <xsd:annotation>
+          <xsd:documentation>The element range information for one element level.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MemberDefinition">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details for one range of companies and accounts.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpRange" type="agm:CmpRange">
+        <xsd:annotation>
+          <xsd:documentation>The company range information.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElmRanges" type="agm:ElmRangeList">
+        <xsd:annotation>
+          <xsd:documentation>This element holds the element range information for all element levels.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MemberDefinitionList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the ranges of companies and accounts that make up this account group.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MemberDefinition" type="agm:MemberDefinition" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element holds details for one range of companies and accounts.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AccountGroupListFilter">
+    <xsd:annotation>
+      <xsd:documentation>A filter for selecting account group masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ReqGlobalKeys">
+        <xsd:sequence>
+          <xsd:element name="LastModifiedFrom" type="com:typeDateB" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The start date of a date range for selecting account group masters that were last modified within this date range.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="LastModifiedTo" type="com:typeDateB" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The end date of a date range for selecting account group masters that were last modified within this date range.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AccountGroupMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds an account group master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="agm:Master">
+        <xsd:sequence>
+          <xsd:element name="MemberDefinitions" type="agm:MemberDefinitionList">
+            <xsd:annotation>
+              <xsd:documentation>This element holds the ranges of companies and accounts that make up this account group.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AccountCheckData">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the data used by the CheckAccount service.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="AccountGroupCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>An account group code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>A company code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AccountCode" type="com:typeAcCode">
+        <xsd:annotation>
+          <xsd:documentation>An account code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

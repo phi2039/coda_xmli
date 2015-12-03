@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:exm="http://www.coda.com/common/schemas/extensionmaster" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/common/schemas/extensionmaster" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="ExtensionKey">
+    <xsd:annotation>
+      <xsd:documentation>This element is a key for requesting a number of extension masters from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MaxKeys" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The maximum number of extension masters to be selected. A value of zero indicates no limit.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code to use for selecting extension masters.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The short name to use for selecting extension masters.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Usage" type="com:typeGenericOon">
+        <xsd:annotation>
+          <xsd:documentation>The application area in which the extension masters are used.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Extension">
+    <xsd:annotation>
+      <xsd:documentation>This element holds an extension master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this extension master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name for this extension master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for this extension master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this extension master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Usage" type="com:typeGenericOon">
+        <xsd:annotation>
+          <xsd:documentation>The application area in which this extension master is used.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Type" type="com:typeComExt">
+        <xsd:annotation>
+          <xsd:documentation>The type of this extension master. Currently this must be Java Class.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Location" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The fully qualified name of the Java class.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Enable" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether this extension master is enabled for use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Script" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code that makes up the script.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

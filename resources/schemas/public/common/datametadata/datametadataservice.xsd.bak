@@ -1,0 +1,1606 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:build="http://www.coda.com/common/schemas/funcsec" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:met="http://www.coda.com/common/schemas/datametadata" targetNamespace="http://www.coda.com/common/schemas/datametadata" version="1.0">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/service.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:include schemaLocation="s:/schemas/public/common/datametadata/datametadata.xsd"/>
+
+  <xsd:complexType name="CreateDataSourceRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="DataSource" type="met:DataSource">
+            <xsd:annotation>
+              <xsd:documentation>Contains the information for the data source definition master you want to create.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CreateDataSourceRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Creates new data source definition masters in the database using the data source information you provide.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="met:CreateDataSourceRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CreateDataSourceResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Code" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the data source definition master that you attempted to create.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ID" type="met:typeDataMetadataId">
+            <xsd:annotation>
+              <xsd:documentation>The internal identifier of the data source definition master that you attempted to create.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CreateDataSourceResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="met:CreateDataSourceResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListDataSourceRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListDataSourceRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves all the data source definition masters in the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="met:ListDataSourceRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListDataSourceResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="DataSourceList" type="met:DataSourceList">
+            <xsd:annotation>
+              <xsd:documentation>Contains the list of data source definition masters retrieved from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListDataSourceResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="met:ListDataSourceResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateDataSourceRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="DataSource" type="met:DataSource">
+            <xsd:annotation>
+              <xsd:documentation>Contains the information for the data source definition master you want to update.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateDataSourceRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Updates data sources in the database using the data source information you provide.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="met:UpdateDataSourceRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateDataSourceResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Code" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the data source definition master that you attempted to update.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateDataSourceResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="met:UpdateDataSourceResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDataSourceRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Code" type="com:typeGeneralCode" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The code for the data source definition master you want to retrieve from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ID" type="met:typeDataMetadataId" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The internal identifier for the data source definition master you want to retrieve from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDataSourceRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the specified data source definition masters from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="met:GetDataSourceRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDataSourceResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="DataSource" type="met:DataSource">
+            <xsd:annotation>
+              <xsd:documentation>Contains the data source definition master you have retrieved from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDataSourceResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="met:GetDataSourceResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteDataSourceRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Code" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the data source definition master you want to delete.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteDataSourceRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Deletes the specified data source definition masters from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="met:DeleteDataSourceRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteDataSourceResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Code" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the data source definition master that you attempted to delete.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteDataSourceResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="met:DeleteDataSourceResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="FindDataSourceRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Criteria" type="met:BasicInfo">
+            <xsd:annotation>
+              <xsd:documentation>Key information that identifies the data source definition master you want to retrieve.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="RowLimit" type="xsd:int">
+            <xsd:annotation>
+              <xsd:documentation>The maximum number of rows to be returned.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="FindDataSourceRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the specified data source definition masters from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="met:FindDataSourceRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="FindDataSourceResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="DataSourceList" type="met:DataSourceList">
+            <xsd:annotation>
+              <xsd:documentation>Contains the list of data source definition masters retrieved from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="FindDataSourceResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="met:FindDataSourceResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CreateEnumerationRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Enumeration" type="met:MetadataEnumeration">
+            <xsd:annotation>
+              <xsd:documentation>Contains the information for an enumeration definition master you want to create.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CreateEnumerationRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Creates new enumeration definition masters in the database using the enumeration information you provide.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="met:CreateEnumerationRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CreateEnumerationResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Code" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the enumeration definition master that you attempted to create.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CreateEnumerationResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="met:CreateEnumerationResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListEnumerationDefinitionRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListEnumerationDefinitionRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves all the enumeration definition masters in the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="met:ListEnumerationDefinitionRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListEnumerationDefinitionResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="EnumerationDefinitionList" type="met:EnumerationDefinitionList">
+            <xsd:annotation>
+              <xsd:documentation>A list of header information for all the enumeration definition masters in the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListEnumerationDefinitionResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="met:ListEnumerationDefinitionResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="FindEnumerationDefinitionRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Criteria" type="met:BasicInfo">
+            <xsd:annotation>
+              <xsd:documentation>Key information that identifies an enumeration definition master you want to retrieve.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="RowLimit" type="xsd:int">
+            <xsd:annotation>
+              <xsd:documentation>The maximum number of rows to return.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="FindEnumerationDefinitionRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the specified enumeration definition masters from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="met:FindEnumerationDefinitionRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="FindEnumerationDefinitionResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="EnumerationDefinitionList" type="met:EnumerationDefinitionList">
+            <xsd:annotation>
+              <xsd:documentation>A list of header information for the specified enumeration definition masters.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="FindEnumerationDefinitionResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="met:FindEnumerationDefinitionResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateEnumerationRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Enumeration" type="met:MetadataEnumeration">
+            <xsd:annotation>
+              <xsd:documentation>Contains the information for an enumeration definition master you want to update.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateEnumerationRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Updates enumeration definition masters in the database with the enumeration information you provide.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="met:UpdateEnumerationRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateEnumerationResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Code" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the enumeration definition master you attempted to update.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateEnumerationResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="met:UpdateEnumerationResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetEnumerationRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Code" type="com:typeGeneralCode" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The code for an enumeration definition master you want to retrieve.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ID" type="met:typeDataMetadataId" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The internal identifier for an enumeration definition master you want to retrieve.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetEnumerationRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the specified enumeration definition masters from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="met:GetEnumerationRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetEnumerationResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Enumeration" type="met:MetadataEnumeration">
+            <xsd:annotation>
+              <xsd:documentation>Contains the enumeration definition master your have retrieved from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetEnumerationResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="met:GetEnumerationResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteEnumerationRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Code" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for an enumeration definition master you want to delete.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteEnumerationRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Deletes the specified enumeration definition masters from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="met:DeleteEnumerationRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteEnumerationResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Code" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the enumeration definition master you attempted to delete.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteEnumerationResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="met:DeleteEnumerationResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetObjectHeadersRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="BasicInfoList" type="met:BasicInfoList">
+            <xsd:annotation>
+              <xsd:documentation>A list of key information that identifies the metadata objects for which you want header information.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetObjectHeadersRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves header information for the specified metadata objects.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="met:GetObjectHeadersRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetObjectHeadersResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="MetadataObjectDefinitionHeaderList" type="met:MetadataObjectDefinitionHeaderList">
+            <xsd:annotation>
+              <xsd:documentation>Header information for the specified metadata object definition masters.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetObjectHeadersResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="met:GetObjectHeadersResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CreateMetadataObjectDefinitionRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="MetadataObjectDefinition" type="met:MetadataObjectDefinition">
+            <xsd:annotation>
+              <xsd:documentation>Contains information for the metadata object you want to create.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CreateMetadataObjectDefinitionRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Creates new metadata object definition masters in the database using the object information you provide.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="met:CreateMetadataObjectDefinitionRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CreateMetadataObjectDefinitionResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Code" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the object definition master you attempted to create.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ID" type="met:typeDataMetadataId">
+            <xsd:annotation>
+              <xsd:documentation>The internal identifier of the object definition master you attempted to create.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CreateMetadataObjectDefinitionResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="met:CreateMetadataObjectDefinitionResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetMetadataObjectDefinitionRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Code" type="com:typeGeneralCode" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The code for the metadata object definition master you want to retrieve.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ID" type="met:typeDataMetadataId" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The internal identifier for the metadata object definition master you want to retrieve.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetMetadataObjectDefinitionRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the specified metadata object definition masters from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="met:GetMetadataObjectDefinitionRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetMetadataObjectDefinitionResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="MetadataObjectDefinition" type="met:MetadataObjectDefinition">
+            <xsd:annotation>
+              <xsd:documentation>Contains the object definition master you have retrieved from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetMetadataObjectDefinitionResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="met:GetMetadataObjectDefinitionResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="FindMetadataObjectDefinitionRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Criteria" type="met:FindMetadataObjectDefinitionCriteria">
+            <xsd:annotation>
+              <xsd:documentation>Criteria that identify the metadata object definition masters you want to retrieve header information for.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="RowLimit" type="xsd:int">
+            <xsd:annotation>
+              <xsd:documentation>The maximum number of rows to return.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="FindMetadataObjectDefinitionRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves header information for the specified metadata object definition masters from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="met:FindMetadataObjectDefinitionRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="FindMetadataObjectDefinitionResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="List" type="met:BasicInfoList">
+            <xsd:annotation>
+              <xsd:documentation>The list of keys for the object definition masters that match the criteria you specified in the request.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="FindMetadataObjectDefinitionResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="met:FindMetadataObjectDefinitionResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateMetadataObjectDefinitionRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="MetadataObjectDefinition" type="met:MetadataObjectDefinition">
+            <xsd:annotation>
+              <xsd:documentation>Contains the information for the metadata object definition master you want to update.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateMetadataObjectDefinitionRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Updates metadata object definition masters in the database using the object information you provide.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="met:UpdateMetadataObjectDefinitionRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateMetadataObjectDefinitionResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Code" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the object definition master you attempted to update.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateMetadataObjectDefinitionResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="met:UpdateMetadataObjectDefinitionResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteMetadataObjectDefinitionRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Code" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the metadata object definition master you want to delete.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteMetadataObjectDefinitionRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Deletes the specified metadata object definition masters from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="met:DeleteMetadataObjectDefinitionRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteMetadataObjectDefinitionResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Code" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the object definition master you attempted to delete.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteMetadataObjectDefinitionResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="met:DeleteMetadataObjectDefinitionResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDefaultAttributesRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="MetadataObjectDefinition" type="met:MetadataObjectDefinition">
+            <xsd:annotation>
+              <xsd:documentation>The metadata object definition which you want to be populated with the list of all its attributes.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDefaultAttributesRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Populates the specified metadata object with the list of all its attributes (including related attributes).</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="met:GetDefaultAttributesRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDefaultAttributesResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="MetadataObjectDefinition" type="met:MetadataObjectDefinition">
+            <xsd:annotation>
+              <xsd:documentation>The metadata object definition, populated with the list of all its attributes.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDefaultAttributesResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="met:GetDefaultAttributesResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetKeyAttributesRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Code" type="com:typeGeneralCode" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The code of the object for which you want the list of all attributes that are key fields.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ID" type="met:typeDataMetadataId" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The internal identifier of the object for which you want the list of all attributes that are key fields.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetKeyAttributesRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Returns the list of keys for all the attributes that are key fields in the database table that corresponds to the specified metadata object.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="met:GetKeyAttributesRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetKeyAttributesResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="AttributeDescriptionList" type="met:AttributeDescriptionList">
+            <xsd:annotation>
+              <xsd:documentation>The list of keys for all the attributes that are key fields in the database table that corresponds to the specified metadata object.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetKeyAttributesResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="met:GetKeyAttributesResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ValidateCodeAndAttributeRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="ObjectCode" type="com:typeGeneralCode" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The code for the object definition master.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ObjectID" type="met:typeDataMetadataId" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The internal identifier for the object definition master.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AttributeDescription" type="met:typeDataMetadataDescription" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The description for the attribute.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AttributeID" type="met:typeDataMetadataId" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The internal identifier for the attribute.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ValidateCodeAndAttributeRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Determines whether the specified attribute is a key attribute on the specified object definition master. If both a code and an internal identifier are present, the internal identifier is used.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="met:ValidateCodeAndAttributeRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ValidateCodeAndAttributeResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="IsValid" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:documentation>True if the specified attribute is a key attribute on the specified object definition master, false otherwise.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ValidateCodeAndAttributeResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="met:ValidateCodeAndAttributeResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListColumnsRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Code" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the data source master that represents the database containing the table whose columns you want to list.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ID" type="met:typeDataMetadataId" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The internal identifier for this data source master.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Table" type="met:Table">
+            <xsd:annotation>
+              <xsd:documentation>Specifies the table whose columns you want to list.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListColumnsRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves information for the columns in the specified table.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="met:ListColumnsRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListColumnsResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="ColumnList" type="met:ColumnList">
+            <xsd:annotation>
+              <xsd:documentation>Contains the information about the requested columns.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListColumnsResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="met:ListColumnsResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListTablesRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Code" type="com:typeGeneralCode" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The code for the data source master that represents the database whose tables you want to list.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ID" type="met:typeDataMetadataId" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The internal identifier for this data source master.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Criteria" type="met:Table">
+            <xsd:annotation>
+              <xsd:documentation>Contains criteria specifying which tables to list.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListTablesRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves key information for the specified tables from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="met:ListTablesRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListTablesResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="TableList" type="met:TableList">
+            <xsd:annotation>
+              <xsd:documentation>Contains the information about the requested tables.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListTablesResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="met:ListTablesResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DataMetadataRequest">
+    <xsd:annotation>
+      <xsd:appinfo build:funcSecValue="404" build:readOnly="true"/>
+      <xsd:documentation>This service allows you to maintain the following types of metadata masters: data source, metadata set, metadata object, and enumeration. It also provides some utility requests.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element name="CreateDataSource" type="met:CreateDataSourceRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="1" build:readOnly="false"/>
+              <xsd:documentation>Creates new data source definition masters in the database using the data source information you provide.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetDataSource" type="met:GetDataSourceRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="2" build:readOnly="true"/>
+              <xsd:documentation>Retrieves the specified data source definition masters from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="UpdateDataSource" type="met:UpdateDataSourceRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="3" build:readOnly="false"/>
+              <xsd:documentation>Updates data sources in the database using the data source information you provide.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DeleteDataSource" type="met:DeleteDataSourceRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="4" build:readOnly="false"/>
+              <xsd:documentation>Deletes the specified data source definition masters from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ListDataSource" type="met:ListDataSourceRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="5" build:readOnly="true"/>
+              <xsd:documentation>Retrieves all the data source definition masters in the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="FindDataSource" type="met:FindDataSourceRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="6" build:readOnly="true"/>
+              <xsd:documentation>Retrieves the specified data source definition masters from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CreateEnumeration" type="met:CreateEnumerationRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="7" build:readOnly="false"/>
+              <xsd:documentation>Creates new enumeration definition masters in the database using the enumeration information you provide.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ListEnumerationDefinition" type="met:ListEnumerationDefinitionRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="8" build:readOnly="true"/>
+              <xsd:documentation>Retrieves all the enumeration definition masters in the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="FindEnumerationDefinition" type="met:FindEnumerationDefinitionRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="9" build:readOnly="true"/>
+              <xsd:documentation>Retrieves the specified enumeration definition masters from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetEnumeration" type="met:GetEnumerationRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="10" build:readOnly="true"/>
+              <xsd:documentation>Retrieves the specified enumeration definition masters from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="UpdateEnumeration" type="met:UpdateEnumerationRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="11" build:readOnly="false"/>
+              <xsd:documentation>Updates enumeration definition masters in the database with the enumeration information you provide.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DeleteEnumeration" type="met:DeleteEnumerationRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="12" build:readOnly="false"/>
+              <xsd:documentation>Deletes the specified enumeration definition masters from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetObjectHeaders" type="met:GetObjectHeadersRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="13" build:readOnly="true"/>
+              <xsd:documentation>Retrieves header information for the specified metadata objects.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CreateMetadataObjectDefinition" type="met:CreateMetadataObjectDefinitionRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="14" build:readOnly="false"/>
+              <xsd:documentation>Creates new metadata object definition masters in the database using the object information you provide.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetMetadataObjectDefinition" type="met:GetMetadataObjectDefinitionRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="15" build:readOnly="true"/>
+              <xsd:documentation>Retrieves the specified metadata object definition masters from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="FindMetadataObjectDefinition" type="met:FindMetadataObjectDefinitionRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="16" build:readOnly="true"/>
+              <xsd:documentation>Retrieves header information for the specified metadata object definition masters from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="UpdateMetadataObjectDefinition" type="met:UpdateMetadataObjectDefinitionRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="17" build:readOnly="false"/>
+              <xsd:documentation>Updates metadata object definition masters in the database using the object information you provide.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DeleteMetadataObjectDefinition" type="met:DeleteMetadataObjectDefinitionRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="18" build:readOnly="false"/>
+              <xsd:documentation>Deletes the specified metadata object definition masters from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetDefaultAttributes" type="met:GetDefaultAttributesRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="19" build:readOnly="true"/>
+              <xsd:documentation>Populates the specified metadata object with the list of all its attributes (including related attributes).</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetKeyAttributes" type="met:GetKeyAttributesRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="20" build:readOnly="true"/>
+              <xsd:documentation>Returns the list of keys for all the attributes that are key fields in the database table that corresponds to the specified metadata object.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ValidateCodeAndAttribute" type="met:ValidateCodeAndAttributeRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="21" build:readOnly="true"/>
+              <xsd:documentation>Determines whether the specified attribute is a key attribute on the specified object definition master. If both a code and an internal identifier are present, the internal identifier is used.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ListColumns" type="met:ListColumnsRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="22" build:readOnly="true"/>
+              <xsd:documentation>Retrieves information for the columns in the specified table.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ListTables" type="met:ListTablesRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="23" build:readOnly="true"/>
+              <xsd:documentation>Retrieves key information for the specified tables from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DataMetadataResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you maintain metadata masters or use the utility requests.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element name="CreateDataSource" type="met:CreateDataSourceResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetDataSource" type="met:GetDataSourceResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="UpdateDataSource" type="met:UpdateDataSourceResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DeleteDataSource" type="met:DeleteDataSourceResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ListDataSource" type="met:ListDataSourceResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="FindDataSource" type="met:FindDataSourceResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CreateEnumeration" type="met:CreateEnumerationResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ListEnumerationDefinition" type="met:ListEnumerationDefinitionResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="FindEnumerationDefinition" type="met:FindEnumerationDefinitionResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetEnumeration" type="met:GetEnumerationResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="UpdateEnumeration" type="met:UpdateEnumerationResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DeleteEnumeration" type="met:DeleteEnumerationResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetObjectHeaders" type="met:GetObjectHeadersResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CreateMetadataObjectDefinition" type="met:CreateMetadataObjectDefinitionResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DeleteMetadataObjectDefinition" type="met:DeleteMetadataObjectDefinitionResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="FindMetadataObjectDefinition" type="met:FindMetadataObjectDefinitionResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetMetadataObjectDefinition" type="met:GetMetadataObjectDefinitionResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="UpdateMetadataObjectDefinition" type="met:UpdateMetadataObjectDefinitionResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetDefaultAttributes" type="met:GetDefaultAttributesResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetKeyAttributes" type="met:GetKeyAttributesResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ValidateCodeAndAttribute" type="met:ValidateCodeAndAttributeResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ListColumns" type="met:ListColumnsResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ListTables" type="met:ListTablesResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="DataMetadataRequest" type="met:DataMetadataRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to maintain the following types of metadata masters: data source, metadata set, metadata object, and enumeration. It also provides some utility requests.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="DataMetadataResponse" type="met:DataMetadataResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you maintain metadata masters or use the utility requests.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

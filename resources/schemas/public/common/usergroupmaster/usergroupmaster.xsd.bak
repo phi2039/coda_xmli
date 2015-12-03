@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:usrg="http://www.coda.com/common/schemas/usergroupmaster" xmlns:usr="http://www.coda.com/common/schemas/usermaster" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/common/schemas/usergroupmaster" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/usermaster" schemaLocation="s:/schemas/public/common/usermaster/usermaster.xsd"/>
+
+  <xsd:complexType name="UserGroup">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a user group master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="TimeStamp" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this user group master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeUserGroupCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this user group master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name for this user group master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for this user group master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Users" type="usrg:Users">
+        <xsd:annotation>
+          <xsd:documentation>This element holds a list of the users in this user group.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Users">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a list of the users in this user group.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="User" type="com:typeGeneralCode" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>The code of a user in this user group.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserGroupListFilter">
+    <xsd:annotation>
+      <xsd:documentation>A filter that selects the user group masters to be listed.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ListFilter">
+        <xsd:sequence>
+          <xsd:element name="UserCode" type="com:typeGeneralCode" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The code of a user in this user group.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserGroupKey">
+    <xsd:annotation>
+      <xsd:documentation>This element is a key consisting of a code.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeUserGroupCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this user group master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserGroupListItem">
+    <xsd:annotation>
+      <xsd:documentation>Contains key information for a user group master in the list.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeUserGroupCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the user group master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortName">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for the user group master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserGroupList">
+    <xsd:annotation>
+      <xsd:documentation>Contains key information for a list of user group masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="UserGroup" type="usrg:UserGroupListItem" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Contains key information for a user group master in the list.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="FullUserGroupList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the user group master data being imported or exported.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="UserGroup" type="usrg:UserGroup" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element holds a user group master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

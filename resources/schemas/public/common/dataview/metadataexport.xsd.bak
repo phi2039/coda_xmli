@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:met="http://www.coda.com/common/schemas/datametadata" xmlns:dvw="http://www.coda.com/common/schemas/dataview" elementFormDefault="qualified" targetNamespace="http://www.coda.com/common/schemas/dataview">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types2.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/datametadata" schemaLocation="s:/schemas/public/common/datametadata/datametadata.xsd"/>
+  <xsd:include schemaLocation="s:/schemas/public/common/dataview/dataview.xsd"/>
+
+  <xsd:complexType name="MetadataExport">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the metadata masters that are referred to by a given set of dataviews, and is used to export this information.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Product" type="com:typeApplicationNameb">
+        <xsd:annotation>
+          <xsd:documentation>The product to which the metadata masters relate.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DataSources" type="met:DataSourceList">
+        <xsd:annotation>
+          <xsd:documentation>Contains a list of the data source definition masters.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Enumerations" type="met:MetadataEnumerationList">
+        <xsd:annotation>
+          <xsd:documentation>Contains a list of the enumeration definition masters.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Objects" type="met:MetadataObjectDefinitionList">
+        <xsd:annotation>
+          <xsd:documentation>Contains a list of the object definition masters.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Views" type="dvw:DataViewList">
+        <xsd:annotation>
+          <xsd:documentation>Contains a list of the dataview masters.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+    <xsd:attribute name="generated" type="com:typeHard">
+      <xsd:annotation>
+        <xsd:documentation>The date and time the metadata was exported.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+  </xsd:complexType>
+
+  <xsd:element name="MetadataExport" type="dvw:MetadataExport">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the metadata masters that are referred to by a given set of dataviews, and is used to export this information.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

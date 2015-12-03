@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:for="http://www.coda.com/common/schemas/formtypemaster" xmlns:fmt="http://www.coda.com/common/schemas/formatmaster" xmlns:pri="http://www.coda.com/common/schemas/printformatmaster" elementFormDefault="qualified" targetNamespace="http://www.coda.com/common/schemas/printformatmaster">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types2.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/formtypemaster" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/formtypemaster/formtypemaster.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/formatmaster" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/formatmaster/formatmaster.xsd"/>
+  <xsd:include schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/printformatmaster/printformatmaster.xsd"/>
+
+  <xsd:complexType name="TemplateExport">
+    <xsd:annotation>
+      <xsd:documentation>This element holds exported template information.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Product" type="com:typeApplicationNameb">
+        <xsd:annotation>
+          <xsd:documentation>A CODA application name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Types" type="for:FormTypeList">
+        <xsd:annotation>
+          <xsd:documentation>This element holds a list of form type masters.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Formats" type="fmt:FormatMasterList">
+        <xsd:annotation>
+          <xsd:documentation>This element holds a list of format masters.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Forms" type="pri:PrintFormatList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of print format masters.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+    <xsd:attribute name="generated" type="com:typeHard">
+      <xsd:annotation>
+        <xsd:documentation>The date and time the template was exported.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+  </xsd:complexType>
+
+  <xsd:element name="TemplateExport" type="pri:TemplateExport">
+    <xsd:annotation>
+      <xsd:documentation>This element holds exported template information.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

@@ -1,0 +1,3797 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:sel="http://www.coda.com/efinance/schemas/selector" xmlns:pcm="http://www.coda.com/efinance/schemas/paymaster" xmlns:gsl="http://www.coda.com/efinance/schemas/selectormaster" xmlns:prg="http://www.coda.com/efinance/schemas/progress" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:pay="http://www.coda.com/efinance/schemas/pay" targetNamespace="http://www.coda.com/efinance/schemas/pay" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/progress" schemaLocation="s:/schemas/public/common/progress/progress.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/selectormaster" schemaLocation="s:/schemas/public/common/selectormaster/selectormaster.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/selector" schemaLocation="s:/schemas/public/common/selector/selector.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/paymaster" schemaLocation="s:/schemas/public/finance/paymaster/paymaster.xsd"/>
+  <xsd:include schemaLocation="s:/schemas/public/finance/pay/paymastersubset.xsd"/>
+
+  <xsd:complexType name="ProposalParams">
+    <xsd:annotation>
+      <xsd:documentation>This element contains parameters that determine which proposal details are retrieved for output.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="pay:ProposalKey">
+        <xsd:annotation>
+          <xsd:documentation>This element is a key consisting of a company code, user code, proposal code and payment master code which uniquely identifies a proposal. It is used to specify search criteria for the retrieval of one or more proposals.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ReportType" type="com:typeCtPayProposalLevel">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether reporting is performed at Media Summary, Summary or Detail level.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IncludeSummaries" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether or not higher level summaries are included in the output. That is, if ReportType is Detail, then summaries and media summaries will be included. If ReportType is Summary, then media summaries will be included.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IncludeDeleted" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether or not items marked as deleted will be included in the output.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MediaSummaryColumns" type="sel:CellList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The columns you wish to use for presenting media summary data.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SummaryColumns" type="sel:CellList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The columns you wish to use for presenting summary data.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DetailColumns" type="sel:CellList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The columns you wish to use for presenting detail data.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProposalDetails">
+    <xsd:annotation>
+      <xsd:documentation>This element contains proposal details retrieved for output.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ProposalElement" type="pay:ProposalElement">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a payment or collection proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MediaSummaryHeaderCells" type="sel:CellList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The header cells presenting media summary information.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SummaryHeaderCells" type="sel:CellList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The header cells presenting summary information.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DetailHeaderCells" type="sel:CellList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The header cells presenting detail information.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Hierarchy" type="pay:ManipMediaSummariesHierarchy" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element contains information about media summaries retrieved for output. This element is used when ProposalParams/IncludeSummaries is TRUE; any summaries relating to these media summaries are nested within this element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MediaSummaries" type="pay:ManipMediaSummaries" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element contains information about media summaries retrieved for output. This element is used when ProposalParams/IncludeSummaries is FALSE and no nesting of related summaries occurs.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Summaries" type="pay:ManipSummaries" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element contains information about summaries retrieved for output. This element is used when ProposalParams/IncludeSummaries is FALSE and no nesting of related details occurs.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Details" type="pay:ManipDetails" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element contains information about detail lines retrieved for output. This element is used when ProposalParams/IncludeSummaries is FALSE and detail lines are not nested within the summary to which they relate.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Truncated" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates if the output has been truncated because the maximum number of lines specified on the user's capability has been exceeded.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SummariesManipulated" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The number of summaries that have been manipulated (or modified), making the detail lines within those summaries irrelevant. The output will not include detail lines within summaries that have been manipulated (or modified).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DetailLinesSuppressed" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The number of detail lines that have been suppressed because their summaries have been manipulated (or modified).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DTT">
+    <xsd:annotation>
+      <xsd:documentation>This element contains all the details of the payments or collections being made by the specified proposal.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the proposal is being maintained.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PayCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the payment master used to generate this proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the user who created the proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ProposalCode" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>A code identifying the proposal. The proposal code is unique for a given company, user code and payment master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Type" type="com:typeCtPayCollect">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether this proposal is a payment or collection proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AuthorisedByCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the user who ran the authorisation stage of the proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AuthorisedBy" type="com:typeShortName">
+        <xsd:annotation>
+          <xsd:documentation>The short name of the user who ran the authorisation stage of the proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ProducedBy" type="com:typeShortName">
+        <xsd:annotation>
+          <xsd:documentation>The code of the user who ran the Produce stage of the proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PaymentDate" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date for settlement of the amount due. This becomes the document date on the payment and collection documents posted to the Books.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CurrencyCount" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The number of currencies in which payments or collections are made by this proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CurrencySummaryList" type="pay:CurrencySummaryList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of the summaries to be paid or collected, grouped by currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CurrencySummaryList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of the summaries to be paid or collected, grouped by currency.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CurrencySummary" type="pay:CurrencySummary" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of the summaries to be paid or collected in the specified currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CurrencySummary">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of the summaries to be paid or collected in the specified currency.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CurrencyCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the currency used for payments or collections.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CurrencyName" type="com:typeShortName">
+        <xsd:annotation>
+          <xsd:documentation>The name of the currency used for payments or collections.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MediaCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the media master used for the payment or collection of summaries listed in this CurrencySummary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the bank master used for the payment or collection of summaries listed in this CurrencySummary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Electronic" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether payment or collection will be made electronically.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MaximumLines" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The maximum number of remittance lines to be printed on a page.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SeparateCheques" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether cheques and remittances are to be printed separately.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AccountNumber" type="com:typeBankAccNum">
+        <xsd:annotation>
+          <xsd:documentation>The account number of your company's bank account to use for the payment or collection of summaries listed in this CurrencySummary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SortCode" type="com:typeBankSort">
+        <xsd:annotation>
+          <xsd:documentation>The sort code of the specified AccountNumber.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AccountName" type="com:typeBankAccName">
+        <xsd:annotation>
+          <xsd:documentation>The name of the specified account.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AccountReference" type="com:typeBankAccRef">
+        <xsd:annotation>
+          <xsd:documentation>The bank account reference to use when making payments or collections by electronic transfer.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IBAN" type="com:typeIBANB">
+        <xsd:annotation>
+          <xsd:documentation>The IBAN of the bank account.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Language" type="com:typeLanguage">
+        <xsd:annotation>
+          <xsd:documentation>The language used by the bank.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankName" type="com:typeBankName">
+        <xsd:annotation>
+          <xsd:documentation>The name of the bank.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankAddress1" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>Line 1 of the bank's address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankAddress2" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>Line 2 of the bank's address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankAddress3" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>Line 3 of the bank's address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankAddress4" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>Line 4 of the bank's address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankAddress5" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>Line 5 of the bank's address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankAddress6" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>Line 6 of the bank's address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankPostCode" type="com:typePostCode">
+        <xsd:annotation>
+          <xsd:documentation>The bank's postal code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankCountry" type="com:typeTextB">
+        <xsd:annotation>
+          <xsd:documentation>The country in which the bank is situated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankCountryCode" type="com:typeGeneralCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The code that identifies the country in which the bank is situated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IntName" type="com:typeBankName">
+        <xsd:annotation>
+          <xsd:documentation>The name of an intermediary, such as a clearing house.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IntAddress1" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>Line 1 of the intermediary's address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IntAddress2" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>Line 2 of the intermediary's address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IntAddress3" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>Line 3 of the intermediary's address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IntAddress4" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>Line 4 of the intermediary's address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IntAddress5" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>Line 5 of the intermediary's address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IntAddress6" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>Line 6 of the intermediary's address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IntPostCode" type="com:typePostCode">
+        <xsd:annotation>
+          <xsd:documentation>The intermediary's postal code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IntCountry" type="com:typeTextB">
+        <xsd:annotation>
+          <xsd:documentation>The country in which the intermediary is situated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IntCountryCode" type="com:typeGeneralCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The code that identifies the country in which the intermediary is situated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SwiftAddress" type="com:typeBankSwift">
+        <xsd:annotation>
+          <xsd:documentation>The unique electronic address of the bank as used by the Society for World-wide Interbank Financial Telecommunications.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NetValue" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The total amount (of all the summaries listed in this CurrencySummary) to be paid in payment currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CurrencyUnitS" type="com:typeCurrName">
+        <xsd:annotation>
+          <xsd:documentation>The name of a single unit of the currency. For example, Pound.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CurrencyUnitP" type="com:typeCurrName">
+        <xsd:annotation>
+          <xsd:documentation>The name of multiple units of the currency. For example, Pounds.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CurrencyDecimalS" type="com:typeCurrNameB">
+        <xsd:annotation>
+          <xsd:documentation>The name of a single decimal unit of the currency. For example, Pence.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CurrencyDecimalP" type="com:typeCurrNameB">
+        <xsd:annotation>
+          <xsd:documentation>The name of multiple decimal units of the currency. For example, Pennies.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Decimals" type="com:typeDecPlace">
+        <xsd:annotation>
+          <xsd:documentation>The number of decimal places the currency has. Must be between 0 and 9.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SummaryCount" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The number of summaries for payment or collection within this CurrencySummary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SummaryList" type="pay:SummaryList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of the summaries within this CurrencySummary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SummaryList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of the summaries within this CurrencySummary.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Summary" type="pay:Summary" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of a summary within this CurrencySummary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Summary">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a summary within this CurrencySummary.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="SummaryLine" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>A number identifying this summary within the list of summaries.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SequenceNumber" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>A number assigned to this summary; sequence numbers are unique for the summaries within a CurrencySummary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElementCode" type="com:typeElmCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the matchable element to which payment is being made (typically a supplier), or from which payment is being collected (typically a customer).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElementName" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The name of the matchable element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElementShortName" type="com:typeShortName">
+        <xsd:annotation>
+          <xsd:documentation>The short name of the matchable element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElementLevel" type="com:typeElmLevel">
+        <xsd:annotation>
+          <xsd:documentation>The level (1 to 8) of this element within the account code structure.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Payee" type="com:typePayee">
+        <xsd:annotation>
+          <xsd:documentation>The supplier to whom payment is being made, or the customer from whom payment is being collected.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AddressName" type="com:typeBankName">
+        <xsd:annotation>
+          <xsd:documentation>The name of the payee's address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AddressLine1" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>Line 1 of the payee's address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AddressLine2" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>Line 2 of the payee's address</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AddressLine3" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>Line 3 of the payee's address</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AddressLine4" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>Line 4 of the payee's address</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AddressLine5" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>Line 5 of the payee's address</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AddressLine6" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>Line 6 of the payee's address</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostCode" type="com:typePostCode">
+        <xsd:annotation>
+          <xsd:documentation>The payee's postal code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Country" type="com:typeTextB">
+        <xsd:annotation>
+          <xsd:documentation>The country in which the payee is situated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Telephone" type="com:typeTel">
+        <xsd:annotation>
+          <xsd:documentation>The payee's telephone number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Fax" type="com:typeFax">
+        <xsd:annotation>
+          <xsd:documentation>The payee's fax number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="VAT" type="com:typeVATB">
+        <xsd:annotation>
+          <xsd:documentation>The payee's VAT number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Language" type="com:typeLanguage">
+        <xsd:annotation>
+          <xsd:documentation>The language used by the payee.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AccountNumber" type="com:typeBankAccNum">
+        <xsd:annotation>
+          <xsd:documentation>The account number of the payee's bank account to use for the payment or collection of this summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SortCode" type="com:typeBankSort">
+        <xsd:annotation>
+          <xsd:documentation>The sort code of the specified AccountNumber.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AccountName" type="com:typeBankAccName">
+        <xsd:annotation>
+          <xsd:documentation>The name of the specified account.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AccountReference" type="com:typeBankAccRef">
+        <xsd:annotation>
+          <xsd:documentation>The bank account reference to use when making payments or collections by electronic transfer.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IBAN" type="com:typeIBANB">
+        <xsd:annotation>
+          <xsd:documentation>The IBAN of the bank account.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SwiftAddress" type="com:typeBankSwift">
+        <xsd:annotation>
+          <xsd:documentation>The unique electronic address of the bank as used by the Society for World-wide Interbank Financial Telecommunications.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankName" type="com:typeBankName">
+        <xsd:annotation>
+          <xsd:documentation>The name of the payee's bank.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankAddress1" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>Line 1 of the bank's address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankAddress2" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>Line 2 of the bank's address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankAddress3" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>Line 3 of the bank's address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankAddress4" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>Line 4 of the bank's address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankAddress5" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>Line 5 of the bank's address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankAddress6" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>Line 6 of the bank's address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankPostCode" type="com:typePostCode">
+        <xsd:annotation>
+          <xsd:documentation>The bank's postal code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankCountry" type="com:typeTextB">
+        <xsd:annotation>
+          <xsd:documentation>The country in which the bank is situated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankCountryCode" type="com:typeGeneralCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The code that identifies the country in which the bank is situated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IntName" type="com:typeBankName">
+        <xsd:annotation>
+          <xsd:documentation>The name of an intermediary for the payee's bank.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IntAddress1" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>Line 1 of the intermediary's address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IntAddress2" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>Line 2 of the intermediary's address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IntAddress3" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>Line 3 of the intermediary's address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IntAddress4" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>Line 4 of the intermediary's address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IntAddress5" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>Line 5 of the intermediary's address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IntAddress6" type="com:typeAddress">
+        <xsd:annotation>
+          <xsd:documentation>Line 6 of the intermediary's address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IntPostCode" type="com:typePostCode">
+        <xsd:annotation>
+          <xsd:documentation>The intermediary's postal code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IntCountry" type="com:typeTextB">
+        <xsd:annotation>
+          <xsd:documentation>The country in which the intermediary is situated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IntCountryCode" type="com:typeGeneralCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The code that identifies the country in which the intermediary is situated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NetValue" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The total amount (of all the details within this summary) to be paid in payment currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NetHomeValue" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The total amount (of all the details within this summary) to be paid in home currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ChequeNumber" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The cheque number used for this summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocumentCode" type="com:typeGeneralCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The code of the document that is posted to the Books to record payment of this summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocumentNumber" type="com:typeDocNum">
+        <xsd:annotation>
+          <xsd:documentation>The number of the document that is posted to the Books to record payment of this summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserStatus" type="com:typeStatUserB">
+        <xsd:annotation>
+          <xsd:documentation>The user status to apply to the document that is posted to the Books to record payment of this summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CountryCode" type="com:typeGeneralCodeB">
+        <xsd:annotation>
+          <xsd:documentation>If the user chose to group detail lines by country code, the country code is stored here.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DueDate" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date that the document becomes due for payment.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ValueDate" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date that payment clears.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DetailCount" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The number of detail lines for payment or collection within this summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DetailList" type="pay:DetailList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains information about the detail lines within this summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DetailList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains information about the detail lines within this summary.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Detail" type="pay:Detail" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains information about a detail line within this summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Detail">
+    <xsd:annotation>
+      <xsd:documentation>This element contains information about a detail line within this summary.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="SequenceNumber" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>A number assigned to this detail line; sequence numbers are unique for the detail lines within a Summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocumentCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the document master used to input this detail line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocumentNumber" type="com:typeDocNum">
+        <xsd:annotation>
+          <xsd:documentation>The number of the document used to input this detail line. That is, the invoice number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocumentLine" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The document line number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocumentDate" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The document date.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DueDate" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date when this detail line becomes due for payment.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ValueDate" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date when payment for this detail line clears.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Description" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The description of this detail line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Reference1" type="com:typeExtRefB">
+        <xsd:annotation>
+          <xsd:documentation>The value of External Reference 1 for this detail line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Reference2" type="com:typeExtRefB">
+        <xsd:annotation>
+          <xsd:documentation>The value of External Reference 2 for this detail line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Reference3" type="com:typeExtRefB">
+        <xsd:annotation>
+          <xsd:documentation>The value of External Reference 3 for this detail line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Reference4" type="com:typeExtRefB">
+        <xsd:annotation>
+          <xsd:documentation>The value of External Reference 4 for this detail line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Reference5" type="com:typeExtRefB">
+        <xsd:annotation>
+          <xsd:documentation>The value of External Reference 5 for this detail line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Reference6" type="com:typeExtRefB">
+        <xsd:annotation>
+          <xsd:documentation>The value of External Reference 6 for this detail line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NetValue" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The amount to be paid in payment currency. This is the Gross value minus any discount, write-off or deduction.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NetHomeValue" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The amount to be paid in home currency. This is the home Gross value minus any discount, write-off or deduction in home currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="WriteOff" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>Any write-off value for this detail line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Discount" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>Any discount value for this detail line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="GrossValue" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The value in payment currency of the detail line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Adjusted" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether a discount, write-off or deduction has been made at summary level, resulting in the net summary value not being equal to the net total of detail values.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserReference1" type="com:typeUserRefB">
+        <xsd:annotation>
+          <xsd:documentation>The value of User Reference 1 for this detail line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserReference2" type="com:typeUserRefB">
+        <xsd:annotation>
+          <xsd:documentation>The value of User Reference 2 for this detail line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserReference3" type="com:typeUserRefB">
+        <xsd:annotation>
+          <xsd:documentation>The value of User Reference 3 for this detail line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProposalElement">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a payment or collection proposal.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the proposal is being maintained.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PcmCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the payment master being used for this proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UsrCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the user who created the proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UniqueCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>A code uniquely identifying the proposal for a given company code, payment master code and user code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OpenBy" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the user who currently has the proposal open.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CurShortName" type="com:typeShortName">
+        <xsd:annotation>
+          <xsd:documentation>The currency in which settlement will be made.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LastOperation" type="com:typeCtPrlStatus">
+        <xsd:annotation>
+          <xsd:documentation>Identifies the current status of the proposal. For example, whether the proposal is Generated, Authorised, Produced or Posted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PayOrCollect" type="com:typeCtPayCollect">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the proposal will generate payments or collections.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PayDate" type="com:typeDate">
+        <xsd:annotation>
+          <xsd:documentation>The date for settlement of the amount due.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DiscountDate" type="com:typeDate">
+        <xsd:annotation>
+          <xsd:documentation>The date that any discount on the proposal comes into effect.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NetValue" type="xsd:decimal" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The net value of the settlement amount for the entire proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PcmShortName" type="com:typeShortName">
+        <xsd:annotation>
+          <xsd:documentation>The short name of the payment master used to generate this proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MultiCurrency" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the proposal involves settlement in more than one currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PreCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the presenter master used when exploding lines during manipulate and modify.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MediaSummaryPreCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code for the presenter master used when exploding media summaries during manipulate and modify.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SummaryPreCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code for the presenter master used when exploding summaries during manipulate and modify.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DetailPreCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code for the presenter master used when exploding details during manipulate and modify.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NoOfMedSumms" type="com:typeULong">
+        <xsd:annotation>
+          <xsd:documentation>The number of media summaries within the proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AnyPreNum" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether any summaries in the proposal require pre-numbering.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AllPreNum" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether all summaries in the proposal require pre-numbering.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AllNoPost" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether no documents will be posted to the Books or Intray to record the payments.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AnyPostNumAuto" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether any summaries in the proposal require automatic post-numbering.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AnyPostNumManual" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether any summaries in the proposal require manual post-numbering.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PayStage" type="com:typeCtPayStage">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the proposal is a Single, First, Middle or Last stage proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AnyPrintRequired" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether any summaries in the proposal require printing.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PayProposals">
+    <xsd:annotation>
+      <xsd:documentation>This element contains all the payment proposals in the company.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Proposal" type="pay:ProposalElement" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains the settings for a payment or collection proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProposalKey">
+    <xsd:annotation>
+      <xsd:documentation>This element is a key consisting of a company code, user code, proposal code and payment master code which uniquely identifies a proposal. It is used to specify search criteria for the retrieval of one or more proposals.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeCodeWild">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the proposal is being maintained. Wildcard characters (* and ?) are not currently permitted despite the typeCodeWild which implies that wildcards are permitted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserCode" type="com:typeCodeWild">
+        <xsd:annotation>
+          <xsd:documentation>The code of the user(s) who created the proposals.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ProposalCode" type="com:typeCodeWild">
+        <xsd:annotation>
+          <xsd:documentation>A code identifying the proposal(s). The proposal code is unique for a given company, user code and payment master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PayMasterCode" type="com:typeCodeWild">
+        <xsd:annotation>
+          <xsd:documentation>The code of the payment master(s) on which the proposals are based.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProposalCommand">
+    <xsd:annotation>
+      <xsd:documentation>This element is a key containing parameters you can specify to identify proposals to be recovered, rewound or aborted.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ProposalKey" type="pay:ProposalKey">
+        <xsd:annotation>
+          <xsd:documentation>This element is a key consisting of a company code, user code, proposal code and payment master code. It is used to specify search criteria for the retrieval of one or more proposals.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Message" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>Identifies whether the proposal is being recovered, rewound or aborted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProposalKeyNoWild">
+    <xsd:annotation>
+      <xsd:documentation>This element is a key consisting of a company code, user code, proposal code and payment master code which uniquely identifies a proposal. Wildcards (* and ?) cannot be specified in any of the key components.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the proposal is being maintained.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserCode" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the user who created the proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ProposalCode" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>A code identifying the proposal(s). The proposal code is unique for a given company, user code and payment master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PayMasterCode" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the payment master on which this proposal is based.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProposalsKey">
+    <xsd:annotation>
+      <xsd:documentation>This element is a key consisting of a number of parameters including company code, user code, proposal code and payment master code. It is used to specify search criteria for the retrieval of one or more proposals, and can include a limit on the number of proposals retrieved.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="NumberOfProposals" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The maximum number of proposals to be retrieved. A value of zero indicates no limit.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ProposalKey" type="pay:ProposalKey">
+        <xsd:annotation>
+          <xsd:documentation>This element is a key consisting of a company code, user code, proposal code and payment master code which uniquely identifies a proposal. It is used to specify search criteria for the retrieval of one or more proposals.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="GenerateParams">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the parameters which can be specified when generating a proposal.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="PayCollectMasterFields" type="pay:PayMasterSubset">
+        <xsd:annotation>
+          <xsd:documentation>This element holds a subset of the payment master settings (elements). The values of these settings override settings of the same name from the payment master specified in PayCollectMasterFields/Code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SelectorVocabList" type="gsl:VocListData">
+        <xsd:annotation>
+          <xsd:documentation>This element holds the selection criteria that determine which documents/detail lines are selected for inclusion in the proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ActionOnWrongSignedSummary" type="com:typeCtActionOnWrongSignedSummary" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element need only be present in the pay generate Request if the ForcedProd element in PayCollectMasterFields is true, or if ForcedProd is absent from the request but the Automate Media Production check box is checked in the underlying payment master. This element is ignored if these conditions do not apply.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="GenerateKey">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a key uniquely identifying a generated proposal. This key can be used in subsequent operations in the pay run (for example, produce) to identify the proposal.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ProposalKey" type="pay:ProposalKey">
+        <xsd:annotation>
+          <xsd:documentation>This element is a key consisting of a company code, user code, proposal code and payment master code which uniquely identifies the proposal on which the corresponding Request operation was performed.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ProgressKey" type="prg:ProgressKey" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Unused (For future use)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PreNumberStatusInfo">
+    <xsd:annotation>
+      <xsd:documentation>This element stores details of a proposal's Pre-numbered status.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ProposalKey" type="pay:ProposalKeyNoWild">
+        <xsd:annotation>
+          <xsd:documentation>This element is a key consisting of a company code, user code, proposal code and payment master code which uniquely identifies a proposal. Wildcards (* and ?) cannot be specified in any of the key components.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="WronglySignedSummariesFound" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether any wrongly-signed summaries are found in the proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PreNumberParams">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the proposal key, and the action to take if any wrongly-signed summaries are found in the proposal.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ProposalKey" type="pay:ProposalKeyNoWild">
+        <xsd:annotation>
+          <xsd:documentation>This element is a key consisting of a company code, user code, proposal code and payment master code which uniquely identifies a proposal. Wildcards (* and ?) cannot be specified in any of the key components.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ActionOnWrongSignedSummary" type="com:typeCtActionOnWrongSignedSummary">
+        <xsd:annotation>
+          <xsd:documentation>Specifies action to take if any wrongly-signed summaries or zero summaries are found. Permitted values:</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProduceParams">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the proposal key, and the action to take if any wrongly-signed summaries are found in the proposal.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ProposalKey" type="pay:ProposalKeyNoWild">
+        <xsd:annotation>
+          <xsd:documentation>This element is a key consisting of a company code, user code, proposal code and payment master code which uniquely identifies a proposal. Wildcards (* and ?) cannot be specified in any of the key components.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ActionOnWrongSignedSummary" type="com:typeCtActionOnWrongSignedSummary">
+        <xsd:annotation>
+          <xsd:documentation>Specifies action to take if any wrongly-signed summaries or zero summaries are found. Permitted values:</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProduceKey">
+    <xsd:annotation>
+      <xsd:documentation>This element stores information identifying the proposal of the Request.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="pay:GenerateKey">
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProduceStatusInfo">
+    <xsd:annotation>
+      <xsd:documentation>This type defines information from an earlier ProduceStatus Request which can be used prior to a Produce Request. Currently this information consists of only an indicator of whether any wrongly-signed summaries or zero summaries are found in the proposal, and the proposal key relating to the earlier ProduceStatus Request.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ProposalKey" type="pay:ProposalKeyNoWild">
+        <xsd:annotation>
+          <xsd:documentation>This element is a key consisting of a company code, user code, proposal code and payment master code which uniquely identifies a proposal. Wildcards (* and ?) cannot be specified in any of the key components.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="WronglySignedSummariesFound" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether any wrongly-signed summaries or zero summaries were found in the proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PostKey">
+    <xsd:annotation>
+      <xsd:documentation>This element stores information identifying the proposal of the Request.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="pay:GenerateKey">
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManipMediaSummary">
+    <xsd:annotation>
+      <xsd:documentation>This element stores information about a media summary retrieved for output. This element is used when ProposalParams/IncludeSummaries is FALSE and no nesting of related summaries occurs.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MediaSummaryID" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>A system allocated number (unique within a proposal) used to identify the media summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CurrCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the currency in which payments will be made.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Media" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the media by which payments will be made.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Bank" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the bank from which payments will be made, or into which collections will be received.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SummaryLines" type="com:typeULong">
+        <xsd:annotation>
+          <xsd:documentation>The number of summaries within the media summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="GrossVal" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The total value in payment currency of the entire media summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DiscountVal" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The total discount value of the entire media summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="WriteOffVal" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The total write-off value of the entire media summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NetVal" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The total amount to be paid in payment currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="HomeNetVal" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The total amount to be paid in home currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ProposalTotal" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The total amount to be paid in the whole proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostFlag" type="com:typeCtPayPostDest">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether documents will be posted to the Books or Intray to record the payments, or that no documents will be posted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ValueCells" type="sel:CellList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the list of columns holding the data that has been retrieved from the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManipMediaSummaries">
+    <xsd:annotation>
+      <xsd:documentation>This element contains information about media summaries retrieved for output. This element is used when ProposalParams/IncludeSummaries is FALSE and no nesting of related summaries occurs.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MediaSummary" type="pay:ManipMediaSummary" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element stores information about a media summary retrieved for output. This element is used when ProposalParams/IncludeSummaries is FALSE and no nesting of related summaries occurs.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManipMediaSummaryHierarchy">
+    <xsd:annotation>
+      <xsd:documentation>This element contains information about a media summary retrieved for output. This element is used when ProposalParams/IncludeSummaries is TRUE; any summaries relating to this media summary are nested within this element.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="pay:ManipMediaSummary">
+        <xsd:sequence>
+          <xsd:element name="Summaries" type="pay:ManipSummariesHierarchy">
+            <xsd:annotation>
+              <xsd:documentation>This element contains information about summaries retrieved for output. This element is used when ProposalParams/IncludeSummaries is TRUE; any details relating to these summaries are nested within this element.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManipMediaSummariesHierarchy">
+    <xsd:annotation>
+      <xsd:documentation>This element contains information about media summaries retrieved for output. This element is used when ProposalParams/IncludeSummaries is TRUE; any summaries relating to these media summaries are nested within this element.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MediaSummary" type="pay:ManipMediaSummaryHierarchy" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains information about a media summary retrieved for output. This element is used when ProposalParams/IncludeSummaries is TRUE; any summaries relating to this media summary are nested within this element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManipSummariesKey">
+    <xsd:annotation>
+      <xsd:documentation>This element contains parameters for you to specify which summaries to retrieve for manipulation.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ProposalKey" type="pay:ProposalKey">
+        <xsd:annotation>
+          <xsd:documentation>This element is a key consisting of a company code, user code, proposal code and payment master code which uniquely identifies a proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MediaSummaryID" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>A system allocated number (unique within a proposal) used to identify the media summary containing the summaries you wish to manipulate.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="FromRow" type="com:typeULong" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The first row to return.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MaxRows" type="com:typeULong" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The maximum number of rows to return.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManipSummary">
+    <xsd:annotation>
+      <xsd:documentation>This element stores information about a summary retrieved for output. This element is used when ProposalParams/IncludeSummaries is FALSE and no nesting of related details occurs.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ManipSummaryID" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>A system allocated number (unique within a proposal) used to identify the summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PayeeName" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The customer/supplier name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SummAcct" type="com:typeAcCodeB">
+        <xsd:annotation>
+          <xsd:documentation>This summary's summary account. That is, the account code to which payment for this summary will be made.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Trader" type="com:typeTraderCodeB">
+        <xsd:annotation>
+          <xsd:documentation>If a temporary supplier has been used for this summary, the supplier's code is stored here.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="GrossVal" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The total value in payment currency of all payable lines within the summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DiscountVal" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The total discount value of all payable lines within the summary. Following the generate stage, this value will be the total of any default discounts taken from the invoices.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="WriteOffVal" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The total write-off value of all payable lines within the summary. Following the generate stage, this value will be zero.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PartPay" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The total amount deducted from the Gross value for all payable lines within the summary. Following the generate stage, this value will be zero.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NetVal" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The total amount to be paid in payment currency. This is the Gross value minus any discount, write-off or deduction.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="HomeNetVal" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The total amount to be paid in home currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DualNetVal" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The total amount to be paid in dual currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Deleted" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether a summary is flagged for deletion.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DetailAccess" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether a summary can be exploded to reveal its detail lines.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ValueCells" type="sel:CellList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the list of columns holding the data that has been retrieved from the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManipSummaries">
+    <xsd:annotation>
+      <xsd:documentation>This element contains information about summaries retrieved for output. This element is used when ProposalParams/IncludeSummaries is FALSE and no nesting of related details occurs.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Summary" type="pay:ManipSummary" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element stores information about a summary retrieved for output. This element is used when ProposalParams/IncludeSummaries is FALSE and no nesting of related details occurs.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManipSummaryHierarchy">
+    <xsd:annotation>
+      <xsd:documentation>This element contains information about a summary retrieved for output. This element is used when ProposalParams/IncludeSummaries is TRUE; any details relating to this summary are nested within this element.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="pay:ManipSummary">
+        <xsd:sequence>
+          <xsd:element name="Details" type="pay:ManipDetails" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>This element contains information about detail lines retrieved for output. This element is used when ProposalParams/IncludeSummaries is TRUE; detail lines are nested within the summary to which they relate.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManipSummariesHierarchy">
+    <xsd:annotation>
+      <xsd:documentation>This element contains information about summaries retrieved for output. This element is used when ProposalParams/IncludeSummaries is TRUE; any details relating to these summaries are nested within this element.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Summary" type="pay:ManipSummaryHierarchy" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains information about a summary retrieved for output. This element is used when ProposalParams/IncludeSummaries is TRUE; any details relating to this summary are nested within this element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManipDetailsKey">
+    <xsd:annotation>
+      <xsd:documentation>This element contains parameters for you to specify which details to retrieve for manipulation.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ProposalKey" type="pay:ProposalKey">
+        <xsd:annotation>
+          <xsd:documentation>This element is a key consisting of a company code, user code, proposal code and payment master code which uniquely identifies a proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MediaSummaryID" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>A system allocated number (unique within a proposal) used to identify the media summary containing the details you wish to manipulate.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ManipSummaryID" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>A system allocated number (unique within a proposal) used to identify the summary containing the details you wish to manipulate.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManipDiscount">
+    <xsd:annotation>
+      <xsd:documentation>This element contains information about the discount value of a detail line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Index" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>An index into the discount list.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DiscDate" type="com:typeDate">
+        <xsd:annotation>
+          <xsd:documentation>The date that any discount on the proposal comes into effect.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DiscVal" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The discount value of the detail line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManipDiscounts">
+    <xsd:annotation>
+      <xsd:documentation>This element stores information about discount on detail lines.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Discount" type="pay:ManipDiscount" minOccurs="0" maxOccurs="13">
+        <xsd:annotation>
+          <xsd:documentation>This element contains information about the discount value of a detail line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManipDetail">
+    <xsd:annotation>
+      <xsd:documentation>This element contains information about a detail line retrieved for output. This element is used when ProposalParams/IncludeSummaries is TRUE; the detail line is nested within the summary to which it relates.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ManipDetailID" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>A system allocated number (unique within a proposal) used to identify the detail line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the document master used to input this detail line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocNum" type="com:typeDocNumAlphaB">
+        <xsd:annotation>
+          <xsd:documentation>The number of the document used to input this detail line. That is, the invoice number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SummAcct" type="com:typeAcCodeB">
+        <xsd:annotation>
+          <xsd:documentation>This detail's summary account. That is, the account code to which payment for this detail will be made.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Trader" type="com:typeTraderCodeB">
+        <xsd:annotation>
+          <xsd:documentation>If a temporary supplier has been used for this detail line, the supplier's code is stored here.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="GrossVal" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The value in payment currency of the detail line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Discounts" type="pay:ManipDiscounts">
+        <xsd:annotation>
+          <xsd:documentation>This element stores information about discount on detail lines.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CurrentDiscVal" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The current discount value of the detail line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CurrentDiscDate" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The current discount date of the detail line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PartPay" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The amount to be deducted from the Gross value of the detail line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="WriteOffVal" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The write-off value of the detail line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NetVal" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The amount to be paid in payment currency. This is the Gross value minus any discount, write-off or deduction.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="HomeNetVal" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The amount to be paid in home currency. This is the home Gross value minus any discount, write-off or deduction in home currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DualNetVal" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The amount to be paid in dual currency. This is the dual Gross value minus any discount, write-off or deduction in dual currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Deleted" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the detail line is flagged for deletion.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ValueCells" type="sel:CellList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the list of columns holding the data that has been retrieved from the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManipDetails">
+    <xsd:annotation>
+      <xsd:documentation>This element contains information about detail lines retrieved for output. This element is used when ProposalParams/IncludeSummaries is TRUE; detail lines are nested within the summary to which they relate.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Detail" type="pay:ManipDetail" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains information about a detail line retrieved for output. This element is used when ProposalParams/IncludeSummaries is TRUE; the detail line is nested within the summary to which it relates.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManipDetailEdit">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the edits you can make when manipulating a detail line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ProposalKey" type="pay:ProposalKey">
+        <xsd:annotation>
+          <xsd:documentation>This element is a key consisting of a company code, user code, proposal code and payment master code which uniquely identifies a proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MediaSummaryID" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>A system allocated number (unique within a proposal) used to identify the media summary containing the details being manipulated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ManipSummaryID" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>A system allocated number (unique within a proposal) used to identify the summary containing the details being manipulated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ManipDetailID" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>A system allocated number (unique within a proposal) used to identify the detail line being manipulated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DiscountIndex" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The index of the discount item being edited.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DiscountVal" type="xsd:decimal" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The discount amount to be subtracted from the gross value. The discount can be changed to any value smaller than the Gross value, that is you cannot discount more than the amount payable.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PartPay" type="xsd:decimal" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>A deduction amount to be subtracted from the gross value. The amount you enter is deducted from the payable line so the document is part-paid.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="WriteOffVal" type="xsd:decimal" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The write-off amount to be subtracted from the gross value. The write-off can be changed to any value smaller than the Gross value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NetVal" type="xsd:decimal" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The net value of this detail line. This is the Gross value minus any discount, write-off or deduction.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="HomeNetVal" type="xsd:decimal" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The net value of this payable line, in the home currency. This is the home Gross value minus any discount, write-off or deduction in home currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManipSummaryEdit">
+    <xsd:annotation>
+      <xsd:documentation>This element stores changes to a manipulated summary.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ProposalKey" type="pay:ProposalKey">
+        <xsd:annotation>
+          <xsd:documentation>This element is a key consisting of a company code, user code, proposal code and payment master code which uniquely identifies a proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MediaSummaryID" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>A system allocated number (unique within a proposal) used to identify the media summary containing the manipulated details.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ManipSummaryID" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>A system allocated number (unique within a proposal) used to identify the summary containing the manipulated details.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DiscountVal" type="xsd:decimal" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The total discount value for all the detail lines within the summary. The discount can be changed to any value smaller than the Gross value, that is you cannot discount more than the amount payable.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="WriteOffVal" type="xsd:decimal" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>A total write-off value for all the detail lines within the summary. (Following the generate stage, this value is zero.) The write-off can be changed to any value smaller than the Gross value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PartPay" type="xsd:decimal" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>A total amount to be deducted from the Gross value for all the detail lines within the summary. (Following the generate stage, this value is zero.)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NetVal" type="xsd:decimal" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The total Net value for all the detail lines within the summary. This is the Gross value minus any discount, write-off or deduction. The Net value can be changed to any value smaller than the Gross value, in which case the difference is written to the deduction value. (This is another way of making a fixed payment.)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="HomeNetVal" type="xsd:decimal" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The total amount to be paid in the home currency. This is the home Gross value minus any discount, write-off or deduction in home currency. The Net home value can be changed to make a fixed payment, in which case the difference (converted to the home currency) is written to the deduction value</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManipDetailChange">
+    <xsd:annotation>
+      <xsd:documentation>This element stores changes to a manipulated detail line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ManipSummaryID" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>A system allocated number (unique within a proposal) used to identify the summary retrieved for manipulation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ManipDetailID" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>A system allocated number (unique within a proposal) used to identify the detail line retrieved for manipulation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DiscountIndex" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The index of the discount item being edited.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DiscountVal" type="xsd:decimal" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specify the discount amount to be subtracted from the gross value. The discount can be changed to any value smaller than the Gross value, that is you cannot discount more than the amount payable.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PartPay" type="xsd:decimal" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specify a deduction amount to be subtracted from the gross value. The amount you enter is deducted from the payable line so the document is part-paid. (Compare this with making deductions at summary level where deductions cannot be linked to individual payable lines so a fixed payment is made.)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="WriteOffVal" type="xsd:decimal" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specify a write-off amount to be subtracted from the gross value. The write-off can be changed to any value smaller than the Gross value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NetVal" type="xsd:decimal" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specify the net value of this payable line. This is the Gross value minus any discount, write-off or deduction. The Net value can be changed to any value smaller than the Gross value, in which case the difference is written to the deduction value. (This is another way of making a part-payment.)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="HomeNetVal" type="xsd:decimal" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specify the net value of this payable line, in the home currency. This is the home Gross value minus any discount, write-off or deduction in home currency. The Net home value can be changed to make a part-payment, in which case the difference (converted to the home currency) is written to the deduction value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Deleted" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specify whether the detail line should be deleted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManipDetailChanges">
+    <xsd:annotation>
+      <xsd:documentation>This element stores changes to individual detail lines.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Change" type="pay:ManipDetailChange" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element stores changes to a manipulated detail line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManipSummaryChange">
+    <xsd:annotation>
+      <xsd:documentation>This element stores a change to a manipulated summary.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ManipSummaryID" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>A system allocated number (unique within a proposal) used to identify the summary retrieved for manipulation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DiscountVal" type="xsd:decimal" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specify the total discount value for all the payable lines within the summary. The discount can be changed to any value smaller than the Gross value, that is you cannot discount more than the amount payable.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="WriteOffVal" type="xsd:decimal" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specify a total write-off value for all the payable lines within the summary. (Following the generate stage, this value is zero.) The write-off can be changed to any value smaller than the Gross value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PartPay" type="xsd:decimal" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specify a total amount to be deducted from the Gross value for all the payable lines within the summary. (Following the generate stage, this value is zero.)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NetVal" type="xsd:decimal" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specify the total Net value for all the payable lines within the summary. This is the Gross value minus any discount, write-off or deduction. The Net value can be changed to any value smaller than the Gross value, in which case the difference is written to the deduction value. (This is another way of making a fixed payment.)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="HomeNetVal" type="xsd:decimal" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specify the total amount to be paid in the home currency. This is the home Gross value minus any discount, write-off or deduction in home currency. The Net home value can be changed to make a fixed payment, in which case the difference (converted to the home currency) is written to the deduction value</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Deleted" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specify whether the summary should be deleted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DetailChanges" type="pay:ManipDetailChanges" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element stores changes to individual detail lines.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManipSummaryChanges">
+    <xsd:annotation>
+      <xsd:documentation>This element stores changes to a manipulated summary.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Change" type="pay:ManipSummaryChange" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element stores a change to a manipulated summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManipChanges">
+    <xsd:annotation>
+      <xsd:documentation>This element stores manipulation changes that have yet to be made permanent.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ProposalKey" type="pay:ProposalKey">
+        <xsd:annotation>
+          <xsd:documentation>This element is a key consisting of a company code, user code, proposal code and payment master code which uniquely identifies a proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MediaSummaryID" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>A system allocated number (unique within a proposal) used to identify the media summary containing the manipulated details that have yet to be made permanent.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SummaryChanges" type="pay:ManipSummaryChanges">
+        <xsd:annotation>
+          <xsd:documentation>This element stores changes to a manipulated summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ModifyProposalKey">
+    <xsd:annotation>
+      <xsd:documentation>This element contains parameters you can specify to select a proposal for modification.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ProposalKey" type="pay:ProposalKey">
+        <xsd:annotation>
+          <xsd:documentation>This element is a key consisting of a company code, user code, proposal code and payment master code which uniquely identifies a proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ModifyGetMedSummLines">
+    <xsd:annotation>
+      <xsd:documentation>This element contains parameters for you to specify which media summaries to retrieve for modifying.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ModifyProposalKey" type="pay:ModifyProposalKey">
+        <xsd:annotation>
+          <xsd:documentation>This element is a key consisting of a company code, user code, proposal code and payment master code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ModifyGetSummLines">
+    <xsd:annotation>
+      <xsd:documentation>This element contains parameters for you to specify which summaries to retrieve for modifying.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MedSummKey" type="pay:ModifyMedSummKey">
+        <xsd:annotation>
+          <xsd:documentation>This element contains parameters for you to specify which media summaries to modify.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ModifyGetDetLines">
+    <xsd:annotation>
+      <xsd:documentation>This element contains parameters for you to specify which details to retrieve for modifying.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="SummKey" type="pay:ModifySummKey">
+        <xsd:annotation>
+          <xsd:documentation>This element contains parameters for you to specify which summaries to modify.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ModifyMedSummKey">
+    <xsd:annotation>
+      <xsd:documentation>This element contains parameters for you to specify which media summaries to modify.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ModifyProposalKey" type="pay:ModifyProposalKey">
+        <xsd:annotation>
+          <xsd:documentation>This element is a key consisting of a company code, user code, proposal code and payment master code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CurCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the currency used by a media summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Media" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the media used by a media summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Bank" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the bank used by a media summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CurLine" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>Identifies a particular media summary in a list of media summaries.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ModifyMedSumm">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a media summary retrieved for modification.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MedSummKey" type="pay:ModifyMedSummKey">
+        <xsd:annotation>
+          <xsd:documentation>This element contains parameters for you to specify which media summaries to modify.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NumOfSumms" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The number of summaries within the media summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Gross" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The total value in payment currency of the entire media summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Discount" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The total discount value of the entire media summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="WriteOff" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The total write-off value of the entire media summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Net" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The total amount to be paid in payment currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="HomeNet" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The total amount to be paid in home currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ValueCells" type="sel:CellList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the list of columns holding the data that has been retrieved from the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ModifyMediaTotals">
+    <xsd:annotation>
+      <xsd:documentation>This element contains total values for a media summary.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="PayableSumms" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The number of summaries within the media summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DeletedSumms" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The number of summaries deleted from the media summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="WrongSignedSumms" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The number of wrongly-signed summaries within the media summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PayableHomeValue" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The total value, in home currency, of the summaries within the media summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DeletedHomeValue" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The total value, in home currency, of any summaries deleted from the media summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="WrongSignedHomeValue" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The total value, in home currency, of any wrongly-signed summaries within the media summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ModifyMedSumms">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of media summaries retrieved for modification.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MediaSummary" type="pay:ModifyMedSumm" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of a media summary retrieved for modification.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ModifySummKey">
+    <xsd:annotation>
+      <xsd:documentation>This element contains parameters for you to specify which summaries to modify.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MedSummKey" type="pay:ModifyMedSummKey">
+        <xsd:annotation>
+          <xsd:documentation>This element contains parameters for you to specify which media summaries to modify.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SummLine" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>Identifies a particular summary in a list of summaries.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserRef">
+    <xsd:annotation>
+      <xsd:documentation>The user reference attached to the detail line (via the document master).</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Text" type="com:typeUserRefB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The user reference text to attach to the detail line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserRefList">
+    <xsd:annotation>
+      <xsd:documentation>The user references attached to the detail line (via the document master).</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="UserRef" type="pay:UserRef" minOccurs="3" maxOccurs="3">
+        <xsd:annotation>
+          <xsd:documentation>The user reference attached to the detail line (via the document master).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="GroupByUserRefList">
+    <xsd:annotation>
+      <xsd:documentation>Indicates whether the summary is grouped by user references.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="GroupByUserRef" type="xsd:boolean" minOccurs="3" maxOccurs="3">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether detail lines with the same user reference are grouped together.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="GroupByExtRefList">
+    <xsd:annotation>
+      <xsd:documentation>Indicates whether the summary is grouped by external references.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="GroupByExtRef" type="xsd:boolean" minOccurs="6" maxOccurs="6">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether detail lines with the same external reference are grouped together.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserRefProtList">
+    <xsd:annotation>
+      <xsd:documentation>Indicates whether the summary's user references can be modified.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="UserRefProt" type="com:typeCtOneOfN" minOccurs="3" maxOccurs="3">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the user reference is protected.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ModifyOneSumm">
+    <xsd:annotation>
+      <xsd:documentation>This element contains information about a summary retrieved for modification. Many of the fields are not present if DetailsGone is set.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="SummKey" type="pay:ModifySummKey">
+        <xsd:annotation>
+          <xsd:documentation>This element contains parameters for you to specify which summaries to modify.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OrgMedia" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the media originally specified for the summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OrgBank" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the bank originally specified for the summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AcCode" type="com:typeAcCode">
+        <xsd:annotation>
+          <xsd:documentation>The account code for this summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SummCode" type="com:typeElmCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The summary element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SummLevel" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The summary element's level.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Payee" type="com:typePayee">
+        <xsd:annotation>
+          <xsd:documentation>The customer/supplier name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NumOfDets" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The number of detail lines within the summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NumOfDelDets" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The number of detail lines deleted from the summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Gross" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The total value in payment currency of all detail lines within the summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Discount" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The total discount value of all detail lines within the summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="WriteOff" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The total write-off value of all detail lines within the summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PartPay" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The total amount deducted from the Gross value for all detail lines within the summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Net" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The total amount to be paid in payment currency. This is the Gross value minus any discount, write-off or deduction.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="HomeNet" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The total amount to be paid in home currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElmBank" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The name of the bank on the matchable (customer/supplier) element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElmAddress" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>An index selecting which address to use for the matchable (customer/supplier) element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DueDate" type="com:typeDateB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date that a document becomes due for payment. This field is not present if it contains a blank value or if DetailsGone is set.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ValueDate" type="com:typeDateB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date that payment clears. This field is not present if it contains a blank value or if DetailsGone is set.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserRefs" type="pay:UserRefList">
+        <xsd:annotation>
+          <xsd:documentation>The user references attached to the detail line (via the document master).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Deleted" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the summary is flagged for deletion.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DetailsGone" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether all the details in this summary have been deleted. When this is set, many of the other fields are not present because the information is not available.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TemporaryID" type="xsd:int" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>If a temporary supplier has been used for this summary, the supplier's ID is stored here.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="GroupByUserStatus" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the summary is grouped by user status.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="GroupByElementAddress" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the summary is grouped by element address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="GroupByElementBank" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the summary is grouped by element bank.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="GroupByDueDate" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the summary is grouped by due date.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="GroupByValueDate" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the summary is grouped by value date.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="GroupByDocumentCode" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the summary is grouped by document code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="GroupByExtRefs" type="pay:GroupByExtRefList">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the summary is grouped by external references.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="GroupByUserRefs" type="pay:GroupByUserRefList">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the summary is grouped by user references.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MediaProt" type="com:typeCtProtect" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the summary's media can be modified.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankProt" type="com:typeCtProtect" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the summary's bank can be modified.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserRefProts" type="pay:UserRefProtList">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the summary's user references can be modified.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DueDateProt" type="com:typeCtProtect" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the summary's due date can be modified.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ValueDateProt" type="com:typeCtProtect" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the summary's value date can be modified.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElementBankReadOnly" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the summary's element bank can be modified.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElementAddrReadOnly" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the summary's element address can be modified.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ValueCells" type="sel:CellList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the list of columns holding the data that has been retrieved from the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ModifyOneSumms">
+    <xsd:annotation>
+      <xsd:documentation>This element contains information about summaries retrieved for modification.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Summary" type="pay:ModifyOneSumm" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains information about a summary retrieved for modification. Many of the fields are not present if DetailsGone is set.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ModifyDetKey">
+    <xsd:annotation>
+      <xsd:documentation>This element contains parameters for you to specify which detail lines to modify.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="SummKey" type="pay:ModifySummKey">
+        <xsd:annotation>
+          <xsd:documentation>This element contains parameters for you to specify which summaries to modify.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DetailLine" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>Identifies a particular detail line in a list of detail lines.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ModifyOneDet">
+    <xsd:annotation>
+      <xsd:documentation>This element contains information about a detail line retrieved for modification.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="DetKey" type="pay:ModifyDetKey">
+        <xsd:annotation>
+          <xsd:documentation>This element contains parameters for you to specify which detail lines to modify.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OrgMedia" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the media originally specified for the detail line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OrgBank" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the bank originally specified for the detail line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AcCode" type="com:typeAcCode">
+        <xsd:annotation>
+          <xsd:documentation>The account code for this detail line (from the original document line or matchable element).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SummCode" type="com:typeElmCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The summary element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SummLevel" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The summary element's level.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocCode" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the document master used to input this detail line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocNum" type="com:typeDocNum">
+        <xsd:annotation>
+          <xsd:documentation>The number of the document used to input this payable line. That is, the invoice number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Gross" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The value in payment currency of the detail line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Discount" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The discount value of the detail line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="WriteOff" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The write-off value of the detail line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PartPay" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The amount to be deducted from the Gross value of the detail line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Net" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The amount to be paid in payment currency. This is the Gross value minus any discount, write-off or deduction.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="HomeNet" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The amount to be paid in home currency. This is the home Gross value minus any discount, write-off or deduction in home currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankTag" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The name of the bank on the matchable (customer/supplier) element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AddrTag" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>An index selecting which address to use for the matchable (customer/supplier) element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DueDate" type="com:typeDateB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date that the detail line becomes due for payment. This field is not present if it contains a blank value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ValueDate" type="com:typeDateB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date that payment clears. This field is not present if it contains a blank value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserRefs" type="pay:UserRefList">
+        <xsd:annotation>
+          <xsd:documentation>The user references attached to the detail line (via the document master).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DisableSummary" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the detail line is summarised with other detail lines. When FALSE, the detail line is not summarised.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Deleted" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the detail line is flagged for deletion.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TemporaryID" type="xsd:int" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>If a temporary supplier has been used for this detail line, the supplier's ID is stored here.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="GroupByUserStatus" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the detail line is grouped by user status.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="GroupByElementAddress" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the detail line is grouped by element address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="GroupByElementBank" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the detail line is grouped by element bank.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="GroupByDueDate" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the detail line is grouped by due date.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="GroupByValueDate" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the detail line is grouped by value date.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="GroupByDocumentCode" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the detail line is grouped by document code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="GroupByExtRefs" type="pay:GroupByExtRefList">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the detail line is grouped by external references.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="GroupByUserRefs" type="pay:GroupByUserRefList">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the detail line is grouped by user references.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MediaProt" type="com:typeCtProtect" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the detail line's media can be modified.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankProt" type="com:typeCtProtect" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the detail line's bank can be modified.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserRefProts" type="pay:UserRefProtList">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the detail line's user references can be modified.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DueDateProt" type="com:typeCtProtect" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the detail line's due date can be modified.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ValueDateProt" type="com:typeCtProtect" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the detail line's value date can be modified.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DisableSummaryProt" type="com:typeCtProtect" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the detail line's Disable Summary setting can be modified.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElementBankReadOnly" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the detail line's element bank can be modified.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElementAddrReadOnly" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the detail line's element address can be modified.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ValueCells" type="sel:CellList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the list of columns holding the data that has been retrieved from the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ModifyOneDets">
+    <xsd:annotation>
+      <xsd:documentation>This element contains information about a detail line retrieved for modification.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Detail" type="pay:ModifyOneDet" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains information about a detail line retrieved for modification.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ModifyDetailChange">
+    <xsd:annotation>
+      <xsd:documentation>This element stores a changes to a detail line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ModifyDetailID" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>A system allocated number (unique within a proposal) used to identify the modified detail line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Media" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specify the media to be used when paying this detail line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Bank" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specify the bank to be used when paying this detail line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankTag" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specify the name of the bank on the matchable (customer/supplier) element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AddrTag" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specify the index of the address to use for the matchable (customer/supplier) element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DueDate" type="com:typeDateB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specify the date that the detail line becomes due for payment.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ValueDate" type="com:typeDateB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specify the date that payment clears.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserRefs" type="pay:UserRefList">
+        <xsd:annotation>
+          <xsd:documentation>Specify any user references to attach to the detail line (via the document master).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DisableSummary" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specify whether the detail line is summarised with other detail lines. When FALSE, the detail line is not summarised and a separate payment is produced for this detail line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Deleted" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specify whether the detail line should be deleted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ModifyDetailChanges">
+    <xsd:annotation>
+      <xsd:documentation>This element stores changes to a detail line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Change" type="pay:ModifyDetailChange" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element stores a changes to a detail line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ModifyDetailsChanges">
+    <xsd:annotation>
+      <xsd:documentation>This element stores changes to detail lines.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="SummaryKey" type="pay:ModifySummKey">
+        <xsd:annotation>
+          <xsd:documentation>This element contains parameters for you to specify which summaries to modify.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DetailChanges" type="pay:ModifyDetailChanges">
+        <xsd:annotation>
+          <xsd:documentation>This element stores changes to a detail line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ModifySummaryChange">
+    <xsd:annotation>
+      <xsd:documentation>This element stores changes to a modified summary.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ModifySummaryID" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>A system allocated number (unique within a proposal) used to identify the modified summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Media" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specify the media to be used when paying this summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Bank" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specify the bank to be used when paying this summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankTag" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specify the name of the bank on the matchable (customer/supplier) element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AddrTag" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specify the index of the address to use for the matchable (customer/supplier) element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DueDate" type="com:typeDateB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specify the date that the summary becomes due for payment.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ValueDate" type="com:typeDateB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specify the date that payment clears.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserRefs" type="pay:UserRefList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specify any user references to attach to the detail lines (via the document master).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Deleted" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specify whether the summary should be deleted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ModifySummaryChanges">
+    <xsd:annotation>
+      <xsd:documentation>This element stores changes to a modified summary.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Change" type="pay:ModifySummaryChange" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element stores changes to a modified summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ModifySummariesChanges">
+    <xsd:annotation>
+      <xsd:documentation>This element stores changes to modified summaries.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MediaSummaryKey" type="pay:ModifyMedSummKey">
+        <xsd:annotation>
+          <xsd:documentation>This element contains parameters for you to specify which media summaries to modify.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SummaryChanges" type="pay:ModifySummaryChanges">
+        <xsd:annotation>
+          <xsd:documentation>This element stores changes to a modified summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PrintMediaKey">
+    <xsd:annotation>
+      <xsd:documentation>This element contains parameters for you to specify which media summary to retrieve.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ProposalKey" type="pay:ProposalKeyNoWild">
+        <xsd:annotation>
+          <xsd:documentation>This element is a key consisting of a company code, user code, proposal code and payment master code that uniquely identifies a proposal. Wildcards (* and ?) cannot be specified in any of the key components.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MediaSummaryID" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>A system allocated number (unique within a proposal) used to identify the media summary retrieved for printing.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PrintMediaSummary">
+    <xsd:annotation>
+      <xsd:documentation>This element stores a media summary's printing information.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MediaSummaryID" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>A system allocated number (unique within a proposal) used to identify the media summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CurrCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the currency that will be used to make the payments in this media summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MediaCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the media master that will be used to make the payments in this media summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the bank master that will be used to make the payments in this media summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SummaryLines" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The number of summaries (items requiring payment) within this media summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NetValue" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The net value of the settlement amount for the entire media summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocumentCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the document master that will be posted to record the settlements within this media summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Printed" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>The print status of the media summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SeperateChequeAndRemittance" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Message" type="com:typeComment" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>A message.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OutputDeviceRemit" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The output device master, for remittances and combined cheques/remittances.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OutputDeviceChq" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The default output device master, for cheques if they are sent separately.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PrintFormatRemit" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The default print format master, for remittances and combined cheques/remittances.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PrintFormatChq" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The default print format master, for cheques if they are sent separately.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PrintMediaSummaries">
+    <xsd:annotation>
+      <xsd:documentation>This element stores printing information about the media summaries in a payment proposal.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MediaSummary" type="pay:PrintMediaSummary" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element stores a media summary's printing information.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PrintSummary">
+    <xsd:annotation>
+      <xsd:documentation>This element stores a summary's printing information.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="SummaryID" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>A system allocated number (unique within a proposal) used to identify a summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SummLine" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>Identifies a particular summary in a list of summaries.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PayeeName" type="com:typePayee">
+        <xsd:annotation>
+          <xsd:documentation>The customer/supplier name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NetValue" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The net value of the settlement amount for the summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocumentNumber" type="com:typeDocNum">
+        <xsd:annotation>
+          <xsd:documentation>The number assigned to this summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AccountCode" type="com:typeAcCode">
+        <xsd:annotation>
+          <xsd:documentation>The account code to which payment for this summary will be made.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Printed" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>The print status of the summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PrintSummaries">
+    <xsd:annotation>
+      <xsd:documentation>This element stores printing information about the individual summaries in a payment proposal.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Summary" type="pay:PrintSummary" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element stores a summary's printing information.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ConfirmPrintMediaSummaries">
+    <xsd:annotation>
+      <xsd:documentation>This element stores confirmation that the media summaries in a payment proposal have been printed.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Confirm" type="xsd:int" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>The number of media summaries in a payment proposal that have been printed.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ConfirmPrintSummaries">
+    <xsd:annotation>
+      <xsd:documentation>This element stores confirmation that the individual summaries in a payment proposal have been printed.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Confirm" type="xsd:int" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>The number of individual summaries in a payment proposal that have been printed.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="NumberMediaSummary">
+    <xsd:annotation>
+      <xsd:documentation>This element stores numbering information about a media summary.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MediaSummaryID" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>A system allocated number (unique within a proposal) used to identify the media summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CurrCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the currency that will be used to make the payments in this media summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MediaCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the media master that will be used to make the payments in this media summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the bank master that will be used to make the payments in this media summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SummaryLines" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The number of summaries (items requiring payment) within this media summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NetValue" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The net value of the settlement amount for the entire media summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocumentNumberCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the document master that will be posted to record the settlements within this media summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocumentNumberFrom" type="com:typeDocNum">
+        <xsd:annotation>
+          <xsd:documentation>The first number assigned to the media summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocumentNumberTo" type="com:typeDocNum">
+        <xsd:annotation>
+          <xsd:documentation>The last number assigned to the media summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="NumberMediaSummaries">
+    <xsd:annotation>
+      <xsd:documentation>This element stores numbering information about the media summaries in a payment proposal.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MediaSummary" type="pay:NumberMediaSummary" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element stores numbering information about a media summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="NumberSummary">
+    <xsd:annotation>
+      <xsd:documentation>This element stores a summary's numbering information.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="SummaryID" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>A system allocated number (unique within a proposal) used to identify a summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PayeeName" type="com:typePayee">
+        <xsd:annotation>
+          <xsd:documentation>The customer/supplier name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NetValue" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The net value of the settlement amount for the summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocumentNumber" type="com:typeDocNum">
+        <xsd:annotation>
+          <xsd:documentation>The number assigned to this summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AccountCode" type="com:typeAcCode">
+        <xsd:annotation>
+          <xsd:documentation>The account code to which payment for this summary will be made.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LineStatus" type="com:typeCtPayDocNumStat">
+        <xsd:annotation>
+          <xsd:documentation>If the current document number is not assigned to a summary, this field indicates why the document number is missing. Common reasons for a number to be missing are that the payment medium (for example, a cheque) had to be reprinted, was lost in the printer line-up, or is void for another reason.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="VoidCount" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The number of media (for example, cheques) that will be voided automatically when this summary is numbered.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="NumberSummaries">
+    <xsd:annotation>
+      <xsd:documentation>This element stores summary numbering information.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Summary" type="pay:NumberSummary" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element stores a summary's numbering information.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="NumberMediaKey">
+    <xsd:annotation>
+      <xsd:documentation>This element contains parameters for you to specify which media summary to retrieve.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ProposalKey" type="pay:ProposalKeyNoWild">
+        <xsd:annotation>
+          <xsd:documentation>This element is a key consisting of a company code, user code, proposal code and payment master code which uniquely identifies a proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MediaSummaryID" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>A system allocated number (unique within a proposal) used to identify the media summary retrieved for numbering.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="NumberSummariesInformation">
+    <xsd:annotation>
+      <xsd:documentation>This element stores the list of summaries (in a media summary) to be numbered.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="FirstDocumentNumber" type="com:typeDocNum">
+        <xsd:annotation>
+          <xsd:documentation>The first available number that can be assigned to a summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Summaries" type="pay:NumberSummaries">
+        <xsd:annotation>
+          <xsd:documentation>This element stores summary numbering information.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DocumentNumbersList">
+    <xsd:annotation>
+      <xsd:documentation>This element stores a list of the numbers which have already been used in a specified media summary.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="DocumentNumber" type="com:typeDocNum" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>A valid document number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="NumberMissedDocument">
+    <xsd:annotation>
+      <xsd:documentation>This element stores information about a number which has not been assigned to any summary.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="DocumentNumber" type="com:typeDocNum">
+        <xsd:annotation>
+          <xsd:documentation>The missing document number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Status" type="com:typeCtPayDocNumStat">
+        <xsd:annotation>
+          <xsd:documentation>Indicates why the document number is missing. Common reasons for a number to be missing are that the payment media (for example, a cheque) had to be reprinted, was lost in the printer line-up, or is void for another reason.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="NumberMissedDocumentsList">
+    <xsd:annotation>
+      <xsd:documentation>This element stores information about missing document numbers.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MissedDocument" type="pay:NumberMissedDocument" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element stores information about a number which has not been assigned to any summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="NumberNumberedSummary">
+    <xsd:annotation>
+      <xsd:documentation>This element stores information about a numbered summary.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="SummaryID" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>A system allocated number (unique within a proposal) used to identify a summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocumentNumber" type="com:typeDocNum">
+        <xsd:annotation>
+          <xsd:documentation>The number assigned to this summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Good" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the summary is valid or has been scrapped.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="NumberNumberedSummaryList">
+    <xsd:annotation>
+      <xsd:documentation>This element stores information about numbered summaries.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="NumberedSummary" type="pay:NumberNumberedSummary" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element stores information about a numbered summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="NumberGetNumbersKey">
+    <xsd:annotation>
+      <xsd:documentation>This element contains parameters for you to specify the media summary for which you want to list the document numbers that will be assigned to its summaries.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MediaKey" type="pay:NumberMediaKey">
+        <xsd:annotation>
+          <xsd:documentation>This element contains parameters for you to specify which media summary to retrieve.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StartDocumentNumber" type="com:typeDocNum">
+        <xsd:annotation>
+          <xsd:documentation>The number from which the returned numbers should start.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RequestedCount" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The number of numbers to return.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UsedNumbers" type="pay:DocumentNumbersList">
+        <xsd:annotation>
+          <xsd:documentation>Lists numbers which have already been used, so should not be in the returned numbers.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="NumberInformation">
+    <xsd:annotation>
+      <xsd:documentation>This element stores information about the numbers assigned within a media summary.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MediaKey" type="pay:NumberMediaKey">
+        <xsd:annotation>
+          <xsd:documentation>This element contains parameters for you to specify which media summary to retrieve for numbering.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ValidateOnly" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether to check that all summaries have been assigned a valid number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NumberedSummaryList" type="pay:NumberNumberedSummaryList">
+        <xsd:annotation>
+          <xsd:documentation>This element stores information about numbered summaries.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MissedDocumentsList" type="pay:NumberMissedDocumentsList">
+        <xsd:annotation>
+          <xsd:documentation>This element stores information about missing document numbers.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="HistoryKey">
+    <xsd:sequence>
+      <xsd:element name="ProposalKey" type="pay:ProposalKey"/>
+      <xsd:element name="StartDate" type="com:typeDate"/>
+      <xsd:element name="StartTime" type="xsd:dateTime"/>
+      <xsd:element name="Status" type="com:typeCtPrlStatus"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="HistoryLine">
+    <xsd:annotation>
+      <xsd:documentation>Lists details of the proposal's history.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ProposalKey" type="pay:ProposalKey">
+        <xsd:annotation>
+          <xsd:documentation>This element is a key consisting of a company code, user code, proposal code and payment master code which uniquely identifies a proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Status" type="com:typeCtPrlStatus">
+        <xsd:annotation>
+          <xsd:documentation>The different stages that the proposal has been through.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ByUser" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The user who performed that process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StartDate" type="com:typeDate">
+        <xsd:annotation>
+          <xsd:documentation>The date when the process started.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StartTime" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The time when the process started.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="EndDate" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date when the process ended.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="EndTime" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The time when the process ended.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExitType" type="com:typeCtExitType">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the process was completed successfully.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="EndMessage" type="com:typeLogText" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The last message generated by that process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="EndStatus" type="com:typeCtPrlStatus">
+        <xsd:annotation>
+          <xsd:documentation>The proposal's status after running that process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LogID" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The ID of the log for this pay history line (if a log exists).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="HistoryLines">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of proposals and their history.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Line" type="pay:HistoryLine" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Lists details of the proposal's history.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ModifySummariesChange">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the modifications you want to apply to the specified summary.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MediaSummaryKey" type="pay:ModifyMedSummKey">
+        <xsd:annotation>
+          <xsd:documentation>This element contains parameters for you to specify the media summary containing the summary you want to modify.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SummaryChange" type="pay:ModifySummaryChange">
+        <xsd:annotation>
+          <xsd:documentation>This element contains the modifications you want to apply to a summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ModifyDetailsChange">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the modifications you want to apply to the specified detail line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="SummaryKey" type="pay:ModifySummKey">
+        <xsd:annotation>
+          <xsd:documentation>This element contains parameters for you to specify the summary containing the detail line you want to modify.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DetailChange" type="pay:ModifyDetailChange">
+        <xsd:annotation>
+          <xsd:documentation>This element contains the modifications you want to apply to a detail line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="PayProposals" type="pay:PayProposals">
+    <xsd:annotation>
+      <xsd:documentation>This element contains all the payment proposals in the company.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="AllocationHeader">
+    <xsd:annotation>
+      <xsd:documentation>This element contains allocation header details.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="PayableSumms" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The number of pay or collect summaries included.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DeletedSumms" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The number of deleted summaries included.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="WrongSignedSumms" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The number of wrong-signed summaries included.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PayableHomeValue" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The value of the pay or collect summaries in home currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DeletedHomeValue" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The value of the deleted summaries in home currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="WrongSignedHomeValue" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The value of the wrong-signed summaries in home currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PayOrCollect" type="com:typeCtOneOfN">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether this is a pay or a collect summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RowCurrencyAvailable" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the allocation currency is available.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AllocationValues">
+    <xsd:annotation>
+      <xsd:documentation>The total value of the details for which the company bank was set during Input or Browse and has not been changed during manipulation.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Home" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The value in home currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Dual" type="xsd:decimal" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The value in dual currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Row" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The value in the allocation currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Allocation">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of an allocation.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Bank" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The name of the bank for which payment is intended.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MediaSummaryBank" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the specified bank is that used for the media summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SummarisesSingleCurrency" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the allocation summarises a single currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RowCurrency" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The currency for the payment.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NumOfSumms" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The number of summaries included.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PreAllocated" type="pay:AllocationValues" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The total value of the details for which the company bank was set during Input or Browse and has not been changed during manipulation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Total" type="pay:AllocationValues" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The total amount allocated to the bank.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Elsewhere" type="pay:AllocationValues" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The sum of the home currency payable amounts of all media summaries (regardless of which proposal they belong to but excluding the current one).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Balance" type="pay:AllocationValues" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The bank account balance.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Reserve" type="pay:AllocationValues" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The sum of the Total, Elsewhere and Balance columns. It represents the reserve in the bank if all payments currently proposed are made. Negative values indicate that the bank is overdrawn.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Allocations">
+    <xsd:annotation>
+      <xsd:documentation>This element contains allocation details.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Allocation" type="pay:Allocation" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of an allocation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ApportionSource">
+    <xsd:annotation>
+      <xsd:documentation>The specified amount to apportion, as a percentage or amount.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Proportion" type="xsd:decimal" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The percentage to apportion.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="HomeAmount" type="xsd:decimal" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>An amount to apportion, expressed in home currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DualAmount" type="xsd:decimal" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>An amount to apportion, expressed in dual currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Apportion">
+    <xsd:annotation>
+      <xsd:documentation>This element contains apportionment details.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Bank" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The bank to which to apportion payment summaries.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ServerGenerated" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the value is a calculated value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Source" type="pay:ApportionSource" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The specified amount to apportion, as a percentage or amount.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="HomeTarget" type="xsd:decimal" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The target amount to apportion, in home currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DualTarget" type="xsd:decimal" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The target amount to apportion, in dual currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="HomeActual" type="xsd:decimal" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The actual amount apportioned, in home currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DualActual" type="xsd:decimal" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The actual amount apportioned, in dual currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="HomeTotal" type="xsd:decimal" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The total amount apportioned, in home currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DualTotal" type="xsd:decimal" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The total amount apportioned, in dual currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Apportions">
+    <xsd:annotation>
+      <xsd:documentation>This element contains one or more sets of apportionment details.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Apportion" type="pay:Apportion" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains apportionment details.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ApportionHeader">
+    <xsd:annotation>
+      <xsd:documentation>This element contains apportionment header details.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="BankViableSummaries" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The number of summaries included.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankHomeTotal" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The total value in home currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Allocate">
+    <xsd:annotation>
+      <xsd:documentation>This element contains apportionment details.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="pay:ProposalKey">
+        <xsd:annotation>
+          <xsd:documentation>This element is a key consisting of a company code, user code, proposal code and payment master code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OriginalBank" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The original bank to which summaries are assigned.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Commit" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>If true, commits details to the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExpectedMatchesCalculated" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether expected matches have been calculated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Header" type="pay:ApportionHeader" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element contains apportionment header details.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Apportions" type="pay:Apportions">
+        <xsd:annotation>
+          <xsd:documentation>This element contains one or more sets of apportionment details.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="EPayProposalElement">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the settings for a Pay proposal.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the proposal is being maintained.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PcmCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the payment master being used for this proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UsrCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the user who created the proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UniqueCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>A code uniquely identifying the proposal for a given company code, payment master code and user code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LastOperation" type="com:typeCtPrlStatus">
+        <xsd:annotation>
+          <xsd:documentation>Identifies the current status of the proposal. For example, whether the proposal is Generated, Authorised, Produced or Posted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PayDate" type="com:typeDate">
+        <xsd:annotation>
+          <xsd:documentation>The date for settlement of the amount due.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NetValue" type="xsd:decimal" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The net value of the settlement amount for the entire proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PcmShortName" type="com:typeShortName">
+        <xsd:annotation>
+          <xsd:documentation>The short name of the payment master used to generate this proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="EPayProposalList">
+    <xsd:annotation>
+      <xsd:documentation>The list of proposals.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Proposal" type="pay:EPayProposalElement" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains the settings for a Pay proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="EPayProposals">
+    <xsd:annotation>
+      <xsd:documentation>This element contains all the Pay proposals in the company.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Proposals" type="pay:EPayProposalList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The list of proposals.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="EPayProposalKey">
+    <xsd:annotation>
+      <xsd:documentation>This element is a key consisting of a company code, user code, proposal code and payment master code which uniquely identifies a proposal. It is used to specify search criteria for the retrieval of one or more proposals.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="UserCode" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the user(s) who created the proposals.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CmpCode" type="com:typeCodeWild">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the proposal is being maintained. Wildcard characters (* and ?) are not currently permitted despite the typeCodeWild which implies that wildcards are permitted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AuthorisedOnly" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies that only proposals that have been authorised are retrieved.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RowLimit" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The maximum number of proposals to be retrieved. A value of zero indicates no limit.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:pcm="http://www.coda.com/efinance/schemas/paymaster" xmlns:pay="http://www.coda.com/efinance/schemas/pay" targetNamespace="http://www.coda.com/efinance/schemas/pay" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/paymaster" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/finance/paymaster/paymaster.xsd"/>
+
+  <xsd:complexType name="PayMasterSubsetBase">
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the proposal is to be generated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the payment master to be used as a basis for generating the proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Level" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The level within the account code of documents selected by this proposal against which payments will be made. The value can be 1-8 and should correspond to the matchable element level of accounts against which payments will be made. The matchable element level is typically the level used for customer and supplier elements.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="GroupCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the group master to select all elements within this group. If you leave this blank, the proposal will select all matchable elements irrespective of their group.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Country" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The country code that appears on the Name &amp; Address page of the element master. If you leave this blank, the proposal will select all matchable elements irrespective of their country.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DiscOnly" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether this proposal will select items for payment only if an early settlement discount is available on the proposal discount date. When FALSE, this proposal will select items with any discount.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DiscMethod" type="com:typeCtXMLDiscountControl" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specifies which discount method to use. When set to discount_old, the discount method is derived from the DiscOnly setting. When set to no_discount, this proposal will not select any items with discounts.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IncZeroItems" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specifies that this proposal will enable (but not force) the inclusion of transactions with a value of zero in the payable currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AbortOnChange" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the proposal is abandoned if any of the selected lines change before the generation is complete.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PayCur" type="com:typeCtPayCurType" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether payment will be made in the currency of the (matchable) element at the specified level in the account code of documents selected during the pay run, or in the currency of the documents selected. The (matchable) element level against which payments will be made is specified by the Level element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="GroupByUserStat" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether detail lines with the same user statuses will be grouped together.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="GroupByElmAddr" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether detail lines with the same element addresses will be grouped together if they have the same matchable element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="GroupByElmBank" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether detail lines with the same bank details will be grouped together.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="GroupByDueDate" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether detail lines with the same due date will be grouped together.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="GroupByValueDate" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether detail lines with the same value date will be grouped together.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="GroupByDocCode" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether detail lines will be grouped according to the type of document in which they appear.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="GroupByExtRefs" type="pcm:GroupByExtRefList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether detail lines with the same external references at the selected levels will be grouped together.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="GroupByUserRefs" type="pcm:GroupByUserRefList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether detail lines with the same user references at the selected levels will be grouped together.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SelectedFrom" type="xsd:decimal" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Start of a range for the gross value of the selected items, excluding discounts. For multi-currency proposals, or where you have used wildcards, the value must be in the home currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SelectedTo" type="xsd:decimal" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>End of a range for the gross value of the selected items, excluding discounts. For multi-currency proposals, or where you have used wildcards, the value must be in the home currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PayCollectFrom" type="xsd:decimal" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Start of a range for the total value of the selected items, including discounts. For multi-currency proposals, or where you have used wildcards, the value must be in the home currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PayCollectTo" type="xsd:decimal" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>End of a range for the total value of the selected items, including discounts. For multi-currency proposals, or where you have used wildcards, the value must be in the home currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PreCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code for the presenter master used when exploding lines during manipulate and modify.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MediaSummaryPreCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code for the presenter master used when exploding media summaries during manipulate and modify.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SummaryPreCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code for the presenter master used when exploding summaries during manipulate and modify.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DetailPreCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code for the presenter master used when exploding details during manipulate and modify.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SelCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code for the selector master you want to use. The selector master specifies which fields are available as selection criteria when generating the payment or collection proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ForcedProd" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the proposal is produced as soon as it is generated, with no opportunity to manipulate or modify it.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PayDate" type="com:typeHSDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date for settlement of the amount due. This becomes the document date on the payment and collection documents posted to the Books.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DiscDate" type="com:typeHSDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date against which any discount terms on selected items will be compared. For a discount-only run, this is the date against which the terms of the item are checked for an early settlement discount.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Period" type="com:typeSoftPeriod" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The year and period to which the automatic payment and collection documents will be posted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CheckSettlementAccount" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether to validate each settlement account. Once the system has stabilised and settlement accounts are unlikely to change, you might set this to FALSE so that the accounts are not validated until posting. (Settlement accounts are always validated upon posting irrespective of whether this box is set.)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MaximumSummaryLevel" type="com:typeCtElementLevel" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The maximum level at which summaries can occur. The default is Not set which assumes that all levels could be used. When set to a specific level, performance is improved by excluding unwanted levels from the sorting process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MinimumSplitLevel" type="com:typeCtElementLevel" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The minimum level at which splits can occur. The default is Not set which assumes that all levels could be used. When set to a specific level, performance is improved by excluding unwanted levels from the sorting process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExportReducedPRLData" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether some fields will not be populated in the PRL tables and thus will not be exported to the DTT tables. Setting this to TRUE improves performance but may limit the options for generating media. When TRUE, the following fields in the PRL tables are not populated: line description, external references, user references, bank and media, address name, settlement account, actual summary code, account code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PayMasterSubset">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a subset of the payment master settings. For example, this subset excludes any payment master settings which are protected from being changed at run time. The values of these settings override settings of the same name from the payment master specified in Code. If optional settings (where the occurrence is zero or one) are omitted, the settings from the specified payment master are used.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="pay:PayMasterSubsetBase">
+        <xsd:sequence>
+          <xsd:element name="MediaList" type="pcm:ListData" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>This element holds details of the media and accounts combinations that can be used by this proposal.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DateList" type="pcm:DateListData" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>This element holds details of the date ranges that have been replaced with a single effective due date or value date.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+
+</xsd:schema>

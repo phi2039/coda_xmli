@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:rol="http://www.coda.com/common/schemas/rolemaster" elementFormDefault="qualified" targetNamespace="http://www.coda.com/common/schemas/rolemaster">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types2.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="DataAccessRule">
+    <xsd:annotation>
+      <xsd:documentation>Reserved for future use.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="RuleType" type="com:typeApplicationName">
+        <xsd:annotation>
+          <xsd:documentation>Reserved for future use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="AccessAllowed" type="com:typeDataAccess">
+        <xsd:annotation>
+          <xsd:documentation>Reserved for future use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="DataType" type="com:typeOneofnIdentifier">
+        <xsd:annotation>
+          <xsd:documentation>Reserved for future use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Rule" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>Reserved for future use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DataAccessRuleList">
+    <xsd:annotation>
+      <xsd:documentation>Reserved for future use.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="DataAccessRule" type="rol:DataAccessRule">
+        <xsd:annotation>
+          <xsd:documentation>Reserved for future use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DataAccessRuleKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="DataAccessRule" type="rol:DataAccessRuleKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DataAccessRuleKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode"/>
+      <xsd:element minOccurs="0" name="RuleType" type="com:typeApplicationName"/>
+      <xsd:element minOccurs="0" name="AccessAllowed" type="com:typeDataAccess"/>
+      <xsd:element minOccurs="0" name="DataType" type="com:typeOneofnIdentifier"/>
+      <xsd:element minOccurs="0" name="Rule" type="com:typeText"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="FunctionalSecurityItem">
+    <xsd:annotation>
+      <xsd:documentation>An item in the functional security list.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="AppNum" type="com:typeWord">
+        <xsd:annotation>
+          <xsd:documentation>The application number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="SubAppNum" type="com:typeWord">
+        <xsd:annotation>
+          <xsd:documentation>The subapplication number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Node" type="com:typeWord">
+        <xsd:annotation>
+          <xsd:documentation>The node number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="FunctionalSecurityItemList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of the application functions to which users have access.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="FunctionalSecurityItem" type="rol:FunctionalSecurityItem">
+        <xsd:annotation>
+          <xsd:documentation>An item in the functional security list.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="FunctionalSecurityItemKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="FunctionalSecurityItem" type="rol:FunctionalSecurityItemKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="FunctionalSecurityItemKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode"/>
+      <xsd:element minOccurs="0" name="AppNum" type="com:typeWord"/>
+      <xsd:element minOccurs="0" name="SubAppNum" type="com:typeWord"/>
+      <xsd:element minOccurs="0" name="Node" type="com:typeWord"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Role">
+    <xsd:annotation>
+      <xsd:documentation>This element contains information for a role master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this role master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name for this role master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ShortName" type="com:typeShortName">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for this role master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="SecurityLevel" type="com:typeSecLevel">
+        <xsd:annotation>
+          <xsd:documentation>The security level for this role master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="FunctionalSecurityList" type="rol:FunctionalSecurityItemList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of the application functions to which users have access.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DataAccessRuleList" type="rol:DataAccessRuleList">
+        <xsd:annotation>
+          <xsd:documentation>Reserved for future use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The timestamp value for this role master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RoleList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of role masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Role" type="rol:Role">
+        <xsd:annotation>
+          <xsd:documentation>This element contains information about a role master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RoleKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Role" type="rol:RoleKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RoleKey">
+    <xsd:annotation>
+      <xsd:documentation>Contains the key identifying the role master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this role master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RoleItemList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a list of role masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="RoleListItem" type="rol:RoleListItem">
+        <xsd:annotation>
+          <xsd:documentation>This element holds details of a role master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RoleListItem">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details of a role master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this role master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="ShortName" type="com:typeShortName">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for this role master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

@@ -1,0 +1,1946 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:atc="http://www.coda.com/common/schemas/attachment" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:datatypes="http://www.coda.com/common/schemas/datatypes" xmlns:gra="http://www.coda.com/common/schemas/graphlayout" xmlns:spec="http://www.coda.com/common/schemas/workflow" xmlns:use="http://www.coda.com/common/schemas/userextension" xmlns:wor="http://www.coda.com/common/schemas/workflowapi" xmlns:wsd="http://www.coda.com/common/schemas/wsdl" elementFormDefault="qualified" targetNamespace="http://www.coda.com/common/schemas/workflowapi">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types2.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/attachment" schemaLocation="s:/schemas/public/common/attachment/attachment.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/datatypes" schemaLocation="s:/schemas/public/common/datatypes/datatypes.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/graphlayout" schemaLocation="s:/schemas/public/common/graphlayout/graphlayout.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/userextension" schemaLocation="s:/schemas/public/common/userextension/userextension.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/workflow" schemaLocation="s:/schemas/public/common/workflow/workflow.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/wsdl" schemaLocation="s:/schemas/public/common/wsdl/wsdl.xsd"/>
+
+  <xsd:complexType name="WebServiceParameterMapping">
+    <xsd:annotation>
+      <xsd:documentation>Details of the mapping between a Web service parameter and a workflow variable.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ParameterName" type="com:typeParamName">
+        <xsd:annotation>
+          <xsd:documentation>The Web service parameter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ParameterKind" type="com:typeComParameterKind">
+        <xsd:annotation>
+          <xsd:documentation>The type of parameter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="VariableName" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>A variable name for the parameter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Literal" type="com:typeTextAnyUnlimitedQuotes">
+        <xsd:annotation>
+          <xsd:documentation>A literal text string for the parameter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WebServiceParameterMappingList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="WebServiceParameterMapping" type="wor:WebServiceParameterMapping">
+        <xsd:annotation>
+          <xsd:documentation>Details of the mapping between a Web service parameter and a workflow variable.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CompletedResponseData">
+    <xsd:annotation>
+      <xsd:documentation>The returned workflow work item data.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The name of a data item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Value" type="com:typeTextAny">
+        <xsd:annotation>
+          <xsd:documentation>The value associated with the label.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CompletedResponseDataList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="CompletedResponseData" type="wor:CompletedResponseData">
+        <xsd:annotation>
+          <xsd:documentation>The returned workflow work item data.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="LiteralURLSource">
+    <xsd:complexContent>
+      <xsd:extension base="wor:URLSource">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Url" type="com:typeUri"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="LiteralURLSourceList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="LiteralURLSource" type="wor:LiteralURLSource"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ImportInformation">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the information returned by the WorkflowQuery call.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="EffectiveDate" type="com:typeHard">
+        <xsd:annotation>
+          <xsd:documentation>The date the workflow process definition becomes effective.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="QueryDate" type="com:typeHard">
+        <xsd:annotation>
+          <xsd:documentation>The date the query was executed.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Valid" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, indicates that the workflow process definition is valid.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="NewTypeScope" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, indicates prescence of a new Type Scope.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TypeScopeCode" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the Type Scope.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TypeScopeVersion" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>The version of the Type Scope.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TypesFoundInData" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, indicates that Type Scopes have been found in the data.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ImportMessageList" type="wor:ImportInformationImportMessageList">
+        <xsd:annotation>
+          <xsd:documentation>A list of import messages.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ImportInformationImportMessageList">
+    <xsd:annotation>
+      <xsd:documentation>A list of import messages.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ImportMessage" type="wor:ImportMessage">
+        <xsd:annotation>
+          <xsd:documentation>An import message.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ImportInformationList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ImportInformation" type="wor:ImportInformation"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="NewVersionMessage">
+    <xsd:complexContent>
+      <xsd:extension base="wor:ProcessDefinitionMessage">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="NewVersionMessageList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="NewVersionMessage" type="wor:NewVersionMessage"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProcessDefinitionItem">
+    <xsd:annotation>
+      <xsd:documentation>The details of a workflow process definition item.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The workflow process definition code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Version" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>The workflow process definition version number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The item name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ModifiedDate" type="com:typeHard">
+        <xsd:annotation>
+          <xsd:documentation>The date the item was modified.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="EffectiveDate" type="com:typeHard">
+        <xsd:annotation>
+          <xsd:documentation>The date the item becomes effective.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The item short name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="CodaProvided" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether this process definition master is provided by CODA. This field is read-only.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProcessDefinitionItemList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ProcessDefinitionItem" type="wor:ProcessDefinitionItem">
+        <xsd:annotation>
+          <xsd:documentation>The details of a workflow process definition item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManualActivityDetails">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the details of a manual activity.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Description" type="com:typeTextAny">
+        <xsd:annotation>
+          <xsd:documentation>A description of the activity.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="AssignTo" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The user, position or variable to assign the activity to.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="AssignToType" type="com:typeComWorkflowAssign">
+        <xsd:annotation>
+          <xsd:documentation>Identifies the type of the value specified in AssignTo.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DescriptionParameterList" type="wor:ManualActivityDetailsDescriptionParameterList">
+        <xsd:annotation>
+          <xsd:documentation>A list of parameters used in the description text.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="TimeoutExpression" type="com:typeTextAnyUnlimitedQuotes">
+        <xsd:annotation>
+          <xsd:documentation>A script determining the action to take in a time-out condition.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ManualActivityResponseList" type="wor:ManualActivityDetailsManualActivityResponseList">
+        <xsd:annotation>
+          <xsd:documentation>A list of valid responses for the activity.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ManualActivityFieldList" type="wor:ManualActivityDetailsManualActivityFieldList">
+        <xsd:annotation>
+          <xsd:documentation>A list of additional fields which will appear when progressing the work item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ExplodeURLOverride" type="wor:URLSource">
+        <xsd:annotation>
+          <xsd:documentation>A URL which overrides the one specified for the workflow process definition.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManualActivityDetailsDescriptionParameterList">
+    <xsd:annotation>
+      <xsd:documentation>A list of parameters used in the description text.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="DescriptionParameter" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The name of the variable used as a parameter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManualActivityDetailsManualActivityResponseList">
+    <xsd:annotation>
+      <xsd:documentation>A list of valid responses for the activity.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" name="ManualActivityResponse" type="wor:ManualActivityResponse">
+        <xsd:annotation>
+          <xsd:documentation>Details of a valid response for the activity.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManualActivityDetailsManualActivityFieldList">
+    <xsd:annotation>
+      <xsd:documentation>A list of additional fields which will appear when progressing the work item.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ManualActivityField" type="wor:ManualActivityField">
+        <xsd:annotation>
+          <xsd:documentation>Details of an additional field.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManualActivityDetailsList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ManualActivityDetails" type="wor:ManualActivityDetails"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Option">
+    <xsd:annotation>
+      <xsd:documentation>The option details.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Label" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The label for the option.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AvailableOptionDataList" type="wor:OptionAvailableOptionDataList">
+        <xsd:annotation>
+          <xsd:documentation>A list of available data for the option.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MandatoryOptionDataList" type="wor:OptionMandatoryOptionDataList">
+        <xsd:annotation>
+          <xsd:documentation>A list of mandatory data for the option.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="OptionAvailableOptionDataList">
+    <xsd:annotation>
+      <xsd:documentation>A list of available data for the option.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="AvailableOptionData" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The data for the option.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="OptionMandatoryOptionDataList">
+    <xsd:annotation>
+      <xsd:documentation>A list of mandatory data for the option.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="MandatoryOptionData" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The data for the option.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="OptionList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Option" type="wor:Option">
+        <xsd:annotation>
+          <xsd:documentation>The option details.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ImportMessage">
+    <xsd:annotation>
+      <xsd:documentation>An import message.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ImportMessageList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ImportMessage" type="wor:ImportMessage">
+        <xsd:annotation>
+          <xsd:documentation>An import message.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SubWorkflowActivityDetails">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the details of a sub-workflow activity.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the sub-workflow activity.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Version" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>The version of the sub-workflow activity.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MappingList" type="wor:SubWorkflowActivityDetailsMappingList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of mappings between the current workflow process definition variables and the sub-workflow process definition variables.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SubWorkflowActivityDetailsMappingList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of mappings between the current workflow process definition variables and the sub-workflow process definition variables.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Mapping" type="wor:SubWorkflowVariableMapping">
+        <xsd:annotation>
+          <xsd:documentation>Details of a mapping between variables.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SubWorkflowActivityDetailsList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="SubWorkflowActivityDetails" type="wor:SubWorkflowActivityDetails"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Descendents">
+    <xsd:annotation>
+      <xsd:documentation>This element contains lists of subworkflow IDs.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="IdList" type="wor:DescendentsIdList">
+        <xsd:annotation>
+          <xsd:documentation>This element holds a list of IDs.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DescendentsIdList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a list of IDs.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Id" type="com:typeDbGuid">
+        <xsd:annotation>
+          <xsd:documentation>A subworkflow ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DescendentsList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Descendents" type="wor:Descendents"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MissingTypeMessage">
+    <xsd:complexContent>
+      <xsd:extension base="wor:ImportMessage">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" name="DataType" type="wsd:QualifiedName"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="MissingTypeMessageList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="MissingTypeMessage" type="wor:MissingTypeMessage"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowStartInformation">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of the initial values of a workflow instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The workflow process definition code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Priority" type="com:typeComWorkflowPriority">
+        <xsd:annotation>
+          <xsd:documentation>The instance priority.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ExplodeURL" type="com:typeTextAnyDbQuotes">
+        <xsd:annotation>
+          <xsd:documentation>The URL to display when exploding a work item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AttachmentIdList" type="wor:WorkflowStartInformationAttachmentIdList"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="PrimaryAttachmentId" type="com:typeDbGuid"/>
+      <xsd:element name="WorkflowParameterList" type="wor:WorkflowStartInformationWorkflowParameterList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of workflow parameters.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowStartInformationAttachmentIdList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="AttachmentId" type="com:typeDbGuid"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowStartInformationWorkflowParameterList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of workflow parameters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="WorkflowParameter" type="wor:WorkflowParameter">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of a workflow parameter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowStartInformationList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="WorkflowStartInformation" type="wor:WorkflowStartInformation"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Diagram">
+    <xsd:annotation>
+      <xsd:documentation>Details of the current workflow process definition diagram.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Zoom" type="com:typeWord">
+        <xsd:annotation>
+          <xsd:documentation>The zoom level of the workflow process definition diagram.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DiagramList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Diagram" type="wor:Diagram"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WebServiceActivityDetails">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the details of a Web service activity.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ServiceName" type="wsd:QualifiedName">
+        <xsd:annotation>
+          <xsd:documentation>The name of the Web service.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="PortName" type="com:typeParamName">
+        <xsd:annotation>
+          <xsd:documentation>The name of the Web service port.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="OperationName" type="com:typeParamName">
+        <xsd:annotation>
+          <xsd:documentation>The name of the Web service operation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Username" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The user name for the Web service activity.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Location" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The location of the Web service activity.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="CompanyVariableName" type="com:typeScriptVariablename">
+        <xsd:annotation>
+          <xsd:documentation>The name of a variable containing a company name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="CodaUserVariableName" type="com:typeScriptVariablename">
+        <xsd:annotation>
+          <xsd:documentation>The name of a variable containing a CODA user name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="PlainPassword" type="com:typePassword">
+        <xsd:annotation>
+          <xsd:documentation>The user password, in plain text format.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="EncryptedPassword" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The user password, in encrypted format.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="WebServiceParameterMappingList" type="wor:WebServiceActivityDetailsWebServiceParameterMappingList">
+        <xsd:annotation>
+          <xsd:documentation>A list of mappings between Web service parameters and workflow variables.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WebServiceActivityDetailsWebServiceParameterMappingList">
+    <xsd:annotation>
+      <xsd:documentation>A list of mappings between Web service parameters and workflow variables.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" name="WebServiceParameterMapping" type="wor:WebServiceParameterMapping">
+        <xsd:annotation>
+          <xsd:documentation>Details of the mapping between a Web service parameter and a workflow variable.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WebServiceActivityDetailsList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="WebServiceActivityDetails" type="wor:WebServiceActivityDetails"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WSDLScope">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a Web service.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the Web service.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Version" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>The version of the Web service.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="WSDLItemList" type="wor:WSDLScopeWSDLItemList">
+        <xsd:annotation>
+          <xsd:documentation>A list of Web service details.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WSDLScopeWSDLItemList">
+    <xsd:annotation>
+      <xsd:documentation>A list of Web service details.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="WSDLItem" type="wor:WSDLItem">
+        <xsd:annotation>
+          <xsd:documentation>The details of a Web service.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WSDLScopeList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="WSDLScope" type="wor:WSDLScope"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TimeWindow">
+    <xsd:annotation>
+      <xsd:documentation>The details of a scheduling window.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Start" type="com:typeTime">
+        <xsd:annotation>
+          <xsd:documentation>The start time.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="End" type="com:typeTime">
+        <xsd:annotation>
+          <xsd:documentation>The end time.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Enabled" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the scheduling window is enabled.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TimeWindowList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="TimeWindow" type="wor:TimeWindow"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="InstanceAttachment">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of attachments to a workflow instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="AttachmentsList" type="atc:AttachmentList">
+        <xsd:annotation>
+          <xsd:documentation>A list of attachments.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="PrimaryAttachment" type="atc:AttachmentKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="InstanceAttachmentList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="InstanceAttachment" type="wor:InstanceAttachment"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MissingWebServiceMessage">
+    <xsd:complexContent>
+      <xsd:extension base="wor:ImportMessage">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" name="ServiceName" type="wsd:QualifiedName"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="MissingWebServiceMessageList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="MissingWebServiceMessage" type="wor:MissingWebServiceMessage"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VariableState">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of the state of a variable.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Name" type="com:typeScriptVariablename">
+        <xsd:annotation>
+          <xsd:documentation>The name of the variable.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ValueList" type="wor:VariableStateValueList">
+        <xsd:annotation>
+          <xsd:documentation>A list of values for the variable.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VariableStateValueList">
+    <xsd:annotation>
+      <xsd:documentation>A list of values for the variable.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Value" type="com:typeTextAnyUnlimitedQuotes">
+        <xsd:annotation>
+          <xsd:documentation>A variable value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VariableStateList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="VariableState" type="wor:VariableState">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of the state of a variable.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WSDLItem">
+    <xsd:annotation>
+      <xsd:documentation>The details of a Web service.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Uri" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The URI of the Web service.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ServiceName" type="wsd:QualifiedName">
+        <xsd:annotation>
+          <xsd:documentation>The local name of the Web service.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Location" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The location of the Web service.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WSDLItemList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="WSDLItem" type="wor:WSDLItem">
+        <xsd:annotation>
+          <xsd:documentation>The details of a Web service.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ExportDefinition">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of workflow process defitions to export.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="IncludeTypes" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, required Web service definitions are included.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="WorkflowsKeyList" type="spec:WorkflowKeyList">
+        <xsd:annotation>
+          <xsd:documentation>This element holds a list of workflow process definition keys.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ExportDefinitionList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ExportDefinition" type="wor:ExportDefinition"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowParameter">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a workflow parameter.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Name" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The parameter name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Value" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The parameter value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowParameterList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="WorkflowParameter" type="wor:WorkflowParameter">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of a workflow parameter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProcessVariable">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a workflow process definition variable.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The name of the workflow process definition variable.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TypeName" type="wsd:QualifiedName">
+        <xsd:annotation>
+          <xsd:documentation>The name of the type.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Array" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the variable is an array.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Kind" type="com:typeComWorkflowVariableKind">
+        <xsd:annotation>
+          <xsd:documentation>The type of workflow process definition variable.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="UserDefinedField" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>The name of a user-defined field.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="InitialValue" type="com:typeTextAnyUnlimitedQuotes">
+        <xsd:annotation>
+          <xsd:documentation>The initial value of the field.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProcessVariableList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ProcessVariable" type="wor:ProcessVariable">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of a workflow process definition variable.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VariableURLSource">
+    <xsd:complexContent>
+      <xsd:extension base="wor:URLSource">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Variable" type="com:typeScriptVariablename"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="VariableURLSourceList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="VariableURLSource" type="wor:VariableURLSource"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManualActivityResponse">
+    <xsd:annotation>
+      <xsd:documentation>Details of a valid response for the activity.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Label" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The label which appears when progressing the work item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="AvailableFields" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>A list of available fields.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="MandatoryFields" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>A mandatory field which must be completed when entering a response for a work item..</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManualActivityResponseList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ManualActivityResponse" type="wor:ManualActivityResponse">
+        <xsd:annotation>
+          <xsd:documentation>Details of a valid response for the activity.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ApplicationSettings">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of workflow application settings.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Status" type="com:typeComWorkflowStatus">
+        <xsd:annotation>
+          <xsd:documentation>The status of the workflow system.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="NewAllowed" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether creation of new workflow instances is allowed.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="UseExternalWorkflowSystem" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether to use a third-party workflow system.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="UseWorkingWeek" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, indicates that the days of a working week are specified.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="WorkingWeek" type="datatypes:Week">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of the days to include in the working week.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="SchedulingStrategy" type="com:typeComWorkflowSchedulerStrategy">
+        <xsd:annotation>
+          <xsd:documentation>Specifies which scheduler to use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="SchedulingWindow" type="wor:TimeWindow">
+        <xsd:annotation>
+          <xsd:documentation>The details of a scheduling window.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Config" type="use:UserExtensionConfig">
+        <xsd:annotation>
+          <xsd:documentation>The configuration information for a user extension master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ApplicationSettingsList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ApplicationSettings" type="wor:ApplicationSettings"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Routing">
+    <xsd:annotation>
+      <xsd:documentation>Details of the route.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Target" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The target activity.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Expression" type="com:typeTextAnyUnlimitedQuotes">
+        <xsd:annotation>
+          <xsd:documentation>A Javascript expression determining the route taken from the activity.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Label" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>A label for the route.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="StartHandle" type="com:typeWord">
+        <xsd:annotation>
+          <xsd:documentation>A handle for the route start.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="EndHandle" type="com:typeWord">
+        <xsd:annotation>
+          <xsd:documentation>A handle for the route end.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PointList" type="wor:RoutingPointList">
+        <xsd:annotation>
+          <xsd:documentation>A list of edit points on the route.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RoutingPointList">
+    <xsd:annotation>
+      <xsd:documentation>A list of edit points on the route.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Point" type="gra:Point">
+        <xsd:annotation>
+          <xsd:documentation>The coordinates of the edit point.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RoutingList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Routing" type="wor:Routing">
+        <xsd:annotation>
+          <xsd:documentation>Details of the route.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProcessDefinitionItems">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of workflow process definition items.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ProcessDefinitionItemList" type="wor:ProcessDefinitionItemsProcessDefinitionItemList">
+        <xsd:annotation>
+          <xsd:documentation>A list of workflow process definition items.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProcessDefinitionItemsProcessDefinitionItemList">
+    <xsd:annotation>
+      <xsd:documentation>A list of workflow process definition items.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" name="ProcessDefinitionItem" type="wor:ProcessDefinitionItem">
+        <xsd:annotation>
+          <xsd:documentation>The details of a workflow process definition item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProcessDefinitionItemsList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ProcessDefinitionItems" type="wor:ProcessDefinitionItems"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProcessDefinitionMessage">
+    <xsd:complexContent>
+      <xsd:extension base="wor:ImportMessage">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Code" type="com:typeCode"/>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Version" type="com:typeLong"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProcessDefinitionMessageList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ProcessDefinitionMessage" type="wor:ProcessDefinitionMessage"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Export">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ExportDate" type="com:typeHardTime"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="HostName" type="com:typeText"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Version" type="com:typeText"/>
+      <xsd:element name="ProcessDefinitionList" type="wor:ExportProcessDefinitionList"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="TypeScope" type="wsd:TypeScope"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ExportProcessDefinitionList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ProcessDefinition" type="wor:ProcessDefinition"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ExportList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Export" type="wor:Export"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ImportDefinition">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details used when importing a workflow process definition.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="EffectiveDate" type="com:typeHard">
+        <xsd:annotation>
+          <xsd:documentation>The date on which the workflow process definition will become effective.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="IncludeTypes" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, required Web service definitions are included.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CodeOverrideList" type="wor:ImportDefinitionCodeOverrideList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of workflow process definition codes to override with a new version.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ImportDefinitionCodeOverrideList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of workflow process definition codes to override with a new version.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="CodeOverride" type="wor:CodeOverride">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ImportDefinitionList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ImportDefinition" type="wor:ImportDefinition"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SubWorkflowVariableMapping">
+    <xsd:annotation>
+      <xsd:documentation>Details of a mapping between variables.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="SubWorkflowVariableName" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The name of the sub-workflow variable.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="VariableName" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The nanme of the variable in the current workflow process definition.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SubWorkflowVariableMappingList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="SubWorkflowVariableMapping" type="wor:SubWorkflowVariableMapping"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="URLSource">
+    <xsd:annotation>
+      <xsd:documentation>A URL which overrides the one specified for the workflow process definition.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="URLSourceList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="URLSource" type="wor:URLSource"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VersionDetail">
+    <xsd:annotation>
+      <xsd:documentation>This element contains version details.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Version" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>The version number of the workflow process definition.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Current" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, indicates the current version of the workflow process definition.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ModifiedDate" type="com:typeHard">
+        <xsd:annotation>
+          <xsd:documentation>The date the workflow process definition was modified.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="EffectiveDate" type="com:typeHard">
+        <xsd:annotation>
+          <xsd:documentation>The date the workflow process definition version becomes effective.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Designer" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the designer of the workflow process definition.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="VersionNotes" type="com:typeComment">
+        <xsd:annotation>
+          <xsd:documentation>Notes about the version of the workflow process definition.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VersionDetailList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="VersionDetail" type="wor:VersionDetail">
+        <xsd:annotation>
+          <xsd:documentation>This element contains version details.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProcessDefinition">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a workflow process definition.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The workflow process definition code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Version" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>The workflow process definition version number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TimeStamp" type="com:typeWord">
+        <xsd:annotation>
+          <xsd:documentation>The workflow process definition time stamp value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The workflow process definition name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The workflow process definition short name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="WsdlScope" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The Web service URI details.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="WsdlScopeVersion" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>The Web service URI version.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Designer" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The name of the workflow process definition designer.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="VersionNotes" type="com:typeComment">
+        <xsd:annotation>
+          <xsd:documentation>Notes on the workflow process definition version.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="EffectiveDate" type="com:typeHard">
+        <xsd:annotation>
+          <xsd:documentation>The date the workflow process defintion will become current.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="InitialPriority" type="com:typeComWorkflowPriority">
+        <xsd:annotation>
+          <xsd:documentation>The initial priority for workflow instances based on this workflow process definition.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="IncrementPriorityPeriod" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>The period that workflow instances based on this workflow process definition can remain incomplete before the priority is automatically increased.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="IncrementPriorityUnits" type="com:typeComWorkflowEscalateUnits">
+        <xsd:annotation>
+          <xsd:documentation>The units in which IncrementPriorityPeriod is measured.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="CodaProvided" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether this process definition master is provided by CODA. This field is read-only.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ActivityList" type="wor:ProcessDefinitionActivityList">
+        <xsd:annotation>
+          <xsd:documentation>A list of workflow process definition activties.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ProcessVariableList" type="wor:ProcessDefinitionProcessVariableList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of workflow process definition variables.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Diagram" type="wor:Diagram">
+        <xsd:annotation>
+          <xsd:documentation>Details of the current workflow process definition diagram.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="PauseSubWorkflow" type="wor:SubWorkflowActivityDetails">
+        <xsd:annotation>
+          <xsd:documentation>The workflow process definition to invoke when the status of the workflow instances changes to Paused.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ResumeSubWorkflow" type="wor:SubWorkflowActivityDetails">
+        <xsd:annotation>
+          <xsd:documentation>The workflow process definition to invoke when the status of the workflow instances changes to Resumed.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="CancelSubWorkflow" type="wor:SubWorkflowActivityDetails">
+        <xsd:annotation>
+          <xsd:documentation>The workflow process definition to invoke when the status of the workflow instances changes to Cancelled.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="CompleteSubWorkflow" type="wor:SubWorkflowActivityDetails">
+        <xsd:annotation>
+          <xsd:documentation>The workflow process definition to invoke when the status of the workflow instances changes to Completed.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ErrorSubWorkflow" type="wor:SubWorkflowActivityDetails">
+        <xsd:annotation>
+          <xsd:documentation>The workflow process definition to invoke when the status of the workflow instances changes to Error.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="VersionDetailList" type="wor:ProcessDefinitionVersionDetailList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of version details for a workflow process definition.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProcessDefinitionActivityList">
+    <xsd:annotation>
+      <xsd:documentation>A list of workflow process definition activties.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" name="Activity" type="wor:Activity">
+        <xsd:annotation>
+          <xsd:documentation>This element contains the general details of a workflow process definition activity.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProcessDefinitionProcessVariableList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of workflow process definition variables.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ProcessVariable" type="wor:ProcessVariable">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of a workflow process definition variable.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProcessDefinitionVersionDetailList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of version details for a workflow process definition.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="VersionDetail" type="wor:VersionDetail">
+        <xsd:annotation>
+          <xsd:documentation>This element contains version details.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProcessDefinitionList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ProcessDefinition" type="wor:ProcessDefinition"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CodeOverride">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="OldCode" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The workflow process definition code to update.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="NewCode" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The new workflow process definition code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CodeOverrideList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="CodeOverride" type="wor:CodeOverride">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VariableSet">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a set of workflow process definition variables.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="WorkflowId" type="com:typeDbGuid">
+        <xsd:annotation>
+          <xsd:documentation>A worklfow instance ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NameList" type="wor:VariableSetNameList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of variable names.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VariableSetNameList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of variable names.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Name" type="com:typeScriptVariablename">
+        <xsd:annotation>
+          <xsd:documentation>The name of a workflow process definition variable.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VariableSetList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="VariableSet" type="wor:VariableSet"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManualActivityField">
+    <xsd:annotation>
+      <xsd:documentation>Details of an additional field.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The name of the field.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Label" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The label for the field.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Type" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The data type for the field.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="List" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, the additional field appears as a dropdown.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Fixed" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, the additional field appears as a fixed value in Browse Work List and cannot be changed.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Length" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>The length of the field. Applies to string values only.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ListItemList" type="wor:ManualActivityFieldListItemList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of list items.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ListVariable" type="com:typeScriptVariablename">
+        <xsd:annotation>
+          <xsd:documentation>The name of a variable.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManualActivityFieldListItemList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of list items.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ListItem" type="com:typeTextAnyDbQuotes">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of a list item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManualActivityFieldList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ManualActivityField" type="wor:ManualActivityField">
+        <xsd:annotation>
+          <xsd:documentation>Details of an additional field.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkItemOptions">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of work item options.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The workflow process definition code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Version" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>The workflow process definition version number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ActivityId" type="com:typeShortName">
+        <xsd:annotation>
+          <xsd:documentation>The workflow activity ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OptionList" type="wor:WorkItemOptionsOptionList">
+        <xsd:annotation>
+          <xsd:documentation>A list of options.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OptionDataList" type="wor:WorkItemOptionsOptionDataList">
+        <xsd:annotation>
+          <xsd:documentation>A list of option details.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkItemOptionsOptionList">
+    <xsd:annotation>
+      <xsd:documentation>A list of options.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" name="Option" type="wor:Option">
+        <xsd:annotation>
+          <xsd:documentation>The option details.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkItemOptionsOptionDataList">
+    <xsd:annotation>
+      <xsd:documentation>A list of option details.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="OptionData" type="wor:OptionData">
+        <xsd:annotation>
+          <xsd:documentation>The option data.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkItemOptionsList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="WorkItemOptions" type="wor:WorkItemOptions"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Activity">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the general details of a workflow process definition activity.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Id" type="com:typeShortName">
+        <xsd:annotation>
+          <xsd:documentation>The activity ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The activity name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="TaskDescription" type="com:typeLongDescription">
+        <xsd:annotation>
+          <xsd:documentation>A description of the activity.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Icon" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The name of an icon to associate with the activity.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Type" type="com:typeComWorkflowTask">
+        <xsd:annotation>
+          <xsd:documentation>The type of activity.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Script" type="com:typeTextAnyUnlimitedQuotes">
+        <xsd:annotation>
+          <xsd:documentation>A Javascript expression, executed when the activity becomes active.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RoutingList" type="wor:ActivityRoutingList">
+        <xsd:annotation>
+          <xsd:documentation>A list of potential routing destinations for the activity.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Size" type="gra:Size">
+        <xsd:annotation>
+          <xsd:documentation>The size of the activity in the workflow design.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Position" type="gra:Point">
+        <xsd:annotation>
+          <xsd:documentation>The coordinates of the activity in the workflow design.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ManualActivityDetails" type="wor:ManualActivityDetails">
+        <xsd:annotation>
+          <xsd:documentation>This element contains the details of a manual activity.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="WebServiceActivityDetails" type="wor:WebServiceActivityDetails">
+        <xsd:annotation>
+          <xsd:documentation>This element contains the details of a Web service activity.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="SubWorkflowActivityDetails" type="wor:SubWorkflowActivityDetails">
+        <xsd:annotation>
+          <xsd:documentation>This element contains the details of a sub-workflow activity.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ActivityRoutingList">
+    <xsd:annotation>
+      <xsd:documentation>A list of potential routing destinations for the activity.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Routing" type="wor:Routing">
+        <xsd:annotation>
+          <xsd:documentation>Details of the route.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ActivityList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Activity" type="wor:Activity">
+        <xsd:annotation>
+          <xsd:documentation>This element contains the general details of a workflow process definition activity.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="OptionData">
+    <xsd:annotation>
+      <xsd:documentation>The option data.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The option name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Label" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The label for the option.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Type" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The type of data for the option.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="List" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, the additional field appears as a dropdown.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Fixed" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, the additional field appears as a fixed value in Browse Work List and cannot be changed.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Length" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>The length of the field. Applies to string values only.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OptionValueList" type="wor:OptionDataOptionValueList">
+        <xsd:annotation>
+          <xsd:documentation>A list of values available for an option.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ListVariable" type="com:typeScriptVariablename">
+        <xsd:annotation>
+          <xsd:documentation>The name of a variable.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="OptionDataOptionValueList">
+    <xsd:annotation>
+      <xsd:documentation>A list of values available for an option.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="OptionValue" type="com:typeTextAnyDbQuotes">
+        <xsd:annotation>
+          <xsd:documentation>A value for the option.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="OptionDataList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="OptionData" type="wor:OptionData">
+        <xsd:annotation>
+          <xsd:documentation>The option data.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowRuntimeState">
+    <xsd:annotation>
+      <xsd:documentation>Thi element contains details of the runtime state of a workflow instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="WorkflowId" type="com:typeDbGuid">
+        <xsd:annotation>
+          <xsd:documentation>The workflow instance ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="VariableStateList" type="wor:WorkflowRuntimeStateVariableStateList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of variable states.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowRuntimeStateVariableStateList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of variable states.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="VariableState" type="wor:VariableState">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of the state of a variable.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowRuntimeStateList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="WorkflowRuntimeState" type="wor:WorkflowRuntimeState"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CompletedWorkItem">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a completed work item.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Id" type="com:typeDbGuid">
+        <xsd:annotation>
+          <xsd:documentation>The workflow instance ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Response" type="com:typeLong"/>
+      <xsd:element name="CompletedResponseDataList" type="wor:CompletedWorkItemCompletedResponseDataList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of details connected with a completed workflow work item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CompletedWorkItemCompletedResponseDataList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of details connected with a completed workflow work item.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="CompletedResponseData" type="wor:CompletedResponseData">
+        <xsd:annotation>
+          <xsd:documentation>The returned workflow work item data.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CompletedWorkItemList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="CompletedWorkItem" type="wor:CompletedWorkItem"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="InvalidDateMessage">
+    <xsd:complexContent>
+      <xsd:extension base="wor:ProcessDefinitionMessage">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="InvalidDateMessageList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="InvalidDateMessage" type="wor:InvalidDateMessage"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowStatus">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of workflow instance parameters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Status" type="com:typeComWorkflowInstanceStatus">
+        <xsd:annotation>
+          <xsd:documentation>The status of the workflow instance.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="WorkflowParameterList" type="wor:WorkflowStatusWorkflowParameterList">
+        <xsd:annotation>
+          <xsd:documentation>A list of workflow parameters.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowStatusWorkflowParameterList">
+    <xsd:annotation>
+      <xsd:documentation>A list of workflow parameters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="WorkflowParameter" type="wor:WorkflowParameter">
+        <xsd:annotation>
+          <xsd:documentation>The details of a workflow parameter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowStatusList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="WorkflowStatus" type="wor:WorkflowStatus"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

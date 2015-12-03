@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:elm="http://www.coda.com/efinance/schemas/elementmaster" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/efinance/schemas/elementmaster" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="ElementFinderNumberRange">
+    <xsd:annotation>
+      <xsd:documentation>This element holds parameters for you to specify the number range to search.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Begin" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>By default, searching begins at record 1. Enter a value here to skip that number of records before beginning the search.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Extent" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The maximum number of records (element masters) to retrieve.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ElementFinderFilter">
+    <xsd:annotation>
+      <xsd:documentation>This element holds parameters you can specify to find a particular element master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="NumberRange" type="elm:ElementFinderNumberRange">
+        <xsd:annotation>
+          <xsd:documentation>This element holds parameters for you to specify the number range to search.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CompanyCode" type="com:typeCodeWild">
+        <xsd:annotation>
+          <xsd:documentation>The company code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Level" type="com:typeElmLevel">
+        <xsd:annotation>
+          <xsd:documentation>The element level to which the element master you want to find belongs.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeElmCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the element master you want to find.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for the element master you want to find.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NameOrShortName" type="com:typeNameB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The name or the short name of the element master you want to find.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CurrencyCode" type="com:typeGeneralCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The currency code of the element master you want to find.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElementGroup" type="com:typeGeneralCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>An element group to which the required element master belongs.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Mnemonic" type="com:typeShortNameB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The mnemonic of the element master you want to find.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostCode" type="com:typePostCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The post code of the element you want to find.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AccNum" type="com:typeBankAccNum" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The bank account number of the element you want to find.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Matchable" type="com:typeCtYesNoEither" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether or not the required element master is matchable.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CustomerSupplier" type="com:typeCtYesNoEither" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether or not the required element master is a customer or supplier.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CustomerSupplierExt" type="com:typeCtCustSuppExt" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specifies the element customer or supplier status.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Umbrella" type="com:typeCtYesNoEither" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether or not the required element master is for an umbrella element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="EnableMasterSecurityFilter" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>When TRUE, only element masters to which the current user has read/write access are returned. A user's access to element masters is controlled by the master security lists on the user's capability master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CodeRangeEndCode" type="com:typeElmCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code for the element master at the end of the selection range.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LastModifiedFrom" type="com:typeDateB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The start date of a date range for selecting element masters that were last modified within this date range.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LastModifiedTo" type="com:typeDateB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The end date of a date range for selecting element masters that were last modified within this date range.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Fax" type="com:typeFax" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The fax number of the element you want to find. All addresses on the element are searched for this fax number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Telephone" type="com:typeTel" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The telephone number of the element you want to find. All addresses on the element are searched for this telephone number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TaxNumber" type="com:typeVATB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The tax number of the element you want to find.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ReturnNames" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that element master names should be returned.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="elmKeyDataElementNamed">
+    <xsd:annotation>
+      <xsd:documentation>The key to an element.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeElmCode">
+        <xsd:annotation>
+          <xsd:documentation>The element code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeNameB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The element name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The element short name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CustomerSupplier" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that this element is a customer and a supplier.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IsCustomer" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that this element is a customer.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IsSupplier" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that this element is a supplier.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="elmKeyDataNamed">
+    <xsd:annotation>
+      <xsd:documentation>This element holds element key data.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="elm:elmKeyDataElementNamed" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>The key to an element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:udf="http://www.coda.com/common/schemas/udfmaster" elementFormDefault="qualified" targetNamespace="http://www.coda.com/common/schemas/udfmaster">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types2.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="UDFMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a user-defined field (UDF) master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the UDF master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The name of the UDF master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The short name of the UDF master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="FieldType" type="com:typeComUdfField">
+        <xsd:annotation>
+          <xsd:documentation>The field type.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ElementFilter" type="com:typeCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The code of an element filter master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ElementLevel" type="com:typeElmLevelB">
+        <xsd:annotation>
+          <xsd:documentation>The element level from which element codes are selected.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="DefinedValues" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, specifies that possible values for the field are predefined.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="RestrictToList" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, specifies that the user is restricted to choosing a value from the list of defined values.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Mandatory" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, a value must be specified for the field.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="UserExtension" type="com:typeCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The code of a user extension master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ListingMethod" type="com:typeComUdfListingMethod">
+        <xsd:annotation>
+          <xsd:documentation>Specifies how the elements available for selection are presented.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UdfValueList" type="udf:UDFDefinedValueList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of UDF values.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The database time stamp.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="AddDate" type="xsd:dateTime">
+        <xsd:annotation>
+          <xsd:documentation>The date the record was added.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ModDate" type="xsd:dateTime">
+        <xsd:annotation>
+          <xsd:documentation>The date the record was modified.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="UsrName" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The code of the user who added or modified the record.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UDFMasterList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of user-defined field (UDF) masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="UDFMaster" type="udf:UDFMaster">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of a UDF master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UDFMasterKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="UDFMaster" type="udf:UDFMasterKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UDFMasterKey">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the key to a UDF master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The UDF master code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UDFDefinedValue">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a UDF value.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="SequenceNumber" type="com:typeULong">
+        <xsd:annotation>
+          <xsd:documentation>The sequence number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="UdfValue" type="com:typeUdfText">
+        <xsd:annotation>
+          <xsd:documentation>The field value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ElementDisplayName" type="com:typeShortName">
+        <xsd:annotation>
+          <xsd:documentation>The display name for the UDF.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UDFDefinedValueList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of UDF values.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="UDFDefinedValue" type="udf:UDFDefinedValue">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of a UDF value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UDFDefinedValueKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="UDFDefinedValue" type="udf:UDFDefinedValueKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UDFDefinedValueKey">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the key to a UDF value.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The UDF master code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="SequenceNumber" type="com:typeULong">
+        <xsd:annotation>
+          <xsd:documentation>The sequence number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UDFMasterItemList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of UDF master items.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="UDFMasterListItem" type="udf:UDFMasterListItem">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of a UDF master list item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UDFMasterListItem">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a UDF master list item.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The UDF code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The short name of the UDF master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="FieldType" type="com:typeComUdfField">
+        <xsd:annotation>
+          <xsd:documentation>The field type.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="AddDate" type="xsd:dateTime">
+        <xsd:annotation>
+          <xsd:documentation>The date the record was added.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="ModDate" type="xsd:dateTime">
+        <xsd:annotation>
+          <xsd:documentation>The date the record was modified.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="UsrName" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The code of the user who added or modified the record.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

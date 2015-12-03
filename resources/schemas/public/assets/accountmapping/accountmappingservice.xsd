@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:ass="http://www.coda.com/eassets/schemas/asset" xmlns:accm="http://www.coda.com/eassets/schemas/accountmapping" targetNamespace="http://www.coda.com/eassets/schemas/accountmapping" elementFormDefault="qualified" version="1.0">
+
+  <xsd:import namespace="http://www.coda.com/eassets/schemas/asset" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/assets/asset/asset.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/service.xsd"/>
+  <xsd:include schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/assets/accountmapping/accountmapping.xsd"/>
+
+  <xsd:complexType name="GetAccountRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="AccountMapKey" type="accm:AccountMapKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains key information identifying a particular asset and account mapping string.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Validate" type="xsd:boolean" default="true" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Indicates whether the request also validates the account code before returning it in the response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetAccountRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Gets the account code for the specified account mapping string.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="accm:GetAccountRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetAccountResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="AssetKey" type="ass:AssetKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains key information for the asset specified in the corresponding Request.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AccountMapping" type="accm:AccountMapping">
+            <xsd:annotation>
+              <xsd:documentation>Contains the account mapping string specified in the corresponding Request, and the account code that it maps to.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetAccountResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="accm:GetAccountResponse" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AccountMappingRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to resolve account codes from account mappings.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element name="GetAccount" type="accm:GetAccountRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Gets the account code for the specified account mapping string.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AccountMappingResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you resolve account codes from account mappings.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element name="GetAccount" type="accm:GetAccountResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="AccountMappingRequest" type="accm:AccountMappingRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to resolve account codes from account mappings.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="AccountMappingResponse" type="accm:AccountMappingResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you resolve account codes from account mappings.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

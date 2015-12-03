@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:post="http://www.coda.com/eassets/schemas/postingmaster" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/eassets/schemas/postingmaster" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="PostRuleMaster" abstract="true">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a posting rule master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this posting rule master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CmpCode" type="com:typeAcCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the posting rule master is being maintained.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeAcCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this posting rule master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name for this posting rule master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for this posting rule master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocCapnCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the document master to use for recording postings generated when capitalising assets.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocDispCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the document master to use for recording postings generated when disposing assets.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocDepnCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the document master to use for recording postings generated when depreciating assets.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocRevalCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the document master to use for recording postings generated when revaluing assets.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocTranCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the document master to use for recording postings generated when transferring assets.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AcctCapital" type="com:typeAcCode">
+        <xsd:annotation>
+          <xsd:documentation>The account to which capital values will be posted. This account is mandatory.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AcctRevenue" type="com:typeAcCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The account to which associated expenses will be posted. For example, if the asset is a car, you might need to record its delivery cost as an expense.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AcctDepnAccum" type="com:typeAcCode">
+        <xsd:annotation>
+          <xsd:documentation>The balance sheet account to which accumulated depreciation will be posted. This account is mandatory.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AcctDepnCharge" type="com:typeAcCode">
+        <xsd:annotation>
+          <xsd:documentation>The profit and loss account to which the depreciation cost will be posted. This account is mandatory.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CapCostReval" type="com:typeAcCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The account to which any revaluation of an asset's capital cost is posted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DepnAccReval" type="com:typeAcCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The account to which any revaluation of an asset's accumulated depreciation is posted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RevalRes" type="com:typeAcCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The account to which any difference between the revaluation of an asset's capital cost and the revaluation of an asset's accumulated depreciation is posted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CapCostRevSold" type="com:typeAcCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The account to which the revalued capital cost of the asset would be posted if the asset was sold.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DepnAccRevSold" type="com:typeAcCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The account to which the revalued accumulated depreciation of the asset would be posted if the asset was sold.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RevalResSold" type="com:typeAcCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The account to which the revaluation reserve for the asset would be transferred if the asset was sold.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DispProcAcct" type="com:typeAcCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The account to which proceeds resulting from an asset's disposal, will be posted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DispProfAcct" type="com:typeAcCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The account to which any profits resulting from an asset's disposal, will be posted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DispLossAcct" type="com:typeAcCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The account to which any losses resulting from an asset's disposal, will be posted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CapCostSold" type="com:typeAcCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The account to which an asset's capital cost will be posted upon disposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AccumDepSold" type="com:typeAcCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The account to which an asset's accumulated depreciation will be posted upon disposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ProceedsTxAcct" type="com:typeAcCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The account to which the proceeds value (with the opposite sign) is posted to balance the document. This account is used only when ComplexDisp is set to TRUE.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PLTxAcct" type="com:typeAcCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The account to which the profit or loss value (with the opposite sign) is posted to balance the document. This account is used only when ComplexDisp is set to TRUE.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AddnAcctDepnCharge" type="com:typeAcCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The profit and loss account to which any depreciation cost resulting from a special depreciation rule is posted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ComplexDisp" type="com:typeBool">
+        <xsd:annotation>
+          <xsd:documentation>Set to TRUE if you want postings to be made to the transfer accounts on disposal of assets. When this is FALSE, disposal of assets does not generate postings to the transfer accounts. If you have upgraded from CODA's Windows Asset product, set this to TRUE to have disposal postings behave as they did in that product.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AnnuityDocCode" type="com:typeGeneralCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the document master to use when posting annuity (interest) values.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AnnuityInterest" type="com:typeAcCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The account code to which the annuity (interest) values will be posted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SuspenseSetAtRuntime" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether or not the suspense account is specified at runtime. If this is set to FALSE, you must supply the suspense account code in the SuspenseAcct element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SuspenseAcct" type="com:typeAcCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The suspense account to use at runtime.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExpenseSetAtRuntime" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether or not the expense account is specified at runtime. If this is set to FALSE, you must supply the expense account code in the AcctRevenue element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UseAlternateAccounting" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether standard accounting or alternative accounting is used for simple disposals.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AlternateDispCapCostUseOriginal" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>When selling an asset, this indicates whether the original capitalisation account is used for the disposed cost. If this is FALSE, you must specify an alternative account in the AlternateDispCapCostAcct element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AlternateDispCapCostAcct" type="com:typeAcCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The alternative account to use for disposed cost values when selling an asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AlternateDispAccumDepnUseOriginal" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>When selling an asset, this indicates whether the original depreciation account is used for the disposed accumulated depreciation. If this is FALSE, you must specify an alternative account in the AlternateDispAccumDepnAcct element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AlternateDispAccumDepnAcct" type="com:typeAcCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The alternative account to use for disposed accumulated depreciation values when selling an asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SuppressProfitLossPosting" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>For complex disposals, indicates whether postings to the profit and loss accounts are suppressed when selling as asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UseScrapAccounts" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether separate disposal accounts are used for scrap disposals. When FALSE, the same disposal accounts are used for both sale and scrap.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AlternateDispCapCostScrapUseOriginal" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>When scrapping an asset, this indicates whether the original capitalisation account is used for the disposed cost. If this is FALSE, you must specify an alternative account in the AlternateDispCapCostScrapAcct element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AlternateDispCapCostScrapAcct" type="com:typeAcCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The alternative account to use for disposed cost values when scrapping an asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AlternateDispAccumDepnScrapUseOriginal" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>When scrapping an asset, this indicates whether the original depreciation account is used for the disposed accumulated depreciation. If this is FALSE, you must specify an alternative account in the AlternateDispAccumDepnScrapAcct element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AlternateDispAccumDepnScrapAcct" type="com:typeAcCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The alternative account to use for disposed accumulated depreciation values when scrapping an asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CapCostScrapped" type="com:typeAcCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>For complex disposals, this is the account to which the assets' capital cost would be posted if the assets were scrapped.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AccumDepScrapped" type="com:typeAcCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>For complex disposals, this is the account to which the assets' accumulated depreciation would be posted if the assets were scrapped.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SuppressScrapProfitLossPosting" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>For complex disposals, this indicates whether postings to profit, loss, and profit/loss transfer accounts are suppressed when scrapping assets.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DispProfScrapAcct" type="com:typeAcCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The account to which any profits resulting from the scrapping of assets, will be posted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DispLossScrapAcct" type="com:typeAcCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The account to which any losses resulting from the scrapping of assets, will be posted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PLTxScrapAcct" type="com:typeAcCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>For complex disposals, this is the account to which the profit or loss value (with the opposite sign) is posted to balance the document when assets are being scrapped.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocReclassCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the document master to use for recording postings generated when transferring WIP assets to another category for capitalisation (category transfers).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AcctOutOfWIP" type="com:typeAcCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The account to which reversing values will be credited to reverse out the original WIP capitalisation postings.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AcctInToCap" type="com:typeAcCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The account from which capital values for the new assets created by the category transfer process will be debited.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PostRuleReqKeys">
+    <xsd:annotation>
+      <xsd:documentation>Contains key information for requesting a number of posting rule masters from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MaxKeys" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The maximum number of items to be returned.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The short name of the posting rule master that you want to select. This can be wildcarded to return multiple posting rule masters.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Key" type="com:Key">
+        <xsd:annotation>
+          <xsd:documentation>Contains key information for the specified posting rule masters.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RuntimeAccounts">
+    <xsd:annotation>
+      <xsd:documentation>This element contains run-time account details.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="SuspenseAcct" type="com:typeAcCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The suspense account code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SuspenseSetAtRuntime" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>When TRUE, the suspense account is set at run time.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExpenseAcct" type="com:typeAcCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The expense account code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExpenseSetAtRuntime" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>When TRUE, the expense account is set at run time.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="PostRuleMaster" type="post:PostRuleMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a posting rule master.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

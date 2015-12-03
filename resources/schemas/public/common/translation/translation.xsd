@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:tra="http://www.coda.com/common/schemas/translation" elementFormDefault="qualified" targetNamespace="http://www.coda.com/common/schemas/translation">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types2.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="Translation">
+    <xsd:annotation>
+      <xsd:documentation>This element contains translation details.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:string">
+        <xsd:attribute name="language" type="com:typeIsoLanguageCode" use="required">
+          <xsd:annotation>
+            <xsd:documentation>An ISO language code.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="country" type="com:typeIsoCountryCode" use="required">
+          <xsd:annotation>
+            <xsd:documentation>An ISO country code.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="TranslationList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of translations.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Translation" type="tra:Translation">
+        <xsd:annotation>
+          <xsd:documentation>This element contains translation details.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TranslationKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Translation" type="tra:TranslationKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TranslationKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="ObjectType" type="com:typeGenericOon"/>
+      <xsd:element minOccurs="0" name="FieldId" type="com:typeGenericOon"/>
+      <xsd:element minOccurs="0" name="ObjectCode" type="com:typeTranslatableObjectCode"/>
+      <xsd:element minOccurs="0" name="Language" type="com:typeIsoLanguageCode"/>
+      <xsd:element minOccurs="0" name="Country" type="com:typeIsoCountryCode"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TextChange">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the details of a text change.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="LanguageCode" type="com:typeIsoLanguageCode">
+        <xsd:annotation>
+          <xsd:documentation>An ISO language code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="CountryCode" type="com:typeIsoCountryCode">
+        <xsd:annotation>
+          <xsd:documentation>An ISO country code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ChangeType" type="com:typeComI18nChange">
+        <xsd:annotation>
+          <xsd:documentation>The type of language change.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="OldValue" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The original text string.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="NewValue" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The new text string.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TextChangeList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of text changes.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="TextChange" type="tra:TextChange">
+        <xsd:annotation>
+          <xsd:documentation>This element contains the details of a text change.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TextChangeKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="TextChange" type="tra:TextChangeKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TextChangeKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Identity" type="com:typeCode"/>
+      <xsd:element minOccurs="0" name="ObjectType" type="com:typeGenericOon"/>
+      <xsd:element minOccurs="0" name="ObjectCode" type="com:typeTranslatableObjectCode"/>
+      <xsd:element minOccurs="0" name="FieldID" type="com:typeGenericOon"/>
+      <xsd:element minOccurs="0" name="LanguageCode" type="com:typeIsoLanguageCode"/>
+      <xsd:element minOccurs="0" name="CountryCode" type="com:typeIsoCountryCode"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TranslatableTextChanges">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of translatable text changes.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Identity" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The text change ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="FileName" type="com:typeTextB">
+        <xsd:annotation>
+          <xsd:documentation>The file name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ObjectTypeList" type="tra:ChangesForObjectTypeList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of object types.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The time stamp value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TranslatableTextChangesList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="TranslatableTextChanges" type="tra:TranslatableTextChanges"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TranslatableTextChangesKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="TranslatableTextChanges" type="tra:TranslatableTextChangesKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TranslatableTextChangesKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Identity" type="com:typeCode"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ChangesForObjectInstance">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of changes for an object instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ObjectCode" type="com:typeTranslatableObjectCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the translatable object.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="FieldList" type="tra:TranslatableFieldChangeList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of translatable field changes.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ChangesForObjectInstanceList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of changes for an object instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ChangesForObjectInstance" type="tra:ChangesForObjectInstance">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of changes for an object instance.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ChangesForObjectInstanceKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ChangesForObjectInstance" type="tra:ChangesForObjectInstanceKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ChangesForObjectInstanceKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Identity" type="com:typeCode"/>
+      <xsd:element minOccurs="0" name="ObjectType" type="com:typeGenericOon"/>
+      <xsd:element minOccurs="0" name="ObjectCode" type="com:typeTranslatableObjectCode"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ChangesForObjectType">
+    <xsd:annotation>
+      <xsd:documentation>Thsis element contains details of changes for an object type.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ObjectType" type="com:typeGenericOon">
+        <xsd:annotation>
+          <xsd:documentation>The type of object.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="InstanceList" type="tra:ChangesForObjectInstanceList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of changes for an object instance.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ChangesForObjectTypeList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of object types.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ChangesForObjectType" type="tra:ChangesForObjectType">
+        <xsd:annotation>
+          <xsd:documentation>Thsis element contains details of changes for an object type.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ChangesForObjectTypeKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ChangesForObjectType" type="tra:ChangesForObjectTypeKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ChangesForObjectTypeKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Identity" type="com:typeCode"/>
+      <xsd:element minOccurs="0" name="ObjectType" type="com:typeGenericOon"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TranslatableField">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a translatable field.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ObjectType" type="com:typeGenericOon">
+        <xsd:annotation>
+          <xsd:documentation>The type of object.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="FieldId" type="com:typeGenericOon">
+        <xsd:annotation>
+          <xsd:documentation>The field ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ObjectCode" type="com:typeTranslatableObjectCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the translatable object.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TranslationList" type="tra:TranslationList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of translations.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The time stamp value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TranslatableFieldList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of translatable fields.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="TranslatableField" type="tra:TranslatableField">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of a translatable field.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TranslatableFieldKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="TranslatableField" type="tra:TranslatableFieldKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TranslatableFieldKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="ObjectType" type="com:typeGenericOon"/>
+      <xsd:element minOccurs="0" name="FieldId" type="com:typeGenericOon"/>
+      <xsd:element minOccurs="0" name="ObjectCode" type="com:typeTranslatableObjectCode"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TranslatableFieldChange">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a translatable field change.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="FieldID" type="com:typeGenericOon">
+        <xsd:annotation>
+          <xsd:documentation>The field ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ChangeType" type="com:typeComI18nChange">
+        <xsd:annotation>
+          <xsd:documentation>The type of language change.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TextList" type="tra:TextChangeList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of text changes.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TranslatableFieldChangeList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of translatable field changes.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="TranslatableFieldChange" type="tra:TranslatableFieldChange">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of a translatable field change.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TranslatableFieldChangeKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="TranslatableFieldChange" type="tra:TranslatableFieldChangeKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TranslatableFieldChangeKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Identity" type="com:typeCode"/>
+      <xsd:element minOccurs="0" name="ObjectType" type="com:typeGenericOon"/>
+      <xsd:element minOccurs="0" name="ObjectCode" type="com:typeTranslatableObjectCode"/>
+      <xsd:element minOccurs="0" name="FieldID" type="com:typeGenericOon"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="LanguagePair">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a text translation.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ObjectCode" type="com:typeTranslatableObjectCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the translatable object.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="FieldID" type="com:typeGenericOon">
+        <xsd:annotation>
+          <xsd:documentation>The field ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ReferenceText" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The original text.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TranslatedText" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The tramslated text.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="LanguagePairList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="LanguagePair" type="tra:LanguagePair"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MultiObjectTranslations">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of multiple text translations.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ObjectType" type="com:typeGenericOon">
+        <xsd:annotation>
+          <xsd:documentation>The type of object.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ReferenceLanguage" type="com:typeLocale">
+        <xsd:annotation>
+          <xsd:documentation>The language of the original text.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TargetLanguage" type="com:typeLocale">
+        <xsd:annotation>
+          <xsd:documentation>The language of the translated text.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TextsList" type="tra:MultiObjectTranslationsTextsList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of text translations.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MultiObjectTranslationsTextsList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of text translations.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Texts" type="tra:LanguagePair">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of a text translation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MultiObjectTranslationsList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="MultiObjectTranslations" type="tra:MultiObjectTranslations"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

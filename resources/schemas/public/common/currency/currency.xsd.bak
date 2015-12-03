@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:cur="http://www.coda.com/efinance/schemas/currency" targetNamespace="http://www.coda.com/efinance/schemas/currency" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+
+  <xsd:complexType name="Master" abstract="true">
+    <xsd:sequence>
+      <xsd:element name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this currency master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the currency master is being maintained.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this currency master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name for this currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for this currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SingularUnits" type="com:typeCurrName">
+        <xsd:annotation>
+          <xsd:documentation>The name of a single unit of the currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SingularDecimals" type="com:typeCurrNameB">
+        <xsd:annotation>
+          <xsd:documentation>The name of a single decimal unit of the currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PluralUnits" type="com:typeCurrName">
+        <xsd:annotation>
+          <xsd:documentation>The name of multiple units of the currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PluralDecimals" type="com:typeCurrNameB">
+        <xsd:annotation>
+          <xsd:documentation>The name of a multiple decimal units of the currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AbbreviatedUnits" type="com:typeCurrSymbol">
+        <xsd:annotation>
+          <xsd:documentation>The symbol or characters used to denote the unit of the currency when it is displayed.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AbbreviatedDecimals" type="com:typeCurrSymbolB">
+        <xsd:annotation>
+          <xsd:documentation>The symbol or characters used to denote the decimal unit of the currency when it is displayed.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SymbolPos" type="com:typeCtAfterBefore">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the currency symbol appears before or after the amount.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CurRateControl" type="com:typeCtCurRateControl">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the exchange rate is document-wide, line-wide, or not set.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SelfBalancing" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies that documents using this currency must balance in this currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NumberOfDecimals" type="com:typeDecPlace">
+        <xsd:annotation>
+          <xsd:documentation>The number of decimal places which the currency has.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Postings" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>A flag which specifies whether a document using the currency has been posted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LinkType" type="com:typeCtCurLinkType">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the currency is a parent, child, or independent currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LinkDate" type="com:typeDateB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date the parent-child relationship was established, if applicable.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Shared" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the currency master is shared with other companies.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CreateDate" type="com:typeDateB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date when this currency master was created.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ModifyDate" type="com:typeDateB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date when this currency master was last modified.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="User" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The user who last modified this currency master (or the user who created this currency master if no modify date exists).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RateDataElement">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details for the exchange rate with one other currency at a particular time.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Date" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date the exchange rate comes into force.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Rate" type="com:typeRate">
+        <xsd:annotation>
+          <xsd:documentation>The rate of exchange between the currency and its parent currency or your home currency, whichever applies.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MultiplyOrDivide" type="com:typeCtMulDiv">
+        <xsd:annotation>
+          <xsd:documentation>The multiply or divide rule for the currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RateScaling" type="com:typeScaling">
+        <xsd:annotation>
+          <xsd:documentation>The scaling factor to apply to values.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ParentType" type="com:typeCtCurParentType">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether currency rates are relative to the home currency or the parent currency if home is a child currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ParentCode" type="com:typeGeneralCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The currency code for the parent currency (if any).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RateData">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the exchange rate information for the currency.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Rate" type="cur:RateDataElement" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element holds details for the exchange rate with one other currency at a particular time.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="InfCaseElements">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the inflected names of the currency's unit and decimal unit for one grammatical case.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Unit" type="com:typeCurrNameLang">
+        <xsd:annotation>
+          <xsd:documentation>The inflected name of a single unit of the currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Units" type="com:typeCurrNameLang">
+        <xsd:annotation>
+          <xsd:documentation>The inflected name of multiple units of the currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Dec" type="com:typeCurrNameLangB">
+        <xsd:annotation>
+          <xsd:documentation>The inflected name of a single decimal unit of the currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Decs" type="com:typeCurrNameLangB">
+        <xsd:annotation>
+          <xsd:documentation>The inflected name of multiple units of the currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="InfCaseElementsData">
+    <xsd:annotation>
+      <xsd:documentation>This element holds information about grammatical case for the selected language.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="InfCaseElement" type="cur:InfCaseElements" minOccurs="0" maxOccurs="4">
+        <xsd:annotation>
+          <xsd:documentation>This element holds the inflected names of the currency's unit and decimal unit for one grammatical case.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="InfDataElement">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the language list information for one language.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Language" type="com:typeCtLanguageInf">
+        <xsd:annotation>
+          <xsd:documentation>A language for which language list information is maintained for this currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Unit_Gender_ID" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The gender of the unit of the currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Dec_Gender_ID" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The gender of the decimal unit of the currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="InfCaseElements" type="cur:InfCaseElementsData">
+        <xsd:annotation>
+          <xsd:documentation>This element holds information about grammatical case for the selected language.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="InfData">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the language lists for the currency.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Info" type="cur:InfDataElement" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element holds the language list information for one language.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Currency">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a currency master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="cur:Master">
+        <xsd:sequence>
+          <xsd:element name="Rates" type="cur:RateData">
+            <xsd:annotation>
+              <xsd:documentation>This element holds the exchange rate information for the currency.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Infos" type="cur:InfData">
+            <xsd:annotation>
+              <xsd:documentation>This element holds the language lists for the currency.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CurrencyRateKey">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a partial key that identifies some parameters for an exchange rate.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the exchange rate is being maintained.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RateDate" type="com:typeDateB">
+        <xsd:annotation>
+          <xsd:documentation>The date for which the returned rates are valid.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CurrencyRateDataElement">
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the currency master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for the currency master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Date" type="com:typeDate">
+        <xsd:annotation>
+          <xsd:documentation>The date the exchange rate comes into force.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Rate" type="com:typeRate">
+        <xsd:annotation>
+          <xsd:documentation>The rate of exchange between the currency and its parent currency or your home currency, whichever applies.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MultiplyOrDivide" type="com:typeCtMulDiv">
+        <xsd:annotation>
+          <xsd:documentation>The multiply or divide rule for the currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RateScaling" type="com:typeScaling">
+        <xsd:annotation>
+          <xsd:documentation>The scaling factor to apply to values.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MasterTimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this exchange rate in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CurrencyRateData">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the exchange rate information.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Rate" type="cur:CurrencyRateDataElement" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CurrencyRate">
+    <xsd:annotation>
+      <xsd:documentation>This element holds an exchange rate.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="cur:CurrencyRateKey">
+        <xsd:annotation>
+          <xsd:documentation>Contains a key that identifies the parameters for the exchange rate.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ParentType" type="com:typeCtCurExtParentType">
+        <xsd:annotation>
+          <xsd:documentation>Specifies the currency's relation to the home currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ParentCode" type="com:typeGeneralCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The currency code for the parent currency (if any).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Rates" type="cur:CurrencyRateData">
+        <xsd:annotation>
+          <xsd:documentation>This element holds the exchange rate information.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ExchangeRateDataElement">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details of the exchange rate with one currency at a particular time.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Date" type="com:typeDate">
+        <xsd:annotation>
+          <xsd:documentation>The date the exchange rate comes into force.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Rate" type="com:typeRate">
+        <xsd:annotation>
+          <xsd:documentation>The rate of exchange between the currency and its parent currency or your home currency, whichever applies.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MultiplyOrDivide" type="com:typeCtMulDiv" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The multiply or divide rule for the currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RateScaling" type="com:typeScaling" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The scaling factor to apply to values.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ExchangeRateData">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the exchange rate information.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ExchangeRate" type="cur:ExchangeRateDataElement" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element holds details of the exchange rate with one currency at a particular time.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CurrExchangeRate">
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the currency master is being maintained.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the currency master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MasterTimeStamp" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for the currency master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CurrencyExchangeRate">
+    <xsd:annotation>
+      <xsd:documentation>This element holds exchange rate information for one particular currency.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="cur:CurrExchangeRate">
+        <xsd:sequence>
+          <xsd:element name="ExchangeRates" type="cur:ExchangeRateData">
+            <xsd:annotation>
+              <xsd:documentation>This element holds the exchange rate information.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CurrencyListFilter">
+    <xsd:annotation>
+      <xsd:documentation>A filter for selecting currency masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ReqKeys">
+        <xsd:sequence>
+          <xsd:element name="LastModifiedFrom" type="com:typeDateB" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The start date of a date range for selecting currency masters that were last modified within this date range.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="LastModifiedTo" type="com:typeDateB" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The end date of a date range for selecting currency masters that were last modified within this date range.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="Currency" type="cur:Currency">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a currency master.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="CurrencyRate" type="cur:CurrencyRate">
+    <xsd:annotation>
+      <xsd:documentation>This element holds an exchange rate.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

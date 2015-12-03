@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:dis="http://www.coda.com/eassets/schemas/disposal" xmlns:ass="http://www.coda.com/eassets/schemas/asset" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:asscom="http://www.coda.com/eassets/schemas/common" targetNamespace="http://www.coda.com/eassets/schemas/disposal" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/eassets/schemas/asset" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/assets/asset/asset.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/eassets/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/assets/common/types.xsd"/>
+  <xsd:include schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/assets/disposal/disposalpostings.xsd"/>
+
+  <xsd:complexType name="Disposal">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the parameters which can be specified when disposing assets.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="DisposalLog" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The name for a log file to store details of this disposal process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AssetKeys" type="dis:AssetKeyList">
+        <xsd:annotation>
+          <xsd:documentation>Contains a list of key information for the specified assets.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DisposalType" type="asscom:typeDisposal">
+        <xsd:annotation>
+          <xsd:documentation>Specify whether to make a full or partial disposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PartialDisposalType" type="asscom:typeDisposalDetails">
+        <xsd:annotation>
+          <xsd:documentation>When making a partial disposal, specify whether the partial amount will be a monetary value, a percentage, or a quantity of the selected asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PartialDisposalValue" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The partial disposal amount as a monetary value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PartialDisposalValueRate" type="com:typeNumber">
+        <xsd:annotation>
+          <xsd:documentation>The partial disposal amount divided by the current asset cost. This is a fraction up to 9 decimal places.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PartialDisposalPercentage" type="com:typePercent">
+        <xsd:annotation>
+          <xsd:documentation>The partial disposal amount as a percentage of the selected asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PartialDisposalQuantity" type="com:typeULong">
+        <xsd:annotation>
+          <xsd:documentation>The partial disposal amount as a quantity of the selected asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostingProceeds" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The value of any proceeds from the disposal of the asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostingExpense" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The value of any expenses incurred from the disposal of the asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostingYearPeriod" type="com:typeBaseYearPeriod">
+        <xsd:annotation>
+          <xsd:documentation>The year and period to which the disposal postings will be made.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostingDocumentDate" type="com:typeDate">
+        <xsd:annotation>
+          <xsd:documentation>The document date that will be used for the postings.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DisposeSubAssets" type="com:typeBool">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether child assets will be disposed along with their parent asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ProceedsAccount" type="com:typeAcCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The account to which proceeds resulting from the disposal will be posted. This defaults to the account specified in DispProcAcct on the posting master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ProceedsTransferAccount" type="com:typeAcCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The account to which the proceeds value (with the opposite sign) is posted to balance the document. This defaults to the account specified in ProceedsTxAcct on the posting master. This account is only used when ComplexDisp on the posting master is set to TRUE.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExpensesAccount" type="com:typeAcCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The account to which any expense resulting from the disposal will be posted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExpensesTransferAccount" type="com:typeAcCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The account to which the expense value (with the opposite sign) is posted to balance the document. This account is only used when ComplexDisp on the posting master is set to TRUE.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostingAggregatePostings" type="com:typeBool">
+        <xsd:annotation>
+          <xsd:documentation>Set to TRUE if you want the posting lines to be aggregated when they are posted to the CODA-Financials database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostingRunID" type="dis:RunIdList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of companies in which the disposal process will be run.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostingInformation" type="dis:DisposalPostings">
+        <xsd:annotation>
+          <xsd:documentation>This element contains the values that will be posted by the disposal process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IsReviewed" type="com:typeBool">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the disposal values are reviewed before being posted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PartialDisposalCurrencyList" type="ass:AssetCurrencyDataList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains the partial disposal value in associated currencies.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DisposalYearPeriod" type="com:typeBaseYearPeriod">
+        <xsd:annotation>
+          <xsd:documentation>The year and period of the disposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DisposalDate" type="com:typeDate">
+        <xsd:annotation>
+          <xsd:documentation>The date of the disposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ProceedsCurrencyList" type="ass:AssetCurrencyDataList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains the proceeds value in associated currencies.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExpenseCurrencyList" type="ass:AssetCurrencyDataList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains the expense value in associated currencies.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="FullDisposalSale" type="com:typeBool">
+        <xsd:annotation>
+          <xsd:documentation>When doing a full disposal, set this to TRUE to use the sale accounts, or FALSE to use the scrap accounts.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostingTerminalDepreciationBooks" type="dis:PostingTerminalDepreciationBookList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains parameters for calculating terminal depreciation for each separate asset book.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PostingTerminalDepreciationBook">
+    <xsd:annotation>
+      <xsd:documentation>This element contains parameters for calculating terminal depreciation for one specific asset book.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company in which the disposal process is being run.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BookCode" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The asset book code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostingTerminalDepreciation" type="asscom:typeDisposalDepreciation">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether to include a full final period of depreciation in the calculations, or none so that no depreciation is calculated for the final period.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PostingTerminalDepreciationBookList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains parameters for calculating terminal depreciation for each separate asset book.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="PostingTerminalDepreciationBook" type="dis:PostingTerminalDepreciationBook" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains parameters for calculating terminal depreciation for one specific asset book.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AssetKeyList">
+    <xsd:annotation>
+      <xsd:documentation>Contains a list of key information for the specified assets.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="AssetKey" type="ass:AssetKey" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Contains key information for the specified asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RunIdList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of companies in which the disposal process will be run.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="List" type="dis:RunDetails" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Contains details of a company in which the disposal process will be run.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RunDetails">
+    <xsd:annotation>
+      <xsd:documentation>Contains details of a company in which the disposal process will be run.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Company" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company in which the disposal process will be run.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RunID" type="com:typeULong">
+        <xsd:annotation>
+          <xsd:documentation>A number identifying the disposal process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="Disposal" type="dis:Disposal">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the parameters which can be specified when disposing assets.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

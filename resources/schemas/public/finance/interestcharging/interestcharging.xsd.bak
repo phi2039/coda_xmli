@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:gsl="http://www.coda.com/efinance/schemas/selectormaster" xmlns:int="http://www.coda.com/efinance/schemas/interestcharging" targetNamespace="http://www.coda.com/efinance/schemas/interestcharging" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/selectormaster" schemaLocation="s:/schemas/public/common/selectormaster/selectormaster.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="ProposalKey">
+    <xsd:annotation>
+      <xsd:documentation>A key for the interest charge proposal consisting of the company code and the proposal code.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the interest charge is produced.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ProposalCode" type="com:typePrlCode">
+        <xsd:annotation>
+          <xsd:documentation>The code that identifies the proposal. By default, this comprises the master code, the code of the creating user, and a two-letter identifier.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Proposal">
+    <xsd:annotation>
+      <xsd:documentation>Contains the details of the proposal.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="int:ProposalKey">
+        <xsd:annotation>
+          <xsd:documentation>Contains key information about the proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Status" type="com:typeCtIntPrlStatus">
+        <xsd:annotation>
+          <xsd:documentation>The stage that the proposal has reached.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CreationDate" type="com:typeDate">
+        <xsd:annotation>
+          <xsd:documentation>The date that the proposal was created.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="InterestMasterCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the interest master used to create the proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="InterestMasterShortName" type="com:typeShortName">
+        <xsd:annotation>
+          <xsd:documentation>The short name for the interest master used to create the proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OpenBy" type="com:typeGeneralCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The code of the user who is currently working with the proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NumberOfSummaries" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The number of currently active interest charges.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NumberOfSummariesHeld" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The number of detail lines that are held from the interest charge.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Manipulated" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies that this proposal has reached the Manipulated stage of the process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Posted" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies that this proposal has been Posted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProposalList">
+    <xsd:annotation>
+      <xsd:documentation>Contains a list of proposals.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Proposal" type="int:Proposal" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Contains the details of the proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="NewProposalKey">
+    <xsd:annotation>
+      <xsd:documentation>A key for the new interest charge proposal.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the interest charge is produced.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="InterestMasterCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the interest master used to create the new proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="GenerateParams">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the parameters required to generate the proposal.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="NewProposalKey" type="int:NewProposalKey">
+        <xsd:annotation>
+          <xsd:documentation>The key for the new interest charge proposal consisting of the company code and interest master code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ProposalCode" type="com:typePrlCode">
+        <xsd:annotation>
+          <xsd:documentation>The code that identifies the proposal. By default, this comprises the master code, the code of the creating user, and a two-letter identifier.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SelectorVocabList" type="gsl:VocListData">
+        <xsd:annotation>
+          <xsd:documentation>The vocabulary specified in the selector master that is used to retrieve the required data from the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="NewProposalDetails">
+    <xsd:annotation>
+      <xsd:documentation>Contains details about the new interest charge proposals.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ProposalCode" type="com:typePrlCode">
+        <xsd:annotation>
+          <xsd:documentation>The code that identifies the proposal. By default, this comprises the master code, the code of the creating user, and a two-letter identifier.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SelCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the selector master used to retrieve the detail lines for inclusion in the proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SummaryKey">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the key that contains the summary data for an interest charge.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ProposalKey" type="int:ProposalKey">
+        <xsd:annotation>
+          <xsd:documentation>The key for the interest charge proposal consisting of the company code and the proposal code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LineID" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The identification number for each line in the list of interest charge proposal summaries.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Summary">
+    <xsd:annotation>
+      <xsd:documentation>Contains details about the interest charge summaries.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="int:SummaryKey">
+        <xsd:annotation>
+          <xsd:documentation>Contains the key for the interest charge summaries.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Held" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies that this detail line is held from the interest charge.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AccountCode" type="com:typeAcCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the account to which the interest charge is posted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElmCode" type="com:typeElmCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the element which specifies the currency in which interest is charged.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElmLevel" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The level of the element which specifies the currency in which interest is charged.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElmName" type="com:typeShortName">
+        <xsd:annotation>
+          <xsd:documentation>The short name of the element which specifies the currency in which interest is charged.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CurrCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The currency code for the document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Charge" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The amount to be charged, in charge currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="HomeCharge" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The amount to be charged, in home currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Posted" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether or not the interest charge has been posted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SummaryList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of the currently active interest charges retrieved from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Summary" type="int:Summary" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains the summary data for an interest charge.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DetailKey">
+    <xsd:sequence>
+      <xsd:element name="SummaryKey" type="int:SummaryKey"/>
+      <xsd:element name="LineID" type="xsd:int"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SummaryChangeItem">
+    <xsd:annotation>
+      <xsd:documentation>Contains the item which has been edited.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="LineID" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The identification number for the item which has been edited.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Deleted" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether or not the item has been deleted from the list.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Held" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the item is withheld from the interest charge proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SummaryChangeList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the list of changes to summary lines.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Change" type="int:SummaryChangeItem" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Contains the item which has been edited.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DetailChangeItem">
+    <xsd:annotation>
+      <xsd:documentation>Contains the item which has been edited.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="LineID" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The identification number for the item which has been edited.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Held" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the item is withheld from the interest charge proposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DetailChangeList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the list of changes to detail lines.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Change" type="int:DetailChangeItem" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Contains the item which has been edited.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="HistoryLineItem">
+    <xsd:annotation>
+      <xsd:documentation>Contains historical information about an interest charge proposal line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="int:ProposalKey">
+        <xsd:annotation>
+          <xsd:documentation>The key for the interest charge proposal consisting of the company code and the proposal code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StartStatus" type="com:typeCtIntPrlStatus">
+        <xsd:annotation>
+          <xsd:documentation>The status that the proposal had reached at the start of this stage.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="EndStatus" type="com:typeCtIntPrlStatus">
+        <xsd:annotation>
+          <xsd:documentation>The final status that the proposal had reached at the end of this stage.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="User" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the user who worked on the proposal at this stage.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StartDate" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date on which this stage started.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StartTime" type="com:typeTime" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The time at which this stage started.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="EndDate" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date on which this stage ended.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="EndTime" type="com:typeTime" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The time at which this stage ended.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExitType" type="com:typeCtExitType">
+        <xsd:annotation>
+          <xsd:documentation>The method by which this stage ended.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Message" type="com:typeLogText">
+        <xsd:annotation>
+          <xsd:documentation>The last message written to the log.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LogID" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The identification number of the log.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="HistoryLineList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the history of the interest charge proposals.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Line" type="int:HistoryLineItem" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Contains historical information about an interest charge proposal line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PostParams">
+    <xsd:annotation>
+      <xsd:documentation>Contains the parameters required to post the proposal.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="int:ProposalKey">
+        <xsd:annotation>
+          <xsd:documentation>The key for the interest charge proposal consisting of the company code and the proposal code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocPeriod" type="com:typePeriod" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The year and period to which the document will be posted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocDate" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date on the document to which the charges will be added for posting to the Books.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

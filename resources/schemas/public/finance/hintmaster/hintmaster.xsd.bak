@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:gsl="http://www.coda.com/efinance/schemas/selectormaster" xmlns:hnt="http://www.coda.com/efinance/schemas/hintmaster" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/efinance/schemas/hintmaster" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/selectormaster" schemaLocation="s:/schemas/public/common/selectormaster/selectormaster.xsd"/>
+
+  <xsd:complexType name="Master" abstract="true">
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company in which the hint master exists.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this hint master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the hint master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name for the hint master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for the hint master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SelectorType" type="gsl:SelectorType">
+        <xsd:annotation>
+          <xsd:documentation>The data class in which this master will be used.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocumentHeaderHints" type="com:typeTitle">
+        <xsd:annotation>
+          <xsd:documentation>A hint to be used in the Document Header table for a database other than Oracle.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocumentLineHints" type="com:typeTitle">
+        <xsd:annotation>
+          <xsd:documentation>A hint to be used in the Document Line table for a database other than Oracle.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PayLineHints" type="com:typeTitle">
+        <xsd:annotation>
+          <xsd:documentation>A hint to be used in the Pay Line table for a database other than Oracle.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CurrencyLineHints" type="com:typeTitle">
+        <xsd:annotation>
+          <xsd:documentation>A hint to be used in the Currency Line table for a database other than Oracle.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BalanceHints" type="com:typeTitle">
+        <xsd:annotation>
+          <xsd:documentation>A hint to be used in the Balance table for a database other than Oracle.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ArchiveDocumentHeaderHints" type="com:typeTitle">
+        <xsd:annotation>
+          <xsd:documentation>A hint to be used in the Archive Document Header table for a database other than Oracle.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ArchiveDocumentLineHints" type="com:typeTitle">
+        <xsd:annotation>
+          <xsd:documentation>A hint to be used in the Archive Document Line table for a database other than Oracle.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ArchivePayHints" type="com:typeTitle">
+        <xsd:annotation>
+          <xsd:documentation>A hint to be used in the Archive Pay Line table for a database other than Oracle.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ArchiveCurrencyLineHints" type="com:typeTitle">
+        <xsd:annotation>
+          <xsd:documentation>A hint to be used in the Archive Currency Line table for a database other than Oracle.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ArchiveBalanceHints" type="com:typeTitle">
+        <xsd:annotation>
+          <xsd:documentation>A hint to be used in the Archive Balance table for a database other than Oracle.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LedgerHints" type="com:typeTitle">
+        <xsd:annotation>
+          <xsd:documentation>A hint to be used in the Ledger table for a database other than Oracle.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="InterCompanyTraceHints" type="com:typeTitle">
+        <xsd:annotation>
+          <xsd:documentation>A hint to be used in the InterCompany Trace table for a database other than Oracle.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="InterCompanyCurrencyHints" type="com:typeTitle">
+        <xsd:annotation>
+          <xsd:documentation>A hint to be used in the InterCompany Currency table for a database other than Oracle.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DiaryHints" type="com:typeTitle">
+        <xsd:annotation>
+          <xsd:documentation>A hint to be used in the Diary table for a database other than Oracle.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="HintsTextTitle" type="com:typeTitle">
+        <xsd:annotation>
+          <xsd:documentation>The title of a hint to be used for an Oracle database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="HintsText" type="com:typeComment">
+        <xsd:annotation>
+          <xsd:documentation>The text of the Oracle database hint.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="HntKey">
+    <xsd:annotation>
+      <xsd:documentation>An optimiser hint master key.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for an optimiser hint master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The short name for the optimiser hint master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DataClass" type="com:typeCtGslDataclass" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The data class in which this master will be used.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="HntReqKeys">
+    <xsd:annotation>
+      <xsd:documentation>Contains key information for requesting a number of hint masters from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MaxKeys" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The maximum number of items to be returned.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Key" type="hnt:HntKey">
+        <xsd:annotation>
+          <xsd:documentation>An optimiser hint master key.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="HintMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a hint master, which contains hints for optimising the database performance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="hnt:Master">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="HntReqKeys" type="hnt:HntReqKeys">
+    <xsd:annotation>
+      <xsd:documentation>Contains key information for requesting a number of hint masters from the database.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ale="http://www.coda.com/common/schemas/alerts" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:mes="http://www.coda.com/common/schemas/messagetransport" xmlns:use="http://www.coda.com/common/schemas/users" elementFormDefault="qualified" targetNamespace="http://www.coda.com/common/schemas/alerts">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types2.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/messagetransport" schemaLocation="s:/schemas/public/common/messagetransport/messagetransport.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/users" schemaLocation="s:/schemas/public/common/users/users.xsd"/>
+
+  <xsd:complexType name="AlertParameter">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the contents of a summary parameter.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CodaType" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The type of parameter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Value" type="com:typeParamValueText">
+        <xsd:annotation>
+          <xsd:documentation>The value of the parameter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Aggregate" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the parameter can be aggregated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Alert">
+    <xsd:annotation>
+      <xsd:documentation>This element holds alert details.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Id" type="com:typeDbGuid">
+        <xsd:annotation>
+          <xsd:documentation>A unique identifier for the alert.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Priority" type="com:typeComAlertPriority">
+        <xsd:annotation>
+          <xsd:documentation>The priority of the alert.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Translate" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the alert text is translated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Summary" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The summary text for an alert or a reference to the translated summary text.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Detail" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The detailed text for an alert or a reference to the translated detailed text.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Uri" type="com:typeUri">
+        <xsd:annotation>
+          <xsd:documentation>The URI part of the data type name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SummaryParameterList" type="ale:AlertSummaryParameterList">
+        <xsd:annotation>
+          <xsd:documentation>A list of summary parameters for the alert.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DetailParameterList" type="ale:AlertDetailParameterList">
+        <xsd:annotation>
+          <xsd:documentation>A list of detailed parameters for the alert.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Transport" type="mes:MessageTransportKey">
+        <xsd:annotation>
+          <xsd:documentation>The message transport used to transmit the alert.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ReferenceCount" type="com:typeULongB">
+        <xsd:annotation>
+          <xsd:documentation>A count of the number of undelivered copies of this alert.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The timestamp value created when the record was updated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AlertSummaryParameterList">
+    <xsd:annotation>
+      <xsd:documentation>A list of summary parameters for the alert.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="SummaryParameter" type="ale:AlertParameter">
+        <xsd:annotation>
+          <xsd:documentation>This element holds the contents of a summary parameter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AlertDetailParameterList">
+    <xsd:annotation>
+      <xsd:documentation>A list of detailed parameters for the alert.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="DetailParameter" type="ale:AlertParameter">
+        <xsd:annotation>
+          <xsd:documentation>This element holds the contents of a detailed parameter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AlertList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Alert" type="ale:Alert"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AlertKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Alert" type="ale:AlertKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AlertKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Id" type="com:typeDbGuid"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TranslatedAlert">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Alert" type="ale:AlertKey"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Summary" type="com:typeText"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Detail" type="com:typeText"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Priority" type="com:typeComAlertPriority"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TranslatedAlertList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="TranslatedAlert" type="ale:TranslatedAlert"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TranslatedAlertKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="TranslatedAlert" type="ale:TranslatedAlertKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TranslatedAlertKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="User" type="use:UserKey"/>
+      <xsd:element minOccurs="0" name="Alert" type="ale:AlertKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UnsentAlerts">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="User" type="use:UserKey"/>
+      <xsd:element name="NormalList" type="ale:TranslatedAlertList"/>
+      <xsd:element name="ImmediateList" type="ale:TranslatedAlertList"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TimeStamp" type="xsd:short"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UnsentAlertsList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="UnsentAlerts" type="ale:UnsentAlerts"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UnsentAlertsKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="UnsentAlerts" type="ale:UnsentAlertsKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UnsentAlertsKey">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a key to unsent alerts.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="User" type="use:UserKey">
+        <xsd:annotation>
+          <xsd:documentation>The user ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PendingMessage">
+    <xsd:sequence>
+      <xsd:element name="ImmediateList" type="ale:PendingMessageImmediateList"/>
+      <xsd:element name="NormalList" type="ale:PendingMessageNormalList"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PendingMessageImmediateList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Immediate" type="com:typeCode"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PendingMessageNormalList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Normal" type="com:typeCode"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PendingMessageList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="PendingMessage" type="ale:PendingMessage"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

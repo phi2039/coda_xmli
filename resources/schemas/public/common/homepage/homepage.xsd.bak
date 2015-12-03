@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:hmp="http://www.coda.com/common/schemas/homepage" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:cpm="http://www.coda.com/common/schemas/contentprovidermaster" targetNamespace="http://www.coda.com/common/schemas/homepage" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/contentprovidermaster" schemaLocation="s:/schemas/public/common/contentprovidermaster/contentprovidermaster.xsd"/>
+
+  <xsd:complexType name="Page">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the definition of a Homepage.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Framesets" type="hmp:Framesets">
+        <xsd:annotation>
+          <xsd:documentation>This element holds the framesets on the page.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+    <xsd:attribute name="allowmodify" type="xsd:boolean">
+      <xsd:annotation>
+        <xsd:documentation>Indicates whether the user is permitted to modify their Homepage.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="timestamp" type="xsd:int">
+      <xsd:annotation>
+        <xsd:documentation>The TimeStamp value for this Homepage in the database.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+  </xsd:complexType>
+
+  <xsd:complexType name="Framesets">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the framesets on the page.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Frameset" type="hmp:Frameset" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element holds a frameset on the page.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Frameset">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a frameset on the page.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Title" type="com:typeDescr">
+        <xsd:annotation>
+          <xsd:documentation>The title of the frameset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Columns" type="hmp:Columns">
+        <xsd:annotation>
+          <xsd:documentation>This element holds the columns in this frameset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+    <xsd:attribute name="id" type="xsd:int">
+      <xsd:annotation>
+        <xsd:documentation>The system-generated identifying number for this page.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+  </xsd:complexType>
+
+  <xsd:complexType name="Columns">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the columns in this frameset.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Column" type="hmp:Column" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element holds a column in this frameset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Column">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a column in this frameset.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Frames" type="hmp:Frames">
+        <xsd:annotation>
+          <xsd:documentation>This element holds the frames in this column.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+    <xsd:attribute name="id" type="xsd:int">
+      <xsd:annotation>
+        <xsd:documentation>The system-generated identifying number for this column.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="width" type="xsd:string" use="optional">
+      <xsd:annotation>
+        <xsd:documentation>Not used.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+  </xsd:complexType>
+
+  <xsd:complexType name="Frames">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the frames in this column.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Frame" type="hmp:Frame" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element holds a frame in this column.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Frame">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a frame in this column.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Title" type="com:typeDescr">
+        <xsd:annotation>
+          <xsd:documentation>The title of the frame.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ContentProviderCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the content provider master used in this frame.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Configuration" type="hmp:FrameConfiguration" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element holds the settings which may be configured for this frame.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ConfigurationID" type="xsd:int" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The configuration identification number, a system generated number that identifies the configuration details.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+    <xsd:attribute name="id" type="com:typeGeneralCode">
+      <xsd:annotation>
+        <xsd:documentation>A code that uniquely identifies the frame within the Homepage definition.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="minimize" type="xsd:boolean">
+      <xsd:annotation>
+        <xsd:documentation>Indicates whether the frame is minimized when the Homepage is first loaded.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="contentid" type="xsd:IDREF" use="optional">
+      <xsd:annotation>
+        <xsd:documentation>A number identifying this frame and content configuration.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="contentproviderid" type="xsd:IDREF" use="optional">
+      <xsd:annotation>
+        <xsd:documentation>A number identifying this frame and content provider configuration.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+  </xsd:complexType>
+
+  <xsd:complexType name="FrameConfigurationItem">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a setting which may be configured for this frame.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:string">
+        <xsd:attribute name="name" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>The name of the setting which may be configured.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="FrameConfiguration">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the settings which may be configured for this frame.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ConfigurationItem" type="hmp:FrameConfigurationItem" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element holds a setting which may be configured for this frame.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Content">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the content available in a frame on the Homepage.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Exception" type="com:Reason" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains an error message if a request for this content fails.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:any/>
+    </xsd:sequence>
+    <xsd:attribute name="id" type="xsd:ID">
+      <xsd:annotation>
+        <xsd:documentation>An identifying value that links this content with a frame.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="type" type="com:typeContentType">
+      <xsd:annotation>
+        <xsd:documentation>The type of content. Currently only XML is supported.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="timestamp" type="xsd:int" use="optional">
+      <xsd:annotation>
+        <xsd:documentation>The TimeStamp value of the content provider master used to retrieve this content.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="pending" type="xsd:boolean" use="optional">
+      <xsd:annotation>
+        <xsd:documentation>When TRUE, the content is currently being requested or is waiting to be requested.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="refresh" type="xsd:boolean" use="optional">
+      <xsd:annotation>
+        <xsd:documentation>Indicates whether the user is permitted to refresh this content.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="lastupdate" type="xsd:dateTime" use="optional">
+      <xsd:annotation>
+        <xsd:documentation>The date and time when this content was last updated.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+  </xsd:complexType>
+
+  <xsd:complexType name="Contents">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the content available in frames on the Homepage.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Content" type="hmp:Content" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element holds the content available in a frame on the Homepage.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ContentProviderList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of the content provider masters available to this Homepage.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ContentProvider" type="hmp:ContentProviderListItem" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of a content provider master available to this Homepage.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ContentProviderListItem">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a content provider master available to this Homepage.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the content provider master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name for the content provider master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for the content provider master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExtensionRef" type="com:ExtensionRef">
+        <xsd:annotation>
+          <xsd:documentation>Identifies the system extension used by the content provider master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExtensionTimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this system extension in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AllowManualRefresh" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the user is permitted to refresh the data displayed by the content provider master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ModifiableConfiguration" type="cpm:ProviderModifiableConfiguration">
+        <xsd:annotation>
+          <xsd:documentation>Contains a configurable setting which the user is permitted to modify in this Homepage.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Configuration" type="cpm:ProviderConfiguration">
+        <xsd:annotation>
+          <xsd:documentation>Contains the settings which may be configured for the content provider master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AddToActiveDesktop" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether this content provider master can be displayed on the user's Active Desktop.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+    <xsd:attribute name="id" type="xsd:ID">
+      <xsd:annotation>
+        <xsd:documentation>An identifying value that links this content provider master with a frame.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+  </xsd:complexType>
+
+
+</xsd:schema>

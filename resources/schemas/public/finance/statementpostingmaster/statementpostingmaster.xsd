@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:spm="http://www.coda.com/efinance/schemas/statementpostingmaster" targetNamespace="http://www.coda.com/efinance/schemas/statementpostingmaster" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+
+  <xsd:complexType name="FolderList">
+    <xsd:annotation>
+      <xsd:documentation>Contains the list of user-defined folders.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Folder" type="spm:FolderItem" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>A user-defined folder on the list.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="FolderItem">
+    <xsd:annotation>
+      <xsd:documentation>A user-defined folder on the list.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="FolderName" type="com:typeShortName">
+        <xsd:annotation>
+          <xsd:documentation>The name of a user-defined folder.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StatementSelectorCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the selector master that you want to use to retrieve the statement lines for this folder.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StatementPresenterCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the presenter master that you want to use to display the statement lines in this folder.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocumentPresenterCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the presenter master that you want to use to display the proposed documents before they are created and posted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocumentDateSource" type="com:typeCtDocumentDate">
+        <xsd:annotation>
+          <xsd:documentation>How the document date is derived: Statement Date or From file.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OnPostingErrorAction" type="com:typeCtOnPostingError">
+        <xsd:annotation>
+          <xsd:documentation>The action you want the system to take, if an error occurs during posting: Attempt to post to the Intray or Abort the posting.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ReconcileToBooks" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that, if the transaction type is set to Reconcile, the system reconciles the transaction after posting it to the Books.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ReconcileToIntray" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that, if the transaction type is set to Reconcile, the system reconciles the transaction after posting it to the Intray.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="StatementPostingMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a statement posting master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company in which the statement posting master exists.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this statement posting master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TimeStamp" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for the statement posting master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name of the master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortName" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name of the master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StatementCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the default statement type that you want to use with this master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StatementCurrencyCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The currency code of the statements that you want to post using this master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ReverseStatementValue" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that at run time the statement and balance values are displayed with reversed positive/negative signs.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostedItemsPresenterCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the presenter master that you want to use to display the statement lines in the Posted Items folder.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RemainingItemsPresenterCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the presenter master that you want to use to display the statement lines in the Remaining Items folder.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostedItemsFolderTitle" type="com:typeText" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The name of the folder in which posted lines are displayed at run time.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RemainingItemsFolderTitle" type="com:typeText" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The name of the folder in which any lines not assigned to other folders are displayed at run time.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Folders" type="spm:FolderList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the list of user-defined folders.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="StatementPostingMaster" type="spm:StatementPostingMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a statement posting master.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

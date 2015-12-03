@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:acom="http://www.coda.com/eassets/schemas/common" xmlns:ass="http://www.coda.com/eassets/schemas/asset" xmlns:gsl="http://www.coda.com/efinance/schemas/selectormaster" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:dep="http://www.coda.com/eassets/schemas/depreciation" targetNamespace="http://www.coda.com/eassets/schemas/depreciation" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/selectormaster" schemaLocation="s:/schemas/public/common/selectormaster/selectormaster.xsd"/>
+  <xsd:import namespace="http://www.coda.com/eassets/schemas/asset" schemaLocation="s:/schemas/public/assets/asset/asset.xsd"/>
+  <xsd:import namespace="http://www.coda.com/eassets/schemas/common" schemaLocation="s:/schemas/public/assets/common/types.xsd"/>
+
+  <xsd:complexType name="DepreciationReviewEngine">
+    <xsd:annotation>
+      <xsd:documentation>This element identifies the review depreciation process that will be run, or has been run, for a particular company.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CompanyCode" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company in which the review depreciation process will be run, or has been run.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RunNumber" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>A number identifying the review depreciation process in this company.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DepreciationReviewEngineList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a list of the review depreciation processes that will be run, or have been run. Depreciation can be run across multiple companies; there is a separate review depreciation process for each company.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="DepreciationReviewEngine" type="dep:DepreciationReviewEngine" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element identifies the review depreciation process that will be run, or has been run, for a particular company.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManualDepreciation">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the parameters which can be specified when manually depreciating assets.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Keys" type="ass:AssetKeyList">
+        <xsd:annotation>
+          <xsd:documentation>Contains a list of key information for the assets being manually depreciated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DepreciationTypeValue" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the depreciation amount is specified as a value. When FALSE, the depreciation amount is specified as a percentage.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Value" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The value by which the asset(s) will be depreciated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Percent" type="com:typePercent">
+        <xsd:annotation>
+          <xsd:documentation>The percentage by which the asset(s) will be depreciated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Book" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The asset book to which the depreciation will apply. This value is ignored if AllBooks is set to TRUE.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AllBooks" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the depreciation values will apply to all asset books. When TRUE, any value in the Book element is ignored.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostingYearPeriod" type="com:typeBaseYearPeriod">
+        <xsd:annotation>
+          <xsd:documentation>The year and period to which the transactions will be posted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostingDocumentDate" type="com:typeDate">
+        <xsd:annotation>
+          <xsd:documentation>The date of the document which posts the financial transaction to the Financials Books.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DepreciationAccount" type="com:typeAcCode">
+        <xsd:annotation>
+          <xsd:documentation>The account to which the depreciation cost (debit value) will be posted if financial transactions are generated. This defaults to the AcctDepnCharge account specified in the asset's PostRuleMaster.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AggregateDepreciation" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether financial transactions posted to the same accumulated depreciation account will be summarised.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AggregateDepreciationCharge" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether financial transactions posted to the same depreciation charge account will be summarised.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CmpCode" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company in which manual depreciation will be run.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RunNumber" type="xsd:int" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>A number identifying the manual depreciation process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AssetCurrencyList" type="ass:AssetCurrencyDataList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains the depreciation value in associated currencies.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PostReviewedManualDepreciation">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the manual depreciation values being reviewed.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Keys" type="ass:AssetKeyList">
+        <xsd:annotation>
+          <xsd:documentation>Contains a list of key information for the assets being depreciated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CmpCode" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company in which manual depreciation is being run.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RunNumber" type="xsd:int" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>A number identifying the manual depreciation process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Book" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The asset book to which the depreciation will apply.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AllBooks" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the depreciation values will apply to all asset books. When TRUE, any value in the Book element is ignored.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostingYearPeriod" type="com:typeBaseYearPeriod">
+        <xsd:annotation>
+          <xsd:documentation>The year and period to which the transactions will be posted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostingDocumentDate" type="com:typeDate">
+        <xsd:annotation>
+          <xsd:documentation>The date of the document which posts the financial transaction to the Financials Books.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AggregateDepreciation" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether financial transactions posted to the same accumulated depreciation account will be summarised.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AggregateDepreciationCharge" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether financial transactions posted to the same depreciation charge account will be summarised.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CancelReviewedManualDepreciation">
+    <xsd:annotation>
+      <xsd:documentation>This element contains information identifying the manual depreciation review process to cancel.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company in which you want to cancel the manual depreciation review.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RunNumber" type="xsd:int" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>A number identifying the manual depreciation process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Depreciation">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the parameters which can be specified when running depreciation.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="SelectorCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the selector master that you want to use to select assets for depreciation. Only assets selectors can be specified.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SelectorMaster" type="gsl:SelectorMaster">
+        <xsd:annotation>
+          <xsd:documentation>This element holds the selector master specified by SelectorCode.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="YearPeriod" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The year and period up to which depreciation is calculated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocumentDate" type="xsd:dateTime">
+        <xsd:annotation>
+          <xsd:documentation>The date of the document which posts the depreciation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostZeroValues" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Set this to TRUE to post zero values of depreciation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AggregateDepreciation" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Set this to TRUE to summarise postings that are made to the same Accumulated Depreciation account.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AggregateCharge" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Set this to TRUE to summarise postings that are made to the same Depreciation Charge account.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostToLastPeriod" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Set this to TRUE to post asset transactions to the year/period specified by YearPeriod. When FALSE, asset transactions are posted to the year/period to which the depreciation applies.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LogTitle" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>A title for the log file that stores details of the depreciation run. This value is mandatory.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DetailedLog" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Set this to TRUE to have details of the depreciation calculations appended to the log file.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ErrorsOnly" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether only error messages are saved to the log file. When TRUE, warning messages, success messages, and information messages are not logged.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SuppressValidation" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Set this to TRUE to suppress additional validation that can be performed before the depreciation is posted; standard validation is still performed. Setting this to TRUE speeds up the depreciation process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ContinueAfterError" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Set this to TRUE if you want the depreciation process to continue if an error is encountered. When this is FALSE, the depreciation process will stop if an error is encountered.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CmpCode" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company in which depreciation will be run.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RunNumber" type="xsd:int" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>A number identifying the depreciation run.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LogId" type="xsd:int" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>A number identifying the log in which the details of this depreciation process are stored.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DepreciationSummary">
+    <xsd:annotation>
+      <xsd:documentation>Contains details of one depreciation summary.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CompanyCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code that identifies the company.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The name of the user who initiated the depreciation process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CreationDate" type="xsd:dateTime">
+        <xsd:annotation>
+          <xsd:documentation>The date the depreciation summary was created.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RunNumber" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>A number identifying the depreciation process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TimeStamp" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The timestamp value for this record in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RunStatus" type="acom:typeDepreciationStatus">
+        <xsd:annotation>
+          <xsd:documentation>The status of the depreciation process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LogId" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>A number identifying the log in which the details of this depreciation process are stored.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocDate" type="xsd:dateTime" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date of the depreciation document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DepreciationSummaryList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details of depreciation summaries.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="DepreciationSummary" type="dep:DepreciationSummary" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Contains details of one depreciation summary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="Depreciation" type="dep:Depreciation">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the parameters which can be specified when running depreciation.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

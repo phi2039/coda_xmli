@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:prg="http://www.coda.com/efinance/schemas/progress" xmlns:aso="http://www.coda.com/efinance/schemas/association" xmlns:brm="http://www.coda.com/efinance/schemas/bankreconciliationmaster" xmlns:brr="http://www.coda.com/efinance/schemas/bankreconciliation" targetNamespace="http://www.coda.com/efinance/schemas/bankreconciliation" elementFormDefault="qualified" version="1.0">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/service.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/progress" schemaLocation="s:/schemas/public/common/progress/progress.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/progress" schemaLocation="s:/schemas/public/common/progress/progressservice.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/association" schemaLocation="s:/schemas/public/finance/association/association.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/bankreconciliationmaster" schemaLocation="s:/schemas/public/finance/bankreconciliationmaster/bankreconciliationmaster.xsd"/>
+  <xsd:include schemaLocation="s:/schemas/public/finance/bankreconciliation/bankreconciliation.xsd"/>
+
+  <xsd:complexType name="ValidateParamsRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="ReconciliationParams" type="brr:ReconciliationParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the parameters which can be specified when reconciling Financials document lines with statement lines.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ValidateParamsRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Validates the parameters supplied at run time.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="brr:ValidateParamsRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ValidateParamsResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the company in which you are performing reconciliation.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="MasterCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the reconciliation master being used for the current reconciliation session.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ValidateParamsResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="brr:ValidateParamsResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CommitRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="ReconciliationParams" type="brr:ReconciliationParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the parameters which can be specified when reconciling Financials document lines with statement lines.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Groups" type="brr:ReconciliationGroups">
+            <xsd:annotation>
+              <xsd:documentation>This element contains details of the reconciliation groups in the reconciliation session.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CommitRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Commits the selected reconciliation group. When reconciling Financials document lines with an electronic statement, you cannot commit the reconciliation group until it sums to zero. When reconciling Financials document lines with a paper statement, there is no need for the reconciliation group to sum to zero.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="brr:CommitRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CommitResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Results" type="brr:CommitGroupResults">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the results of the groups committed by the CommitRequest corresponding to this Response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="LogID" type="xsd:int" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>A system-generated number identifying the log file in which this reconciliation session has been logged.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CommitResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="brr:CommitResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetWriteOffLimitsRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Params" type="brr:ReconciliationWriteOffLimitParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the parameters which are specified to retrieve credit/debit write off tolerances.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetWriteOffLimitsRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the credit/debit write-off tolerances for the specified amount.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="brr:GetWriteOffLimitsRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetWriteOffLimitsResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CreditWriteOffLimit" type="com:typeMoney" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The maximum credit amount that may be written off for the specified value.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DebitWriteOffLimit" type="com:typeMoney" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The maximum credit amount that may be written off for the specified value.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetWriteOffLimitsResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="brr:GetWriteOffLimitsResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartBackgroundRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="ReconciliationParams" type="brr:ReconciliationParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the parameters which can be specified when reconciling Financials document lines with statement lines.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Selectors" type="brr:ReconciliationSelectors">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the selectors to use for selecting Financials document lines and statement lines for the Background Matching process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartBackgroundRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Starts a Background Reconciliation process.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="brr:StartBackgroundRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartBackgroundResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="ProgressKey" type="prg:ProgressKey" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains a key that identifies the Background Reconciliation process that has been started.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="LogID" type="xsd:int" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>A system-generated number identifying the log file in which this reconciliation session has been logged.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartBackgroundResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="brr:StartBackgroundResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartAssistantRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="ReconciliationParams" type="brr:ReconciliationParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the parameters which can be specified when reconciling Financials document lines with statement lines.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Folders" type="aso:asoKeyFolders">
+            <xsd:annotation>
+              <xsd:documentation>This element contains details of the folders in which the Financials document lines and statement lines are listed.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="StartAtGroupNumber" type="xsd:int" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The group number at which the assistant should start creating reconciliation groups. For example, the user might have manually created groups 1 and 2, and would therefore want the Assistant to create new groups starting from 3.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartAssistantRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Starts an Assisted Interactive Reconciliation process.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="brr:StartAssistantRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartAssistantResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="ProgressKey" type="prg:ProgressKey" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains a key that identifies the Assisted Interactive Reconciliation process that has been started.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="LogID" type="xsd:int" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>A system-generated number identifying the log file in which this reconciliation session has been logged.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartAssistantResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="brr:StartAssistantResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetReconciliationGroupsRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="ProgressKey" type="prg:ProgressKey" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains a key that identifies the Assistant process for which you want to retrieve reconciliation group information.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetReconciliationGroupsRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves information about the reconciliation groups created by the specified Assistant process.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="brr:GetReconciliationGroupsRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetReconciliationGroupsResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Groups" type="brr:ReconciliationGroups">
+            <xsd:annotation>
+              <xsd:documentation>This element contains details of the groups in the reconciliation session.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetReconciliationGroupsResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="brr:GetReconciliationGroupsResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProgressResponse">
+    <xsd:complexContent>
+      <xsd:extension base="prg:progressGetResponse">
+        <xsd:sequence>
+          <xsd:element name="Statistics" type="aso:ProgressStatistics" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>This element contains statistics of the lines that the Assistant has processed so far.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProgressResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="brr:ProgressResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UndoRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="UndoReconciliationParams" type="brr:UndoServiceParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains parameters used by the UndoRequest, including the company code and log title.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Groups" type="brr:UndoReconciliationGroups">
+            <xsd:annotation>
+              <xsd:documentation>This element contains parameters identifying the reconciliation groups to be undone.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UndoRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Undoes the specified reconciliation group(s) using the parameters you provide.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="brr:UndoRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UndoResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="UndoReconciliationParams" type="brr:UndoServiceParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the parameters you provided in the UndoRequest corresponding to this Response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Groups" type="brr:UndoGroupResults">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the results of the UndoRequest corresponding to this Response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UndoResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="brr:UndoResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="BankReconciliationRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to reconcile Financials document lines with statement lines.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element name="ValidateParams" type="brr:ValidateParamsRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Validates the parameters supplied at run time.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Commit" type="brr:CommitRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Commits the selected reconciliation group. When reconciling Financials document lines with an electronic statement, you cannot commit the reconciliation group until it sums to zero. When reconciling Financials document lines with a paper statement, there is no need for the reconciliation group to sum to zero.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetWriteOffLimits" type="brr:GetWriteOffLimitsRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves the credit/debit write-off tolerances for the specified amount.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="StartBackground" type="brr:StartBackgroundRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Starts a Background Reconciliation process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="StartAssistant" type="brr:StartAssistantRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Starts an Assisted Interactive Reconciliation process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetReconciliationGroups" type="brr:GetReconciliationGroupsRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves information about the reconciliation groups created by the specified Assistant process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetProgress" type="prg:progressGetRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves information about the number of lines that have been processed by the current Assistant process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Abort" type="prg:progressAbortRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Stops the current Assistant process. If the process was Assisted Interactive Reconciliation, any reconciliation groups already suggested are retained. If the process was Background Reconciliation, any reconciliation groups already produced are discarded and no groups are committed.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Undo" type="brr:UndoRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Undoes the specified reconciliation group(s) using the parameters you provide.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="BankReconciliationResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you reconcile Financials document lines with statement lines.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element name="ValidateParams" type="brr:ValidateParamsResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Commit" type="brr:CommitResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetWriteOffLimits" type="brr:GetWriteOffLimitsResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="StartBackground" type="brr:StartBackgroundResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="StartAssistant" type="brr:StartAssistantResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetReconciliationGroups" type="brr:GetReconciliationGroupsResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetProgress" type="brr:ProgressResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Abort" type="prg:progressAbortResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Undo" type="brr:UndoResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="BankReconciliationRequest" type="brr:BankReconciliationRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to reconcile Financials document lines with statement lines.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="BankReconciliationResponse" type="brr:BankReconciliationResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you reconcile Financials document lines with statement lines.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

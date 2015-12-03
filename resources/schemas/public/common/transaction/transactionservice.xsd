@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:txn="http://www.coda.com/efinance/schemas/transaction" targetNamespace="http://www.coda.com/efinance/schemas/transaction" elementFormDefault="qualified" version="11.2">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/service.xsd"/>
+  <xsd:include schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/transaction/transaction.xsd"/>
+
+  <xsd:complexType name="GetDocumentRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="txn:txnKey">
+            <xsd:annotation>
+              <xsd:documentation>This element contains a key uniquely identifying the document you want to retrieve.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDocumentRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the specified document from the Financials database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="txn:GetDocumentRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDocumentResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Key" type="txn:txnKey">
+            <xsd:annotation>
+              <xsd:documentation>This element contains a key uniquely identifying the document you have retrieved.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Transaction" type="txn:Transaction" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>This element holds the financial document you have retrieved.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDocumentResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="txn:GetDocumentResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="TransactionRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to retrieve documents (transactions) from the Financials database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element name="GetDocument" type="txn:GetDocumentRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves the specified document from the Financials database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="TransactionResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you retrieve documents (transactions) from the Financials database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element name="GetDocument" type="txn:GetDocumentResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="TransactionRequest" type="txn:TransactionRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to retrieve documents (transactions) from the Financials database.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="TransactionResponse" type="txn:TransactionResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you retrieve documents (transactions) from the Financials database.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

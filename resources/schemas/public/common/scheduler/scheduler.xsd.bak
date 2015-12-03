@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:sch="http://www.coda.com/common/schemas/scheduler" elementFormDefault="qualified" targetNamespace="http://www.coda.com/common/schemas/scheduler">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types2.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="ScheduledTaskParam">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ParamKey" type="com:typeCode"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ParamValue" type="com:typeTextWildFixed"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ScheduledTaskParamList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ScheduledTaskParam" type="sch:ScheduledTaskParam"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ScheduledTaskParamKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ScheduledTaskParam" type="sch:ScheduledTaskParamKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ScheduledTaskParamKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Id" type="com:typeDbGuid"/>
+      <xsd:element minOccurs="0" name="ParamKey" type="com:typeCode"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ScheduledTask">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Id" type="com:typeDbGuid"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TaskType" type="com:typeCode"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Description" type="com:typeText"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="HostName" type="com:typeText"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Owner" type="com:typeCode"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="RunAsUser" type="com:typeCode"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Password" type="com:typePassword"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Company" type="com:typeCode"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Enabled" type="com:typeBoolean"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="StartDateTime" type="com:typeDateTimeb"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="EndDateTime" type="com:typeDateTimeb"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Timezone" type="com:typeText"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Recurrence" type="com:typeSchedulerRunOccurence"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="RunOccurences" type="com:typeLong"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Concurrence" type="com:typeSchedulerConcurrency"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TaskIntervalType" type="com:typeSchedulerIntervaltype"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="TaskInterval" type="com:typeLong"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="WeekDays" type="com:typeWord"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="DayOfMonthOrPeriod" type="com:typeWord"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="NthOfMonthOrPeriodCount" type="com:typeWord"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="NthOfMonthOrPeriodDay" type="com:typeWord"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ServiceWindowFromTime" type="com:typeTimeB"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ServiceWindowToTime" type="com:typeTimeB"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ServiceWindowDays" type="com:typeWord"/>
+      <xsd:element name="ScheduledTaskParamsList" type="sch:ScheduledTaskParamList"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="LastStartTime" type="com:typeDateTimeb"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="LastEndTime" type="com:typeDateTimeb"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="NextScheduleTime" type="com:typeDateTimeb"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="RunCount" type="com:typeLong"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="LastRunID" type="com:typeDbGuidb"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TimeStamp" type="xsd:short"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ScheduledTaskList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ScheduledTask" type="sch:ScheduledTask"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ScheduledTaskKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ScheduledTask" type="sch:ScheduledTaskKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ScheduledTaskKey">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the key to a scheduled task.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Id" type="com:typeDbGuid">
+        <xsd:annotation>
+          <xsd:documentation>A task ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ScheduledTaskTimes">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Id" type="com:typeDbGuid"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="LastStartTime" type="com:typeDateTimeb"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="LastEndTime" type="com:typeDateTimeb"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="NextScheduleTime" type="com:typeDateTimeb"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="RunCount" type="com:typeLong"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="LastRunID" type="com:typeDbGuidb"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TimeStamp" type="xsd:short"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ScheduledTaskTimesList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ScheduledTaskTimes" type="sch:ScheduledTaskTimes"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ScheduledTaskTimesKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ScheduledTaskTimes" type="sch:ScheduledTaskTimesKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ScheduledTaskTimesKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Id" type="com:typeDbGuid"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RunAsInfo">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="RunAsUser" type="com:typeCode"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="RunAsPassword" type="com:typeText"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="RunAsCompany" type="com:typeCode"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RunAsInfoList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="RunAsInfo" type="sch:RunAsInfo"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

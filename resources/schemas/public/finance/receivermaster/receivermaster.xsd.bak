@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:rvm="http://www.coda.com/efinance/schemas/receivermaster" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/efinance/schemas/receivermaster" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+
+  <xsd:complexType name="ReceiverMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a receiver master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this receiver master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the receiver master is being maintained.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this receiver master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name for this receiver master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for this receiver master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AccumulateLines" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies that lines from the same original document that are posted to the same company are included in the same posting document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ReceivingDocCode" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the document master to be used to post details in the receiving company.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ValidationLevel" type="com:typePostingLocation">
+        <xsd:annotation>
+          <xsd:documentation>Specifies the type of checking performed when posting the transaction in the receiving company.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="InitialLocation" type="com:typeCtRecInitialLoc">
+        <xsd:annotation>
+          <xsd:documentation>Specifies where in the receiving company the receiving process attempts to post document lines retrieved from the InterCompany Trace.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DuplicateLog" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Controls which logs are created when retrieving and posting a document to a company which is not the current company.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ForwardingDestinationCode" type="com:typeCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The destination code for the company to which the document line is to be forwarded.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="YearPeriodOption" type="com:typeCtRecYearPeriod">
+        <xsd:annotation>
+          <xsd:documentation>Specifies the year or period option set on the generated document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AuthorisingVocab" type="com:typeCtICVocab">
+        <xsd:annotation>
+          <xsd:documentation>Specifies the authorisation details for the document posted in the receiving company.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AuthorisingFixedText" type="com:typeTextAnyB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains up to a maximum of 12 characters of text entered by a user.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocDescriptionVocab" type="com:typeCtICVocab">
+        <xsd:annotation>
+          <xsd:documentation>Specifies the document description for the document posted in the receiving company.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocDescriptionFixedText" type="com:typeTextAnyB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains up to a maximum of 12 characters of text entered by a user.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ReceivingAcc" type="com:typeAcCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the account to which control postings in the receiving company are made.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SummaryType" type="com:typeCtRecLineType">
+        <xsd:annotation>
+          <xsd:documentation>Specifies what line type a summary line in the sending company will generate for the control line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AnalysisType" type="com:typeCtRecLineType">
+        <xsd:annotation>
+          <xsd:documentation>Specifies what line type an analysis line in the sending company will generate for the control line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TaxType" type="com:typeCtRecLineType">
+        <xsd:annotation>
+          <xsd:documentation>Specifies what line type a tax line in the sending company will generate for the control line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AccumulateType" type="com:typeCtRecLineType">
+        <xsd:annotation>
+          <xsd:documentation>Specifies what line type accumulated lines in the sending company will generate for the control line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LineSense" type="com:typeCtRecLineSense">
+        <xsd:annotation>
+          <xsd:documentation>Specifies what line sense the control line in the receiving company should take.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExtRef1Vocab" type="com:typeCtICVocab">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the control line has a value for the corresponding external reference and, if so, what it is.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExtRef2Vocab" type="com:typeCtICVocab">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the control line has a value for the corresponding external reference and, if so, what it is.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExtRef3Vocab" type="com:typeCtICVocab">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the control line has a value for the corresponding external reference and, if so, what it is.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExtRef4Vocab" type="com:typeCtICVocab">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the control line has a value for the corresponding external reference and, if so, what it is.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExtRef5Vocab" type="com:typeCtICVocab">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the control line has a value for the corresponding external reference and, if so, what it is.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExtRef6Vocab" type="com:typeCtICVocab">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the control line has a value for the corresponding external reference and, if so, what it is.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LineDescriptionVocab" type="com:typeCtICVocab">
+        <xsd:annotation>
+          <xsd:documentation>Specifies the line description for the generated control line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LineDescriptionFixedText" type="com:typeTextAnyB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains up to a maximum of 12 characters of text entered by a user.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

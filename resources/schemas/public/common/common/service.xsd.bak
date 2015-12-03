@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/efinance/schemas/common" elementFormDefault="qualified">
+
+  <xsd:include schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+
+  <xsd:simpleType name="typeResponseStatus">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="completed"/>
+      <xsd:enumeration value="success"/>
+      <xsd:enumeration value="failed"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="typeVersion">
+    <xsd:restriction base="xsd:string">
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="typeAttachments">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="none"/>
+      <xsd:enumeration value="file"/>
+      <xsd:enumeration value="embedded"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:complexType name="Companies">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a list of the companies in which you want to maintain masters using multi-company functionality.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Company" type="com:typeGeneralCode" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>The company code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+    <xsd:attribute name="aborted" type="com:typeGeneralCode"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="ServiceRequest">
+    <xsd:attribute name="version" type="com:typeVersion"/>
+    <xsd:attribute name="bulkload" type="xsd:boolean" use="optional"/>
+    <xsd:attribute name="logtitle" type="com:typeLogTitle" use="optional"/>
+    <xsd:attribute name="attachments" type="com:typeAttachments" use="optional" default="none"/>
+    <xsd:attribute name="locale" type="com:typeLocale" use="optional"/>
+    <xsd:attribute name="origin" type="xsd:string" use="optional"/>
+    <xsd:attribute name="funcsec" type="xsd:boolean" use="optional"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="Request">
+    <xsd:attribute name="transactionid" type="com:OtsTransactionId" use="optional"/>
+    <xsd:attribute name="txtimeout" type="xsd:int" use="optional"/>
+  </xsd:complexType>
+
+  <xsd:simpleType name="OtsTransactionId">
+    <xsd:restriction base="xsd:string">
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:complexType name="RequestVerb">
+  </xsd:complexType>
+
+  <xsd:complexType name="MultiCompanyRequestVerb">
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Companies" type="com:Companies" minOccurs="0"/>
+        </xsd:sequence>
+        <xsd:attribute name="multicompanylogonstatus" type="xsd:boolean" use="optional"/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ServiceResponse">
+    <xsd:sequence>
+      <xsd:element name="Reason" type="com:Reason" minOccurs="0"/>
+    </xsd:sequence>
+    <xsd:attribute name="version" type="com:typeVersion"/>
+    <xsd:attribute name="bulkload" type="xsd:boolean" use="optional"/>
+    <xsd:attribute name="logtitle" type="com:typeLogTitle" use="optional"/>
+    <xsd:attribute name="attachments" type="com:typeAttachments" use="optional"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="Response">
+    <xsd:sequence>
+      <xsd:element name="Reason" type="com:Reason" minOccurs="0"/>
+    </xsd:sequence>
+    <xsd:attribute name="status" type="com:typeResponseStatus"/>
+    <xsd:attribute name="transactioncoordinator" type="com:typeCorbaIor" use="optional"/>
+  </xsd:complexType>
+
+  <xsd:simpleType name="typeCorbaIor">
+    <xsd:restriction base="xsd:string">
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:complexType name="ResponseVerb">
+    <xsd:sequence>
+      <xsd:element name="Reason" type="com:Reason" minOccurs="0"/>
+    </xsd:sequence>
+    <xsd:attribute name="status" type="com:typeResponseStatus"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="MultiCompanyResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Warning" type="com:Warning" minOccurs="0"/>
+        </xsd:sequence>
+        <xsd:attribute name="aborted" type="com:typeGeneralCode" use="optional"/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="MultiCompanyResponseVerb">
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Companies" type="com:Companies" minOccurs="0"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+
+</xsd:schema>

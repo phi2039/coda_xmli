@@ -1,0 +1,645 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:build="http://www.coda.com/common/schemas/funcsec" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:hmp="http://www.coda.com/common/schemas/homepage" targetNamespace="http://www.coda.com/common/schemas/homepage" elementFormDefault="qualified" version="3.0">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/service.xsd"/>
+  <xsd:include schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/homepage/homepage.xsd"/>
+
+  <xsd:complexType name="GetRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the current user's Homepage from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="hmp:GetRequest" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Page" type="hmp:Page">
+            <xsd:annotation>
+              <xsd:documentation>Contains the definition of the Homepage that has been retrieved from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Contents" type="hmp:Contents">
+            <xsd:annotation>
+              <xsd:documentation>Contains the content available in frames on this Homepage.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ContentProviders" type="hmp:ContentProviderList">
+            <xsd:annotation>
+              <xsd:documentation>Contains details of the content provider masters available to this Homepage.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="hmp:GetResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetPageRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetPageRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the definition of the current user's Homepage from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="hmp:GetPageRequest" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetPageResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Page" type="hmp:Page">
+            <xsd:annotation>
+              <xsd:documentation>Contains the definition of the Homepage that has been retrieved from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ContentProviders" type="hmp:ContentProviderList">
+            <xsd:annotation>
+              <xsd:documentation>Contains details of the content provider masters available to this Homepage.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetPageResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="hmp:GetPageResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetFramesetContentRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="FramesetIndex" type="xsd:int">
+            <xsd:annotation>
+              <xsd:documentation>The index identifying the frameset.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Page" type="hmp:Page">
+            <xsd:annotation>
+              <xsd:documentation>The Homepage containing the specified frameset.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ContentProviders" type="hmp:ContentProviderList">
+            <xsd:annotation>
+              <xsd:documentation>The content provider masters available to this Homepage.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetFramesetContentRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the content for the specified frameset (or 'tab') on the Homepage.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="hmp:GetFramesetContentRequest" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetFramesetContentResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Page" type="hmp:Page">
+            <xsd:annotation>
+              <xsd:documentation>Contains the Homepage specified in the corresponding Request.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Contents" type="hmp:Contents">
+            <xsd:annotation>
+              <xsd:documentation>Contains the content available in frames on this Homepage.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ContentProviders" type="hmp:ContentProviderList">
+            <xsd:annotation>
+              <xsd:documentation>Contains details of the content provider masters available to this Homepage.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetFramesetContentResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="hmp:GetFramesetContentResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Page" type="hmp:Page">
+            <xsd:annotation>
+              <xsd:documentation>Contains the Homepage to be updated. This is the Homepage of the current user.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Updates the Homepage.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="hmp:UpdateRequest" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Page" type="hmp:Page">
+            <xsd:annotation>
+              <xsd:documentation>Contains the updated Homepage. This is the Homepage of the current user.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Contents" type="hmp:Contents">
+            <xsd:annotation>
+              <xsd:documentation>Contains the content available in frames on this Homepage.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ContentProviders" type="hmp:ContentProviderList">
+            <xsd:annotation>
+              <xsd:documentation>Contains details of the content provider masters available to this Homepage.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="hmp:UpdateResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetFrameRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="FrameID" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>The ID of the frame you want to retrieve. Frame IDs are unique per frameset.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetFrameRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the specified frame on the Homepage.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="hmp:GetFrameRequest" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetFrameResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Frame" type="hmp:Frame" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the frame that has been retrieved from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Content" type="hmp:Content" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the content available in this frame.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ContentProvider" type="hmp:ContentProviderListItem" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains details of the content provider master used in this frame.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetFrameResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="hmp:GetFrameResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetContentRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="ContentProviderCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the content provider master to use.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Configuration" type="hmp:FrameConfiguration">
+            <xsd:annotation>
+              <xsd:documentation>This element holds the settings which may be configured for the frame.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="LastUpdate" type="xsd:dateTime" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The date and time when the content was last updated.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetContentRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves content for a frame using the specified parameters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="hmp:GetContentRequest" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetContentResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Content" type="hmp:Content" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the content that has been retrieved in accordance with the parameters specified in the corresponding Request.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ContentProvider" type="hmp:ContentProviderListItem" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains details of the content provider master used to provide this content.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetContentResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="hmp:GetContentResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateContentRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="ContentID" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>The number identifying the frame and content configuration to be refreshed.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="LastUpdate" type="xsd:dateTime">
+            <xsd:annotation>
+              <xsd:documentation>The date and time when this content configuration was last updated.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateContentRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Refreshes the content produced by a specified configuration.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="hmp:UpdateContentRequest" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateContentResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Content" type="hmp:Content" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the refreshed content.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ContentProvider" type="hmp:ContentProviderListItem" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains details of the content provider master used to provide this content.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateContentResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="hmp:UpdateContentResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateFrameRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Frame" type="hmp:Frame">
+            <xsd:annotation>
+              <xsd:documentation>Contains the frame to be updated.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateFrameRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Updates the specified frame.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="hmp:UpdateFrameRequest" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateFrameResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Frame" type="hmp:Frame">
+            <xsd:annotation>
+              <xsd:documentation>Contains the updated frame.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Content" type="hmp:Content" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the content in this frame.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ContentProvider" type="hmp:ContentProviderListItem" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains details of the content provider master used to provide the content in this frame.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateFrameResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="hmp:UpdateFrameResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="HomePageRequest">
+    <xsd:annotation>
+      <xsd:appinfo build:funcSecValue="116" build:readOnly="true"/>
+      <xsd:documentation>This service allows you to maintain the Homepage of the current user.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element name="Get" type="hmp:GetRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="1" build:readOnly="true"/>
+              <xsd:documentation>Retrieves the current user's Homepage from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetFrame" type="hmp:GetFrameRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="2" build:readOnly="true"/>
+              <xsd:documentation>Retrieves the specified frame on the Homepage.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetContent" type="hmp:GetContentRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="3" build:readOnly="true"/>
+              <xsd:documentation>Retrieves content for a frame using the specified parameters.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Update" type="hmp:UpdateRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="4" build:readOnly="false"/>
+              <xsd:documentation>Updates the Homepage.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="UpdateFrame" type="hmp:UpdateFrameRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="5" build:readOnly="false"/>
+              <xsd:documentation>Updates the specified frame.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="UpdateContent" type="hmp:UpdateContentRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="6" build:readOnly="false"/>
+              <xsd:documentation>Refreshes the content produced by a specified configuration.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetPage" type="hmp:GetPageRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="7" build:readOnly="true"/>
+              <xsd:documentation>Retrieves the definition of the current user's Homepage from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetFramesetContent" type="hmp:GetFramesetContentRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="8" build:readOnly="true"/>
+              <xsd:documentation>Retrieves the content for the specified frameset (or 'tab') on the Homepage.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="HomePageResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you maintain Homepages.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element name="Get" type="hmp:GetResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetFrame" type="hmp:GetFrameResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetContent" type="hmp:GetContentResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Update" type="hmp:UpdateResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="UpdateFrame" type="hmp:UpdateFrameResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="UpdateContent" type="hmp:UpdateContentResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetPage" type="hmp:GetPageResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetFramesetContent" type="hmp:GetFramesetContentResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="HomePageRequest" type="hmp:HomePageRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to maintain the Homepage of the current user.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="HomePageResponse" type="hmp:HomePageResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you maintain Homepages.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

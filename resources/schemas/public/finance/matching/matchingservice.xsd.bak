@@ -1,0 +1,1397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:aso="http://www.coda.com/efinance/schemas/association" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:mam="http://www.coda.com/efinance/schemas/matchingmaster" xmlns:mat="http://www.coda.com/efinance/schemas/matching" xmlns:prg="http://www.coda.com/efinance/schemas/progress" xmlns:txn="http://www.coda.com/efinance/schemas/transaction" elementFormDefault="qualified" targetNamespace="http://www.coda.com/efinance/schemas/matching" version="6.0">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/service.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/progress" schemaLocation="s:/schemas/public/common/progress/progress.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/progress" schemaLocation="s:/schemas/public/common/progress/progressservice.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/association" schemaLocation="s:/schemas/public/finance/association/association.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/matchingmaster" schemaLocation="s:/schemas/public/finance/matchingmaster/matchingmaster.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/transaction" schemaLocation="s:/schemas/public/common/transaction/transaction.xsd"/>
+  <xsd:include schemaLocation="s:/schemas/public/finance/matching/matching.xsd"/>
+
+  <xsd:complexType name="SelectMasterRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="com:Key">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key identifying the matching master you want to select.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectMasterRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Selects the specified matching master from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" name="Request" type="mat:SelectMasterRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectMasterResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the company in which you attempted to perform matching.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Code" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the matching master that you chose to use.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="MatchingMaster" type="mam:MatchingMaster">
+            <xsd:annotation>
+              <xsd:documentation>Contains the matching master that you chose to use.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectMasterResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="mat:SelectMasterResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ValidateParamsRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="MatchingParams" type="mat:MatchingParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the parameters which can be specified when matching debit and credit entries.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ValidateParamsRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Validates the parameters supplied at runtime.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" name="Request" type="mat:ValidateParamsRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ValidateParamsResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="MatchingParams" type="mat:MatchingParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the matching parameters you specified in the ValidateParamsRequest corresponding to this Response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ValidateParamsResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="mat:ValidateParamsResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectLinesRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="MatchingParams" type="mat:MatchingParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the parameters which can be specified when matching debit and credit entries.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Folders" type="mat:SelectFolders">
+            <xsd:annotation>
+              <xsd:documentation>This element contains details of the matching folders in which the debit and credit entries are listed.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectLinesRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Selects debit and credit entries that are available for matching.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" name="Request" type="mat:SelectLinesRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectLinesResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="MatchingParams" type="mat:MatchingParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the matching parameters you specified in the SelectLinesRequest corresponding to this Response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Folders" type="mat:MatchingFolders">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the matching folders you specified in the SelectLinesRequest corresponding to this Response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectLinesResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="mat:SelectLinesResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDiscountRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="aso:asoKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains a key that identifies the document line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CurrCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the currency in which you want to obtain the discount values.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDiscountRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves discount information for the specified document line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" name="Request" type="mat:GetDiscountRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDiscountResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Key" type="aso:asoKey">
+            <xsd:annotation>
+              <xsd:documentation>This element contains a key that identifies the document line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CurrCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the currency in which the discount values are supplied.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Discounts" type="mat:Discounts">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the discount rates available for this document line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDiscountResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="mat:GetDiscountResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DiscountRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="MatchingParams" type="mat:MatchingParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the parameters which can be specified when matching debit and credit entries.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Details" type="mat:MatchDetails">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the match details for the specified document line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Edits" type="mat:DetailEdits">
+            <xsd:annotation>
+              <xsd:documentation>This element contains changed currency values and/or rates for the document line specified in the Details element.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DiscountRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Enters a discount value for the specified document line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" name="Request" type="mat:DiscountRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DiscountResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="MatchingParams" type="mat:MatchingParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the matching parameters you specified in the DiscountRequest corresponding to this Response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Details" type="mat:MatchDetails">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the match details for the specified document line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DiscountResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="mat:DiscountResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PartMatchRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="MatchingParams" type="mat:MatchingParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the parameters which can be specified when matching debit and credit entries.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Details" type="mat:MatchDetails">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the match details for the specified document line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Edits" type="mat:DetailEdits">
+            <xsd:annotation>
+              <xsd:documentation>This element contains changed currency values and/or rates for the document line specified in the Details element.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PartMatchRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Enters a part payment value for the specified document line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" name="Request" type="mat:PartMatchRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PartMatchResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="MatchingParams" type="mat:MatchingParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the matching parameters you specified in the PartMatchRequest corresponding to this Response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Details" type="mat:MatchDetails">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the match details for the specified document line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PartMatchResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="mat:PartMatchResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="WriteOffRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="MatchingParams" type="mat:MatchingParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the parameters which can be specified when matching debit and credit entries.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Details" type="mat:MatchDetails">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the match details for the specified document line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Edits" type="mat:DetailEdits">
+            <xsd:annotation>
+              <xsd:documentation>This element contains changed currency values and/or rates for the document line specified in the Details element.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="WriteOffRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Enters a write-off value for the specified document line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" name="Request" type="mat:WriteOffRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="WriteOffResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="MatchingParams" type="mat:MatchingParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the matching parameters you specified in the WriteOffRequest corresponding to this Response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Details" type="mat:MatchDetails">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the match details for the specified document line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="WriteOffResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="mat:WriteOffResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetLineValuesRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="MatchingParams" type="mat:MatchingParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the parameters which can be specified when matching debit and credit entries.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Details" type="mat:MatchDetails">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the match details for the specified document line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetLineValuesRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the currency line value information for the specified document line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" name="Request" type="mat:GetLineValuesRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetLineValuesResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="MatchingParams" type="mat:MatchingParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the matching parameters you specified in the GetLineValuesRequest corresponding to this Response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Details" type="mat:MatchDetails">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the match details for the specified document line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetLineValuesResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="mat:GetLineValuesResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetTotalsRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="MatchingParams" type="mat:MatchingParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the parameters which can be specified when matching debit and credit entries.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Groups" type="mat:MatchGroups">
+            <xsd:annotation>
+              <xsd:documentation>This element contains details of the matching groups in the matching session.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetTotalsRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the total values (in matching, home and dual currency) of the selected matching group.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" name="Request" type="mat:GetTotalsRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetTotalsResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="MatchingParams" type="mat:MatchingParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the matching parameters you specified in the GetTotalsRequest corresponding to this Response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Groups" type="mat:MatchGroups">
+            <xsd:annotation>
+              <xsd:documentation>This element contains details of the matching group you specified in the GetTotalsRequest corresponding to this Response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Totals" type="mat:MatchTotals">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the total value (in matching, home and dual currency) of all the document lines included in the match.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetTotalsResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="mat:GetTotalsResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetPayDetailsSourcesRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="MatchingParams" type="mat:MatchingParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the parameters which can be specified when matching debit and credit entries.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Groups" type="mat:MatchGroups">
+            <xsd:annotation>
+              <xsd:documentation>This element contains details of the matching groups in the matching session.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetPayDetailsSourcesRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the Draft Paid document lines in the selected matching group(s). One Draft Paid document line can be set as the source for data propagation in its matching group.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" name="Request" type="mat:GetPayDetailsSourcesRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetPayDetailsSourcesResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="MatchingParams" type="mat:MatchingParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the matching parameters you specified in the GetPayDetailsSourcesRequest corresponding to this Response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Groups" type="mat:MatchGroups">
+            <xsd:annotation>
+              <xsd:documentation>This element contains details of the matching group you specified in the GetPayDetailsSourcesRequest corresponding to this Response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Sources" type="mat:MatchingDataSources">
+            <xsd:annotation>
+              <xsd:documentation>This element contains information about the document lines which can be selected as the source for data propagation.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetPayDetailsSourcesResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="mat:GetPayDetailsSourcesResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDrivingLineInfoRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="MatchingParams" type="mat:MatchingParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the parameters which can be specified when matching debit and credit entries.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Groups" type="mat:MatchGroups">
+            <xsd:annotation>
+              <xsd:documentation>This element contains details of the matching groups in the matching session.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDrivingLineInfoRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the document lines in the selected matching group(s) where a driving line must be specified. One document line can be set as the driving line in its matching group.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" name="Request" type="mat:GetDrivingLineInfoRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDrivingLineInfoResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="MatchingParams" type="mat:MatchingParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the matching parameters you specified in the GetDrivingLineInfoRequest corresponding to this Response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Groups" type="mat:MatchGroups">
+            <xsd:annotation>
+              <xsd:documentation>This element contains details of the matching group you specified in the GetDrivingLineInfoRequest corresponding to this Response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DrivingLineInfo" type="mat:MatchingDataSources">
+            <xsd:annotation>
+              <xsd:documentation>This element contains information about the document lines which can be selected as the driving line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDrivingLineInfoResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="mat:GetDrivingLineInfoResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CommitRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="MatchingParams" type="mat:MatchingParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the parameters which can be specified when matching debit and credit entries.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Groups" type="mat:MatchGroups">
+            <xsd:annotation>
+              <xsd:documentation>This element contains details of the matching groups in the matching session.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CommitRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Commits the match for the selected group. You can do this any time the lines in the selected group sum to zero (that is, when debits and credits balance) in matching, home and dual currencies.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" name="Request" type="mat:CommitRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CommitResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="MatchingParams" type="mat:MatchingParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the matching parameters you specified in the CommitRequest corresponding to this Response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Results" type="mat:GroupResults">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the results of the matches committed by the CommitRequest corresponding to this Response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CommitResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="mat:CommitResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DisperseRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="MatchingParams" type="mat:MatchingParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the parameters which can be specified when matching debit and credit entries.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Groups" type="mat:MatchGroups">
+            <xsd:annotation>
+              <xsd:documentation>This element contains details of the matching groups in the matching session.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DisperseRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Performs a disperse match on the selected group.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" name="Request" type="mat:DisperseRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DisperseResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="MatchingParams" type="mat:MatchingParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the matching parameters you specified in the DisperseRequest corresponding to this Response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Results" type="mat:GroupResults">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the results of the matches dispersed by the DisperseRequest corresponding to this Response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DisperseResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="mat:DisperseResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartBackgroundRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="MatchingParams" type="mat:MatchingParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the parameters which can be specified when matching debit and credit entries.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Folders" type="mat:SelectFolders">
+            <xsd:annotation>
+              <xsd:documentation>This element contains details of the matching folders in which the debit and credit entries are listed.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Assistant" type="aso:AssistantScript">
+            <xsd:annotation>
+              <xsd:documentation>This element holds the script used by the Background Matching process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartBackgroundRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Starts a Background Matching process.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" name="Request" type="mat:StartBackgroundRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartBackgroundResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="MatchingParams" type="mat:MatchingParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the matching parameters you specified in the StartBackgroundRequest corresponding to this Response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ProgressKey" type="prg:ProgressKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains a key that identifies the Background Matching process that has been started.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartBackgroundResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="mat:StartBackgroundResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartAssistantRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="MatchingParams" type="mat:MatchingParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the parameters which can be specified when matching debit and credit entries.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Folders" type="aso:asoKeyFolders">
+            <xsd:annotation>
+              <xsd:documentation>This element contains details of the matching folders in which the debit and credit entries are listed.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Assistant" type="aso:AssistantScript">
+            <xsd:annotation>
+              <xsd:documentation>This element holds the script used by the Assisted Interactive Matching process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="StartAtGroupNumber" type="xsd:int">
+            <xsd:annotation>
+              <xsd:documentation>The group number at which the assistant should start creating matching groups. For example, the user might have manually created groups 1 and 2, and would therefore want the Assistant to create new groups starting from 3.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartAssistantRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Starts an Assisted Interactive Matching process.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" name="Request" type="mat:StartAssistantRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartAssistantResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="MatchingParams" type="mat:MatchingParams">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the matching parameters you specified in the StartAssistantRequest corresponding to this Response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ProgressKey" type="prg:ProgressKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains a key that identifies the Assisted Interactive Matching process that has been started.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartAssistantResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="mat:StartAssistantResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetGroupLinesRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="ProgressKey" type="prg:ProgressKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains a key that identifies the Assistant process for which you want to retrieve matching group information.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetGroupLinesRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves information about the matching groups created by the specified Assistant process.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" name="Request" type="mat:GetGroupLinesRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetGroupLinesResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="ProgressKey" type="prg:ProgressKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains a key that identifies the Assistant process for which matching group information has been retrieved.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Groups" type="mat:MatchGroups">
+            <xsd:annotation>
+              <xsd:documentation>This element contains details of the matching groups in the matching session.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetGroupLinesResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="mat:GetGroupLinesResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProgressResponse">
+    <xsd:complexContent>
+      <xsd:extension base="prg:progressGetResponse">
+        <xsd:sequence>
+          <xsd:element name="Statistics" type="aso:ProgressStatistics">
+            <xsd:annotation>
+              <xsd:documentation>This element contains statistics of the lines that the Assistant has processed so far.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProgressResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="mat:ProgressResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDocumentChainRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="DocChainSelectKey" type="mat:DocChainSelectKey">
+            <xsd:annotation>
+              <xsd:documentation>The key used to retrieve the document chain information.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDocumentChainRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves information about the document chain.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Request" type="mat:GetDocumentChainRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDocumentChainResponse">
+    <xsd:annotation>
+      <xsd:documentation>The document chain response.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="DocChainSelectKey" type="mat:DocChainSelectKey">
+            <xsd:annotation>
+              <xsd:documentation>The key used to retrieve the document chain information.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="SelectDocType" type="com:typeGenericOon">
+            <xsd:annotation>
+              <xsd:documentation>The type of document.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="DocChainKeyList" type="mat:DocChainKeyList">
+            <xsd:annotation>
+              <xsd:documentation>A list of document keys (made up of company code, document code and document number).</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDocumentChainResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="mat:GetDocumentChainResponse">
+            <xsd:annotation>
+              <xsd:documentation>The document chain response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="MatchingRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to match outstanding debit and credit entries.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element minOccurs="0" name="SelectMaster" type="mat:SelectMasterRequestVerb">
+            <xsd:annotation>
+              <xsd:documentation>Selects the specified matching master from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ValidateParams" type="mat:ValidateParamsRequestVerb">
+            <xsd:annotation>
+              <xsd:documentation>Validates the parameters supplied at runtime.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="SelectLines" type="mat:SelectLinesRequestVerb">
+            <xsd:annotation>
+              <xsd:documentation>Selects debit and credit entries that are available for matching.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="GetDiscounts" type="mat:GetDiscountRequestVerb">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves discount information for the specified document line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Discount" type="mat:DiscountRequestVerb">
+            <xsd:annotation>
+              <xsd:documentation>Enters a discount value for the specified document line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="PartMatch" type="mat:PartMatchRequestVerb">
+            <xsd:annotation>
+              <xsd:documentation>Enters a part payment value for the specified document line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="WriteOff" type="mat:WriteOffRequestVerb">
+            <xsd:annotation>
+              <xsd:documentation>Enters a write-off value for the specified document line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="GetLineValues" type="mat:GetLineValuesRequestVerb">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves the currency line value information for the specified document line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="GetTotals" type="mat:GetTotalsRequestVerb">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves the total values (in matching, home and dual currency) of the selected matching group.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="GetPayDetailsSources" type="mat:GetPayDetailsSourcesRequestVerb">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves the Draft Paid document lines in the selected matching group(s). One Draft Paid document line can be set as the source for data propagation in its matching group.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="GetDrivingLineInfo" type="mat:GetDrivingLineInfoRequestVerb">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves the document lines in the selected matching group(s) where a driving line must be specified. One document line can be set as the driving line in its matching group.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Commit" type="mat:CommitRequestVerb">
+            <xsd:annotation>
+              <xsd:documentation>Commits the match for the selected group. You can do this any time the lines in the selected group sum to zero (that is, when debits and credits balance) in matching, home and dual currencies.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Disperse" type="mat:DisperseRequestVerb">
+            <xsd:annotation>
+              <xsd:documentation>Performs a disperse match on the selected group.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="StartBackground" type="mat:StartBackgroundRequestVerb">
+            <xsd:annotation>
+              <xsd:documentation>Starts a Background Matching process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="StartAssistant" type="mat:StartAssistantRequestVerb">
+            <xsd:annotation>
+              <xsd:documentation>Starts an Assisted Interactive Matching process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="GetGroupLines" type="mat:GetGroupLinesRequestVerb">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves information about the matching groups created by the specified Assistant process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="GetProgress" type="prg:progressGetRequestVerb">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves information about the number of lines that have been processed by the current Assistant process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Abort" type="prg:progressAbortRequestVerb">
+            <xsd:annotation>
+              <xsd:documentation>Stops the current Assistant process. If the process was Assisted Interactive Matching, any matching groups already suggested are retained. If the process was Background Matching, any matching groups already produced are discarded and no matches are committed.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="GetDocumentChain" type="mat:GetDocumentChainRequestVerb">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves information about the document chain.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="MatchingResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you match debit and credit entries.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element minOccurs="0" name="SelectMaster" type="mat:SelectMasterResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ValidateParams" type="mat:ValidateParamsResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="SelectLines" type="mat:SelectLinesResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="GetDiscounts" type="mat:GetDiscountResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Discount" type="mat:DiscountResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="PartMatch" type="mat:PartMatchResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="WriteOff" type="mat:WriteOffResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="GetLineValues" type="mat:GetLineValuesResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="GetTotals" type="mat:GetTotalsResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="GetPayDetailsSources" type="mat:GetPayDetailsSourcesResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="GetDrivingLineInfo" type="mat:GetDrivingLineInfoResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Commit" type="mat:CommitResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Disperse" type="mat:DisperseResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="StartBackground" type="mat:StartBackgroundResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="StartAssistant" type="mat:StartAssistantResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="GetGroupLines" type="mat:GetGroupLinesResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="GetProgress" type="mat:ProgressResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Abort" type="prg:progressAbortResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="GetDocumentChain" type="mat:GetDocumentChainResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="MatchingRequest" type="mat:MatchingRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to match outstanding debit and credit entries.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="MatchingResponse" type="mat:MatchingResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you match debit and credit entries.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

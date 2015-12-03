@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:sup="http://www.coda.com/efinance/schemas/supplier" targetNamespace="http://www.coda.com/efinance/schemas/supplier" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="supKeyDataElement">
+    <xsd:annotation>
+      <xsd:documentation>Contains key information.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeElmCode">
+        <xsd:annotation>
+          <xsd:documentation>The supplier code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The supplier's short name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Level" type="com:typeElmLevel">
+        <xsd:annotation>
+          <xsd:documentation>The supplier's element level (1 to 8)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TaxNumber" type="com:typeVATB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The supplier's tax number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CreditReference" type="com:typeCrRef" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The supplier's credit reference.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostCode" type="com:typePostCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The supplier's post code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Tel" type="com:typeTel" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The supplier's telephone number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AccountNumber" type="com:typeBankAccNum" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The supplier's bank account number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AddressName" type="com:typeAddressName" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The name of the supplier to use in the address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Address1" type="com:typeAddress" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Address line 1</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Address2" type="com:typeAddress" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Address line 2</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Address3" type="com:typeAddress" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Address line 3</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Address4" type="com:typeAddress" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Address line 4</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Address5" type="com:typeAddress" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Address line 5</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Address6" type="com:typeAddress" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Address line 6</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Email" type="com:typeEMailAddrB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The supplier's e-mail address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Item" type="com:typeItemCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The item code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ItemDescription" type="com:typeShortNameB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>A description of the item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Rank" type="xsd:int" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The supplier's rank.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Umbrella" type="com:typeCtYesNo">
+        <xsd:annotation>
+          <xsd:documentation>Is this an umbrella element?</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeNameB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The supplier's name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="supKeyData">
+    <xsd:annotation>
+      <xsd:documentation>This element holds supplier data.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="sup:supKeyDataElement" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Contains key information.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

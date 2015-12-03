@@ -1,0 +1,940 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:datatypes="http://www.coda.com/common/schemas/datatypes" xmlns:scr="http://www.coda.com/common/schemas/script" xmlns:spec="http://www.coda.com/common/schemas/workflow" xmlns:use="http://www.coda.com/common/schemas/userextension" xmlns:wor="http://www.coda.com/common/schemas/workflowinstance" xmlns:wsd="http://www.coda.com/common/schemas/wsdl" elementFormDefault="qualified" targetNamespace="http://www.coda.com/common/schemas/workflow">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types2.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/datatypes" schemaLocation="s:/schemas/public/common/datatypes/datatypes.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/script" schemaLocation="s:/schemas/public/common/script/script.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/userextension" schemaLocation="s:/schemas/public/common/userextension/userextension.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/workflowinstance" schemaLocation="s:/schemas/public/common/workflowinstance/workflowinstance.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/wsdl" schemaLocation="s:/schemas/public/common/wsdl/wsdl.xsd"/>
+
+  <xsd:complexType name="TimeWindow">
+    <xsd:sequence>
+      <xsd:element name="StartTime" type="com:typeTime"/>
+      <xsd:element name="EndTime" type="com:typeTime"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Condition">
+    <xsd:complexContent>
+      <xsd:extension base="spec:Location">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0" name="Expression" type="scr:ScriptKey"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="Input" type="spec:TaskKey"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="Output" type="spec:TaskKey"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ConditionList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Condition" type="spec:Condition"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ConditionKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Condition" type="spec:ConditionKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ConditionKey">
+    <xsd:complexContent>
+      <xsd:extension base="spec:LocationKey">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowApplication">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="NewAllowed" type="com:typeBoolean"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="UseExternalWorkflowSystem" type="com:typeBoolean"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="WorkingWeekDays" type="com:typeWord"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="WorkingWeek" type="datatypes:Week"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="SchedulingStrategy" type="com:typeComWorkflowSchedulerStrategy"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="SchedulingWindowEnabled" type="com:typeBoolean"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="SchedulingWindow" type="spec:TimeWindow"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Config" type="use:UserExtensionConfigKey"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="EnabledStatus" type="com:typeComWorkflowStatus"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TimeStamp" type="xsd:short"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowApplicationList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="WorkflowApplication" type="spec:WorkflowApplication"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowApplicationKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="WorkflowApplication" type="spec:WorkflowApplicationKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowApplicationKey">
+    <xsd:sequence>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Workflow">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The workflow process definition code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Version" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>The workflow process definition version.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Name" type="com:typeName"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ShortName" type="com:typeShortNameB"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="EffectiveDate" type="com:typeHard"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="VersionNotes" type="com:typeComment"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="InitialPriority" type="com:typeComWorkflowPriority"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="IncrementPriorityPeriod" type="com:typeLong"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="IncrementPriorityUnits" type="com:typeComWorkflowEscalateUnits"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TypeScope" type="wsd:TypeScopeKey"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="CodaProvided" type="com:typeBoolean"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Input" type="spec:InputConditionKey"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Output" type="spec:OutputConditionKey"/>
+      <xsd:element name="LocationList" type="spec:LocationList"/>
+      <xsd:element name="TaskList" type="spec:TaskList"/>
+      <xsd:element name="WorkflowVariableList" type="spec:WorkflowVariableList"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ResumeTask" type="spec:StatusChangeTaskKey"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="PauseTask" type="spec:StatusChangeTaskKey"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="CancelTask" type="spec:StatusChangeTaskKey"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="CompleteTask" type="spec:StatusChangeTaskKey"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ErrorTask" type="spec:StatusChangeTaskKey"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TimeStamp" type="xsd:short"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="AddDate" type="xsd:dateTime"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ModDate" type="xsd:dateTime"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="UsrName" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Workflow" type="spec:Workflow"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowKeyList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a list of workflow keys.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Workflow" type="spec:WorkflowKey">
+        <xsd:annotation>
+          <xsd:documentation>This element holds a workflow key.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowKey">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a workflow key.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The workflow process definition code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="Version" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>The workflow process definition version.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ExplicitCondition">
+    <xsd:complexContent>
+      <xsd:extension base="spec:Condition">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ExplicitConditionList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ExplicitCondition" type="spec:ExplicitCondition"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ExplicitConditionKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ExplicitCondition" type="spec:ExplicitConditionKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ExplicitConditionKey">
+    <xsd:complexContent>
+      <xsd:extension base="spec:ConditionKey">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="Response">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Sequence" type="com:typeLong"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Label" type="com:typeName"/>
+      <xsd:element name="RequiredKeyList" type="spec:ResponseFieldKeyList"/>
+      <xsd:element name="AvailableKeyList" type="spec:ResponseFieldKeyList"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ResponseList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="spec:Response"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ResponseKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="spec:ResponseKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ResponseKey">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the key to a response.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The response code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="Version" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>The response version.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="Id" type="com:typeScriptVariablename">
+        <xsd:annotation>
+          <xsd:documentation>The response ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="Sequence" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>The sequence number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Location">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Name" type="com:typeName"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Description" type="com:typeText"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="LocationList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Location" type="spec:Location"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="LocationKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Location" type="spec:LocationKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="LocationKey">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the key to a location.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The location code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="Version" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>The location version.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The location name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ActiveTaskState">
+    <xsd:complexContent>
+      <xsd:extension base="spec:TaskState">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ActiveTaskStateList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ActiveTaskState" type="spec:ActiveTaskState"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ActiveTaskStateKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ActiveTaskState" type="spec:ActiveTaskStateKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ActiveTaskStateKey">
+    <xsd:complexContent>
+      <xsd:extension base="spec:TaskStateKey">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ResponseField">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Name" type="com:typeName"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Label" type="com:typeName"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Type" type="com:typeName"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="List" type="com:typeBoolean"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Fixed" type="com:typeBoolean"/>
+      <xsd:element name="ListItemList" type="spec:ResponseFieldListItemList"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Length" type="com:typeLong"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ListVariable" type="spec:WorkflowVariableKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ResponseFieldListItemList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ListItem" type="com:typeTextAnyDbQuotes"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ResponseFieldList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ResponseField" type="spec:ResponseField"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ResponseFieldKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ResponseField" type="spec:ResponseFieldKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ResponseFieldKey">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the key to a response field.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The response field code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="Version" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>The response field version.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="Id" type="com:typeScriptVariablename">
+        <xsd:annotation>
+          <xsd:documentation>The response field ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The response field name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="StatusChangeTask">
+    <xsd:complexContent>
+      <xsd:extension base="spec:CompositeTask">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StatusChangeTaskList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="StatusChangeTask" type="spec:StatusChangeTask"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="StatusChangeTaskKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="StatusChangeTask" type="spec:StatusChangeTaskKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="StatusChangeTaskKey">
+    <xsd:complexContent>
+      <xsd:extension base="spec:CompositeTaskKey">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="OutputCondition">
+    <xsd:complexContent>
+      <xsd:extension base="spec:Condition">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="OutputConditionList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="OutputCondition" type="spec:OutputCondition"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="OutputConditionKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="OutputCondition" type="spec:OutputConditionKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="OutputConditionKey">
+    <xsd:complexContent>
+      <xsd:extension base="spec:ConditionKey">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CompositeTaskParameter">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="SubnetVariableName" type="com:typeName"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Variable" type="spec:WorkflowVariableKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CompositeTaskParameterList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="CompositeTaskParameter" type="spec:CompositeTaskParameter"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CompositeTaskParameterKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="CompositeTaskParameter" type="spec:CompositeTaskParameterKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CompositeTaskParameterKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode"/>
+      <xsd:element minOccurs="0" name="Version" type="com:typeLong"/>
+      <xsd:element minOccurs="0" name="Id" type="com:typeScriptVariablename"/>
+      <xsd:element minOccurs="0" name="SubnetVariableName" type="com:typeName"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="InputCondition">
+    <xsd:complexContent>
+      <xsd:extension base="spec:Condition">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="InputConditionList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="InputCondition" type="spec:InputCondition"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="InputConditionKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="InputCondition" type="spec:InputConditionKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="InputConditionKey">
+    <xsd:complexContent>
+      <xsd:extension base="spec:ConditionKey">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManualTask">
+    <xsd:complexContent>
+      <xsd:extension base="spec:Task">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" name="AssignTo" type="com:typeText"/>
+          <xsd:element maxOccurs="1" minOccurs="1" name="AssignToType" type="com:typeComWorkflowAssign"/>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Description" type="com:typeTextAnyDbQuotes"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="TimeoutExpression" type="scr:ScriptKey"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="ExplodeURLOverrideLiteral" type="com:typeUri"/>
+          <xsd:element name="ResponseFieldList" type="spec:ResponseFieldList"/>
+          <xsd:element name="ResponseList" type="spec:ResponseList"/>
+          <xsd:element name="DescriptionParameterKeyList" type="spec:WorkflowVariableKeyList"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="ExplodeURLOverrideVariable" type="spec:WorkflowVariableKey"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManualTaskList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ManualTask" type="spec:ManualTask"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManualTaskKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ManualTask" type="spec:ManualTaskKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ManualTaskKey">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the key to a manual task.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="spec:TaskKey">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="Task">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Id" type="com:typeScriptVariablename"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Name" type="com:typeName"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="TaskDescription" type="com:typeLongDescriptionb"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Split" type="com:typeComWorkflowSplit"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Join" type="com:typeComWorkflowJoin"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Minimum" type="com:typeLong"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Maximum" type="com:typeLong"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Threshold" type="com:typeLong"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Dynamic" type="com:typeBoolean"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Script" type="scr:ScriptKey"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Reachable" type="com:typeBoolean"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Internal" type="com:typeBoolean"/>
+      <xsd:element name="OutputKeyList" type="spec:ConditionKeyList"/>
+      <xsd:element name="InputKeyList" type="spec:ConditionKeyList"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Active" type="spec:ActiveTaskStateKey"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Enabled" type="spec:EnabledTaskStateKey"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Execute" type="spec:ExecuteTaskStateKey"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Complete" type="spec:CompleteTaskStateKey"/>
+      <xsd:element name="RemoveKeyList" type="spec:TaskKeyList"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TaskList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Task" type="spec:Task"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TaskKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Task" type="spec:TaskKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TaskKey">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the key to a task.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The task code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="Version" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>The task version.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="Id" type="com:typeScriptVariablename">
+        <xsd:annotation>
+          <xsd:documentation>The task ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ParameterMapping">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="WebServiceParameter" type="wsd:WebServiceParameterKey"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="WorkflowVariable" type="spec:WorkflowVariableKey"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Literal" type="wsd:DataObjectKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ParameterMappingList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ParameterMapping" type="spec:ParameterMapping"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ParameterMappingKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ParameterMapping" type="spec:ParameterMappingKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ParameterMappingKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode"/>
+      <xsd:element minOccurs="0" name="Version" type="com:typeLong"/>
+      <xsd:element minOccurs="0" name="Id" type="com:typeScriptVariablename"/>
+      <xsd:element minOccurs="0" name="WebServiceParameter" type="wsd:WebServiceParameterKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WebServiceTask">
+    <xsd:complexContent>
+      <xsd:extension base="spec:Task">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" name="ServiceName" type="wsd:QualifiedName"/>
+          <xsd:element maxOccurs="1" minOccurs="1" name="PortName" type="com:typeParamName"/>
+          <xsd:element maxOccurs="1" minOccurs="1" name="OperationName" type="com:typeParamName"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="Username" type="com:typeName"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="Password" type="com:typePassword"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="Location" type="com:typeText"/>
+          <xsd:element name="ParameterMappingList" type="spec:ParameterMappingList"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="CompanyVariable" type="spec:WorkflowVariableKey"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="CodaUserVariable" type="spec:WorkflowVariableKey"/>
+          <xsd:element maxOccurs="1" minOccurs="1" name="WebServiceOperation" type="wsd:WebServiceOperationKey"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="WebServiceTaskList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="WebServiceTask" type="spec:WebServiceTask"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WebServiceTaskKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="WebServiceTask" type="spec:WebServiceTaskKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WebServiceTaskKey">
+    <xsd:complexContent>
+      <xsd:extension base="spec:TaskKey">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserResponseField">
+    <xsd:complexContent>
+      <xsd:extension base="spec:ResponseField">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserResponseFieldList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="UserResponseField" type="spec:UserResponseField"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserResponseFieldKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="UserResponseField" type="spec:UserResponseFieldKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserResponseFieldKey">
+    <xsd:complexContent>
+      <xsd:extension base="spec:ResponseFieldKey">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ImplicitCondition">
+    <xsd:complexContent>
+      <xsd:extension base="spec:Condition">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ImplicitConditionList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ImplicitCondition" type="spec:ImplicitCondition"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ImplicitConditionKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ImplicitCondition" type="spec:ImplicitConditionKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ImplicitConditionKey">
+    <xsd:complexContent>
+      <xsd:extension base="spec:ConditionKey">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CompositeTask">
+    <xsd:complexContent>
+      <xsd:extension base="spec:Task">
+        <xsd:sequence>
+          <xsd:element name="CompositeTaskParameterList" type="spec:CompositeTaskParameterList"/>
+          <xsd:element maxOccurs="1" minOccurs="1" name="SubNet" type="spec:WorkflowKey"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CompositeTaskList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="CompositeTask" type="spec:CompositeTask"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CompositeTaskKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="CompositeTask" type="spec:CompositeTaskKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CompositeTaskKey">
+    <xsd:complexContent>
+      <xsd:extension base="spec:TaskKey">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CompleteTaskState">
+    <xsd:complexContent>
+      <xsd:extension base="spec:TaskState">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CompleteTaskStateList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="CompleteTaskState" type="spec:CompleteTaskState"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CompleteTaskStateKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="CompleteTaskState" type="spec:CompleteTaskStateKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CompleteTaskStateKey">
+    <xsd:complexContent>
+      <xsd:extension base="spec:TaskStateKey">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowVariable">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Name" type="com:typeScriptVariablename"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Array" type="com:typeBoolean"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Kind" type="com:typeComWorkflowVariableKind"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="UserDefinedField" type="com:typeLong"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="InitialValue" type="wsd:DataObjectKey"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="DataType" type="wsd:DataTypeKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowVariableList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="WorkflowVariable" type="spec:WorkflowVariable"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowVariableKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="WorkflowVariable" type="spec:WorkflowVariableKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowVariableKey">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the key to a workflow variable.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The workflow variable code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="Version" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>The workflow variable version.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="Name" type="com:typeScriptVariablename">
+        <xsd:annotation>
+          <xsd:documentation>The workflow variable name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TaskState">
+    <xsd:complexContent>
+      <xsd:extension base="spec:Location">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Task" type="spec:TaskKey"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="TaskStateList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="TaskState" type="spec:TaskState"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TaskStateKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="TaskState" type="spec:TaskStateKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TaskStateKey">
+    <xsd:complexContent>
+      <xsd:extension base="spec:LocationKey">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="EnabledTaskState">
+    <xsd:complexContent>
+      <xsd:extension base="spec:TaskState">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="EnabledTaskStateList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="EnabledTaskState" type="spec:EnabledTaskState"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="EnabledTaskStateKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="EnabledTaskState" type="spec:EnabledTaskStateKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="EnabledTaskStateKey">
+    <xsd:complexContent>
+      <xsd:extension base="spec:TaskStateKey">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ExecuteTaskState">
+    <xsd:complexContent>
+      <xsd:extension base="spec:TaskState">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ExecuteTaskStateList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ExecuteTaskState" type="spec:ExecuteTaskState"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ExecuteTaskStateKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ExecuteTaskState" type="spec:ExecuteTaskStateKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ExecuteTaskStateKey">
+    <xsd:complexContent>
+      <xsd:extension base="spec:TaskStateKey">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowItemList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="WorkflowListItem" type="spec:WorkflowListItem"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowListItem">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Code" type="com:typeCode"/>
+      <xsd:element minOccurs="0" name="Version" type="com:typeLong"/>
+      <xsd:element minOccurs="0" name="Name" type="com:typeName"/>
+      <xsd:element minOccurs="0" name="ShortName" type="com:typeShortNameB"/>
+      <xsd:element minOccurs="0" name="EffectiveDate" type="com:typeHard"/>
+      <xsd:element minOccurs="0" name="VersionNotes" type="com:typeComment"/>
+      <xsd:element minOccurs="0" name="CodaProvided" type="com:typeBoolean"/>
+      <xsd:element minOccurs="0" name="AddDate" type="xsd:dateTime"/>
+      <xsd:element minOccurs="0" name="ModDate" type="xsd:dateTime"/>
+      <xsd:element minOccurs="0" name="UsrName" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

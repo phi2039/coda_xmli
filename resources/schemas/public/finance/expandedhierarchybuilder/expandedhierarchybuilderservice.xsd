@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:hib="http://www.coda.com/efinance/schemas/expandedhierarchybuilder" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/efinance/schemas/expandedhierarchybuilder" elementFormDefault="qualified" version="2.0">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/service.xsd"/>
+  <xsd:include schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/finance/expandedhierarchybuilder/expandedhierarchybuilder.xsd"/>
+
+  <xsd:complexType name="ListHierarchiesRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListHierarchiesRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves a list of the hierarchies available for inclusion in the table build.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="hib:ListHierarchiesRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListHierarchiesResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="HierarchyList" type="hib:HierarchyList">
+            <xsd:annotation>
+              <xsd:documentation>This element contains a list of hierarchies which are available for inclusion in the table build.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListHierarchiesResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="hib:ListHierarchiesResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="BuildRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Params" type="hib:Params">
+            <xsd:annotation>
+              <xsd:documentation>This element stores the parameters that can be specified for a table build.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="BuildRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Processes the selected hierarchies and starts building the Expanded Hierarchy Table.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="hib:BuildRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="BuildResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Params" type="hib:Params">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the parameters which can be specified for a table build.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="BuildResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="hib:BuildResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListBuildProgressRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListBuildProgressRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves information about the progress of the build for each hierarchy in the build list.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="hib:ListBuildProgressRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListBuildProgressResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="ProgressList" type="hib:BuildProgressList">
+            <xsd:annotation>
+              <xsd:documentation>This element contains information about the progress of the build, and lists the hierarchy currently being processed, and the hierarchies waiting to be processed.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListBuildProgressResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="hib:ListBuildProgressResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ResetBuildListRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="LogTitle" type="com:typeLogTitle">
+            <xsd:annotation>
+              <xsd:documentation>The title of the log that will be generated by the audit process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ResetBuildListRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Stops the current build process and removes queuing hierarchies from the processing list.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="hib:ResetBuildListRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ResetBuildListResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ResetBuildListResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="hib:ResetBuildListResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AbortRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="HierarchyCodes" type="hib:HierarchyCodeList">
+            <xsd:annotation>
+              <xsd:documentation>This element contains a list of hierarchy codes.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AbortRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Stops processing the selected hierarchy at the next appropriate point in the build.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="hib:AbortRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AbortResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AbortResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="hib:AbortResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ExpandedHierarchyBuilderRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to build the Expanded Hierarchy Table.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element name="ListHierarchies" type="hib:ListHierarchiesRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves a list of the hierarchies available for inclusion in the table build.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Build" type="hib:BuildRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Processes the selected hierarchies and starts building the Expanded Hierarchy Table.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ListBuildProgress" type="hib:ListBuildProgressRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves information about the progress of the build for each hierarchy in the build list.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ResetBuildList" type="hib:ResetBuildListRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Stops the current build process and removes queuing hierarchies from the processing list.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Abort" type="hib:AbortRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Stops processing the selected hierarchy at the next appropriate point in the build.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ExpandedHierarchyBuilderResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you build the Expanded Hierarchy Table.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element name="ListHierarchies" type="hib:ListHierarchiesResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Build" type="hib:BuildResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ListBuildProgress" type="hib:ListBuildProgressResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ResetBuildList" type="hib:ResetBuildListResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Abort" type="hib:AbortResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="ExpandedHierarchyBuilderRequest" type="hib:ExpandedHierarchyBuilderRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to build the Expanded Hierarchy Table.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="ExpandedHierarchyBuilderResponse" type="hib:ExpandedHierarchyBuilderResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you build the Expanded Hierarchy Table.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

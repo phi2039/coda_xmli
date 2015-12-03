@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:uma="http://www.coda.com/efinance/schemas/undomatching" xmlns:sel="http://www.coda.com/efinance/schemas/selector" xmlns:umm="http://www.coda.com/efinance/schemas/undomatchingmaster" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:txn="http://www.coda.com/efinance/schemas/transaction" targetNamespace="http://www.coda.com/efinance/schemas/undomatching" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/selector" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/selector/selector.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/transaction" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/transaction/transaction.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/undomatchingmaster" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/finance/undomatchingmaster/undomatchingmaster.xsd"/>
+
+  <xsd:complexType name="UndoMatchingParams">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the parameters which can be specified when performing undomatching.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which undo matching is being performed.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UndoMatchingMasterCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the undomatching master being used.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UndoType" type="com:typeCtUndoMatchType">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether matching references or payment numbers will be undone.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MatchType" type="umm:MatchType">
+        <xsd:annotation>
+          <xsd:documentation>Indicates the types of document lines that will be unmatched.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UndoMatchingDate" type="com:typeDate">
+        <xsd:annotation>
+          <xsd:documentation>The date on which undo matching is performed. This defaults to today's date.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Period" type="com:typePeriod">
+        <xsd:annotation>
+          <xsd:documentation>The year and period in which undo matching is performed. These must be valid for the undo matching date. If cancelling documents are generated, they are posted to this year and period.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LogTitle" type="com:typeLogTitle" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The file to which the undo matching log is written. This is only available if the undo matching master has logging enabled.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MatchKey">
+    <xsd:annotation>
+      <xsd:documentation>This element is a key used for selecting matches by the undo matching process.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ElmLevel" type="com:typeElmLevel" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The element level at which to search for matched document lines. This should be the matchable element level.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElmCode" type="com:typeElmCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the element for which you want to undo matches.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PaymentNum" type="xsd:int" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The payment number of the match to be undone.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MatchRef" type="xsd:int" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The matching reference of the match to be undone.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MatchLine">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details about a document line included in the match.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Cells" type="sel:CellList">
+        <xsd:annotation>
+          <xsd:documentation>This element holds the results of the selection from the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MatchLines">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details about the document lines included in the match.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Line" type="uma:MatchLine" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details about a document line included in the match.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectedMatch">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a match that is selected by the undo matching process.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="uma:MatchKey">
+        <xsd:annotation>
+          <xsd:documentation>This element is a key used for selecting matches by the undo matching process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MatchDate" type="com:typeDate">
+        <xsd:annotation>
+          <xsd:documentation>The date on which the match was performed.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Lines" type="uma:MatchLines">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details about the document lines included in the match.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectedMatches">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of the matches that are selected by the undo matching process.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Match" type="uma:SelectedMatch" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of a match that is selected by the undo matching process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MatchToUndo">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a match that will be undone.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="uma:MatchKey">
+        <xsd:annotation>
+          <xsd:documentation>This element is a key identifying a match that will be undone.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MatchesToUndo">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of the matches that will be undone.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Match" type="uma:MatchToUndo" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of a match that will be undone.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UndoResult">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a match that has been undone.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="uma:MatchKey">
+        <xsd:annotation>
+          <xsd:documentation>This element is a key identifying a match that has been undone.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Undone" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether this match has been undone.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UndoResults">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of the matches that have been undone.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Match" type="uma:UndoResult" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of a match that has been undone.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SuppressedLine">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details about an individual document line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="txn:txnLineKey">
+        <xsd:annotation>
+          <xsd:documentation>This element is a key used for selecting matches by the undo matching process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Cells" type="sel:CellList">
+        <xsd:annotation>
+          <xsd:documentation>This element holds the results of the selection from the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SuppressedLines">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of the that are selected by the undo matching process.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Line" type="uma:SuppressedLine" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details about an individual document line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SuppressedLineToUndo">
+    <xsd:annotation>
+      <xsd:documentation>This element is a key identifying a match that will be undone.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="txn:txnLineKey">
+        <xsd:annotation>
+          <xsd:documentation>This element is a key identifying a match that will be undone.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SuppressedLinesToUndo">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of the suppressed lines that will be undone.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Line" type="uma:SuppressedLineToUndo" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element is a key identifying a match that will be undone.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UndoSuppressedResult">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a suppressed line that has been undone.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="txn:txnLineKey">
+        <xsd:annotation>
+          <xsd:documentation>This element is a key identifying a match that has been undone.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Undone" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether this match has been undone.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UndoSuppressedResults">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of the suppressed lines that have been undone.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Line" type="uma:UndoSuppressedResult" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of a suppressed line that has been undone.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="UndoMatchingParams" type="uma:UndoMatchingParams">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the parameters which can be specified when performing undomatching.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="SelectedMatches" type="uma:SelectedMatches">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of the matches that are selected by the undo matching process.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="MatchesToUndo" type="uma:MatchesToUndo">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of the matches that will be undone.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="UndoResults" type="uma:UndoResults">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of the matches that have been undone.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:acm="http://www.coda.com/efinance/schemas/archivemaster" targetNamespace="http://www.coda.com/efinance/schemas/archivemaster" elementFormDefault="qualified" version="6.0">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/service.xsd"/>
+  <xsd:include schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/finance/archivemaster/archiveheadermaster.xsd"/>
+
+  <xsd:complexType name="AddArchiveHeaderMasterRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="ArchiveHeaderMaster" type="acm:ArchiveHeaderMaster">
+            <xsd:annotation>
+              <xsd:documentation>Contains the information for the archive header master you want to create.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AddArchiveHeaderMasterRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Creates new archive header masters in the database using the archive header information you provide.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:MultiCompanyRequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="acm:AddArchiveHeaderMasterRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AddArchiveHeaderMasterResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:MultiCompanyResponse">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the company in which you attempted to create the archive header master.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Code" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the archive header master that you attempted to create.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="TimeStamp" type="com:typeWord">
+            <xsd:annotation>
+              <xsd:documentation>The TimeStamp value for this archive header master in the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AddArchiveHeaderMasterResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Companies" type="com:Companies" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the list of additional companies in which you want to create the masters. This is part of the multi-company functionality for maintaining masters in multiple companies.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Response" type="acm:AddArchiveHeaderMasterResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateArchiveHeaderMasterRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="ArchiveHeaderMaster" type="acm:ArchiveHeaderMaster">
+            <xsd:annotation>
+              <xsd:documentation>Contains the information for the archive header master you want to update.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateArchiveHeaderMasterRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Updates archive header masters in the database using the archive header information you provide.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:MultiCompanyRequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="acm:UpdateArchiveHeaderMasterRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateArchiveHeaderMasterResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:MultiCompanyResponse">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the company in which you attempted to update the archive header master.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Code" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the archive header master that you attempted to update.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="TimeStamp" type="com:typeWord">
+            <xsd:annotation>
+              <xsd:documentation>The TimeStamp value for this archive header master in the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateArchiveHeaderMasterResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Companies" type="com:Companies" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the list of additional companies in which you want to update the masters. This is part of the multi-company functionality for maintaining masters in multiple companies.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Response" type="acm:UpdateArchiveHeaderMasterResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetArchiveHeaderMasterRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="com:Key">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key identifying the archive header master you want to retrieve from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetArchiveHeaderMasterRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the specified archive header masters from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="acm:GetArchiveHeaderMasterRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetArchiveHeaderMasterResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the company from which you attempted to retrieve the archive header master.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Code" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the archive header master that you attempted to retrieve.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ArchiveHeaderMaster" type="acm:ArchiveHeaderMaster" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the archive header master you have retrieved from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetArchiveHeaderMasterResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="acm:GetArchiveHeaderMasterResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetStatusArchiveHeaderMasterRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="com:Key">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key identifying the archive header master whose status you are requesting.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetStatusArchiveHeaderMasterRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Requests information about the current status of the header, for example Idle, Active, Selecting, Posting and the documents which have been archived using this archive header master. .</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="acm:GetStatusArchiveHeaderMasterRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetStatusArchiveHeaderMasterResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the company in which the archive header master exists.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Code" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the archive header master whose status you have requested.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ArchiveHeaderMasterStatus" type="acm:ArchiveHeaderMasterStatus" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains information about the current status of the header, for example Idle, Active, Selecting, Posting, and the documents which have been archived using this archive header master.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetStatusArchiveHeaderMasterResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="acm:GetStatusArchiveHeaderMasterResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteArchiveHeaderMasterRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="com:Key">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key identifying the archive header master you want to delete.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteArchiveHeaderMasterRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Deletes the specified archive header masters from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="acm:DeleteArchiveHeaderMasterRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteArchiveHeaderMasterResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the company in which you attempted to delete the archive header master.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Code" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the archive header master that you attempted to delete.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteArchiveHeaderMasterResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="acm:DeleteArchiveHeaderMasterResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListArchiveHeaderMasterRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Filter" type="com:ReqKeysWithShortName">
+            <xsd:annotation>
+              <xsd:documentation>A filter that selects the archive header masters to be listed.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ExcludeInternal" type="xsd:boolean" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>If TRUE, specifies that archive header masters set for external archiving are not selected.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ExcludeExternal" type="xsd:boolean" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>If TRUE, specifies that archive header masters set for internal archiving are not selected.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListArchiveHeaderMasterRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves key information for the specified archive header masters from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="acm:ListArchiveHeaderMasterRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListArchiveHeaderMasterResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Filter" type="com:ReqKeysWithShortName">
+            <xsd:annotation>
+              <xsd:documentation>The filter that was used to select the archive header masters for listing.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Keys" type="com:KeyData" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key information for the listed archive header masters.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListArchiveHeaderMasterResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="acm:ListArchiveHeaderMasterResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ArchiveHeaderMasterRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to maintain archive header masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element name="Add" type="acm:AddArchiveHeaderMasterRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Creates new archive header masters in the database using the archive header information you provide.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Update" type="acm:UpdateArchiveHeaderMasterRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Updates archive header masters in the database using the archive header information you provide.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Get" type="acm:GetArchiveHeaderMasterRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves the specified archive header masters from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetStatus" type="acm:GetStatusArchiveHeaderMasterRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Requests information about the current status of the header, for example Idle, Active, Selecting, Posting and the documents which have been archived using this archive header master. .</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Delete" type="acm:DeleteArchiveHeaderMasterRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Deletes the specified archive header masters from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="List" type="acm:ListArchiveHeaderMasterRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves key information for the specified archive header masters from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ArchiveHeaderMasterResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you maintain archive header masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element name="Add" type="acm:AddArchiveHeaderMasterResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Update" type="acm:UpdateArchiveHeaderMasterResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Get" type="acm:GetArchiveHeaderMasterResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetStatus" type="acm:GetStatusArchiveHeaderMasterResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Delete" type="acm:DeleteArchiveHeaderMasterResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="List" type="acm:ListArchiveHeaderMasterResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="ArchiveHeaderMasterRequest" type="acm:ArchiveHeaderMasterRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to maintain archive header masters.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="ArchiveHeaderMasterResponse" type="acm:ArchiveHeaderMasterResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you maintain archive header masters.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

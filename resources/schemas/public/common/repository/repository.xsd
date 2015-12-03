@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:rep="http://www.coda.com/common/schemas/repository" elementFormDefault="qualified" targetNamespace="http://www.coda.com/common/schemas/repository">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types2.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="MetadataItem">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Name" type="com:typeText"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Value" type="com:typeTextAnyDb"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MetadataItemList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="MetadataItem" type="rep:MetadataItem"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MetadataItemKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="MetadataItem" type="rep:MetadataItemKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MetadataItemKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Id" type="com:typeDbGuid"/>
+      <xsd:element minOccurs="0" name="Name" type="com:typeText"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RepositoryObject">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Id" type="com:typeDbGuid"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Parent" type="rep:RepositoryObjectKey"/>
+      <xsd:element name="MetadataList" type="rep:MetadataItemList"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TimeStamp" type="xsd:short"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RepositoryObjectList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="RepositoryObject" type="rep:RepositoryObject"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RepositoryObjectKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="RepositoryObject" type="rep:RepositoryObjectKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RepositoryObjectKey">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a key to a repository object.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Id" type="com:typeDbGuid">
+        <xsd:annotation>
+          <xsd:documentation>A repository object ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DataChunk">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Id" type="com:typeDbGuid"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Sequence" type="com:typeLong"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Chunk" type="com:typeText"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DataChunkList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="DataChunk" type="rep:DataChunk"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

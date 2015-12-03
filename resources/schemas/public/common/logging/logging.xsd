@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:log="http://www.coda.com/common/schemas/logging" targetNamespace="http://www.coda.com/common/schemas/logging">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="LogKey">
+    <xsd:annotation>
+      <xsd:documentation>This element is a key consisting of a product name, a log type and a log ID which uniquely identifies a log.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Product" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The application for which the log was generated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LogType" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The process that generated the log.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LogID" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>A number uniquely identifying the log.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="LineTotals">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the total number of the different types of lines in the log.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="General" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The number of Information lines in the log.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Passed" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The number of Success lines in the log.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Failed" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The number of Failure lines in the log.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Warning" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The number of Warning lines in the log.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="LogHeader">
+    <xsd:annotation>
+      <xsd:documentation>This element contains log header information.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="log:LogKey">
+        <xsd:annotation>
+          <xsd:documentation>This element is a key consisting of a product name, a log type and a log ID which uniquely identifies the log.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CreateDateTime" type="xsd:dateTime" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date and time when the log was created.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Title" type="com:typeLogTitle">
+        <xsd:annotation>
+          <xsd:documentation>The log title.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UsrCode" type="com:typeGeneralCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The code of the user who ran the process which generated the log.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CmpCode" type="com:typeGeneralCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company in which the log was generated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="GenCode" type="com:typeCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>A general purpose code relating to the log.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="FilterCode" type="com:typeCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>A code that can be used for filtering a list of logs.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Progress" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The log's percent complete.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Totals" type="log:LineTotals" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element contains the total number of the different types of lines in the log.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="LogLine">
+    <xsd:annotation>
+      <xsd:documentation>This element contains data for a log line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="log:LogKey">
+        <xsd:annotation>
+          <xsd:documentation>A key to a log line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SequenceNumber" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The sequence number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LineType" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The line type.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Status" type="com:typeCtOneOfN">
+        <xsd:annotation>
+          <xsd:documentation>The line status.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Text" type="com:typeLogText">
+        <xsd:annotation>
+          <xsd:documentation>The text of the log line entry.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="LogLineEx">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a log line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="log:LogKey">
+        <xsd:annotation>
+          <xsd:documentation>This element is a key consisting of a product name, a log type and a log ID which uniquely identifies the log.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SequenceNumber" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>A unique number assigned to this log line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LineType" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The log line type.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Status" type="com:typeCtOneOfN">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the line is an Information, Success, Failure or Warning line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Reason" type="com:Reason">
+        <xsd:annotation>
+          <xsd:documentation>This element holds an explanation of why the operation failed.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="LineData">
+    <xsd:annotation>
+      <xsd:documentation>This element contains line data.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Line" type="log:LogLine" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains data for a log line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="LineDataEx">
+    <xsd:annotation>
+      <xsd:documentation>This element contains log lines.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Line" type="log:LogLineEx" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a log line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Log">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a log.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Header" type="log:LogHeader">
+        <xsd:annotation>
+          <xsd:documentation>This element contains log header information.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Lines" type="log:LineData">
+        <xsd:annotation>
+          <xsd:documentation>This element contains log lines.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="LogEx">
+    <xsd:sequence>
+      <xsd:element name="Header" type="log:LogHeader">
+        <xsd:annotation>
+          <xsd:documentation>This element contains log header information.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Lines" type="log:LineDataEx">
+        <xsd:annotation>
+          <xsd:documentation>This element contains log lines.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="FilteredLog">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a filtered log that has been retrieved from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="log:Log">
+        <xsd:sequence>
+          <xsd:element name="LineFilter" type="log:LineListFilter">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the filter criteria that were used.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="FilteredLogEx">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a filtered log that has been retrieved from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="log:LogEx">
+        <xsd:sequence>
+          <xsd:element name="LineFilter" type="log:LineListFilter">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the filter criteria that were used.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="HeaderData">
+    <xsd:annotation>
+      <xsd:documentation>This element contains log header information.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Header" type="log:LogHeader" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains log header information.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListFilter">
+    <xsd:annotation>
+      <xsd:documentation>A filter for selecting logs.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Product" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The application in which the log was generated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LogType" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The process that generated the log.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MinCreationDate" type="xsd:dateTime" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The earliest date when the log was generated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MaxCreationDate" type="xsd:dateTime" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The latest date when the log was generated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Title" type="com:typeTextWild" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The log title.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UsrCode" type="com:typeCodeWild" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the user who ran the process which generated the log.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CmpCode" type="com:typeCodeWild" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company in which the log was generated. This value can be wildcarded.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="GenCode" type="com:typeCodeWild" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>A general purpose code relating to the log.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Filter" type="com:typeCodeWild" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>A code that can be used for filtering a list of logs.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="LineListFilter">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the filter criteria that were used.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="StatusList" type="log:StatusList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element contains the list of statuses that were included in the filter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SequenceNumberFrom" type="xsd:int" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The unique log line number to filter from.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SequenceNumberTo" type="xsd:int" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The unique log line number to filter to.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="StatusList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the list of statuses that were included in the filter.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Status" type="com:typeCtOneOfN" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>A status that was included in the filter. This can be Information, Success, Failure or Warning.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="LogHeader" type="log:LogHeader">
+    <xsd:annotation>
+      <xsd:documentation>This element contains log header information.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

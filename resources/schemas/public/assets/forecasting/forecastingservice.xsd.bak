@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tdt="http://www.coda.com/eassets/schemas/transactiondetails" xmlns:tdo="http://www.coda.com/eassets/schemas/temporarydoc" xmlns:for="http://www.coda.com/eassets/schemas/forecasting" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/eassets/schemas/forecasting" elementFormDefault="qualified" version="2.0">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/service.xsd"/>
+  <xsd:import namespace="http://www.coda.com/eassets/schemas/temporarydoc" schemaLocation="s:/schemas/public/assets/temporarydoc/temporarydoc.xsd"/>
+  <xsd:import namespace="http://www.coda.com/eassets/schemas/transactiondetails" schemaLocation="s:/schemas/public/assets/transactiondetails/transactiondetails.xsd"/>
+  <xsd:include schemaLocation="s:/schemas/public/assets/forecasting/forecasting.xsd"/>
+
+  <xsd:complexType name="StartRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Forecasting" type="for:Forecasting">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the parameters which can be specified when forecasting depreciation.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Starts a forecast depreciation run using the parameters you specify.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="for:StartRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProgressRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>The code of the company in which forecasting is being performed.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="RunNumber" type="xsd:int">
+            <xsd:annotation>
+              <xsd:documentation>A number identifying the forecast depreciation run.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProgressRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves information about the progress of the forecasting process.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="for:ProgressRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SpreadsheetDataRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>The code of the company in which forecasting is being performed.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="RunNumber" type="xsd:int">
+            <xsd:annotation>
+              <xsd:documentation>A number identifying the forecast depreciation run.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="IncludeAssetTransactions" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:documentation>Specifies whether to include asset transactions in the forecast information. When FALSE, only financial transactions are included.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SpreadsheetDataRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves forecast information that has been generated. The information is returned in an XML file which you could, for example, export to a spreadsheet file.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="for:SpreadsheetDataRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="BalanceSaveRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>The code of the company in which forecasting is being performed.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="RunNumber" type="xsd:int">
+            <xsd:annotation>
+              <xsd:documentation>A number identifying the forecast depreciation run.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="BalanceCode" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>The CODA non-maintained balance code to which the forecast information will be saved.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="BalanceSaveRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Saves forecast information that has been generated to a CODA non-maintained balance code.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="for:BalanceSaveRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="LogsWithSpreadsheetDataRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>The code of the company in which you want to search for forecasting logs that have spreadsheet data available for download.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="LogsWithSpreadsheetDataRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Returns a list of forecasting logs that have spreadsheet data available for download.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="for:LogsWithSpreadsheetDataRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>The code of the company in which forecasting has been performed.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="RunNumber" type="xsd:int">
+            <xsd:annotation>
+              <xsd:documentation>A number identifying the forecast depreciation run.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="LogID" type="xsd:int">
+            <xsd:annotation>
+              <xsd:documentation>The log number.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StartResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="for:StartResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProgressResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="PercentCompleteMessage" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>A message indicating the percent complete of the forecasting process</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProgressResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="for:ProgressResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SpreadsheetDataResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="FinancialData" type="tdo:TemporaryDocumentDetailList">
+            <xsd:annotation>
+              <xsd:documentation>Contains the financial transactions forecast data that has been generated for export to a spreadsheet file.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AssetData" type="tdt:TransactionTempDetailList" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the asset transactions forecast data that has been generated for export to a spreadsheet file.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SpreadsheetDataResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="for:SpreadsheetDataResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="BalanceSaveResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="WrittenCount" type="xsd:int">
+            <xsd:annotation>
+              <xsd:documentation>Contains the balance of the specified CODA non-maintained balance code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="BalanceSaveResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="for:BalanceSaveResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="LogsWithSpreadsheetDataResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Response" type="for:LogsWithSpreadsheetDataList" minOccurs="0"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="LogsWithSpreadsheetDataResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="for:LogsWithSpreadsheetDataResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ForecastingRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to forecast depreciation.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element name="Start" type="for:StartRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Starts a forecast depreciation run using the parameters you specify.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Progress" type="for:ProgressRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves information about the progress of the forecasting process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="SpreadsheetData" type="for:SpreadsheetDataRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves forecast information that has been generated. The information is returned in an XML file which you could, for example, export to a spreadsheet file.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="BalanceSave" type="for:BalanceSaveRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Saves forecast information that has been generated to a CODA non-maintained balance code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="LogsWithSpreadsheetData" type="for:LogsWithSpreadsheetDataRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Returns a list of forecasting logs that have spreadsheet data available for download.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ForecastingResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you forecast depreciation.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element name="Start" type="for:StartResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Progress" type="for:ProgressResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="SpreadsheetData" type="for:SpreadsheetDataResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="BalanceSave" type="for:BalanceSaveResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="LogsWithSpreadsheetData" type="for:LogsWithSpreadsheetDataResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="ForecastingRequest" type="for:ForecastingRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to forecast depreciation.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="ForecastingResponse" type="for:ForecastingResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you forecast depreciation.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

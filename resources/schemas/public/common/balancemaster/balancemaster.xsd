@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:blm="http://www.coda.com/efinance/schemas/balancemaster" targetNamespace="http://www.coda.com/efinance/schemas/balancemaster" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+
+  <xsd:complexType name="BalanceMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a balance master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company in which the balance masters exists.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this balance master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the balance master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name for the balance master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for the balance master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CODAMaintained" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that this balance is maintained by Financials.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DecimalPlaces" type="com:typeDecPlace">
+        <xsd:annotation>
+          <xsd:documentation>The number of decimal places to which the balance is held.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BalMaintainedByCommitments" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that the balance is maintained by the Commitment Accounting functionality in CODA-Procurement.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ReqKeys">
+    <xsd:annotation>
+      <xsd:documentation>Contains key information for requesting a number of balance masters from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MaxKeys" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The maximum number of items to be returned.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Key" type="blm:Key">
+        <xsd:annotation>
+          <xsd:documentation>A balance master key.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="EnableMasterSecurityFilter" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>When TRUE, only balance masters to which the current user has read/write access are returned. A user's access to balance masters is controlled by the master security lists on the user's capability master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Key">
+    <xsd:annotation>
+      <xsd:documentation>A balance master key.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company in which the balance master exists.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the balance master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="JustCODAMaintained" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that only those balances maintained by Financials are required.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AllKeysDataElement">
+    <xsd:annotation>
+      <xsd:documentation>Contains key information for a balance master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the balance master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company in which the balance master exists.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AllKeysData">
+    <xsd:annotation>
+      <xsd:documentation>Contains key information for all the balance masters in the database, subject to the maximum number of records specified in the Filter element of the ListAll request.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="blm:AllKeysDataElement" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Contains key information for a balance master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="BalanceMaster" type="blm:BalanceMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a balance master.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

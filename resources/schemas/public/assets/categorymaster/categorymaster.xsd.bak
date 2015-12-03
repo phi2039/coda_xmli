@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:asscom="http://www.coda.com/eassets/schemas/common" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:cms="http://www.coda.com/eassets/schemas/categorymaster" targetNamespace="http://www.coda.com/eassets/schemas/categorymaster" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/eassets/schemas/common" schemaLocation="s:/schemas/public/assets/common/types.xsd"/>
+
+  <xsd:complexType name="CategoryMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a category master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this category master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the category master is being maintained.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this category master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name for this category master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortName">
+        <xsd:annotation>
+          <xsd:documentation>the abbreviated name for this category master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AllowNegativeAssets" type="com:typeBool">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether negative values are allowed within an asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AllowNegativeDepreciation" type="com:typeBool">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether negative values are allowed within depreciation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostRuleCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the posting rule master you want to use when posting the asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NumberRuleCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the number rule master which is used to control the generation of asset numbers for assets in this category.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CostCentre" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the element that is this asset's cost centre.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CostCentreLevel" type="com:typeElmLevel">
+        <xsd:annotation>
+          <xsd:documentation>The level of the element to be set on assets within this category.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Element" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The value of the element which you want to represent this category during Account Setup within a Posting rule. The element will be substituted for the category code during the account code generation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElementLevel" type="com:typeElmLevel">
+        <xsd:annotation>
+          <xsd:documentation>The level of the element which you want to represent this category during Account Setup within a posting rule. The element will be substituted for the category code during the account code generation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MapDescription" type="com:typeCtOneOfN">
+        <xsd:annotation>
+          <xsd:documentation>The description of the asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MapComments" type="com:typeCtOneOfN">
+        <xsd:annotation>
+          <xsd:documentation>The asset comments.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MapUrl" type="com:typeCtOneOfN">
+        <xsd:annotation>
+          <xsd:documentation>The Uniform Resource Locator associated with the asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MapLocation" type="com:typeCtOneOfN">
+        <xsd:annotation>
+          <xsd:documentation>The location of the asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MapCostCentre" type="com:typeCtOneOfN">
+        <xsd:annotation>
+          <xsd:documentation>The cost centre element for the asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MapQuantity" type="com:typeCtOneOfN">
+        <xsd:annotation>
+          <xsd:documentation>The quantity of the asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UseTempNum" type="com:typeBool">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether you can use temporary numbers when first creating an asset on the Intray.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Books" type="cms:CatBooksList">
+        <xsd:annotation>
+          <xsd:documentation>Contains the books which may be used to hold values for this category.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserFields" type="cms:CatUserFieldsList">
+        <xsd:annotation>
+          <xsd:documentation>Contains a list of available user-defined fields.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MapParent" type="com:typeCtOneOfN" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element is for CODA's internal use only.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MapCostCentreLevel" type="com:typeCtOneOfN" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element is for CODA's internal use only.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AllowDepnBeforeCap" type="com:typeBool">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the depreciation start date can be before the capitalisation date.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostZeroCapitalisation" type="com:typeBool" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether transactions are posted to CODA-Financials when capitalising an asset with zero value in the posting book.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="WIP" type="com:typeBool" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether this is a WIP category that will be used for registering assets that are under construction but not yet in service.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AssociatedCategory" type="com:typeGeneralCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>When WIP is TRUE, this is the category that the WIP assets will be transferred to for capitalisation when they are completed and ready to be put into service.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AssociatedTo" type="com:typeGeneralCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>If WIP is FALSE but this category is associated with a WIP category, this element contains the code of the associated WIP category.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CatBooksList">
+    <xsd:annotation>
+      <xsd:documentation>Contains the books which may be used to hold values for this category.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Book" type="cms:CatBooks" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Contains a book which may be used to hold values for this category.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CatBooks">
+    <xsd:annotation>
+      <xsd:documentation>Contains a book which may be used to hold values for this category.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="BookCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the book master to be used when posting assets within this category.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StandardDepnCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code for the depreciation master which specifies the standard depreciation method to be used when processing assets in this category.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SpecialDepnCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code for the depreciation master which specifies the special depreciation method to be used when processing assets in this category.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AssetLife" type="xsd:integer">
+        <xsd:annotation>
+          <xsd:documentation>The number of periods over which the asset will be written off. The maximum allowed value is 30,000.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StartYear" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The year in which the asset will start depreciating, using the depreciation rate specified in the depreciation master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StartPeriod" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The period in which the asset will start to depreciate, using the depreciation rate specified in the depreciation master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ResidualValue" type="com:typeMoney" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The lowest amount to which an asset can be depreciated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ResidualPercent" type="com:typeMoney" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The lowest amount to which an asset can be depreciated expressed as a percent of capital cost.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IsPercentage" type="com:typeCtResidValueOrPercent">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the asset's residual worth is held as a percentage or a value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Revalue" type="com:typeBool">
+        <xsd:annotation>
+          <xsd:documentation>Specifies that the value of the assets using this book may be revalued.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AssociatedCurrencyBooks" type="cms:AssociatedCurrencyBookList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Lists the currency books associated with this book and selected for this category. The selected currency books will be populated as a result of any processing run on assets in this category.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AssociatedCurrencyBookList">
+    <xsd:annotation>
+      <xsd:documentation>Lists the currency books associated with this book and selected for this category. The selected currency books will be populated as a result of any processing run on assets in this category.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="AssociatedCurrencyBook" type="cms:AssociatedCurrencyBook" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Identifies a currency book associated with this book and selected for this category.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AssociatedCurrencyBook">
+    <xsd:annotation>
+      <xsd:documentation>Identifies a currency book associated with this book and selected for this category.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="AssociatedCurrencyBookCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the currency book.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CatUserFieldsList">
+    <xsd:annotation>
+      <xsd:documentation>Contains a list of available user-defined fields.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Field" type="cms:CatUserFields" minOccurs="0" maxOccurs="30">
+        <xsd:annotation>
+          <xsd:documentation>Contains the details of a user-defined field.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CatUserFields">
+    <xsd:annotation>
+      <xsd:documentation>Contains the details of a user-defined field.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="FieldNumber" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>A number which uniquely identifies the user-defined field.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="FieldType" type="asscom:typeUserField">
+        <xsd:annotation>
+          <xsd:documentation>The type of data contained in the user-defined field. You may chose from text, value, date or element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Label" type="com:typeDescr">
+        <xsd:annotation>
+          <xsd:documentation>The label assigned to this user-defined field.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StringDefault" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The default text contained in the user-defined field with field type: text.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ValueDefault" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The default value contained in the user-defined field with field type: value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DateDefault" type="xsd:dateTime">
+        <xsd:annotation>
+          <xsd:documentation>the default date contained in the user-defined field with field type: date.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="FieldRequired" type="asscom:typeUserFieldUsage">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether this user-defined field is mandatory.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="FieldClass" type="com:typeDescr" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the java class for this field which allows you to customise its use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MapUserField" type="com:typeCtOneOfN">
+        <xsd:annotation>
+          <xsd:documentation>Specifies what that this user-defined field is mapped to a field within Financials.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElementLevel" type="com:typeElmLevel" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The element level, if this is an element user-defined field.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElementFilter" type="com:typeCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The element filter at the specified element level, if this is an element user-defined field.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IncludeInCostCentreTransfers" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>If this is an element user-defined field, this indicates whether the element will be included in cost centre transfers.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="cmsReqKeys">
+    <xsd:annotation>
+      <xsd:documentation>Contains key information for requesting a number of category masters from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MaxKeys" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The maximum number of items to be returned.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Filter" type="com:typeGeneralCodeB">
+        <xsd:annotation>
+          <xsd:documentation>A filter that selects the category masters to be retrieved from the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Key" type="com:Key">
+        <xsd:annotation>
+          <xsd:documentation>Contains the key identifying the category masters you want to retrieve from the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MappingList">
+    <xsd:annotation>
+      <xsd:documentation>Contains a list of asset fields that have been mapped to a field in Financials.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Mapping" type="cms:Mapping" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Contains the asset field that has been mapped to a field in Financials.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Mapping">
+    <xsd:annotation>
+      <xsd:documentation>Contains the asset field that has been mapped to a field in Financials.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MappedField" type="com:typeCtOneOfN">
+        <xsd:annotation>
+          <xsd:documentation>Contains the Financials field to which the asset field has been mapped.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="CategoryMaster" type="cms:CategoryMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a category master.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

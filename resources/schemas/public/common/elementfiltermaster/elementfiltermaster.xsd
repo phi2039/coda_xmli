@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:efm="http://www.coda.com/efinance/schemas/elementfiltermaster" targetNamespace="http://www.coda.com/efinance/schemas/elementfiltermaster" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="ElementFilterKey">
+    <xsd:annotation>
+      <xsd:documentation>This element contains key information for identifying element filter masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the element filter master is maintained.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Level" type="com:typeElmLevel">
+        <xsd:annotation>
+          <xsd:documentation>The element level to which the element filter master relates.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the element filter master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ElementFilterListFilter">
+    <xsd:annotation>
+      <xsd:documentation>A filter for identifying the element filter masters to be listed.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ListFilter">
+        <xsd:sequence>
+          <xsd:element name="Level" type="com:typeElmLevel">
+            <xsd:annotation>
+              <xsd:documentation>The element level to which the element filter master applies.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ElementFilterItem">
+    <xsd:annotation>
+      <xsd:documentation>A row in the list of criteria used by the element filter master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Logical" type="com:typeCtAccessLog">
+        <xsd:annotation>
+          <xsd:documentation>A logical operator, either AND or OR.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LBracket" type="com:typeCtLeftBracketVocab">
+        <xsd:annotation>
+          <xsd:documentation>The number of opening brackets to insert at this point (for grouping purposes).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Vocab" type="com:typeCtOneOfN">
+        <xsd:annotation>
+          <xsd:documentation>A number identifying an element level or an element group level.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Function" type="com:typeCtAccessOp">
+        <xsd:annotation>
+          <xsd:documentation>A number identifying the relational operator that specifies the kind of comparison made between element codes matching the Vocab item, and the supplied Value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Value" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>A pattern value that is compared to element codes matching the Vocab item. You can use wildcards only with the LIKE and NOTLIKE functions.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TBracket" type="com:typeCtRightBracketVocab">
+        <xsd:annotation>
+          <xsd:documentation>The number of closing brackets to insert at this point (for grouping purposes).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ElementFilterList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the list of criteria used by the element filter master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ElementFilterItem" type="efm:ElementFilterItem" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>A row in the list of criteria used by the element filter master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ElementFilterMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds an element filter master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="TimeStamp" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this element filter master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the element filter master is being maintained.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Level" type="com:typeElmLevel">
+        <xsd:annotation>
+          <xsd:documentation>The element level to which the element filter master applies.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the element filter master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name for the element filter master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for the element filter master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElementFilterList" type="efm:ElementFilterList">
+        <xsd:annotation>
+          <xsd:documentation>This element holds the list of criteria used by the element filter master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

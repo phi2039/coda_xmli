@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:atc="http://www.coda.com/common/schemas/attachment" xmlns:brs="http://www.coda.com/efinance/schemas/browsedetails" xmlns:sel="http://www.coda.com/efinance/schemas/selector" xmlns:gsl="http://www.coda.com/efinance/schemas/selectormaster" xmlns:txn="http://www.coda.com/efinance/schemas/transaction" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/efinance/schemas/browsedetails" elementFormDefault="qualified" version="11.2">
+
+  <xsd:include schemaLocation="s:/schemas/public/finance/browsedetails/browsedetails.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/service.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/selector" schemaLocation="s:/schemas/public/common/selector/selector.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/selectormaster" schemaLocation="s:/schemas/public/common/selectormaster/selectormaster.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/transaction" schemaLocation="s:/schemas/public/common/transaction/transaction.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/attachment" schemaLocation="s:/schemas/public/common/attachment/attachment.xsd"/>
+
+  <xsd:complexType name="GetRelatedRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="SelType" type="gsl:DetailsLocation">
+            <xsd:annotation>
+              <xsd:documentation>The location from which the document details will be selected. The locations are: Books, Intray or Archive.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="TxnKey" type="txn:txnKey">
+            <xsd:annotation>
+              <xsd:documentation>Identifies the transaction for which related transactions should be retrieved.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="RowLimit" type="com:typeULong" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The maximum number of lines that can be retrieved.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Columns" type="sel:CellList">
+            <xsd:annotation>
+              <xsd:documentation>This element holds a list of columns to retrieve. Each cell is of the type com:typeCtVocabEnum.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetRelatedRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the document details from the database using the transaction key.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="brs:GetRelatedRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetRelatedResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="TxnKey" type="txn:txnKey">
+            <xsd:annotation>
+              <xsd:documentation>Identifies the transaction for which related transactions should be retrieved.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Selection" type="sel:Selection">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the document details retrieved by Browse Details.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetRelatedResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="brs:GetRelatedResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="TxnKey" type="brs:UpdateHeader">
+            <xsd:annotation>
+              <xsd:documentation>Identifies the document line to update.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Updates" type="brs:UpdateUnionList">
+            <xsd:annotation>
+              <xsd:documentation>Contains the document line details you want to update.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Updates the document line details in the database, using the information you provide.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="brs:UpdateRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="TxnKey" type="brs:UpdateHeader">
+            <xsd:annotation>
+              <xsd:documentation>Identifies the transaction which has been updated.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="brs:UpdateResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetLineRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="TxnKey" type="txn:txnLineKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key identifying the document line to retrieve from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetLineRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the document line details from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="brs:GetLineRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetLineResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="TxnKey" type="txn:txnLineKey">
+            <xsd:annotation>
+              <xsd:documentation>The key used to identify the document line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Transaction" type="brs:LineData">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the document line details retrieved by the GetLineRequest.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetLineResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="brs:GetLineResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateAttachFileRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="txn:txnKey">
+            <xsd:annotation>
+              <xsd:documentation>A key identifying the document to be updated</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Attachment" type="atc:Attachment">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the identification number of the attachment.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateAttachFileRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Updates the document details with the name of an attached image file.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="brs:UpdateAttachFileRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateAttachFileResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Key" type="txn:txnKey">
+            <xsd:annotation>
+              <xsd:documentation>A key identifying the document that has been updated.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Attachment" type="atc:Attachment">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the identification number of the attachment.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateAttachFileResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="brs:UpdateAttachFileResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetHomeTotalRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="txn:txnKey">
+            <xsd:annotation>
+              <xsd:documentation>The key that identifies a transaction.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="RowList" type="brs:HomeTotalRowList">
+            <xsd:annotation>
+              <xsd:documentation>The list of transactions contributing to the total value.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetHomeTotalRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Updates the total value of the Browse display.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="brs:GetHomeTotalRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetHomeTotalResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="HomeTotalData" type="brs:HomeTotalData">
+            <xsd:annotation>
+              <xsd:documentation>The information relating to the total value.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetHomeTotalResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="brs:GetHomeTotalResponse" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="BrowseDetailsRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to browse the details of transactions in the database. (See also SelectorRequest/SelectDetails.)</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element name="GetRelated" type="brs:GetRelatedRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves the document details from the database using the transaction key.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Update" type="brs:UpdateRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Updates the document line details in the database, using the information you provide.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetLine" type="brs:GetLineRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves the document line details from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="UpdateAttachFile" type="brs:UpdateAttachFileRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Updates the document details with the name of an attached image file.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetHomeTotal" type="brs:GetHomeTotalRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Updates the total value of the Browse display.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="BrowseDetailsResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you browse document details.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element name="GetRelated" type="brs:GetRelatedResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Update" type="brs:UpdateResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetLine" type="brs:GetLineResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="UpdateAttachFile" type="brs:UpdateAttachFileResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetHomeTotal" type="brs:GetHomeTotalResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="BrowseDetailsRequest" type="brs:BrowseDetailsRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to browse the details of transactions in the database. (See also SelectorRequest/SelectDetails.)</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="BrowseDetailsResponse" type="brs:BrowseDetailsResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you browse document details.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:elm="http://www.coda.com/efinance/schemas/elementmaster" xmlns:asm="http://www.coda.com/efinance/schemas/accountsummarymaster" xmlns:blr="http://www.coda.com/efinance/schemas/browseledger" xmlns:gsl="http://www.coda.com/efinance/schemas/selectormaster" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/efinance/schemas/accountsummarymaster" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/elementmaster" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/elementmaster/elementmaster.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/browseledger" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/finance/browseledger/browseledger.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/selectormaster" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/selectormaster/selectormaster.xsd"/>
+
+  <xsd:complexType name="ExternalKey">
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCodeB"/>
+      <xsd:element name="Code" type="com:typeGeneralCodeB"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Master">
+    <xsd:sequence>
+      <xsd:element name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this account summary master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name for the account summary master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for the account summary master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PageWidth" type="com:typeULong" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The page width. This element is not applicable to Financials (Browser Edition).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PageHeight" type="com:typeULong" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The height of the page. This element is not applicable to Financials (Browser Edition).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DiaryProperties">
+    <xsd:complexContent>
+      <xsd:extension base="asm:Properties">
+        <xsd:sequence>
+          <xsd:element name="PreCode" type="com:typeGeneralCodeB" minOccurs="0"/>
+          <xsd:element name="SelCode" type="com:typeGeneralCodeB" minOccurs="0"/>
+          <xsd:element name="FromDate" type="com:typeHSDate" minOccurs="0"/>
+          <xsd:element name="ToDate" type="com:typeHSDate" minOccurs="0"/>
+          <xsd:element name="StartDayOfWeek" type="com:typeCtDayOfWeek" minOccurs="0"/>
+          <xsd:element name="HighColour" type="com:typeULong" minOccurs="0"/>
+          <xsd:element name="MediumColour" type="com:typeULong" minOccurs="0"/>
+          <xsd:element name="LowColour" type="com:typeULong" minOccurs="0"/>
+          <xsd:element name="OptimiseQuery" type="xsd:boolean" minOccurs="0"/>
+          <xsd:element name="DaysLookBack" type="com:typeUWord" minOccurs="0"/>
+          <xsd:element name="DaysLookForward" type="com:typeUWord" minOccurs="0"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="BrowseDetailsProperties">
+    <xsd:complexContent>
+      <xsd:extension base="asm:Properties">
+        <xsd:sequence>
+          <xsd:element name="PreKey" type="asm:ExternalKey" minOccurs="0"/>
+          <xsd:element name="SelKey" type="asm:ExternalKey" minOccurs="0"/>
+          <xsd:element name="MatchingMasterCode" type="com:typeGeneralCodeB" minOccurs="0"/>
+          <xsd:element name="ShowTotals" type="xsd:boolean" minOccurs="0"/>
+          <xsd:element name="MatchMasFixedDefault" type="xsd:boolean" minOccurs="0"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="TextFieldProperties">
+    <xsd:complexContent>
+      <xsd:extension base="asm:Properties">
+        <xsd:sequence>
+          <xsd:element name="Editable" type="xsd:boolean" minOccurs="0"/>
+          <xsd:element name="ElmTxtFldKey" type="com:typeCtAsmElmField" minOccurs="0"/>
+          <xsd:element name="IndexCategory" type="xsd:string" minOccurs="0"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GroupListProperties">
+    <xsd:complexContent>
+      <xsd:extension base="asm:Properties">
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AddressBankProperties">
+    <xsd:complexContent>
+      <xsd:extension base="asm:Properties">
+        <xsd:sequence>
+          <xsd:element name="Editable" type="xsd:boolean" minOccurs="0"/>
+          <xsd:element name="IsAddressList" type="xsd:boolean" minOccurs="0"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CommentsProperties">
+    <xsd:complexContent>
+      <xsd:extension base="asm:Properties">
+        <xsd:sequence>
+          <xsd:element name="Editable" type="xsd:boolean" minOccurs="0"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SummaryBalanceProperties">
+    <xsd:complexContent>
+      <xsd:extension base="asm:Properties">
+        <xsd:sequence>
+          <xsd:element name="SelKey" type="asm:ExternalKey" minOccurs="0"/>
+          <xsd:element name="ReqVal" type="com:typeCtAsmBalanceType" minOccurs="0"/>
+          <xsd:element name="ReqCurr" type="com:typeCtAsmBalCurOptions" minOccurs="0"/>
+          <xsd:element name="SequenceNumber" type="xsd:int" minOccurs="0"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SummaryDetailsProperties">
+    <xsd:complexContent>
+      <xsd:extension base="asm:Properties">
+        <xsd:sequence>
+          <xsd:element name="SelKey" type="asm:ExternalKey" minOccurs="0"/>
+          <xsd:element name="ReqType" type="com:typeCtAsmSummaryType" minOccurs="0"/>
+          <xsd:element name="SequenceNumber" type="xsd:int" minOccurs="0"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="FrameProperties">
+    <xsd:complexContent>
+      <xsd:extension base="asm:Properties">
+        <xsd:sequence>
+          <xsd:element name="Label" type="com:typeBoxLabelText" minOccurs="0"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="LabelProperties">
+    <xsd:complexContent>
+      <xsd:extension base="asm:Properties">
+        <xsd:sequence>
+          <xsd:element name="Text" type="com:typeLabelText" minOccurs="0"/>
+          <xsd:element name="Justification" type="com:typeCtAsmJustification" minOccurs="0"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="BalanceHistoryProperties">
+    <xsd:complexContent>
+      <xsd:extension base="asm:Properties">
+        <xsd:sequence>
+          <xsd:element name="BrsBalCode" type="com:typeGeneralCodeB" minOccurs="0"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="LedgerProperties">
+    <xsd:complexContent>
+      <xsd:extension base="asm:Properties">
+        <xsd:sequence>
+          <xsd:element name="LedCode" type="com:typeGeneralCodeB" minOccurs="0"/>
+          <xsd:element name="IsVertical" type="xsd:boolean" minOccurs="0"/>
+          <xsd:element name="ReqLedCurr" type="com:typeCtAsmLedCurr" minOccurs="0"/>
+          <xsd:element name="SelectedColumns" type="blr:ColumnNumberList" minOccurs="0"/>
+          <xsd:element name="Filter" type="gsl:VocListData" minOccurs="0"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="NameValueProperties">
+    <xsd:complexContent>
+      <xsd:extension base="asm:Properties">
+        <xsd:sequence>
+          <xsd:element name="NameValuePairs" type="asm:NameValuePairs" minOccurs="0"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="NameValuePair">
+    <xsd:sequence>
+      <xsd:element name="Name" type="xsd:string"/>
+      <xsd:element name="Value" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="NameValuePairs">
+    <xsd:sequence>
+      <xsd:element name="NameValuePair" type="asm:NameValuePair" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Properties">
+    <xsd:sequence>
+      <xsd:element name="ResizeWidth" type="com:typeCtAsmResizeBehaviour" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The behaviour of the control's width when its parent window is resized. The control will either resize or move with the window. This element is not applicable to Financials (Browser Edition).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ResizeHeight" type="com:typeCtAsmResizeBehaviour" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The behaviour of the control's height when its parent window is resized. The control will either resize or move with the window. This element is not applicable to Financials (Browser Edition).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Control">
+    <xsd:annotation>
+      <xsd:documentation>Holds details of a control on the page.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Id" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The number assigned to the control on the account summary master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Type" type="com:typeCtAsmCtrlType">
+        <xsd:annotation>
+          <xsd:documentation>The type of control.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Top" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The Y coordinate for the top left corner of the control relative to its parent. This element is not applicable to Financials (Browser Edition).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Left" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The X coordinate for the top left corner of the control relative to its parent. This element is not applicable to Financials (Browser Edition).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Bottom" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The Y coordinate for the bottom right corner of the control relative to its parent. This element is not applicable to Financials (Browser Edition).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Right" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The X coordinate for the bottom right corner of the control relative to its parent. This element is not applicable to Financials (Browser Edition).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Properties" type="asm:Properties">
+        <xsd:annotation>
+          <xsd:documentation>Holds details of the resize properties for a control.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ControlList">
+    <xsd:annotation>
+      <xsd:documentation>Holds details of the controls contained on the page.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Control" type="asm:Control" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Holds details of a control on the page.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Page">
+    <xsd:annotation>
+      <xsd:documentation>Holds details of a page on the account summary master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Name" type="com:typeShortName">
+        <xsd:annotation>
+          <xsd:documentation>The name of the page.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Controls" type="asm:ControlList">
+        <xsd:annotation>
+          <xsd:documentation>Holds details of the controls contained on the page.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PageList">
+    <xsd:annotation>
+      <xsd:documentation>Holds details of the pages on the account summary master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Page" type="asm:Page" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Holds details of a page on the account summary master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AccountSummaryMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds an account summary master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="asm:Master">
+        <xsd:sequence>
+          <xsd:element name="Pages" type="asm:PageList">
+            <xsd:annotation>
+              <xsd:documentation>Holds details of the pages on the account summary master.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="AccountSummaryMaster" type="asm:AccountSummaryMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds an account summary master.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:rem="http://www.coda.com/efinance/schemas/remindermaster" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/efinance/schemas/remindermaster" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+
+  <xsd:complexType name="LetterSetupItem">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the details for one reminder letter.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Severity" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The severity level of the reminder letter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DateSetting" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The number of days that must elapse after the due or document date, or since the last reminder letter, before a letter of this severity can be sent.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DateType" type="com:typeCtDateType">
+        <xsd:annotation>
+          <xsd:documentation>The length of time of a date unit. This is always Days.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LetterTemplate" type="com:typeLetterTemplateB">
+        <xsd:annotation>
+          <xsd:documentation>A free-format text field containing the name of the word processing template used to produce the reminder letter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Include" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies that all detail lines that meet the selection criteria for the specified element and currency must be included in the reminder letter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MinimumTrigger" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The minimum value, in home currency, that must be outstanding to generate a reminder letter at this level; that is, the sum of all detail lines that meet the requirements.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MinimumTotal" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>The minimum total value, in home currency, that must be outstanding to generate a reminder letter at this level; that is, the sum of all detail lines that meet the requirements, plus any outstanding from letters of a lower level (applies only if Include is TRUE).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DiaryEntry" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the letter creates an entry in the Diary.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Priority" type="com:typeDiaryPriority" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The priority level of the task. This can be High, Medium or Low.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TaskRequired" type="com:typeDescr" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Whatever action is needed as a result of sending the reminder letter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ActionCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The required action code, as defined in the relevant entity master for the current company. Action codes refer to the type of action which you take when there is a payment dispute with a customer.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ActionDate" type="com:typeHSDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date that the action is due. A soft date will be interpreted during the confirmation stage of the Reminder Letters process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="LetterSetupList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the reminder letter details for one reminder master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="LetterSetupItem" type="rem:LetterSetupItem" minOccurs="0" maxOccurs="9">
+        <xsd:annotation>
+          <xsd:documentation>This element holds the details for one reminder letter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ReminderMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a reminder master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the reminder master is being maintained.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this reminder master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this reminder master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name for this reminder master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for this master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElementLevel" type="com:typeElmLevel">
+        <xsd:annotation>
+          <xsd:documentation>The level of the element that holds the address to which the reminder letter is sent.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Currency" type="com:typeCtExtractCurrency">
+        <xsd:annotation>
+          <xsd:documentation>The currency used on a reminder letter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BaseDate" type="com:typeCtBaseOnDate">
+        <xsd:annotation>
+          <xsd:documentation>The date used to calculate when a reminder letter is triggered.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SelectorCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the selector master to use to select the document lines.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PresenterCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the presenter master that will be used to display the exploded view of reminder letter details.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LetterSetupList" type="rem:LetterSetupList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element holds the reminder letter details for one reminder master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

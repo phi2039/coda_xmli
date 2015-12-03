@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:rev="http://www.coda.com/eassets/schemas/revaluation" xmlns:trn="http://www.coda.com/eassets/schemas/reviewtransactions" xmlns:ass="http://www.coda.com/eassets/schemas/asset" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/eassets/schemas/revaluation" elementFormDefault="qualified" version="2.0">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/service.xsd"/>
+  <xsd:import namespace="http://www.coda.com/eassets/schemas/asset" schemaLocation="s:/schemas/public/assets/asset/asset.xsd"/>
+  <xsd:import namespace="http://www.coda.com/eassets/schemas/reviewtransactions" schemaLocation="s:/schemas/public/assets/reviewtransactions/reviewtransactions.xsd"/>
+  <xsd:include schemaLocation="s:/schemas/public/assets/revaluation/revaluation.xsd"/>
+  <xsd:include schemaLocation="s:/schemas/public/assets/revaluation/revaluationpostings.xsd"/>
+
+  <xsd:complexType name="PostAfterReviewRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Revaluation" type="rev:Revaluation">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the parameters which can be specified when revaluing assets.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PostAfterReviewRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Posts the specified revaluation values that have been reviewed.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="rev:PostAfterReviewRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PostAfterReviewResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="IsPosted" type="com:typeBool">
+            <xsd:annotation>
+              <xsd:documentation>Indicates whether the PostAfterReviewRequest corresponding to this response was successful.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PostAfterReviewResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="rev:PostAfterReviewResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ReviewRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Revaluation" type="rev:Revaluation">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the parameters which can be specified when revaluing assets.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ReviewRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Allows you to review the postings that will be generated if revaluation is performed using the parameters you specify.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="rev:ReviewRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ReviewResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="IsReviewed" type="com:typeBool">
+            <xsd:annotation>
+              <xsd:documentation>Indicates whether the ReviewRequest corresponding to this response was successful.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="RunIDs" type="rev:RunIdList" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>This element contains a list of companies in which the revaluation process will be run.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="RevaluationPostings" type="rev:RevaluationPostings">
+            <xsd:annotation>
+              <xsd:documentation>Contains the postings that will be generated by this revaluation process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ReviewTransactions" type="trn:ReviewTransactions">
+            <xsd:annotation>
+              <xsd:documentation>Contains the financial transactions that will be generated by this revaluation process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ReviewResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="rev:ReviewResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PostRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Revaluation" type="rev:Revaluation">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the parameters which can be specified when revaluing assets.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PostRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Posts revaluation using the parameters you specify.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="rev:PostRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PostResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="IsPosted" type="com:typeBool">
+            <xsd:annotation>
+              <xsd:documentation>Indicates whether the PostRequest corresponding to this response was successful.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PostResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="rev:PostResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CancelRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Revaluation" type="rev:Revaluation">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the parameters of the revaluation process that you wish to cancel.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CancelRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Cancels the revaluation process that would have used the specified parameters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="rev:CancelRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CancelResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="IsCancelled" type="com:typeBool">
+            <xsd:annotation>
+              <xsd:documentation>Indicates whether the CancelRequest corresponding to this response was successful.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CancelResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="rev:CancelResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="RevaluationRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to revalue assets.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element name="PostAfterReview" type="rev:PostAfterReviewRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Posts the specified revaluation values that have been reviewed.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Review" type="rev:ReviewRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Allows you to review the postings that will be generated if revaluation is performed using the parameters you specify.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Post" type="rev:PostRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Posts revaluation using the parameters you specify.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Cancel" type="rev:CancelRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Cancels the revaluation process that would have used the specified parameters.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="RevaluationResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you revalue assets.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element name="PostAfterReview" type="rev:PostAfterReviewResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Review" type="rev:ReviewResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Post" type="rev:PostResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Cancel" type="rev:CancelResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="RevaluationRequest" type="rev:RevaluationRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to revalue assets.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="RevaluationResponse" type="rev:RevaluationResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you revalue assets.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

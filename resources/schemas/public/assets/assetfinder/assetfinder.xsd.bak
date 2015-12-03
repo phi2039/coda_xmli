@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:asf="http://www.coda.com/eassets/schemas/assetfinder" targetNamespace="http://www.coda.com/eassets/schemas/assetfinder" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="AssetKeyData">
+    <xsd:annotation>
+      <xsd:documentation>This element contains key information for a list of assets.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="AssetKeyElm" type="asf:AssetKeyDataElement" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a key for the asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AssetKeyDataElement">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a key for the asset.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the asset was created.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeAstCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Description" type="com:typeDescr">
+        <xsd:annotation>
+          <xsd:documentation>The description of the asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Category" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The category with which the asset is defined.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CostCentre" type="com:typeElmCodeB" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>The cost centre element for the asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Location" type="com:typeGeneralCodeB" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>The location of the asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OldAssetsCode" type="xsd:string" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>The old asset code for an asset that has been transfered into Assets.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDefined1" type="com:typeTextB" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>The string found in the user defined text field, 1.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDefined2" type="com:typeTextB" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>The string found in the user defined text field, 2.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDefined3" type="com:typeTextB" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>The string found in the user defined text field, 3.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDefined4" type="com:typeTextB" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>The string found in the user defined text field, 4.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserValue1" type="com:typeMoney" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>The monetary value found in the user defined value field, 1.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDate1" type="xsd:dateTime" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>The date found in the user defined date field, 1.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExcludeChildAssets" type="xsd:boolean" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether or not child assets are excluded when retrieving assets from the database using this key information.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AssetReqKey">
+    <xsd:annotation>
+      <xsd:documentation>This element contains key information for retrieving assets from the database using the asset finder.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MaxKeys" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The maximum number of items to be returned.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Key" type="asf:AssetKeyDataElement">
+        <xsd:annotation>
+          <xsd:documentation>Contains the key information, asset code and company code, that uniquely identifies an asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

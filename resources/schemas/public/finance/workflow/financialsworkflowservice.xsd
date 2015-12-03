@@ -1,0 +1,841 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:sel="http://www.coda.com/efinance/schemas/selector" xmlns:txn="http://www.coda.com/efinance/schemas/transaction" xmlns:wfl="http://www.coda.com/efinance/schemas/workflow" targetNamespace="http://www.coda.com/efinance/schemas/workflow" elementFormDefault="qualified" version="2.0">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/service.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/transaction" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/transaction/transaction.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/selector" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/selector/selector.xsd"/>
+  <xsd:include schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/finance/workflow/workflow.xsd"/>
+
+  <xsd:complexType name="CancelRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="wfl:DocWorkflowKey">
+            <xsd:annotation>
+              <xsd:documentation>The key to a workflow document.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="WorkflowInstanceAlreadyCancelled" type="xsd:boolean" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>If true, indicates the workflow instance is already cancelled.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CancelRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Cancels a specified workflow document.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="wfl:CancelRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CancelResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Key" type="wfl:DocWorkflowKey">
+            <xsd:annotation>
+              <xsd:documentation>The key to a workflow document.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CancelResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="wfl:CancelResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="RestartRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Parameters" type="wfl:WorkflowParameters">
+            <xsd:annotation>
+              <xsd:documentation>The parameters for a workflow request.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="RestartRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Restarts a workflow request.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="wfl:RestartRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="RestartResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Parameters" type="wfl:WorkflowParameters">
+            <xsd:annotation>
+              <xsd:documentation>The parameters used for a workflow request.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="RestartResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="wfl:RestartResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetParamsRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="txn:txnKey">
+            <xsd:annotation>
+              <xsd:documentation>The key to a document.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetParamsRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves workflow parameters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="wfl:GetParamsRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetParamsResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Key" type="txn:txnKey">
+            <xsd:annotation>
+              <xsd:documentation>The key to a document.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Parameters" type="wfl:WorkflowParameters">
+            <xsd:annotation>
+              <xsd:documentation>The parameters used for a workflow request.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetParamsResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="wfl:GetParamsResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AuthoriseCancellingDocumentRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="RequestId" type="com:typeLong">
+            <xsd:annotation>
+              <xsd:documentation>A request ID.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AuthoriseCancellingDocumentRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Authorises a cancelling document.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="wfl:AuthoriseCancellingDocumentRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AuthoriseCancellingDocumentResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="RequestId" type="com:typeLong">
+            <xsd:annotation>
+              <xsd:documentation>A request ID.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="TotalDocuments" type="com:typeLong" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The total number of documents.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CancelledDocuments" type="com:typeLong" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The number of documents cancelled.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="FailedDocuments" type="com:typeLong" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The number of failed documents.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>A company code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="UsrCode" type="com:typeGeneralCode" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>A user code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="LogId" type="xsd:int" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>A log ID.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AuthoriseCancellingDocumentResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="wfl:AuthoriseCancellingDocumentResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DenyCancellingDocumentRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="RequestId" type="com:typeLong">
+            <xsd:annotation>
+              <xsd:documentation>A request ID.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DenyCancellingDocumentRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Denies authorisation of a cancelling document.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="wfl:DenyCancellingDocumentRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DenyCancellingDocumentResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="RequestId" type="com:typeLong">
+            <xsd:annotation>
+              <xsd:documentation>A request ID.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DenyCancellingDocumentResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="wfl:DenyCancellingDocumentResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetPendingCancellingDocumentRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="RequestId" type="com:typeLong">
+            <xsd:annotation>
+              <xsd:documentation>A request ID.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Columns" type="sel:CellList" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>A list of columns.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetPendingCancellingDocumentRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves details of documents pending cancellation.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="wfl:GetPendingCancellingDocumentRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetPendingCancellingDocumentResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="RequestId" type="com:typeLong">
+            <xsd:annotation>
+              <xsd:documentation>A request ID.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="HeaderCells" type="sel:CellList" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>A list of header cells.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Details" type="wfl:PendingCancellationDetails" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Details of the documents pending cancellation.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetPendingCancellingDocumentResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="wfl:GetPendingCancellingDocumentResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AuthoriseDocumentRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="txn:txnKey">
+            <xsd:annotation>
+              <xsd:documentation>The key to a document.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DocumentApprover" type="com:typeGeneralCodeB" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The code that identifies the approver of the document.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PostToBooks" type="xsd:boolean" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>If true, indicates that the posting destination is the Books.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="UseCurrentPeriod" type="xsd:boolean" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Specifies that the document is posted to the current period.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AuthoriseDocumentRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Authorises the specified document.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="wfl:AuthoriseDocumentRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AuthoriseDocumentResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Key" type="txn:txnKey">
+            <xsd:annotation>
+              <xsd:documentation>The key to a document.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PostedToBooks" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:documentation>If true, indicates that the document was posted to the Books.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Warning" type="com:Warning" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>This element contains a warning.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AuthoriseDocumentResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="wfl:AuthoriseDocumentResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AuthoriseLineRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="txn:txnLineKey">
+            <xsd:annotation>
+              <xsd:documentation>The key to a document line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="LineApprover" type="com:typeGeneralCodeB" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The code that identifies the approver of the line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AuthoriseLineRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Authorises a specified document line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="wfl:AuthoriseLineRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AuthoriseLineResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Key" type="txn:txnLineKey">
+            <xsd:annotation>
+              <xsd:documentation>The key to a document line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AuthoriseLineResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="wfl:AuthoriseLineResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DenyDocumentRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="txn:txnKey">
+            <xsd:annotation>
+              <xsd:documentation>The key to a document.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DenyDocumentRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Denies authorisation for a specified document.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="wfl:DenyDocumentRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DenyDocumentResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Key" type="txn:txnKey">
+            <xsd:annotation>
+              <xsd:documentation>The key to a document.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DenyDocumentResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="wfl:DenyDocumentResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DenyLineRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="txn:txnLineKey">
+            <xsd:annotation>
+              <xsd:documentation>The key to a document line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DenyLineRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Denies authorisation for a specified document line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="wfl:DenyLineRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DenyLineResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Key" type="txn:txnLineKey">
+            <xsd:annotation>
+              <xsd:documentation>The key to a document line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DenyLineResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="wfl:DenyLineResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDocumentWorkflowHistoryRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="txn:txnKey">
+            <xsd:annotation>
+              <xsd:documentation>The key to a document.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDocumentWorkflowHistoryRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the workflow history for a document.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="wfl:GetDocumentWorkflowHistoryRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDocumentWorkflowHistoryResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Key" type="txn:txnKey">
+            <xsd:annotation>
+              <xsd:documentation>The key to a document.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="WorkflowHistory" type="wfl:WorkflowHistory">
+            <xsd:annotation>
+              <xsd:documentation>Workflow history details.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetDocumentWorkflowHistoryResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="wfl:GetDocumentWorkflowHistoryResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="FinancialsWorkflowRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to make Financials workflow requests.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element name="Cancel" type="wfl:CancelRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Cancels a specified workflow document.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Restart" type="wfl:RestartRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Restarts a workflow request.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetParams" type="wfl:GetParamsRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves workflow parameters.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AuthoriseCancellingDocument" type="wfl:AuthoriseCancellingDocumentRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Authorises a cancelling document.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DenyCancellingDocument" type="wfl:DenyCancellingDocumentRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Denies authorisation of a cancelling document.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetPendingCancellingDocument" type="wfl:GetPendingCancellingDocumentRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves details of documents pending cancellation.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AuthoriseDocument" type="wfl:AuthoriseDocumentRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Authorises the specified document.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AuthoriseLine" type="wfl:AuthoriseLineRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Authorises a specified document line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DenyDocument" type="wfl:DenyDocumentRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Denies authorisation for a specified document.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DenyLine" type="wfl:DenyLineRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Denies authorisation for a specified document line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetDocumentWorkflowHistory" type="wfl:GetDocumentWorkflowHistoryRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves the workflow history for a document.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="FinancialsWorkflowResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you have made a Financials workflow request..</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element name="Cancel" type="wfl:CancelResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Restart" type="wfl:RestartResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetParams" type="wfl:GetParamsResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AuthoriseCancellingDocument" type="wfl:AuthoriseCancellingDocumentResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DenyCancellingDocument" type="wfl:DenyCancellingDocumentResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetPendingCancellingDocument" type="wfl:GetPendingCancellingDocumentResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AuthoriseDocument" type="wfl:AuthoriseDocumentResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AuthoriseLine" type="wfl:AuthoriseLineResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DenyDocument" type="wfl:DenyDocumentResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DenyLine" type="wfl:DenyLineResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetDocumentWorkflowHistory" type="wfl:GetDocumentWorkflowHistoryResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="FinancialsWorkflowRequest" type="wfl:FinancialsWorkflowRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to make Financials workflow requests.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="FinancialsWorkflowResponse" type="wfl:FinancialsWorkflowResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you have made a Financials workflow request..</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

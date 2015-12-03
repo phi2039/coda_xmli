@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:atc="http://www.coda.com/common/schemas/attachment" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:sch="http://www.coda.com/common/schemas/scheduler" xmlns:spec="http://www.coda.com/common/schemas/workflow" xmlns:use="http://www.coda.com/common/schemas/users" xmlns:wor="http://www.coda.com/common/schemas/workflowinstance" xmlns:wsd="http://www.coda.com/common/schemas/wsdl" elementFormDefault="qualified" targetNamespace="http://www.coda.com/common/schemas/workflowinstance">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types2.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/attachment" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/attachment/attachment.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/scheduler" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/scheduler/scheduler.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/users" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/users/users.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/workflow" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/workflow/workflow.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/wsdl" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/wsdl/wsdl.xsd"/>
+
+  <xsd:complexType name="UserField">
+    <xsd:sequence>
+      <xsd:element name="String" type="com:typeTextAnyDb255"/>
+      <xsd:element name="Date" type="com:typeHard"/>
+      <xsd:element name="Money" type="com:typeMoney"/>
+      <xsd:element name="Integer" type="com:typeLong"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TokenBag">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Location" type="spec:LocationKey"/>
+      <xsd:element name="TokenKeyList" type="wor:TokenKeyList"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TokenBagList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="TokenBag" type="wor:TokenBag"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TokenBagKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="TokenBag" type="wor:TokenBagKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TokenBagKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="WorkflowId" type="com:typeDbGuid"/>
+      <xsd:element minOccurs="0" name="Location" type="spec:LocationKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SubWorkflowInstance">
+    <xsd:complexContent>
+      <xsd:extension base="wor:WorkflowInstance">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SubWorkflowInstanceList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="SubWorkflowInstance" type="wor:SubWorkflowInstance"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SubWorkflowInstanceKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="SubWorkflowInstance" type="wor:SubWorkflowInstanceKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SubWorkflowInstanceKey">
+    <xsd:complexContent>
+      <xsd:extension base="wor:WorkflowInstanceKey">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="Variable">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="WorkflowVariable" type="spec:WorkflowVariableKey"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Value" type="wsd:DataObjectKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VariableList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Variable" type="wor:Variable"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VariableKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Variable" type="wor:VariableKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="VariableKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="WorkflowId" type="com:typeDbGuid"/>
+      <xsd:element minOccurs="0" name="WorkflowVariable" type="spec:WorkflowVariableKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowInstance">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="WorkflowId" type="com:typeDbGuid"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Specification" type="spec:WorkflowKey"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Count" type="com:typeLong"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Code" type="com:typeCode"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Version" type="com:typeLong"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="LogId" type="com:typeLong"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ParentTokenInstance" type="com:typeLong"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Priority" type="com:typeComWorkflowPriority"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ExplodeURL" type="com:typeUri"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="UserField1" type="wor:UserField"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="UserField2" type="wor:UserField"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="UserField3" type="wor:UserField"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="UserField4" type="wor:UserField"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="UserField5" type="wor:UserField"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="UserField6" type="wor:UserField"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="UserField7" type="wor:UserField"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="UserField8" type="wor:UserField"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="UserField9" type="wor:UserField"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="UserField10" type="wor:UserField"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="AttachedToFiles" type="com:typeBoolean"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="EscalationScheduledTask" type="sch:ScheduledTaskKey"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="NumberOfSubWorkflows" type="com:typeLong"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="EscalationWflwScheduledTask" type="wor:EscalateScheduledTaskKey"/>
+      <xsd:element name="TokenBagList" type="wor:TokenBagList"/>
+      <xsd:element name="TokenList" type="wor:TokenList"/>
+      <xsd:element name="VariableList" type="wor:VariableList"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Parent" type="wor:WorkflowInstanceKey"/>
+      <xsd:element name="WorkflowResponseList" type="wor:WorkflowResponseList"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TopLevelWorkflow" type="wor:WorkflowInstanceKey"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ParentTask" type="spec:TaskKey"/>
+      <xsd:element name="AttachmentList" type="atc:AttachmentList"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="PrimaryAttachment" type="atc:AttachmentKey"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="LifecycleStatus" type="com:typeComWorkflowInstanceStatus"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TimeStamp" type="xsd:short"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="AddDate" type="xsd:dateTime"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowInstanceList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="WorkflowInstance" type="wor:WorkflowInstance"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowInstanceKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="WorkflowInstance" type="wor:WorkflowInstanceKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowInstanceKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="WorkflowId" type="com:typeDbGuid"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Assignment">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="AssignmentId" type="com:typeDbGuid"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Description" type="com:typeTextAnyDbQuotes"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="DropDownVariableHash" type="com:typeMd5Hash"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="WorkflowInstance" type="wor:WorkflowInstanceKey"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Token" type="wor:TokenKey"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Task" type="spec:ManualTaskKey"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="User" type="use:UserKey"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TimeStamp" type="xsd:short"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AssignmentList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Assignment" type="wor:Assignment"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AssignmentKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Assignment" type="wor:AssignmentKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AssignmentKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="AssignmentId" type="com:typeDbGuid"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="EscalateScheduledTask">
+    <xsd:complexContent>
+      <xsd:extension base="wor:WorkflowScheduledTask">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" name="RepeatInterval" type="com:typeLong"/>
+          <xsd:element maxOccurs="1" minOccurs="1" name="RepeatUnits" type="com:typeComWorkflowEscalateUnits"/>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Origin" type="com:typeHardTime"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="EscalateScheduledTaskList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="EscalateScheduledTask" type="wor:EscalateScheduledTask"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="EscalateScheduledTaskKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="EscalateScheduledTask" type="wor:EscalateScheduledTaskKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="EscalateScheduledTaskKey">
+    <xsd:complexContent>
+      <xsd:extension base="wor:WorkflowScheduledTaskKey">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="Token">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Instance" type="com:typeLong"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="TimeoutTask" type="sch:ScheduledTaskKey"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="TimeoutWflwTask" type="wor:TimeoutScheduledTaskKey"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Parent" type="wor:TokenKey"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Context" type="wor:Context"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TokenList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Token" type="wor:Token"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TokenKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Token" type="wor:TokenKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TokenKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="WorkflowId" type="com:typeDbGuid"/>
+      <xsd:element minOccurs="0" name="Instance" type="com:typeLong"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowScheduledTask">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Id" type="com:typeDbGuid"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Due" type="com:typeHardTime"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="LockingThreadID" type="com:typeLockingId"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TopLevelWorkflowID" type="com:typeDbGuid"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="CodaSchedulerTask" type="sch:ScheduledTaskKey"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Error" type="com:typeBoolean"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="WorkflowInstance" type="wor:WorkflowInstanceKey"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TimeStamp" type="xsd:short"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowScheduledTaskList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="WorkflowScheduledTask" type="wor:WorkflowScheduledTask"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowScheduledTaskKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="WorkflowScheduledTask" type="wor:WorkflowScheduledTaskKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowScheduledTaskKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Id" type="com:typeDbGuid"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowResponse">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="AssignmentId" type="com:typeDbGuid"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Code" type="com:typeCode"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Version" type="com:typeLong"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Id" type="com:typeShortName"/>
+      <xsd:element name="WorkflowResponseDataList" type="wor:WorkflowResponseDataList"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ManualTask" type="spec:ManualTaskKey"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Response" type="spec:ResponseKey"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="User" type="use:UserKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowResponseList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="WorkflowResponse" type="wor:WorkflowResponse"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowResponseKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="WorkflowResponse" type="wor:WorkflowResponseKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowResponseKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="WorkflowId" type="com:typeDbGuid"/>
+      <xsd:element minOccurs="0" name="AssignmentId" type="com:typeDbGuid"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowResponseData">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ResponseField" type="spec:ResponseFieldKey"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Value" type="com:typeTextAnyDbQuotes"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowResponseDataList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="WorkflowResponseData" type="wor:WorkflowResponseData"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowResponseDataKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="WorkflowResponseData" type="wor:WorkflowResponseDataKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowResponseDataKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="WorkflowId" type="com:typeDbGuid"/>
+      <xsd:element minOccurs="0" name="AssignmentId" type="com:typeDbGuid"/>
+      <xsd:element minOccurs="0" name="ResponseField" type="spec:ResponseFieldKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Context">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TotalItems" type="com:typeLong"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="CurrentResponse" type="wor:WorkflowResponseKey"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="CurrentEndingChild" type="wor:WorkflowInstanceKey"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="TimedOut" type="com:typeBoolean"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ContextList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Context" type="wor:Context"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ContextKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Context" type="wor:ContextKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ContextKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="WorkflowId" type="com:typeDbGuid"/>
+      <xsd:element minOccurs="0" name="Instance" type="com:typeLong"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeferredWorkflowInstanceStart">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="WorkflowInstance" type="wor:WorkflowInstanceKey"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TimeStamp" type="xsd:short"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeferredWorkflowInstanceStartList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="DeferredWorkflowInstanceStart" type="wor:DeferredWorkflowInstanceStart"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeferredWorkflowInstanceStartKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="DeferredWorkflowInstanceStart" type="wor:DeferredWorkflowInstanceStartKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeferredWorkflowInstanceStartKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="WorkflowInstance" type="wor:WorkflowInstanceKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TimeoutScheduledTask">
+    <xsd:complexContent>
+      <xsd:extension base="wor:WorkflowScheduledTask">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" name="TaskID" type="com:typeScriptVariablename"/>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Token" type="wor:TokenKey"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="TimeoutScheduledTaskList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="TimeoutScheduledTask" type="wor:TimeoutScheduledTask"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TimeoutScheduledTaskKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="TimeoutScheduledTask" type="wor:TimeoutScheduledTaskKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TimeoutScheduledTaskKey">
+    <xsd:complexContent>
+      <xsd:extension base="wor:WorkflowScheduledTaskKey">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SubWorkflowInstanceItemList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="SubWorkflowInstanceListItem" type="wor:SubWorkflowInstanceListItem"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SubWorkflowInstanceListItem">
+    <xsd:complexContent>
+      <xsd:extension base="wor:WorkflowInstanceListItem">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowInstanceItemList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="WorkflowInstanceListItem" type="wor:WorkflowInstanceListItem"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowInstanceListItem">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="WorkflowId" type="com:typeDbGuid"/>
+      <xsd:element minOccurs="0" name="ParentWorkflowId" type="com:typeDbGuid"/>
+      <xsd:element minOccurs="0" name="TopLevelWorkflowWorkflowId" type="com:typeDbGuid"/>
+      <xsd:element minOccurs="0" name="AddDate" type="xsd:dateTime"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="EscalateScheduledTaskItemList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="EscalateScheduledTaskListItem" type="wor:EscalateScheduledTaskListItem"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="EscalateScheduledTaskListItem">
+    <xsd:complexContent>
+      <xsd:extension base="wor:WorkflowScheduledTaskListItem">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowScheduledTaskItemList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="WorkflowScheduledTaskListItem" type="wor:WorkflowScheduledTaskListItem"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowScheduledTaskListItem">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Id" type="com:typeDbGuid"/>
+      <xsd:element minOccurs="0" name="Due" type="com:typeHardTime"/>
+      <xsd:element minOccurs="0" name="TopLevelWorkflowID" type="com:typeDbGuid"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TimeoutScheduledTaskItemList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="TimeoutScheduledTaskListItem" type="wor:TimeoutScheduledTaskListItem"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="TimeoutScheduledTaskListItem">
+    <xsd:complexContent>
+      <xsd:extension base="wor:WorkflowScheduledTaskListItem">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+
+</xsd:schema>

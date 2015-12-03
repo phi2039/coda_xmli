@@ -1,0 +1,1550 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:inx="http://www.coda.com/efinance/schemas/inputext" xmlns:txn="http://www.coda.com/efinance/schemas/transaction" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/efinance/schemas/inputext" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/service.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/transaction" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/transaction/transaction.xsd"/>
+
+  <xsd:complexType name="ElmReviewItem">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the total value (in document, home and dual currencies) for a balancing element in the document.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="BalElmCode" type="com:typeAcCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the balancing element. This is a string containing either a single Level1 element, or a Level1.Level2 element combination, that identifies a company set up to use balancing elements.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocValue" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The total value for this balancing element in document currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="HomeValue" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The total value for this balancing element in home currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DualValue" type="com:typeMoney" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The total value for this balancing element in dual currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ElmReview">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the total value (in document, home and dual currencies) for the balancing elements in the document.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Item" type="inx:ElmReviewItem" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains the total value (in document, home and dual currencies) for a balancing element in the document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="BalancingCurrReview">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the total document value in document, home and dual currencies.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="DocTotal" type="com:CurrValue">
+        <xsd:annotation>
+          <xsd:documentation>The total document value in document currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="HomeTotal" type="com:CurrValue">
+        <xsd:annotation>
+          <xsd:documentation>The total document value in home currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DualTotal" type="com:CurrValue" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The total document value in dual currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="BalancingReview">
+    <xsd:annotation>
+      <xsd:documentation>Contains the sum of values on the specified document for each balancing element and the whole document (in document, home and dual currencies).</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CurrReview" type="inx:BalancingCurrReview">
+        <xsd:annotation>
+          <xsd:documentation>This element contains the total document value in document, home and dual currencies.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElmReview" type="inx:ElmReview">
+        <xsd:annotation>
+          <xsd:documentation>This element contains the total value (in document, home and dual currencies) for the balancing elements in the document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CurrReviewCurrRateValue">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details about a currency that applies to all lines in the document.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:CurrRateValue">
+        <xsd:sequence>
+          <xsd:element name="Which" type="txn:WhichCurrs" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>This element holds details of where the currency is used. For example, it might be used as the home currency, document currency and element 3's currency.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CurrReviewCurrRateValueList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains document-wide exchange rates and document totals. If the document is not configured to use document-wide exchange rates, the Rate element within this list is omitted.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Currency" type="inx:CurrReviewCurrRateValue" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details about a currency that applies to all lines in the document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CurrReviewLine">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of the currency details that apply to a line in the document.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="AccountCode" type="com:typeAcCode">
+        <xsd:annotation>
+          <xsd:documentation>The account code on the document line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Currencies" type="inx:CurrReviewCurrRateValueList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of the currencies used on this document line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CurrReviewLineList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of the currency details that apply to lines in the document.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Line" type="inx:CurrReviewLine" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of the currency details that apply to a line in the document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CurrReview">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the currency rates and currency values of all lines in the specified document.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="DocumentWideData" type="inx:CurrReviewCurrRateValueList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains document-wide exchange rates and document totals. If the document is not configured to use document-wide exchange rates, the Rate element within this list is omitted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LineData" type="inx:CurrReviewLineList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of the currency details that apply to lines in the document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CustomerSupplierElmSummaryLine">
+    <xsd:annotation>
+      <xsd:documentation>This element contains summary information about the customer/supplier element on the specified document line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="LineNumber" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The document line number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElmCode" type="com:typeElmCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the customer/supplier element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElmLevel" type="com:typeElmLevel">
+        <xsd:annotation>
+          <xsd:documentation>The element level of the customer/supplier element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortName" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The customer/supplier element's short name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocValue" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The value (in document currency) of this document line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LineSense" type="com:typeCtDocLineDrCrB">
+        <xsd:annotation>
+          <xsd:documentation>The sense of this line (debit, credit or none).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CustomerSupplierElmSummary">
+    <xsd:annotation>
+      <xsd:documentation>This element contains summary information about the customer/supplier elements in the specified document.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Line" type="inx:CustomerSupplierElmSummaryLine" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains summary information about the customer/supplier element on the specified document line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectedDocList">
+    <xsd:annotation>
+      <xsd:documentation>When cancelling multiple documents, this contains the list of documents to be cancelled. The selected documents must fall within the range specified by DocNumberFrom and DocNumberTo. The document numbers must be listed in ascending order and must not be duplicated.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="DocNumber" type="com:typeDocNum" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>The document number of a document selected to be cancelled.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CancelDoc">
+    <xsd:annotation>
+      <xsd:documentation>Contains parameters which can be specified when cancelling a single document or multiple documents.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company in which you want to cancel documents.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CancellingDocCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the document master set up to produce cancelling documents.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the document master used to input the document(s) you wish to cancel.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocNumberFrom" type="com:typeDocNum">
+        <xsd:annotation>
+          <xsd:documentation>The document number of the single document you want to cancel, or the first document number in a range if you want to cancel multiple documents.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocNumberTo" type="com:typeDocNum" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The last document number in the range if you want to cancel multiple documents. This can be blank if you are cancelling a single document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SelectedDocs" type="inx:SelectedDocList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>When cancelling multiple documents, this contains the list of documents to be cancelled. The selected documents must fall within the range specified by DocNumberFrom and DocNumberTo. The document numbers must be listed in ascending order and must not be duplicated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocDate" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date to be used as the document date for the cancelling documents. If this is left blank, the original document date is used.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Period" type="com:typePeriod" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The year and period to which the cancelling documents are posted. If this is left blank, the original document year/period is used.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IncludeInterCompanyDocs" type="com:typeBool" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>When true, any documents using InterCompany (that is, containing accounts in more than one company) will be cancelled if selected by the cancellation criteria. When false, no InterCompany documents will be cancelled. If this element is omitted, the cancellation request will abort with a reason message in CancelDocResults/InterCompanyWarning if any InterCompany documents are found.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LogTitle" type="com:typeLogTitle">
+        <xsd:annotation>
+          <xsd:documentation>An optional log title. All attempts to cancel the specified documents are stored under this log title.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="WorkflowCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The workflow process definition code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PositionCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The position code within the position hierarchy.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CancelDocInterCompanyWarning">
+    <xsd:annotation>
+      <xsd:documentation>Contains a reason message if any InterCompany documents were found but IncludeInterCompanyDocs was not supplied in the request.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Reason" type="com:Reason">
+        <xsd:annotation>
+          <xsd:documentation>A message explaining why the cancellation request has been aborted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CancelDocResults">
+    <xsd:annotation>
+      <xsd:documentation>Contains the results of a request to cancel one or more documents.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company in which documents were cancelled.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The document master code of the documents that were cancelled.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NumberOfDocsSelected" type="xsd:int" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The number of document numbers sent in the request if SelectedDocs is present, or 1 if the request was to cancel a single document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NumberOfDocsFound" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The number of documents found.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NumberOfUncancelledDocsFound" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The number of documents found that have not already been cancelled.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NumberOfDocsCancelled" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The number of documents actually cancelled.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="InterCompanyWarning" type="inx:CancelDocInterCompanyWarning" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains a reason message if any InterCompany documents were found but IncludeInterCompanyDocs was not supplied in the request.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="WorkflowStarted" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates that the workflow process has started.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SpecialDocPostData">
+    <xsd:sequence>
+      <xsd:element name="RateRule" type="com:typeCtCurrencyRule">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the generated document is posted using the currency exchange rates as specified on the original document (equal), or the currency exchange rates in effect on the reversing document date (calculated).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ReversingPostData">
+    <xsd:annotation>
+      <xsd:documentation>Contains details that can be specified when posting reversing documents, or when checking that reversing documents are postable.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="inx:SpecialDocPostData">
+        <xsd:sequence>
+          <xsd:element name="DocDate" type="com:typeDate">
+            <xsd:annotation>
+              <xsd:documentation>The document date for the reversing entry. This defaults to the date of the original document.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Period" type="com:typePeriod">
+            <xsd:annotation>
+              <xsd:documentation>The year and period to which the reversing entry will be posted. This defaults to the period following that of the original document. If the period on the original document is the last posting period of the year, the reversing entry will be posted to the first posting period in the new year.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Match" type="com:typeBool">
+            <xsd:annotation>
+              <xsd:documentation>When TRUE, lines on the reversing document are automatically matched against lines on the original document.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="RecurringPostData">
+    <xsd:annotation>
+      <xsd:documentation>Contains details that can be specified when posting recurring documents, or when checking that recurring documents are postable.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="inx:SpecialDocPostData">
+        <xsd:sequence>
+          <xsd:element name="NumberOfDocs" type="com:typeULong">
+            <xsd:annotation>
+              <xsd:documentation>The total number of documents required, including the original document.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Phasing" type="com:typePhasing">
+            <xsd:annotation>
+              <xsd:documentation>The time lapse between the document date of each document. This determines when each recurring document will be posted. Here you specify a soft date consisting of four characters with the initial character representing days, months or periods. For example, D007 indicates 7 days between postings, M002 indicates 2 months, P003 indicates 3 periods.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DateRule" type="com:typeDateRule">
+            <xsd:annotation>
+              <xsd:documentation>The date rule to use for determining the document date of the recurring documents. The rule you can specify depends on what you have set for Phasing.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AmountRule" type="com:typeCtAmountRule">
+            <xsd:annotation>
+              <xsd:documentation>Determines the value of the recurring documents. The value of the original document can be divided equally between the recurring documents (divided), or each recurring document can have the same value as the original document (equal). If you set this to null, the default is applied which is equal.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DocWideDueTerms" type="com:typeTerm" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>A valid soft date determining the due date. This defaults to the value from the document master (if one exists) or the value from the element master. It is read-only if the document master has DueDate/DocumentWide set to TRUE, or if DueDate/Modifiable is set to not modifiable.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DocWideValueTerms" type="com:typeTerm" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>A valid soft date determining the value date. This defaults to the value from the document master (if one exists) or is blank. It is read-only if the document master has ValueDate/DocumentWide set to TRUE, or if ValueDate/Modifiable is set to not modifiable.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DocumentWideData">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details that apply to all lines in the document.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="DueDate" type="com:typeDateB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date when the document becomes due for payment.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ValueDate" type="com:typeDateB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date when the document will clear.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExtRef1" type="com:typeExtRefB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The value of External Reference 1.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExtRef2" type="com:typeExtRefB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The value of External Reference 2.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExtRef3" type="com:typeExtRefB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The value of External Reference 3.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExtRef4" type="com:typeExtRefB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The value of External Reference 4.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExtRef5" type="com:typeExtRefB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The value of External Reference 5.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExtRef6" type="com:typeExtRefB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The value of External Reference 6.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PostData">
+    <xsd:annotation>
+      <xsd:documentation>Contains details that are used when the document is posted, or when checking that the document is postable.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Template" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the input template master used to input the document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocumentWideData" type="inx:DocumentWideData" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details that apply to all lines in the document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ReversingDetails" type="inx:ReversingPostData" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains details that can be specified when posting reversing documents, or when checking that reversing documents are postable.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RecurringDetails" type="inx:RecurringPostData" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains details that can be specified when posting recurring documents, or when checking that recurring documents are postable.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ControlTotal" type="com:typeMoneyB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>An optional control total entered in Input.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="WorkflowCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The workflow process definition code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PositionCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The position code within the position hierarchy.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ApplicationId" type="com:typeUWord" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specifies the CODA application to which this document is reserved.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DocTotals">
+    <xsd:annotation>
+      <xsd:documentation>Contains the document totals in document, home and dual currencies.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="DocTotal" type="com:typeMoneyB">
+        <xsd:annotation>
+          <xsd:documentation>The sum of the document's debit and credit values, in document currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocCreditTotal" type="com:typeMoneyB">
+        <xsd:annotation>
+          <xsd:documentation>The sum of the document's credit values, in document currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocDebitTotal" type="com:typeMoneyB">
+        <xsd:annotation>
+          <xsd:documentation>The sum of the document's debit values, in document currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="HomeTotal" type="com:typeMoneyB">
+        <xsd:annotation>
+          <xsd:documentation>The sum of the document's debit and credit values, in home currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="HomeCreditTotal" type="com:typeMoneyB">
+        <xsd:annotation>
+          <xsd:documentation>The sum of the document's credit values, in home currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="HomeDebitTotal" type="com:typeMoneyB">
+        <xsd:annotation>
+          <xsd:documentation>The sum of the document's debit values, in home currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DualTotal" type="com:typeMoneyB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The sum of the document's debit and credit values, in dual currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DualCreditTotal" type="com:typeMoneyB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The sum of the document's credit values, in dual currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DualDebitTotal" type="com:typeMoneyB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The sum of the document's debit values, in dual currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDefined" type="com:typeMoneyB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>An optional user defined total derived from the input template that was used to input the document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CurrencyInfo">
+    <xsd:annotation>
+      <xsd:documentation>Contains information about a currency edited by a CalcCurrRequest.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="txn:CurrencyInfo">
+        <xsd:sequence>
+          <xsd:element name="Scaling" type="com:typeUWord">
+            <xsd:annotation>
+              <xsd:documentation>The scaling factor used with the multiply or divide rule for the currency.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Rate" type="com:typeRate">
+            <xsd:annotation>
+              <xsd:documentation>The rate of exchange between the currency and its parent currency or the home currency, whichever applies.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="MultDivRule" type="com:typeCtMulDiv">
+            <xsd:annotation>
+              <xsd:documentation>The multiply or divide rule for the currency.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CurrData">
+    <xsd:annotation>
+      <xsd:documentation>Contains currency information returned by a CalcCurrResponse.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Info" type="inx:CurrencyInfo" minOccurs="0" maxOccurs="13">
+        <xsd:annotation>
+          <xsd:documentation>Contains information about a currency edited by a CalcCurrRequest.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CurrEdit">
+    <xsd:annotation>
+      <xsd:documentation>Contains edits to make to a currency for the specified document line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Value" type="com:typeMoney" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The value of the specified document line, in this currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="EffectiveRate" type="com:typeRate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The currency exchange rate to use for this currency on the specified document line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CurrEdits">
+    <xsd:annotation>
+      <xsd:documentation>Contains currency edits supplied with a CalcCurrRequest.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Edit" type="inx:CurrEdit" minOccurs="0" maxOccurs="13">
+        <xsd:annotation>
+          <xsd:documentation>Contains edits to make to a currency for the specified document line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MissingQuantityInfo">
+    <xsd:annotation>
+      <xsd:documentation>Contains details of a quantity missing from the problem document line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Level" type="com:typeUWord">
+        <xsd:annotation>
+          <xsd:documentation>The element level (1-8) of the element that requires this quantity.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Position" type="com:typeUWord">
+        <xsd:annotation>
+          <xsd:documentation>The quantity, at the specified element level, that the data relates to.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElmCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the element that requires this quantity.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElmSName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The short name of the element that requires this quantity.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="QtyTitle" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The title for this quantity.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DecimalPlaces" type="com:typeUWord">
+        <xsd:annotation>
+          <xsd:documentation>The number of decimal places for this quantity.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MissingQuantityData">
+    <xsd:annotation>
+      <xsd:documentation>Contains details of any quantities missing from the problem document line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Qty" type="inx:MissingQuantityInfo" minOccurs="0" maxOccurs="32">
+        <xsd:annotation>
+          <xsd:documentation>Contains details of a quantity missing from the problem document line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ExtraQuantityInfo">
+    <xsd:annotation>
+      <xsd:documentation>Contains details of quantities on the problem document line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Level" type="com:typeUWord">
+        <xsd:annotation>
+          <xsd:documentation>The element level (1-8) of the element that requires this quantity.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Position" type="com:typeUWord">
+        <xsd:annotation>
+          <xsd:documentation>The quantity, at the specified element level, that the data relates to.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Value" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The amount of the specified quantity.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ExtraQuantityData">
+    <xsd:annotation>
+      <xsd:documentation>Contains extra quantity information on the problem document line. This information is not returned if the PostRequest or CheckPostRequest has ignoresurplusdata set to TRUE.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Qty" type="inx:ExtraQuantityInfo" minOccurs="0" maxOccurs="32">
+        <xsd:annotation>
+          <xsd:documentation>Contains details of quantities on the problem document line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ExtraDiscountInfo">
+    <xsd:annotation>
+      <xsd:documentation>Contains details of a discount available on the problem document line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Date" type="com:typeDate">
+        <xsd:annotation>
+          <xsd:documentation>The date when the discount rate comes into effect.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Rate" type="com:typeRate">
+        <xsd:annotation>
+          <xsd:documentation>The discount rate.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Value" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The discount amount.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ExtraDiscountData">
+    <xsd:annotation>
+      <xsd:documentation>Contains extra discount information on the problem document line. This information is not returned if the PostRequest or CheckPostRequest has ignoresurplusdata set to TRUE.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Discount" type="inx:ExtraDiscountInfo" minOccurs="0" maxOccurs="5">
+        <xsd:annotation>
+          <xsd:documentation>Contains details of a discount available on the problem document line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ExtraTaxInfo">
+    <xsd:annotation>
+      <xsd:documentation>Contains details of tax on the problem document line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The tax code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Value" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The amount of tax.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ExtraTaxData">
+    <xsd:annotation>
+      <xsd:documentation>Contains extra tax information on the problem document line. This information is not returned if the PostRequest or CheckPostRequest has ignoresurplusdata set to TRUE.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Tax" type="inx:ExtraTaxInfo" minOccurs="0" maxOccurs="9">
+        <xsd:annotation>
+          <xsd:documentation>Contains details of tax on the problem document line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ExtraTen99Data">
+    <xsd:annotation>
+      <xsd:documentation>Contains extra 1099 information on the problem document line. This information is not returned if the PostRequest or CheckPostRequest has ignoresurplusdata set to TRUE.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Ten99" type="inx:ExtraTaxInfo" minOccurs="0" maxOccurs="3">
+        <xsd:annotation>
+          <xsd:documentation>Contains details of any 1099 tax on the problem document line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ExtraPayData">
+    <xsd:annotation>
+      <xsd:documentation>Contains payment information on the problem document line. This information is not returned if the PostRequest or CheckPostRequest has ignoresurplusdata set to TRUE.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MediaCode" type="com:typeGeneralCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the media master used for the payment or collection of this document line value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankCode" type="com:typeGeneralCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the bank master used for the payment or collection of this document line value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElmBankTag" type="com:typeUWordB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The tag identifier for the element bank for the customer/supplier element on this document line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElmAddrTag" type="com:typeUWordB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The tag identifier for the element address for the customer/supplier element on this document line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserRef1" type="com:typeUserRefB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>User reference 1 on this document line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserRef2" type="com:typeUserRefB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>User reference 2 on this document line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserRef3" type="com:typeUserRefB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>User reference 3 on this document line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PayValue">
+    <xsd:annotation>
+      <xsd:documentation>The code of the media master used for the payment or collection of this document line value.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Required" type="com:typeBool">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether this information must be supplied.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Modifiable" type="com:typeBool">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether this information can be changed from its default.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Value" type="com:typeGeneralCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The information currently supplied (if any).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProblemUserReference">
+    <xsd:annotation>
+      <xsd:documentation>User reference 1 on this document line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Required" type="com:typeBool">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether this information must be supplied.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Modifiable" type="com:typeBool">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether this information can be changed from its default.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Value" type="com:typeUserRefB">
+        <xsd:annotation>
+          <xsd:documentation>The information currently supplied (if any).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProblemPay">
+    <xsd:annotation>
+      <xsd:documentation>Contains payment information that needs to be specified on the problem document line. This information can be completed, then re-submitted with the original Post or CheckPost request.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MatchableElementCode" type="com:typeElmCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the matchable element on this document line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MatchableElementShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The short name of the matchable element on this document line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MediaCode" type="inx:PayValue">
+        <xsd:annotation>
+          <xsd:documentation>The code of the media master used for the payment or collection of this document line value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankCode" type="inx:PayValue">
+        <xsd:annotation>
+          <xsd:documentation>The code of the bank master used for the payment or collection of this document line value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElmBank" type="inx:PayValue">
+        <xsd:annotation>
+          <xsd:documentation>The bank of the matchable element on this document line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElmAddr" type="inx:PayValue">
+        <xsd:annotation>
+          <xsd:documentation>The address of the matchable element on this document line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserRef1" type="inx:ProblemUserReference" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>User reference 1 on this document line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserRef2" type="inx:ProblemUserReference" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>User reference 2 on this document line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserRef3" type="inx:ProblemUserReference" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>User reference 3 on this document line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DisableSummaries" type="com:typeBool">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the document line is summarised (for payment or collection) with other document lines. When FALSE, the document line is not summarised.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProblemLine">
+    <xsd:annotation>
+      <xsd:documentation>Contains a document line causing a problem that invalidates the document.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Number" type="com:typeUWord">
+        <xsd:annotation>
+          <xsd:documentation>The document line number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocValue" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The document line value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExtraPayData" type="inx:ExtraPayData" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains payment information on the problem document line. This information is not returned if the PostRequest or CheckPostRequest has ignoresurplusdata set to TRUE.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ProblemPayData" type="inx:ProblemPay" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains payment information that needs to be specified on the problem document line. This information can be completed, then re-submitted with the original Post or CheckPost request.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExtraQtys" type="inx:ExtraQuantityData" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains extra quantity information on the problem document line. This information is not returned if the PostRequest or CheckPostRequest has ignoresurplusdata set to TRUE.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MissingQtys" type="inx:MissingQuantityData" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains details of any quantities missing from the problem document line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExtraTax" type="inx:ExtraTaxData" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains extra tax information on the problem document line. This information is not returned if the PostRequest or CheckPostRequest has ignoresurplusdata set to TRUE.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExtraTen99" type="inx:ExtraTen99Data" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains extra 1099 information on the problem document line. This information is not returned if the PostRequest or CheckPostRequest has ignoresurplusdata set to TRUE.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExtraDiscounts" type="inx:ExtraDiscountData" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains extra discount information on the problem document line. This information is not returned if the PostRequest or CheckPostRequest has ignoresurplusdata set to TRUE.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Asset" type="txn:Asset" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element holds details of the asset that will be created from this document line when the document is posted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MissingTen99" type="com:typeBool" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether 1099 information is missing from the document line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProblemLines">
+    <xsd:annotation>
+      <xsd:documentation>Contains the document lines causing problems that invalidate the document.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Line" type="inx:ProblemLine" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Contains a document line causing a problem that invalidates the document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Problems">
+    <xsd:annotation>
+      <xsd:documentation>Contains details of any problems that invalidate the specified document for posting to the Books or the Intray.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Lines" type="inx:ProblemLines">
+        <xsd:annotation>
+          <xsd:documentation>Contains the document lines causing problems that invalidate the document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="IntrayAutoPostInfo">
+    <xsd:annotation>
+      <xsd:documentation>Contains information used for posting documents on the Intray, to the Books.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="LogTitle" type="com:typeLogTitle">
+        <xsd:annotation>
+          <xsd:documentation>An optional log title. All attempts to post the specified documents are stored under this log title.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RePeriod" type="com:typeBool">
+        <xsd:annotation>
+          <xsd:documentation>Set to TRUE to post the document to a new year/period which you specify in Period. When FALSE, the document is posted to the year/period specified when the document was posted to the Intray.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Period" type="com:typePeriod">
+        <xsd:annotation>
+          <xsd:documentation>When RePeriod is TRUE, specify the year/period that the document will be posted to.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IncludeInterCompanyDocs" type="com:typeBool" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>When TRUE, any InterCompany documents on the Intray will be included for posting to the Books. When FALSE or omitted, any InterCompany documents on the Intray cannot be included for posting; this is recorded in the log.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="IntrayPostKeys">
+    <xsd:annotation>
+      <xsd:documentation>Contains key information identifying which document(s) on the Intray will be posted to the Books.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="inx:IntrayPostKey" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Contains key information for a document on the Intray that will be posted to the Books.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="IntrayPostKey">
+    <xsd:annotation>
+      <xsd:documentation>Contains key information for a document on the Intray that will be posted to the Books.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="txn:txnKey">
+        <xsd:sequence>
+          <xsd:element name="ApplyCurrentExchangeRate" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:documentation>Specifies whether to apply current exchange rates to the document. When True, values will be recalculated as appropriate before posting.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="WorkflowCode" type="com:typeGeneralCode" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The workflow process definition code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PositionCode" type="com:typeGeneralCode" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The position code within the position hierarchy.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="IntrayKeys">
+    <xsd:annotation>
+      <xsd:documentation>Contains key information identifying which document(s) on the Intray will be deleted or unauthorised.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="txn:txnKey" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Contains a key uniquely identifying a document within the Financials database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="IntrayResult">
+    <xsd:annotation>
+      <xsd:documentation>Contains results information for the documents deleted from the Intray.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Key" type="txn:txnKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains a key uniquely identifying a document within the Financials database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="IntrayPostResult">
+    <xsd:annotation>
+      <xsd:documentation>Contains results information for a document posted from the Intray to the Books.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Key" type="inx:IntrayPostKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains key information for a document on the Intray that has been posted to the Books.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="IntrayDeleteInfo">
+    <xsd:annotation>
+      <xsd:documentation>Contains the reason why the specified document on the Intray is being deleted.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Reason" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The reason why the specified document on the Intray is being deleted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IncludeInterCompanyDocs" type="com:typeBool" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates that the user is willing to delete Intercompany documents from the Intray.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="IntrayItem">
+    <xsd:annotation>
+      <xsd:documentation>Contains a document on the Intray that has been retrieved.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company in which the document is held.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The document master code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Number" type="com:typeDocNumAlpha">
+        <xsd:annotation>
+          <xsd:documentation>The document number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Date" type="com:typeDate">
+        <xsd:annotation>
+          <xsd:documentation>The document date.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Period" type="com:typePeriod">
+        <xsd:annotation>
+          <xsd:documentation>The year and period to which the document is to be posted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OriginalUser" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the user who created the document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LastModBy" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the user who last modified the document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AuthInitials" type="com:typeAuthInit">
+        <xsd:annotation>
+          <xsd:documentation>The authorising initials.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LastModDate" type="com:typeDate">
+        <xsd:annotation>
+          <xsd:documentation>The date when the document was last modified.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="FirstDetailValue" type="com:typeMoney" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The value of the first line on the document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="FirstAccountCode" type="com:typeAcCode">
+        <xsd:annotation>
+          <xsd:documentation>The account code of the first line on the document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IsInterCompany" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the document is an InterCompany document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IsPODNotDeletable" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>This element will be set to TRUE if the document has been matched to a purchasing ordering document, and is therefore not deletable.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AuthorisationStatus" type="com:typeCtWFlowHdrStatusNoAny">
+        <xsd:annotation>
+          <xsd:documentation>The current workflow authorisation status of the document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CanApplyCurrentRate" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether current exchange rates can be applied to this document when posting.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Template" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the input template master used when inputting the document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RequiresBooksWorkflow" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates that this document requires workflow authorisation before posting to the Books.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BooksWorkflowCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The workflow process definition code for use when posting to the Books.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BooksWorkflowProtected" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the workflow process definition code is protected.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PositionHierarchyCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The position code within the position hierarchy.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="IntrayItems">
+    <xsd:annotation>
+      <xsd:documentation>Contains the documents on the Intray that have been retrieved.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Item" type="inx:IntrayItem" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation>
+              <xsd:documentation>Contains a document on the Intray that has been retrieved.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="IntrayFilter">
+    <xsd:annotation>
+      <xsd:documentation>Contains criteria for selecting documents on the Intray.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company in which you are selecting documents on the Intray.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Limit" type="com:typeULongB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The maximum number of documents to return.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The document master code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NumberFrom" type="com:typeDocNumAlphaB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The document number of the single document you want to select, or the first document number in a range if you want to select multiple documents.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NumberTo" type="com:typeDocNumAlphaB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The last document number in the range if you want to select multiple documents. This can be blank if you are selecting a single document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DateFrom" type="com:typeDateB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The document input date of the single document you want to select, or the start document input date in a range if you want to select multiple documents.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DateTo" type="com:typeDateB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The end document input date in the range if you want to select multiple documents. This can be blank if you are selecting a single document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PeriodFrom" type="com:typePeriodB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The year/period of the single document you want to select, or the start year/period in a range if you want to select multiple documents.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PeriodTo" type="com:typePeriodB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The end year/period in the range if you want to select multiple documents. This can be blank if you are selecting a single document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OriginalUser" type="com:typeGeneralCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The user who created the document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LastModBy" type="com:typeGeneralCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The user who last modified the document and posted it back to the Intray.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AuthInitials" type="com:typeAuthInit" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The initials of the authorising user.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExtRefPos" type="com:typeWordB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The external reference (1-6) that you want to search for the string specified in ExtRef.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExtRef" type="com:typeExtRefB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The document-wide external reference of the document you want to select.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AccountCode" type="com:typeAcCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The document account code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AuthorisationStatus" type="com:typeCtWFlowHdrStatus" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The current workflow authorisation status of the document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="HardenedDatesParams">
+    <xsd:annotation>
+      <xsd:documentation>Contains parameters which can be specified when resolving soft dates.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company in which you are resolving a soft date.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the document containing the soft date to be resolved.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElmCode" type="com:typeElmCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the element containing the soft date to be resolved.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElmLevel" type="com:typeElmLevel">
+        <xsd:annotation>
+          <xsd:documentation>The element level.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UseMnemonic" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Set to TRUE to search on element mnemonic if the ElmCode cannot be found.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocDate" type="com:typeDate">
+        <xsd:annotation>
+          <xsd:documentation>The document date.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="InputDate" type="com:typeDate">
+        <xsd:annotation>
+          <xsd:documentation>The date when the document was input.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="HardenedDatesResults">
+    <xsd:annotation>
+      <xsd:documentation>Contains the due date, value date and discount dates returned in a GetHardenedDatesResponse.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="DueDate" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The hard date when the document will be due for payment.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ValueDate" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The hard date when the document will clear.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DiscountDate1" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The hard date when the element's first discount rate comes into effect.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DiscountDate2" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The hard date when the element's second discount rate comes into effect.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DiscountDate3" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The hard date when the element's third discount rate comes into effect.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DiscountDate4" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The hard date when the element's fourth discount rate comes into effect.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DiscountDate5" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The hard date when the element's fifth discount rate comes into effect.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="InputInfo">
+    <xsd:sequence>
+      <xsd:element name="Transaction" type="txn:Transaction"/>
+      <xsd:element name="PostData" type="inx:PostData"/>
+      <xsd:element name="SelectedValue" type="com:typeMoneyB" minOccurs="0"/>
+      <xsd:element name="LineNumber" type="xsd:int" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MissingDocNumber">
+    <xsd:annotation>
+      <xsd:documentation>Contains a missing document number.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="txn:txnKey">
+        <xsd:annotation>
+          <xsd:documentation>Contains a key uniquely identifying a document within the Financials database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Description" type="com:typeTextAny">
+        <xsd:annotation>
+          <xsd:documentation>The reason why the document number was not used.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MissingDocNumbers">
+    <xsd:annotation>
+      <xsd:documentation>Contains the missing document numbers retrieved by the GetMissingDocNumbersRequest.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MissingDocNumber" type="inx:MissingDocNumber" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Contains a missing document number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="InputPostDocument" type="inx:PostData"/>
+
+</xsd:schema>

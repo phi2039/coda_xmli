@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:yend="http://www.coda.com/efinance/schemas/yearend" targetNamespace="http://www.coda.com/efinance/schemas/yearend" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="Currency">
+    <xsd:annotation>
+      <xsd:documentation>An item on the must balance currencies list.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of a currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortName" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The short name of the currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostingAccount" type="com:typeAcCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the suspense account for this currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MustBalanceCurrencies">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of all currencies which must balance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Currency" type="yend:Currency" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>An item on the must balance currencies list.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Params">
+    <xsd:annotation>
+      <xsd:documentation>This document contains the parameters for the Year End process.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company for which you want to run the year end process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ProposedYearEnd" type="com:typeWord">
+        <xsd:annotation>
+          <xsd:documentation>The company year for which you want to run the Year End process</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="YearEndDate" type="com:typeDateB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date for the Year End documents.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LimitSizeOfDocuments" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that a Year End document will have a maximum size.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MaxAccountsPerDocument" type="com:typeULong" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The maximum number of lines that can be printed to a Year End document. This value must be in the range 1000 to 9999.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IncludeQuantityCalcs" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that quantity values are brought forward in the Year End documents.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IncludeSummaryInLog" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that the Year End log displays the Year End summary file.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IncludePLAccounts" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that Year End posts documents to the Profit and Loss accounts.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IncludeZeroValueAccounts" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that document lines that balance to zero are included in the Year End documents.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BSDocumentCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code that identifies the document master governing the Balance Sheet posting. This is a reversing document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BSRetainedEarningsAccount" type="com:typeAcCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the account that you have defined for profits. The net profit for the year is posted to this account. It cannot contain an umbrella element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BSSuspenseAccount" type="com:typeAcCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code that identifies the suspense account. This account is used to balance Year End documents when LimitSizeOfDocuments is TRUE.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PLDocumentCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code that identifies the document master governing the Profit and Loss posting.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PLSuspenseAccount" type="com:typeAcCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code that identifies the suspense account. This account is used to balance Year End documents when LimitSizeOfDocuments is TRUE.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IsYearendStopped" type="com:typeBool" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the Year End process has been stopped by the user.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IsSummaryComplete" type="com:typeBool" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the Summary is complete.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MustBalanceCurrencies" type="yend:MustBalanceCurrencies">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of all currencies which must balance.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PLDocumentDescription" type="com:typeDescr" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The description to be used for the year end Profit &amp; Loss document lines.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BSDocumentDescription" type="com:typeDescr" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The description to be used for the year end Balance Sheet document lines.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ReversingDocumentDescription" type="com:typeDescr" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The description to be used for the year end reversing document lines.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="Params" type="yend:Params">
+    <xsd:annotation>
+      <xsd:documentation>This document contains the parameters for the Year End process.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:drm="http://www.coda.com/eassets/schemas/depreciationmaster" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:ext="http://www.coda.com/common/schemas/extension" targetNamespace="http://www.coda.com/eassets/schemas/depreciationmaster" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/extension" schemaLocation="s:/schemas/public/common/extension/extension.xsd"/>
+
+  <xsd:complexType name="DepreciationMasterConfigurationItem">
+    <xsd:annotation>
+      <xsd:documentation>Contains a setting which may be configured for this depreciation master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:string">
+        <xsd:attribute name="name" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>The name of the configurable setting.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DepreciationMasterConfiguration">
+    <xsd:annotation>
+      <xsd:documentation>Contains the settings which may be configured for this depreciation master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ConfigurationItem" type="drm:DepreciationMasterConfigurationItem" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Contains a setting which may be configured for this depreciation master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DepreciationMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a depreciation master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this depreciation master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the depreciation master is being maintained.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this depreciation master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name for this depreciation master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for this depreciation master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExtensionRef" type="com:ExtensionRef">
+        <xsd:annotation>
+          <xsd:documentation>Identifies the system extension used by this depreciation master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Configuration" type="drm:DepreciationMasterConfiguration" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the settings which may be configured for this depreciation master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AvailableMethods" type="drm:MethodList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the depreciation methods available to this depreciation master. (Depreciation methods are a type of system extension.)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MethodList">
+    <xsd:annotation>
+      <xsd:documentation>Contains the depreciation methods available to this depreciation master. (Depreciation methods are a type of system extension.)</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Method" type="drm:Method" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Contains a depreciation method available to this depreciation master. (Depreciation methods are a type of system extension.)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Method">
+    <xsd:annotation>
+      <xsd:documentation>Contains a depreciation method available to this depreciation master. (Depreciation methods are a type of system extension.)</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the system extension master for this depreciation method.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Description" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>A description of this depreciation method. This description is held in the system extension master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DepreciationMasterReqKeys">
+    <xsd:annotation>
+      <xsd:documentation>Contains key information for requesting a number of depreciation masters from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MaxKeys" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The maximum number of items to be returned.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The short name of the depreciation master that you want to select. This can be wildcarded to return multiple depreciation masters.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Key" type="com:Key">
+        <xsd:annotation>
+          <xsd:documentation>Contains key information for the specified depreciation masters.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

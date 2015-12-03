@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:elm="http://www.coda.com/efinance/schemas/elementmaster" xmlns:blr="http://www.coda.com/efinance/schemas/browseledger" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:gsl="http://www.coda.com/efinance/schemas/selectormaster" targetNamespace="http://www.coda.com/efinance/schemas/browseledger" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/selectormaster" schemaLocation="s:/schemas/public/common/selectormaster/selectormaster.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/elementmaster" schemaLocation="s:/schemas/public/common/elementmaster/elementmaster.xsd"/>
+
+  <xsd:complexType name="FilterElement">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the filter parameters for one column.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ColumnName" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The name of the column to which the filter parameters will apply.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OperatorID" type="com:typeCtVocabOp">
+        <xsd:annotation>
+          <xsd:documentation>The operator used to define the values used as filter criteria.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="From" type="com:typeGSLValue">
+        <xsd:annotation>
+          <xsd:documentation>The first value in the selection range, or the value to be matched when using the equal to (=) operator.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="To" type="com:typeGSLValue" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The last value in the selection range.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IncludeColumnsToRight" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>If True, includes the sum of the specified column and all transaction-based columns to the right of this column.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="FilterList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains selection criteria used in addition to the criteria contained in the SelectFilter element, but the selection is based on columns in the ledger rather than selector vocabulary. Any column filter which can be expressed as a vocabulary-based filter, will be moved to the SelectFilter by the server to make the selection process more efficient.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Column" type="blr:FilterElement" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element holds the filter parameters for one column.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ColumnNumberList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of column numbers for the columns retrieved by Browse Ledger.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Column" type="xsd:int" minOccurs="0" maxOccurs="20">
+        <xsd:annotation>
+          <xsd:documentation>The number used to identify a column.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Grouping">
+    <xsd:annotation>
+      <xsd:documentation>This element holds information about how the Browse Ledger results are grouped.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Cmp" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether Browse Ledger results will be grouped by company.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Element1" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether Browse Ledger results will be grouped by Element 1.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Element2" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether Browse Ledger results will be grouped by Element 2.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Element3" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether Browse Ledger results will be grouped by Element 3.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Element4" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether Browse Ledger results will be grouped by Element 4.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Element5" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether Browse Ledger results will be grouped by Element 5.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Element6" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether Browse Ledger results will be grouped by Element 6.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Element7" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether Browse Ledger results will be grouped by Element 7.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Element8" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether Browse Ledger results will be grouped by Element 8.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SortListItem">
+    <xsd:annotation>
+      <xsd:documentation>This element holds information about how the data in one column will be sorted.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ColumnName" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The name of the column used to sort the Browse Ledger results.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SortOrder" type="com:typeCtBlrSortOrder">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the column will be sorted in ascending or descending order.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SortList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds information about the columns used to sort the Browse Ledger results.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="By" type="blr:SortListItem" minOccurs="0" maxOccurs="3">
+        <xsd:annotation>
+          <xsd:documentation>This element holds information about how the data in one column will be sorted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Filter">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the criteria used to retrieve ledger details form the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="LedgerKey" type="com:Key">
+        <xsd:annotation>
+          <xsd:documentation>The key used to identify a ledger.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Currency" type="com:typeCtBlrCurrView">
+        <xsd:annotation>
+          <xsd:documentation>The currency in which the Browse Ledger results are displayed.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Grouping" type="blr:Grouping">
+        <xsd:annotation>
+          <xsd:documentation>This element holds information about how the Browse Ledger results are grouped.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Sort" type="blr:SortList">
+        <xsd:annotation>
+          <xsd:documentation>This element holds information about the columns used to sort the Browse Ledger results.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SelectedColumns" type="blr:ColumnNumberList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of column numbers indicating which ledger columns are to be retrieved. If this list is not given, all columns are retrieved. A column in the selected columns list may not be returned if it is hidden by grouping.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RowLimit" type="com:typeULong" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The maximum number of rows that can be retrieved.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElmKey" type="elm:elmFullKey" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Optionally restricts the ledger to this element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SelectFilter" type="gsl:VocListData">
+        <xsd:annotation>
+          <xsd:documentation>The selector vocabulary used to retrieve the ledger details.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ColumnFilter" type="blr:FilterList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains selection criteria used in addition to the criteria contained in the SelectFilter element, but the selection is based on columns in the ledger rather than selector vocabulary. Any column filter which can be expressed as a vocabulary-based filter, will be moved to the SelectFilter by the server to make the selection process more efficient.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="Filter" type="blr:Filter">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the criteria used to retrieve ledger details form the database.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

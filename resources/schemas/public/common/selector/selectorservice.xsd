@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:sel="http://www.coda.com/efinance/schemas/selector" xmlns:gsl="http://www.coda.com/efinance/schemas/selectormaster" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/efinance/schemas/selector" elementFormDefault="qualified" version="1.0">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/service.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/selectormaster" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/selectormaster/selectormaster.xsd"/>
+  <xsd:include schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/selector/selector.xsd"/>
+
+  <xsd:complexType name="SelectDetailsRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="SelType" type="gsl:DetailsLocation">
+            <xsd:annotation>
+              <xsd:documentation>Indicates the source of the data, which may be retrieved from Books, Intray, Archive or Self.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GslCode" type="com:typeGeneralCodeB">
+            <xsd:annotation>
+              <xsd:documentation>The code of the selector master you want to use.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="WholeDocuments" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:documentation>If TRUE, specifies that you want to browse whole documents for the lines selected.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="RowLimit" type="com:typeULong" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The maximum number of rows you want your search to return.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ApplicationFilter" type="gsl:VocListData">
+            <xsd:annotation>
+              <xsd:documentation>The search criteria to be applied by the application when selecting the data. These are as set up in the selector master.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="UserFilter" type="gsl:VocListData">
+            <xsd:annotation>
+              <xsd:documentation>The additional search criteria specified by the user, to be applied when selecting the data. This may be, for example, a document code or a range of codes.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="HierarchyFilter" type="gsl:VocListData" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The additional search criteria which will be applied to select data within specified hierarchies.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Columns" type="sel:CellList">
+            <xsd:annotation>
+              <xsd:documentation>The columns representing vocabulary items that you want the server to return.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectDetailsRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves data for Browse Details, using the selection criteria you provide.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="sel:SelectDetailsRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectDetailsResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Selection" type="sel:Selection" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The selected data returned to you for browsing.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectDetailsResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="sel:SelectDetailsResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="SelType" type="gsl:SelectorType">
+            <xsd:annotation>
+              <xsd:documentation>Specifies the source of the data from which the selection is made. The data source is determined by the combination of data class and data location.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GslCode" type="com:typeGeneralCodeB">
+            <xsd:annotation>
+              <xsd:documentation>The code of the selector master you want to use.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="RowLimit" type="com:typeULong" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The maximum number of rows you want your search to return</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ApplicationFilter" type="gsl:VocListData">
+            <xsd:annotation>
+              <xsd:documentation>The search criteria to be applied by the application when selecting the data. These are as set up in the selector master.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="UserFilter" type="gsl:VocListData">
+            <xsd:annotation>
+              <xsd:documentation>The additional search criteria specified by the user, to be applied when selecting the data. This may be, for example, a document code or a range of codes.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Columns" type="sel:CellList">
+            <xsd:annotation>
+              <xsd:documentation>The columns representing vocabulary items that you want the server to return.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves data for browsing, using the selection criteria you provide.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="sel:SelectRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Selection" type="sel:Selection" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The selected data returned to you for browsing.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="sel:SelectResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectorRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to submit selection criteria to retrieve data for browsing.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element name="SelectDetails" type="sel:SelectDetailsRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves data for Browse Details, using the selection criteria you provide.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Select" type="sel:SelectRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves data for browsing, using the selection criteria you provide.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectorResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you submit selection criteria.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element name="SelectDetails" type="sel:SelectDetailsResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Select" type="sel:SelectResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="SelectorRequest" type="sel:SelectorRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to submit selection criteria to retrieve data for browsing.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="SelectorResponse" type="sel:SelectorResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you submit selection criteria.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

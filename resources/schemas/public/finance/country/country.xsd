@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:cty="http://www.coda.com/efinance/schemas/country" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/efinance/schemas/country" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="ctyKey">
+    <xsd:annotation>
+      <xsd:documentation>Contains the key for a specified country master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the country master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ctySelectKey">
+    <xsd:annotation>
+      <xsd:documentation>A country master key.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeGeneralCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The code of the country master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeNameB">
+        <xsd:annotation>
+          <xsd:documentation>The name of the country master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ctyReqKeys">
+    <xsd:annotation>
+      <xsd:documentation>Contains key information for requesting a number of country masters from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MaxKeys" type="xsd:int" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The maximum number of items to be returned.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="WildKey" type="cty:ctySelectKey">
+        <xsd:annotation>
+          <xsd:documentation>A country master key.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ctyKeyDataElement">
+    <xsd:annotation>
+      <xsd:documentation>Contains the key information for one country master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The country master code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The name for the country master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ctyKeyData">
+    <xsd:annotation>
+      <xsd:documentation>Contains the key information for the specified country masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="cty:ctyKeyDataElement" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Contains the key information for one country master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CountryMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a country master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this country master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name for the country master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this country master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AlternativeCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code that identifies the country in electronic transactions. For example, this could be a two-character ISO code of the country, or one of the other coding schemes.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Language" type="com:typeLanguage">
+        <xsd:annotation>
+          <xsd:documentation>The code that identifies the language that will be used as the default for all new elements that specify this country in their address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostCode" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>If true, specifies that the format of this country's post codes will be validated by a user-defined routine.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Bank" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>If true, specifies that the format of this country's bank account numbers and sort codes will be validated by a user-defined routine.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Tax" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>If true, specifies that the format of this country's tax numbers will be validated by a user-defined routine.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IBAN" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>If true, specifies that the format of this country's IBANs and SWIFT addresses will be validated by a user-defined routine.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankSortCodeRequired" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If true, specifies that the bank sort code fields on the bank and element masters are mandatory.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankAccountNameRequired" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If true, specifies that the bank account name fields on the bank and element masters are mandatory.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankReferenceRequired" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If true, specifies that the bank reference fields on the bank and element masters are mandatory.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankIBANRequired" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If true, specifies that the IBAN field on the element master's bank details is mandatory.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostCodeExtension" type="com:ExtensionRef" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the user extension master that will be used to validate or reformat the layout of this country's post codes in the element master and bank addresses.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankExtension" type="com:ExtensionRef" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the user extension master that will be used to validate or reformat the layout of this country's bank account numbers and sort codes in the element and bank masters.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TaxExtension" type="com:ExtensionRef" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the user extension master that will be used to validate or reformat the layout of this country's tax numbers in the element and company masters.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IBANExtension" type="com:ExtensionRef" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the user extension master that will be used to validate or reformat the layout of this country's IBANs and SWIFT addresses on the bank master and on element bank details.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="CountryMaster" type="cty:CountryMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a country master.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="ctyReqKeys" type="cty:ctyReqKeys">
+    <xsd:annotation>
+      <xsd:documentation>Contains key information for requesting a number of country masters from the database.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

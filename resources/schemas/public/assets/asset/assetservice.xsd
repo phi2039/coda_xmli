@@ -1,0 +1,2474 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:rev="http://www.coda.com/eassets/schemas/reviewtransactions" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:trd="http://www.coda.com/eassets/schemas/transactiondetails" xmlns:ass="http://www.coda.com/eassets/schemas/asset" targetNamespace="http://www.coda.com/eassets/schemas/asset" elementFormDefault="qualified" version="11.3">
+
+  <xsd:import namespace="http://www.coda.com/eassets/schemas/transactiondetails" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/assets/transactiondetails/transactiondetails.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/service.xsd"/>
+  <xsd:import namespace="http://www.coda.com/eassets/schemas/reviewtransactions" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/assets/reviewtransactions/reviewtransactions.xsd"/>
+  <xsd:include schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/assets/asset/asset.xsd"/>
+
+  <xsd:complexType name="SummaryRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="ass:AssetBookKey">
+            <xsd:annotation>
+              <xsd:documentation>A unique identifier for the asset book.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SummaryRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves an asset book summary.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="ass:SummaryRequest" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SummaryResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The company code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Code" type="com:typeAstCodeB">
+            <xsd:annotation>
+              <xsd:documentation>The asset code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="BookCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The asset book code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AssetSummary" type="ass:AssetSummary">
+            <xsd:annotation>
+              <xsd:documentation>The asset summary.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SummaryResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="ass:SummaryResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CreateRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="CreateDetails" type="ass:CreateDetails">
+            <xsd:annotation>
+              <xsd:documentation>Contains parameters for you to specify a code for the new asset, the company in which the asset is created, and the capital cost of the asset.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CreateRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Creates new assets in the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="ass:CreateRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CreateResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the company in which you attempted to create the asset.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Code" type="com:typeAstCodeB">
+            <xsd:annotation>
+              <xsd:documentation>The code for the asset that you attempted to create.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Asset" type="ass:Asset">
+            <xsd:annotation>
+              <xsd:documentation>Contains the asset you have created.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CreateResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="ass:CreateResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AdditionRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the company containing the asset to which you want to make an addition.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Code" type="com:typeAstCodeB">
+            <xsd:annotation>
+              <xsd:documentation>The code for the asset to which you want to make an addition.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Value" type="com:typeMoney">
+            <xsd:annotation>
+              <xsd:documentation>The value of the addition.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AdditionRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Adds extra value to an asset on the Asset Intray.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="ass:AdditionRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AdditionResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the company containing the asset to which you attempted to make an addition.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Code" type="com:typeAstCodeB">
+            <xsd:annotation>
+              <xsd:documentation>The code for the asset to which you attempted to make an addition.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Asset" type="ass:Asset">
+            <xsd:annotation>
+              <xsd:documentation>Contains the asset, including the addition you have made.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AdditionResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="ass:AdditionResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CreateFromParentRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="ParentWithOveridesKey" type="ass:ParentWithOveridesKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains parameters for you to specify the parent asset, the attributes that the child asset inherits from its parent, and the capital cost of the new child asset.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CreateFromParentRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Creates new child assets in the database based on the parent asset you specify.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="ass:CreateFromParentRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CreateFromParentResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the company in which you attempted to create the asset.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Code" type="com:typeAstCodeB">
+            <xsd:annotation>
+              <xsd:documentation>The code for the asset that you attempted to create.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Asset" type="ass:Asset">
+            <xsd:annotation>
+              <xsd:documentation>Contains the asset you have created.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CreateFromParentResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="ass:CreateFromParentResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Filter" type="com:ReqKeys">
+            <xsd:annotation>
+              <xsd:documentation>A filter that selects the assets to be listed.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves key information for the specified assets from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="ass:ListRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Keys" type="com:KeyData">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key information for the listed assets.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="ass:ListResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListChildrenRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="ass:AssetKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key identifying the asset whose children you want to list.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListChildrenRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves key information for the child assets of the specified asset.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="ass:ListChildrenRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListChildrenResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="KeyList" type="ass:AssetKeyList">
+            <xsd:annotation>
+              <xsd:documentation>Contains a list of key information for the specified assets.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListChildrenResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="ass:ListChildrenResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="ass:AssetKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key identifying the asset you want to retrieve from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the specified assets from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="ass:GetRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the company in which you attempted to retrieve assets.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Code" type="com:typeAstCodeB">
+            <xsd:annotation>
+              <xsd:documentation>The code for the asset that you attempted to retrieve.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Asset" type="ass:Asset">
+            <xsd:annotation>
+              <xsd:documentation>Contains the asset you have retrieved from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="ass:GetResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CapitaliseRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="CapitaliseDetails" type="ass:CapitaliseAsset">
+            <xsd:annotation>
+              <xsd:documentation>Contains the costs, accounts and posting details for capitalising the specified assets.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CapitaliseRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Capitalises the specified assets.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="ass:CapitaliseRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CapitaliseResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the company in which you attempted to capitalise the assets.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AssetKeyList" type="ass:AssetKeyList" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains a list of key information for the assets that have been capitalised.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AssetList" type="ass:AssetList" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains a list of the assets that have been capitalised.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AggregateAsset" type="ass:Asset" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains a single asset that has been created from multiple asset lines on the Asset Intray.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="SavedOnIntray" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:documentation>Indicates whether the asset has been saved to the Intray instead of being capitalised.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ReasonSavedOnIntray" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>Explains why the asset was saved to the Intray; that is, why it could not be capitalised.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CapitaliseResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="ass:CapitaliseResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ReviewCapitalisationRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="CapitaliseDetails" type="ass:CapitaliseAsset">
+            <xsd:annotation>
+              <xsd:documentation>Contains the costs, accounts and posting details that will be used when the specified assets are capitalised.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ReviewCapitalisationRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Reviews capitalisation and transaction details that will be generated when the specified assets are capitalised.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="ass:ReviewCapitalisationRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ReviewCapitalisationResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the company in which you attempted to review capitalisation and transaction details.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CapitaliseDetailsList" type="ass:CapitaliseDetailsList">
+            <xsd:annotation>
+              <xsd:documentation>Contains details that will be stored when the specified assets are capitalised.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ReviewTransactions" type="rev:ReviewTransactions">
+            <xsd:annotation>
+              <xsd:documentation>Contains transaction details for the specified assets.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="RunNum" type="xsd:int">
+            <xsd:annotation>
+              <xsd:documentation>A number that uniquely identifies this review capitalisation process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AggregateAsset" type="ass:Asset" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains a single asset that has been created from multiple asset lines on the Asset Intray.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ReviewCapitalisationResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="ass:ReviewCapitalisationResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CapitaliseReviewRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="CapitaliseDetails" type="ass:CapitaliseReviewAsset">
+            <xsd:annotation>
+              <xsd:documentation>Contains the costs, accounts and posting details for capitalising the specified assets.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CapitaliseReviewRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Capitalises the assets that have been reviewed.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="ass:CapitaliseReviewRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CapitaliseReviewResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the company in which you attempted to capitalise the reviewed assets.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AssetKeyList" type="ass:AssetKeyList" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains a list of key information for the specified assets.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AssetList" type="ass:AssetList" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains a list of the specified assets and their details.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AggregateAsset" type="ass:Asset" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains a single asset that has been created from multiple asset lines on the Asset Intray.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CapitaliseReviewResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="ass:CapitaliseReviewResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CancelReviewRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="CapitaliseDetails" type="ass:CancelReviewAsset">
+            <xsd:annotation>
+              <xsd:documentation>Contains the costs, accounts and posting details for the asset review to be cancelled.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CancelReviewRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Cancels the review of the specified assets.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="ass:CancelReviewRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CancelReviewResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the company in which you have cancelled the review of specified assets.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="RunNum" type="xsd:int">
+            <xsd:annotation>
+              <xsd:documentation>A number that uniquely identifies this cancel review process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CancelReviewResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="ass:CancelReviewResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="LateAdjustmentRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="LateAdjustmentDetails" type="ass:LateAdjustmentAsset">
+            <xsd:annotation>
+              <xsd:documentation>Contains the value, suspense account and posting details for the specified late adjustment.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="LateAdjustmentRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Adds a late adjustment to an asset on the Asset Register.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="ass:LateAdjustmentRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="LateAdjustmentResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the company containing the asset to which you attempted to make a late adjustment.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AssetCode" type="com:typeAstCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the asset to which you attempted to make a late adjustment.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="LateAdjustmentResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="ass:LateAdjustmentResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ReviewLateAdjustmentRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="LateAdjustmentDetails" type="ass:LateAdjustmentAsset">
+            <xsd:annotation>
+              <xsd:documentation>Contains the value, suspense account and posting details for the specified late adjustment.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ReviewLateAdjustmentRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Reviews late adjustment details prior to posting.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="ass:ReviewLateAdjustmentRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ReviewLateAdjustmentResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the company in which you attempted to review late adjustment details.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AssetCode" type="com:typeAstCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the asset whose late adjustment details you attempted to review.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ReviewTransactions" type="rev:ReviewTransactions">
+            <xsd:annotation>
+              <xsd:documentation>Contains transaction details for the specified asset.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="RunNum" type="xsd:int">
+            <xsd:annotation>
+              <xsd:documentation>A number that uniquely identifies this late adjustment review process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ReviewLateAdjustmentResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="ass:ReviewLateAdjustmentResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PostReviewedLateAdjustmentRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="LateAdjustmentDetails" type="ass:PostCancelReviewedLateAdjustmentAsset">
+            <xsd:annotation>
+              <xsd:documentation>Contains posting details for the specified late adjustment.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PostReviewedLateAdjustmentRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Posts the reviewed late adjustment.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="ass:PostReviewedLateAdjustmentRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PostReviewedLateAdjustmentResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the company in which you attempted to post a late adjustment.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AssetCode" type="com:typeAstCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the asset to which you attempted to post a late adjustment.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PostReviewedLateAdjustmentResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="ass:PostReviewedLateAdjustmentResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CancelReviewedLateAdjustmentRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="LateAdjustmentDetails" type="ass:PostCancelReviewedLateAdjustmentAsset">
+            <xsd:annotation>
+              <xsd:documentation>Contains posting details for the specified late adjustment.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CancelReviewedLateAdjustmentRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Cancels the review of the late adjustment.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="ass:CancelReviewedLateAdjustmentRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CancelReviewedLateAdjustmentResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the company in which you attempted to cancel a late adjustment review.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="RunNum" type="xsd:int">
+            <xsd:annotation>
+              <xsd:documentation>A number that uniquely identifies this late adjustment review process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CancelReviewedLateAdjustmentResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="ass:CancelReviewedLateAdjustmentResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Asset" type="ass:Asset">
+            <xsd:annotation>
+              <xsd:documentation>Contains the information for the asset you want to update.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Updates assets in the database using the asset information you provide.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="ass:UpdateRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the company in which you attempted to update the asset.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Code" type="com:typeAstCodeB">
+            <xsd:annotation>
+              <xsd:documentation>The code for the asset that you attempted to update.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="TimeStamp" type="com:typeWord">
+            <xsd:annotation>
+              <xsd:documentation>The TimeStamp value for this asset in the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="ass:UpdateResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateWithTransactionsRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Asset" type="ass:Asset">
+            <xsd:annotation>
+              <xsd:documentation>Contains the information for the asset you want to update.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateWithTransactionsRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Updates assets in the database using the asset information you provide, and creates any transaction lines if the asset's cost or depreciation have changed.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="ass:UpdateWithTransactionsRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateWithTransactionsResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the company in which you attempted to update the asset with transactions.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Code" type="com:typeAstCodeB">
+            <xsd:annotation>
+              <xsd:documentation>The code for the asset that you attempted to update with transactions.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="TimeStamp" type="com:typeWord">
+            <xsd:annotation>
+              <xsd:documentation>The TimeStamp value for this asset in the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateWithTransactionsResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="ass:UpdateWithTransactionsResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AddRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Asset" type="ass:Asset">
+            <xsd:annotation>
+              <xsd:documentation>Contains the information for the asset you want to create.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AddRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Creates new assets in the database using the asset information you provide.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="ass:AddRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AddResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the company in which you attempted to add the asset.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Code" type="com:typeAstCodeB">
+            <xsd:annotation>
+              <xsd:documentation>The code for the asset that you attempted to add.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="TimeStamp" type="com:typeWord">
+            <xsd:annotation>
+              <xsd:documentation>The TimeStamp value for this asset in the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AddResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="ass:AddResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="ass:AssetKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key identifying the asset you want to delete.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Deletes the specified assets from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="ass:DeleteRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the company in which you attempted to delete the asset.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Code" type="com:typeAstCodeB">
+            <xsd:annotation>
+              <xsd:documentation>The code for the asset that you attempted to delete.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeleteResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="ass:DeleteResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListTransactionsRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Filter" type="com:ReqKeys">
+            <xsd:annotation>
+              <xsd:documentation>A filter that selects the assets for which you want to retrieve transaction information.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListTransactionsRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves transaction information for the specified assets from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="ass:ListTransactionsRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListTransactionsResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="TransactionDetailList" type="trd:TransactionDetailList">
+            <xsd:annotation>
+              <xsd:documentation>Contains the transaction details for the listed assets.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListTransactionsResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="ass:ListTransactionsResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CreateFullAssetRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="CreateFullAsset" type="ass:CreateFullAsset">
+            <xsd:annotation>
+              <xsd:documentation>Contains the information (including document line details) for the asset you want to create.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CreateFullAssetRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Creates an asset from the specified document line(s).</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="ass:CreateFullAssetRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CreateFullAssetResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the company in which you have created an asset from document lines.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Code" type="com:typeAstCodeB">
+            <xsd:annotation>
+              <xsd:documentation>The asset code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Passed" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:documentation>Indicates whether an asset was created from the document lines.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="LogNumber" type="xsd:int">
+            <xsd:annotation>
+              <xsd:documentation>The number of the log containing details of this asset creation process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Location" type="com:typeCtOneOfN">
+            <xsd:annotation>
+              <xsd:documentation>The location of the asset.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CreateFullAssetResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="ass:CreateFullAssetResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CheckAssetCreatableRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="CreateGeneralDetails" type="ass:CreateGeneralDetails">
+            <xsd:annotation>
+              <xsd:documentation>Contains the information that you want to check will create an asset.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CheckAssetCreatableRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Checks that an asset can be created from the given information.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="ass:CheckAssetCreatableRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CheckAssetCreatableResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the company in which you checked that an asset can be created.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Passed" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:documentation>Indicates whether an asset can be created from the information provided.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="LogNumber" type="xsd:int">
+            <xsd:annotation>
+              <xsd:documentation>The number of the log containing details of this checking process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CheckAssetCreatableResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="ass:CheckAssetCreatableResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ApplyCategoryRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the company containing the asset to which you want to apply a new category.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Code" type="com:typeAstCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the asset to which you want to apply a new category.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="NewCategory" type="com:typeCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the category you want to apply to the specified asset.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ApplyCategoryRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Applies a new category to a specified asset on the Asset Intray.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="ass:ApplyCategoryRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ApplyCategoryResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the company containing the asset to which you attempted to apply a new category.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Code" type="com:typeAstCodeB">
+            <xsd:annotation>
+              <xsd:documentation>The code for the asset to which you attempted to apply a new category.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ApplyCategoryResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="ass:ApplyCategoryResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ValidateAssetRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Asset" type="ass:Asset">
+            <xsd:annotation>
+              <xsd:documentation>Contains the information for the asset you want to validate.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CapitalisationYearPeriod" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>The year/period in which the asset will be capitalised.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ValidateAssetRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Validates that an asset's details are correct and therefore the asset will be valid when capitalised to the specified year/period.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="ass:ValidateAssetRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ValidateAssetResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="AssetValid" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:documentation>Indicates whether the asset is valid.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ValidateAssetResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="ass:ValidateAssetResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserFieldClassListRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Asset" type="ass:Asset">
+            <xsd:annotation>
+              <xsd:documentation>Contains the information for the asset with the user defined field that you want to query.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ExtensionName" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>The appropriate user field extension providing the list for the specified asset.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserFieldClassListRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Extracts the list associated with a user defined field.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="ass:UserFieldClassListRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserFieldClassListResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="DataList" type="ass:AssetUserDataList">
+            <xsd:annotation>
+              <xsd:documentation>Contains the list associated with the user defined field identified in the request corresponding to this response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserFieldClassListResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="ass:UserFieldClassListResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ValidateAssetCodeRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="AssetKey" type="ass:AssetKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key identifying the asset code you want to validate.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ValidateAssetCodeRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Validates an asset code to ensure it does not conflict with an existing asset code, and would not conflict with an asset code that could be generated in the future by a particular number rule.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="ass:ValidateAssetCodeRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ValidateAssetCodeResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="ValidStatus" type="xsd:int">
+            <xsd:annotation>
+              <xsd:documentation>Indicates whether the asset code is valid. This can be one of three values:</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="NumRuleCode" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>If ValidStatus = 2, this element contains the code of the number rule master which causes the conflict.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ValidateAssetCodeResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="ass:ValidateAssetCodeResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CalculateAssetCurrenciesRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Asset" type="ass:Asset">
+            <xsd:annotation>
+              <xsd:documentation>The asset code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Date" type="xsd:dateTime">
+            <xsd:annotation>
+              <xsd:documentation>The date that current currency exchange rates will be derived from if the Exchange Rate Date on the Financials company master is set to Document. (If the Exchange Rate Date is set to Input, then currency exchange rates will be derived from today's date.)</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Value" type="com:typeMoney">
+            <xsd:annotation>
+              <xsd:documentation>The value to calculate.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CurrencyEdits" type="ass:AssetCurrencyDataList" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains details of the value in associated currencies.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CalculateAssetCurrenciesRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Calculates the specified asset value in all associated currencies.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="ass:CalculateAssetCurrenciesRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CalculateAssetCurrenciesResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CurrencyData" type="ass:AssetCurrencyDataList">
+            <xsd:annotation>
+              <xsd:documentation>Contains the results of asset currency calculation.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CalculateAssetCurrenciesResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="ass:CalculateAssetCurrenciesResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CalculateCurrencyBookValuesOnDateRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Asset" type="ass:Asset">
+            <xsd:annotation>
+              <xsd:documentation>The asset code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Date" type="xsd:dateTime">
+            <xsd:annotation>
+              <xsd:documentation>The date that current currency exchange rates will be derived from if the Exchange Rate Date on the Financials company master is set to Document. (If the Exchange Rate Date is set to Input, then currency exchange rates will be derived from today's date.)</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Value" type="com:typeMoney">
+            <xsd:annotation>
+              <xsd:documentation>The value to recalculate.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="BookCode" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>The code of the primary book or secondary book whose associated currency values you want to calculate.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CalculateCurrencyBookValuesOnDateRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Calculates the specified asset value in all currencies associated with the specified primary book or secondary book.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="ass:CalculateCurrencyBookValuesOnDateRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CalculateCurrencyBookValuesOnDateResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CurrencyData" type="ass:AssetCurrencyDataList">
+            <xsd:annotation>
+              <xsd:documentation>Contains the results of asset currency calculation.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CalculateCurrencyBookValuesOnDateResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="ass:CalculateCurrencyBookValuesOnDateResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CalculateDerivedCurrencyBookRatesRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Asset" type="ass:Asset">
+            <xsd:annotation>
+              <xsd:documentation>The asset code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="BookCode" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>The code of the primary book or secondary book whose associated currency values you want to calculate.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CalculateDerivedCurrencyBookRatesRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Calculates the effective currency values for an asset in the specified asset book.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="ass:CalculateDerivedCurrencyBookRatesRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CalculateDerivedCurrencyBookRatesResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CurrencyData" type="ass:AssetCurrencyDataList">
+            <xsd:annotation>
+              <xsd:documentation>Contains the results of asset currency calculation.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CalculateDerivedCurrencyBookRatesResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="ass:CalculateDerivedCurrencyBookRatesResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CalculateCategoryCurrencyBookValuesOnDateRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="CategoryCode" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>The category code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Date" type="xsd:dateTime">
+            <xsd:annotation>
+              <xsd:documentation>The date that current currency exchange rates will be derived from if the Exchange Rate Date on the Financials company master is set to Document. (If the Exchange Rate Date is set to Input, then currency exchange rates will be derived from today's date.)</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Value" type="com:typeMoney">
+            <xsd:annotation>
+              <xsd:documentation>The value to calculate.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="BookCode" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>The code of the primary book or secondary book whose associated currency values you want to calculate.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CalculateCategoryCurrencyBookValuesOnDateRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Calculates the specified value in all currencies associated with the specified primary book or secondary book in the given category.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="ass:CalculateCategoryCurrencyBookValuesOnDateRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CalculateCategoryCurrencyBookValuesOnDateResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CurrencyData" type="ass:AssetCurrencyDataList">
+            <xsd:annotation>
+              <xsd:documentation>Contains the results of asset currency calculation.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CalculateCategoryCurrencyBookValuesOnDateResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="ass:CalculateCategoryCurrencyBookValuesOnDateResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ValidateAssetCategoriesRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="AssetKeys" type="ass:AssetKeyList">
+            <xsd:annotation>
+              <xsd:documentation>Contains a list of keys identifying assets and the categories used to create them.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ValidateAssetCategoriesRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Validates that the books defined on an asset match the books defined on the category used to create the asset.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="ass:ValidateAssetCategoriesRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ValidateAssetCategoriesResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="InvalidAssetKeys" type="ass:AssetCategoryKeyList">
+            <xsd:annotation>
+              <xsd:documentation>Contains a list of assets (and their categories) that failed the validation.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ValidateAssetCategoriesResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="ass:ValidateAssetCategoriesResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ValidateWIPAssetsRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="AssetKeys" type="ass:AssetKeyList">
+            <xsd:annotation>
+              <xsd:documentation>Contains a list of keys identifying WIP assets and the categories used to create them.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ValidateWIPAssetsRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Validates that the books defined on a WIP asset match the books defined on the category used to create the asset.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="ass:ValidateWIPAssetsRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ValidateWIPAssetsResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="InvalidAssetKeys" type="ass:AssetKeyList">
+            <xsd:annotation>
+              <xsd:documentation>Contains a list of WIP assets (and their categories) that failed the validation.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ValidateWIPAssetsResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="ass:ValidateWIPAssetsResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListSourceTransactionsRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="AssetKey" type="ass:AssetKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key identifying the asset whose source transactions will be listed.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListSourceTransactionsRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Lists the Financials source transactions for the specified asset.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="ass:ListSourceTransactionsRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListSourceTransactionsResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="TransactionDetailList" type="trd:TransactionDetailList">
+            <xsd:annotation>
+              <xsd:documentation>Contains the details of the transactions for the specified asset.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListSourceTransactionsResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="ass:ListSourceTransactionsResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AssetRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to maintain assets.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element name="Create" type="ass:CreateRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Creates new assets in the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Addition" type="ass:AdditionRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Adds extra value to an asset on the Asset Intray.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CreateFromParent" type="ass:CreateFromParentRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Creates new child assets in the database based on the parent asset you specify.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Get" type="ass:GetRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves the specified assets from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Capitalise" type="ass:CapitaliseRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Capitalises the specified assets.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ReviewCapitalisation" type="ass:ReviewCapitalisationRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Reviews capitalisation and transaction details that will be generated when the specified assets are capitalised.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CapitaliseReview" type="ass:CapitaliseReviewRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Capitalises the assets that have been reviewed.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CancelReview" type="ass:CancelReviewRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Cancels the review of the specified assets.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="LateAdjustment" type="ass:LateAdjustmentRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Adds a late adjustment to an asset on the Asset Register.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ReviewLateAdjustment" type="ass:ReviewLateAdjustmentRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Reviews late adjustment details prior to posting.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PostReviewedLateAdjustment" type="ass:PostReviewedLateAdjustmentRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Posts the reviewed late adjustment.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CancelReviewedLateAdjustment" type="ass:CancelReviewedLateAdjustmentRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Cancels the review of the late adjustment.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ApplyCategory" type="ass:ApplyCategoryRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Applies a new category to a specified asset on the Asset Intray.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Add" type="ass:AddRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Creates new assets in the database using the asset information you provide.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Update" type="ass:UpdateRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Updates assets in the database using the asset information you provide.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Delete" type="ass:DeleteRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Deletes the specified assets from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="List" type="ass:ListRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves key information for the specified assets from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ListChildren" type="ass:ListChildrenRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves key information for the child assets of the specified asset.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ListTransactions" type="ass:ListTransactionsRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves transaction information for the specified assets from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CreateFullAsset" type="ass:CreateFullAssetRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Creates an asset from the specified document line(s).</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CheckAssetCreatable" type="ass:CheckAssetCreatableRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Checks that an asset can be created from the given information.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="UpdateWithTransactions" type="ass:UpdateWithTransactionsRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Updates assets in the database using the asset information you provide, and creates any transaction lines if the asset's cost or depreciation have changed.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ValidateAsset" type="ass:ValidateAssetRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Validates that an asset's details are correct and therefore the asset will be valid when capitalised to the specified year/period.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="UserFieldClassList" type="ass:UserFieldClassListRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Extracts the list associated with a user defined field.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ValidateAssetCode" type="ass:ValidateAssetCodeRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Validates an asset code to ensure it does not conflict with an existing asset code, and would not conflict with an asset code that could be generated in the future by a particular number rule.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ValidateAndAdd" type="ass:AddRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Validates that an asset's details are correct before adding it to the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Summary" type="ass:SummaryRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves an asset book summary.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CalculateAssetCurrencies" type="ass:CalculateAssetCurrenciesRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Calculates the specified asset value in all associated currencies.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CalculateCurrencyBookValuesOnDate" type="ass:CalculateCurrencyBookValuesOnDateRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Calculates the specified asset value in all currencies associated with the specified primary book or secondary book.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CalculateDerivedCurrencyBookRates" type="ass:CalculateDerivedCurrencyBookRatesRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Calculates the effective currency values for an asset in the specified asset book.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CalculateCategoryCurrencyBookValuesOnDate" type="ass:CalculateCategoryCurrencyBookValuesOnDateRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Calculates the specified value in all currencies associated with the specified primary book or secondary book in the given category.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ValidateAssetCategories" type="ass:ValidateAssetCategoriesRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Validates that the books defined on an asset match the books defined on the category used to create the asset.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ValidateWIPAssets" type="ass:ValidateWIPAssetsRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Validates that the books defined on a WIP asset match the books defined on the category used to create the asset.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ListSourceTransactions" type="ass:ListSourceTransactionsRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Lists the Financials source transactions for the specified asset.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AssetResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you maintain assets.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element name="Create" type="ass:CreateResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Addition" type="ass:AdditionResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CreateFromParent" type="ass:CreateFromParentResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Get" type="ass:GetResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Capitalise" type="ass:CapitaliseResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ReviewCapitalisation" type="ass:ReviewCapitalisationResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CapitaliseReview" type="ass:CapitaliseReviewResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CancelReview" type="ass:CancelReviewResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="LateAdjustment" type="ass:LateAdjustmentResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ReviewLateAdjustment" type="ass:ReviewLateAdjustmentResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PostReviewedLateAdjustment" type="ass:PostReviewedLateAdjustmentResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CancelReviewedLateAdjustment" type="ass:CancelReviewedLateAdjustmentResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ApplyCategory" type="ass:ApplyCategoryResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Add" type="ass:AddResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Update" type="ass:UpdateResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Delete" type="ass:DeleteResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="List" type="ass:ListResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ListChildren" type="ass:ListChildrenResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ListTransactions" type="ass:ListTransactionsResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CreateFullAsset" type="ass:CreateFullAssetResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CheckAssetCreatable" type="ass:CheckAssetCreatableResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="UpdateWithTransactions" type="ass:UpdateWithTransactionsResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ValidateAsset" type="ass:ValidateAssetResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="UserFieldClassList" type="ass:UserFieldClassListResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ValidateAssetCode" type="ass:ValidateAssetCodeResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ValidateAndAdd" type="ass:AddResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Summary" type="ass:SummaryResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CalculateAssetCurrencies" type="ass:CalculateAssetCurrenciesResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CalculateCurrencyBookValuesOnDate" type="ass:CalculateCurrencyBookValuesOnDateResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CalculateDerivedCurrencyBookRates" type="ass:CalculateDerivedCurrencyBookRatesResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CalculateCategoryCurrencyBookValuesOnDate" type="ass:CalculateCategoryCurrencyBookValuesOnDateResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ValidateAssetCategories" type="ass:ValidateAssetCategoriesResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ValidateWIPAssets" type="ass:ValidateWIPAssetsResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ListSourceTransactions" type="ass:ListSourceTransactionsResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="AssetRequest" type="ass:AssetRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to maintain assets.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="AssetResponse" type="ass:AssetResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you maintain assets.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

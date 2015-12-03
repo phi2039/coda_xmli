@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:dst="http://www.coda.com/efinance/schemas/distributionmaster" targetNamespace="http://www.coda.com/efinance/schemas/distributionmaster" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="Master" abstract="true">
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company in which this distribution master exists.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this distribution master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this distribution master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name of the distribution master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name of the distribution master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Balance" type="com:typeGeneralCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The master code that specifies the balances to which you want to distribute the selected values.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Currency" type="com:typeGeneralCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The currency in which the balances are to be updated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DistributionType" type="com:typeCtDstDistributionType">
+        <xsd:annotation>
+          <xsd:documentation>The type of distribution this master uses: proportional or basis.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BasisCurrency" type="com:typeCtDstBasisCurrency">
+        <xsd:annotation>
+          <xsd:documentation>For basis distribution, whether allocation is made on the basis of selected home or dual currency values.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UseWithInterCompany" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that this master is used for InterCompany Allocation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DistributeToBalances" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that distribution is to balances.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Distribution">
+    <xsd:annotation>
+      <xsd:documentation>An item on the distribution list.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="AccountCode" type="com:typeAcCode">
+        <xsd:annotation>
+          <xsd:documentation>The account to which part of the cost will be allocated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Weight" type="com:typeNum">
+        <xsd:annotation>
+          <xsd:documentation>For proportional distribution, the proportion of the total that you want to allocate to the named account.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ReportingBasis" type="com:typeRepBasis">
+        <xsd:annotation>
+          <xsd:documentation>If distribution is to balances, the reporting basis which indicates the intersects at which the balance is held. Zero represents the full account code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SelectorCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The selector code which determines the values that you want to allocate to the named account in basis distribution.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DestinationCode" type="com:typeGeneralCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The code of the destination master holding the information about the destination company, if you are distributing across companies.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElementSelectorList" type="dst:ElementSelectorList">
+        <xsd:annotation>
+          <xsd:documentation>The list of elements requiring resolution of a wildcard in the account code (wildcards can be entered for basis distribution only).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DistributionList">
+    <xsd:annotation>
+      <xsd:documentation>The list of accounts to which the values are allocated.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Distribution" type="dst:Distribution" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>An item on the distribution list.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ElementSelectorList">
+    <xsd:annotation>
+      <xsd:documentation>The list of elements requiring resolution of a wildcard in the account code (wildcards can be entered for basis distribution only).</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ElementSelector" type="com:typeCtElementSelectorType" minOccurs="8" maxOccurs="8">
+        <xsd:annotation>
+          <xsd:documentation>How the wildcard will be resolved: by reference to the basis accounts (basis) or by reference to the selection accounts (rule) .</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Key">
+    <xsd:annotation>
+      <xsd:documentation>A distribution master key.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company in which the distribution master exists.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the distribution master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Type" type="com:typeCtDstDistributionType" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The type of distribution master: proportional or basis. If you leave this field empty, all keys are returned.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UseWithInterCompany" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, this distribution master can be used with InterCompany (relevant for Allocation only).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DistributeToBalances" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that distribution is to Balances. Otherwise distribution is to Details.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="dstReqKeys">
+    <xsd:annotation>
+      <xsd:documentation>Contains key information for requesting a number of distribution masters from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MaxKeys" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The maximum number of items to be returned.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="WildKey" type="dst:Key">
+        <xsd:annotation>
+          <xsd:documentation>A distribution master key.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The short name of the distribution master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CompaniesList">
+    <xsd:sequence>
+      <xsd:element name="Company" type="com:typeGeneralCode" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DistributionMaster">
+    <xsd:annotation>
+      <xsd:documentation>This document holds a distribution master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="dst:Master">
+        <xsd:sequence>
+          <xsd:element name="DistributionList" type="dst:DistributionList">
+            <xsd:annotation>
+              <xsd:documentation>The list of accounts to which the values are allocated.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="DistributionMaster" type="dst:DistributionMaster">
+    <xsd:annotation>
+      <xsd:documentation>This document holds a distribution master.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

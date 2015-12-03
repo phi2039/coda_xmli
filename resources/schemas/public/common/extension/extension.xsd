@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ext="http://www.coda.com/common/schemas/extension" targetNamespace="http://www.coda.com/common/schemas/extension" elementFormDefault="qualified">
+
+  <xsd:complexType name="ListValue">
+    <xsd:sequence>
+      <xsd:element name="DisplayValue" type="xsd:string"/>
+      <xsd:element name="Value" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListValues">
+    <xsd:sequence>
+      <xsd:element name="ListValue" type="ext:ListValue" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ConfigurationItem">
+    <xsd:sequence>
+      <xsd:element name="Type" type="xsd:integer"/>
+      <xsd:element name="Name" type="xsd:string"/>
+      <xsd:element name="DisplayName" type="xsd:string"/>
+      <xsd:element name="Value" type="xsd:normalizedString"/>
+      <xsd:element name="Usage" type="xsd:string"/>
+      <xsd:element name="ListValues" type="ext:ListValues" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ConfigurationList">
+    <xsd:sequence>
+      <xsd:element name="Config" type="ext:ConfigurationItem" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

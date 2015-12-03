@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:umm="http://www.coda.com/efinance/schemas/undomatchingmaster" targetNamespace="http://www.coda.com/efinance/schemas/undomatchingmaster" elementFormDefault="qualified" version="2.0">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="MatchType">
+    <xsd:annotation>
+      <xsd:documentation>The types of document lines to unmatch.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Paid" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies that document lines with a payment status of Available (before being matched) are unmatched.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Deferred" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies that document lines with a payment status of Draft Available (before being matched) are unmatched.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Suppressed" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies that document lines with a payment status of Suppressed Paid (before being matched) are unmatched.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CancelMatched" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies that individual Suppressed Paid lines are unmatched.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UndoMatchingMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds an undo matching master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this undo matching master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the undo matching master is being maintained.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this undo matching master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name for this undo matching master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for this undo matching master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UndoType" type="com:typeCtUndoMatchType">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether this master is used to undo matching references or payment numbers.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MatchType" type="umm:MatchType">
+        <xsd:annotation>
+          <xsd:documentation>The types of document lines to unmatch.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SelCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the selector master that selects the document lines to be unmatched.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PresCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the presenter master used to display the selected document lines.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CancelPostings" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether disperse and matching postings that were made during the original match are reversed. When TRUE, you must specify a cancelling code for CancelDocCode.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CancelDocCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the cancelling document to use when postings are reversed by undo matching.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="EnableLogging" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether a log of the undone match(es) is created.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="UndoMatchingMaster" type="umm:UndoMatchingMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds an undo matching master.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

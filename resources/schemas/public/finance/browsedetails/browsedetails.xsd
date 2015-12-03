@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:brs="http://www.coda.com/efinance/schemas/browsedetails" xmlns:txn="http://www.coda.com/efinance/schemas/transaction" targetNamespace="http://www.coda.com/efinance/schemas/browsedetails" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/transaction" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/transaction/transaction.xsd"/>
+
+  <xsd:complexType name="UpdateHeader">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the information used to identify the transaction line to update.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="txn:txnLineKey">
+        <xsd:annotation>
+          <xsd:documentation>The key used to identify the document line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TimeStamp" type="com:typeWord">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this update in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateUserRef">
+    <xsd:annotation>
+      <xsd:documentation>This element contains information about the user references associated with the document line (update type "userref").</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Number" type="com:typeWord">
+        <xsd:annotation>
+          <xsd:documentation>The number of the user reference you want to update.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Text" type="com:typeUserRefB">
+        <xsd:annotation>
+          <xsd:documentation>The value of the user reference.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateExtRef">
+    <xsd:annotation>
+      <xsd:documentation>This element contains information about the external references associated with the document line (update type "extref").</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Number" type="com:typeWord">
+        <xsd:annotation>
+          <xsd:documentation>The number of the external reference you want to update.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Text" type="com:typeExtRef">
+        <xsd:annotation>
+          <xsd:documentation>The value of the external reference.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateUnion">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the document line details you want to update.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="UpdateType" type="com:typeCtUpdateId">
+        <xsd:annotation>
+          <xsd:documentation>Identifies the type of document line detail you want to update, for example, comment.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ValueExtRef" type="brs:UpdateExtRef" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element contains information about the external references associated with the document line (update type "extref").</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ValueComments" type="txn:Comments" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the comment text that you want to update (for update type "comment"), or append to existing comments (update type "append-comment").</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ValueUserRef" type="brs:UpdateUserRef" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element contains information about the user references associated with the document line (update type "userref").</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ValueDiscounts" type="txn:Discounts" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The discounts associated with the document line (update type "discount").</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ValueString" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains update types for value strings: "description", "statuser", "bankcode" and "mediacode".</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ValueDate" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains update types for value dates: "valdate" and "duedate".</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ValueUWord" type="com:typeUWord" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains update types for value uwords: a uword is an unsigned word, used for statuses like pay status or docline status.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ValuePayStatus" type="com:typeCtStatPayMultEdit" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The pay status, indicating how far a document has progressed through the pay process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ValueRecStatus" type="com:typeCtStatRec" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The reconciliation status of the document line (update type "statrecon").</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateUnionList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains information about the document line details you want to update.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Item" type="brs:UpdateUnion" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains the document line details you want to update.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="BrsHeader">
+    <xsd:annotation>
+      <xsd:documentation>This element contains header information for the document to which the line belongs.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="txn:Header">
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ElmQuantity">
+    <xsd:annotation>
+      <xsd:documentation>This element contains information about a quantity associated with the document line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ElmLevel" type="com:typeElmLevel">
+        <xsd:annotation>
+          <xsd:documentation>The level of the element within the account code for the document line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="QuantityIndex" type="com:typeQtyPosition">
+        <xsd:annotation>
+          <xsd:documentation>The quantity index number (for example, quantity '1', quantity '2').</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Title" type="com:typeQtyTitle">
+        <xsd:annotation>
+          <xsd:documentation>The title for the quantity, taken from the element master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Value" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The value of the quantity.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ElmQuantityList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of quantities associated with the document line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Item" type="brs:ElmQuantity" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains information about a quantity associated with the document line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ElmSNameList">
+    <xsd:annotation>
+      <xsd:documentation>This contains a list of element short names.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ElmSName" type="com:typeShortNameB" minOccurs="0" maxOccurs="8">
+        <xsd:annotation>
+          <xsd:documentation>The short names for the elements that comprise the account code for the document line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="BrsCurrencyInfo">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details about the exchange rate with one other currency at a particular time.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="txn:CurrencyInfo">
+        <xsd:sequence>
+          <xsd:element name="CrossScaling" type="com:typeUWord" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The scaling factor to apply to values.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CrossRate" type="com:typeRate" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The rate of exchange between the currency and its parent currency or your home currency, whichever applies.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CrossMultDivRule" type="com:typeCtMulDiv" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The multiply or divide rule for the currency.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CurrData">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the exchange rate information for the currency.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Info" type="brs:BrsCurrencyInfo" minOccurs="0" maxOccurs="13">
+        <xsd:annotation>
+          <xsd:documentation>This element holds details about the exchange rate with one other currency at a particular time.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ReminderLetterData">
+    <xsd:annotation>
+      <xsd:documentation>This element holds information relating to a reminder letter associated with this document line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ReminderStatus" type="com:typeCtDoclineReminderStatus">
+        <xsd:annotation>
+          <xsd:documentation>The status of the proposal containing the reminder letter on which this line is included.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ReminderDate" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date of the last reminder letter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CurrentSeverity" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The severity level of the current reminder letter on which this line is included.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LastReminder" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The severity level of the last reminder letter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="BrsLine">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details about the document line you have selected.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="txn:Line">
+        <xsd:sequence>
+          <xsd:element name="ExtRefLabel1" type="com:typeExtRef" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The label for External Reference 1, as specified on the document master for the line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ExtRefLabel2" type="com:typeExtRef" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The label for External Reference 2, as specified on the document master for the line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ExtRefLabel3" type="com:typeExtRef" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The label for External Reference 3, as specified on the document master for the line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ExtRefLabel4" type="com:typeExtRef" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The label for External Reference 4, as specified on the document master for the line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ExtRefLabel5" type="com:typeExtRef" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The label for External Reference 5, as specified on the document master for the line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ExtRefLabel6" type="com:typeExtRef" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The label for External Reference 6, as specified on the document master for the line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ElmQuantityList" type="brs:ElmQuantityList">
+            <xsd:annotation>
+              <xsd:documentation>This element contains a list of quantities associated with the document line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ElmSNameList" type="brs:ElmSNameList">
+            <xsd:annotation>
+              <xsd:documentation>This contains a list of element short names.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="TaxLineShortName" type="com:typeShortNameB" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The abbreviated name for a tax master associated with a tax line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DocumentLocation" type="com:typeCtDocumentLocation">
+            <xsd:annotation>
+              <xsd:documentation>The location of the document: Archive, Books or Intray. Where the document location is 'Archive' the Save Changes button is unavailable when you try and edit a document line in Browse Details.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ReminderLetterData" type="brs:ReminderLetterData" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>This element holds information relating to a reminder letter associated with this document line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CurrData" type="brs:CurrData">
+            <xsd:annotation>
+              <xsd:documentation>This element holds the exchange rate information for the currency.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="LineData">
+    <xsd:annotation>
+      <xsd:documentation>This element contains information about the document line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Header" type="brs:BrsHeader">
+        <xsd:annotation>
+          <xsd:documentation>This element contains header information for the document to which the line belongs.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Line" type="brs:BrsLine">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details about the document line you have selected.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="HomeTotalRowList">
+    <xsd:annotation>
+      <xsd:documentation>The list of transactions contributing to the total value.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Row" type="txn:txnLineKey" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>The key that identifies a transaction.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="HomeTotalData">
+    <xsd:annotation>
+      <xsd:documentation>The information relating to the total value.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="HomeValue" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The value in home currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MultiCurr" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the total includes multiple currencies.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RowCount" type="com:typeUWord">
+        <xsd:annotation>
+          <xsd:documentation>The number of rows in the Browse display.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

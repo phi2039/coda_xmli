@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:ccy="http://www.coda.com/efinance/schemas/copycompany" targetNamespace="http://www.coda.com/efinance/schemas/copycompany" elementFormDefault="qualified" version="2.0">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+
+  <xsd:complexType name="MasterRangeItem">
+    <xsd:annotation>
+      <xsd:documentation>A range held within the list of ranges for this master type.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Logical" type="com:typeCtAccessLog">
+        <xsd:annotation>
+          <xsd:documentation>OR includes all codes which satisfy the criteria in each parameter individually. AND includes only those codes which satisfy all the criteria in all the parameters.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LBracket" type="com:typeCtLeftBracketVocab">
+        <xsd:annotation>
+          <xsd:documentation>The level of opening brackets required to nest this parameter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Vocab" type="com:typeCtCopVocab">
+        <xsd:annotation>
+          <xsd:documentation>The vocabulary name of the parameter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Function" type="com:typeCtAccessOp">
+        <xsd:annotation>
+          <xsd:documentation>The function that links the Vocabulary to the Value, for example = or like</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Value" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The value of the parameter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TBracket" type="com:typeCtRightBracketVocab">
+        <xsd:annotation>
+          <xsd:documentation>The level of closing brackets required to nest this parameter.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MasterRangeList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains any ranges you specify for this master type.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MasterRangeItem" type="ccy:MasterRangeItem" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>A range held within the list of ranges for this master type.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MasterItem">
+    <xsd:annotation>
+      <xsd:documentation>Details of a master held within the list to be copied.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MasterID" type="com:typeCtCopMasterType">
+        <xsd:annotation>
+          <xsd:documentation>The type of master you want to copy.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MasterRanges" type="ccy:MasterRangeList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element contains any ranges you specify for this master type.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectedMasterList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the list of masters to be copied, and any ranges you specify.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="SelectedMaster" type="ccy:MasterItem" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Details of a master held within the list to be copied.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CopyCompany">
+    <xsd:annotation>
+      <xsd:documentation>This document holds the parameters for a Copy Company process.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="SourceCompany" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The company from which you want to copy masters.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TargetCompany" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The company to which you want to copy masters.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LogTitle" type="com:typeTextAny">
+        <xsd:annotation>
+          <xsd:documentation>The title of the log which will contain details of the copy process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SelectedMasters" type="ccy:SelectedMasterList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains the list of masters to be copied, and any ranges you specify.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ExternalDatabase">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the information needed to identify the external database where the source company exists.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ServerName" type="com:typeDBServer" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The IP address of the server where the external database is located.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DatabaseName" type="com:typeDBConnectionField">
+        <xsd:annotation>
+          <xsd:documentation>The name of the external database containing the source company.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserName" type="com:typeDBConnectionField">
+        <xsd:annotation>
+          <xsd:documentation>The user name to access the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Password" type="com:typeDBConnectionField">
+        <xsd:annotation>
+          <xsd:documentation>The password used to access the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TableOwner" type="com:typeDBConnectionField">
+        <xsd:annotation>
+          <xsd:documentation>The name of the table owner.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CopyFromExternal">
+    <xsd:annotation>
+      <xsd:documentation>This document holds the parameters for a Copy Company process, where the source company is in an external database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="SourceCompany" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The company from which you want to copy masters.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SourceDatabase" type="ccy:ExternalDatabase">
+        <xsd:annotation>
+          <xsd:documentation>This element contains the information needed to identify the external database where the source company exists.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TargetCompany" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The company to which you want to copy masters.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LogTitle" type="com:typeTextAny">
+        <xsd:annotation>
+          <xsd:documentation>The title of the log which will contain details of the copy process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SelectedMasters" type="ccy:SelectedMasterList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains the list of masters to be copied, and any ranges you specify.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="CopyCompany" type="ccy:CopyCompany">
+    <xsd:annotation>
+      <xsd:documentation>This document holds the parameters for a Copy Company process.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="CopyFromExternal" type="ccy:CopyFromExternal">
+    <xsd:annotation>
+      <xsd:documentation>This document holds the parameters for a Copy Company process, where the source company is in an external database.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:sysinfo="http://www.coda.com/common/schemas/systeminfo" elementFormDefault="qualified" targetNamespace="http://www.coda.com/common/schemas/systeminfo">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types2.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="SystemInformation">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TimeStamp" type="xsd:short"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SystemInformationList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="SystemInformation" type="sysinfo:SystemInformation"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SystemInformationKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="SystemInformation" type="sysinfo:SystemInformationKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SystemInformationKey">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a key to a system from which information is retrieved.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DatabaseLimits">
+    <xsd:annotation>
+      <xsd:documentation>This element contains information about database limits.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="NumberLimitsList" type="sysinfo:DatabaseLimitsNumberLimitsList">
+        <xsd:annotation>
+          <xsd:documentation>A list of number limits.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DatabaseLimitsNumberLimitsList">
+    <xsd:annotation>
+      <xsd:documentation>A list of number limits.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="10" minOccurs="10" name="NumberLimits" type="sysinfo:NumberLimit">
+        <xsd:annotation>
+          <xsd:documentation>Number limit details.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DatabaseLimitsList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="DatabaseLimits" type="sysinfo:DatabaseLimits"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WebApplicationTreeNode">
+    <xsd:annotation>
+      <xsd:documentation>This element contains information about a Web application.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Name" type="com:typeTextAnyDb">
+        <xsd:annotation>
+          <xsd:documentation>The name of a Web application.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Uri" type="com:typeUri">
+        <xsd:annotation>
+          <xsd:documentation>The URI of a Web application.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NodeList" type="sysinfo:WebApplicationTreeNodeNodeList">
+        <xsd:annotation>
+          <xsd:documentation>A list of Web application nodes.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WebApplicationTreeNodeNodeList">
+    <xsd:annotation>
+      <xsd:documentation>A list of Web application nodes.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Node" type="sysinfo:WebApplicationTreeNode">
+        <xsd:annotation>
+          <xsd:documentation>The neme of the Web application node.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WebApplicationTreeNodeList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="WebApplicationTreeNode" type="sysinfo:WebApplicationTreeNode"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="NumberLimit">
+    <xsd:annotation>
+      <xsd:documentation>Number limit details.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="DecimalPlaces" type="com:typeULong">
+        <xsd:annotation>
+          <xsd:documentation>The maximum number of decimal places.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="MinimumNumber" type="com:typeNumber">
+        <xsd:annotation>
+          <xsd:documentation>The smallest number that can be stored</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="MaximumNumber" type="com:typeNumber">
+        <xsd:annotation>
+          <xsd:documentation>The largets number that can be stored</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="NumberLimitList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="NumberLimit" type="sysinfo:NumberLimit"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

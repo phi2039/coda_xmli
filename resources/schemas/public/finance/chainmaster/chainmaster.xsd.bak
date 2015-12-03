@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:chn="http://www.coda.com/efinance/schemas/chainmaster" targetNamespace="http://www.coda.com/efinance/schemas/chainmaster" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="Master" abstract="true">
+    <xsd:sequence>
+      <xsd:element name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this chain master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CmpCode" type="com:typeGeneralCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company in which the chain master exists.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this chain master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name for this chain master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for this chain master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ContinueOnFail" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that the chain runs the remaining rules if one rule fails.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocumentDate" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The posting date for the allocation document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocumentPeriod" type="com:typePeriod">
+        <xsd:annotation>
+          <xsd:documentation>The year and period for posting, which will apply to the allocation document. You can use an explicit or soft period.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ReversingDocumentDate" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date of the reversing document, if applicable.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ReversingDocumentPeriod" type="com:typePeriod">
+        <xsd:annotation>
+          <xsd:documentation>The year and period to which the reversing document will be posted, if applicable.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BalancePeriod" type="com:typePeriod">
+        <xsd:annotation>
+          <xsd:documentation>The year and period which you want to be updated, if single period update is set in the rule master. If multi-period update is set, this override is not applied.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocumentLineDescription" type="com:typeTextAnyB">
+        <xsd:annotation>
+          <xsd:documentation>A description of up to 36 characters which will be applied to each line of the document, overriding those specified in the individual rule masters.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ApplyOverrides" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE specifies that values set in the previous fields (dates, periods, document line descriptions) will override those set in the corresponding fields in the individual rule masters.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Rule">
+    <xsd:annotation>
+      <xsd:documentation>An item within the list of rules.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="RulCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the rule.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Desc" type="com:typeTextAnyB">
+        <xsd:annotation>
+          <xsd:documentation>The short name of the rule for identification.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RuleList">
+    <xsd:annotation>
+      <xsd:documentation>The list of rules which you want this chain to run. All the rules named within this element should be of the same rule type: either allocation rules or revaluation rules.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Rule" type="chn:Rule" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>An item within the list of rules.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="chnKey">
+    <xsd:annotation>
+      <xsd:documentation>A chain master key.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company in which the chain master exists.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the chain master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Allocation" type="com:typeCtEvalRule" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>Specifies that this chain master is used to run allocation rules. If this element is left blank, then all keys are returned.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="chnReqKeys">
+    <xsd:annotation>
+      <xsd:documentation>Contains key information for requesting a number of chain masters from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MaxKeys" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The maximum number of items to be returned.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="WildKey" type="chn:chnKey">
+        <xsd:annotation>
+          <xsd:documentation>A chain master key.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ChainMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a chain master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="chn:Master">
+        <xsd:sequence>
+          <xsd:element name="RuleList" type="chn:RuleList">
+            <xsd:annotation>
+              <xsd:documentation>The list of rules which you want this chain to run. All the rules named within this element should be of the same rule type: either allocation rules or revaluation rules.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="ChainMaster" type="chn:ChainMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a chain master.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

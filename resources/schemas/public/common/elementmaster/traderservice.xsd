@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:elm="http://www.coda.com/efinance/schemas/elementmaster" targetNamespace="http://www.coda.com/efinance/schemas/elementmaster" elementFormDefault="qualified" version="3.0">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/service.xsd"/>
+  <xsd:include schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/elementmaster/trader.xsd"/>
+
+  <xsd:complexType name="AddTraderRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Trader" type="elm:Trader">
+            <xsd:annotation>
+              <xsd:documentation>Contains the information for the trader you want to create.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Validation" type="elm:Validation" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the document and media master codes selected in the current input session, against which the new trader details will be validated.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AddTraderRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Creates a new trader in the database using the trader information you provide.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="elm:AddTraderRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AddTraderResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the company in which you attempted to create the trader.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ElmCode" type="com:typeElmCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the umbrella element within which you attempted to create the trader.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ElmLevel" type="com:typeElmLevel">
+            <xsd:annotation>
+              <xsd:documentation>The level of the umbrella element within which you attempted to create the trader.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Code" type="com:typeTraderCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the trader which you attempted to create.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="TimeStamp" type="com:typeWord">
+            <xsd:annotation>
+              <xsd:documentation>The TimeStamp value for this trader in the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AddTraderResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="elm:AddTraderResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateTraderRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Trader" type="elm:Trader">
+            <xsd:annotation>
+              <xsd:documentation>Contains the information for the trader you want to update.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Validation" type="elm:Validation" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the document and media master codes selected in the current input session, against which the updated trader details will be validated.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateTraderRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Updates a trader in the database using the trader information you provide.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="elm:UpdateTraderRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateTraderResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the company in which you attempted to update the trader.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ElmCode" type="com:typeElmCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the umbrella element within which you attempted to update the trader.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ElmLevel" type="com:typeElmLevel">
+            <xsd:annotation>
+              <xsd:documentation>The level of the umbrella element within which you attempted to update the trader.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Code" type="com:typeTraderCode">
+            <xsd:annotation>
+              <xsd:documentation>The code for the trader which you attempted to update.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="TimeStamp" type="com:typeWord">
+            <xsd:annotation>
+              <xsd:documentation>The TimeStamp value for this trader in the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateTraderResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="elm:UpdateTraderResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetTraderRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="elm:TraderKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key identifying the trader you want to retrieve from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetTraderRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the specified trader from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="elm:GetTraderRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetTraderResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Trader" type="elm:Trader" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the trader information you have retrieved from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetTraderResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="elm:GetTraderResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListTraderRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Filter" type="elm:TraderDetail">
+            <xsd:annotation>
+              <xsd:documentation>A filter that selects the traders to be listed.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListTraderRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves extended key information for the specified traders from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="elm:ListTraderRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListTraderResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Keys" type="elm:TraderDetails">
+            <xsd:annotation>
+              <xsd:documentation>Contains extended key information for the listed traders.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListTraderResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="elm:ListTraderResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListAllTraderRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Filter" type="elm:AllCmpTraderFilter">
+            <xsd:annotation>
+              <xsd:documentation>A filter for selecting all trader codes in the specified company regardless of which umbrella element the traders belong to.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListAllTraderRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Lists all trader codes in the specified company regardless of which umbrella element the traders belong to.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="elm:ListAllTraderRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListAllTraderResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Filter" type="elm:AllCmpTraderFilter">
+            <xsd:annotation>
+              <xsd:documentation>The filter sent with the ListAllTraderRequest corresponding to this response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Codes" type="elm:TraderCodes">
+            <xsd:annotation>
+              <xsd:documentation>The list of trader codes returned by the ListAllTraderRequest corresponding to this response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListAllTraderResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="elm:ListAllTraderResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectTraderRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Filter" type="elm:TraderSelectFilter">
+            <xsd:annotation>
+              <xsd:documentation>A filter for selecting traders.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectTraderRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Selects traders matching the specified filter.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="elm:SelectTraderRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectTraderResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Filter" type="elm:TraderSelectFilter">
+            <xsd:annotation>
+              <xsd:documentation>The filter sent with the SelectTraderRequest corresponding to this response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Details" type="elm:TraderSelectDetails" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains details of the traders selected by the SelectTraderRequest corresponding to this response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectTraderResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="elm:SelectTraderResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PurgeTraderRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="LogTitle" type="com:typeLogTitle">
+            <xsd:annotation>
+              <xsd:documentation>The title of a log file in which details of the purge trader session are recorded.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Filter" type="elm:TraderSelectFilter" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>A filter for selecting traders.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Keys" type="elm:TraderKeys">
+            <xsd:annotation>
+              <xsd:documentation>Contains the keys identifying the traders you want to purge.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PurgeTraderRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Purges the specified unused traders from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="elm:PurgeTraderRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PurgeTraderResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="LogTitle" type="com:typeLogTitle">
+            <xsd:annotation>
+              <xsd:documentation>The title of a log file in which details of the purge trader session are recorded.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Filter" type="elm:TraderSelectFilter" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The filter sent with the PurgeTraderRequest corresponding to this response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PurgeTraderResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="elm:PurgeTraderResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="TraderRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to maintain traders.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element name="Add" type="elm:AddTraderRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Creates a new trader in the database using the trader information you provide.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Update" type="elm:UpdateTraderRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Updates a trader in the database using the trader information you provide.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Get" type="elm:GetTraderRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves the specified trader from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="List" type="elm:ListTraderRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves extended key information for the specified traders from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ListAll" type="elm:ListAllTraderRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Lists all trader codes in the specified company regardless of which umbrella element the traders belong to.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Select" type="elm:SelectTraderRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Selects traders matching the specified filter.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Purge" type="elm:PurgeTraderRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Purges the specified unused traders from the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="TraderResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you maintain traders.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element name="Add" type="elm:AddTraderResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Update" type="elm:UpdateTraderResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Get" type="elm:GetTraderResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="List" type="elm:ListTraderResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ListAll" type="elm:ListAllTraderResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Select" type="elm:SelectTraderResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Purge" type="elm:PurgeTraderResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="TraderRequest" type="elm:TraderRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to maintain traders.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="TraderResponse" type="elm:TraderResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you maintain traders.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

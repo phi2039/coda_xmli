@@ -1,0 +1,2495 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:inx="http://www.coda.com/efinance/schemas/inputext" xmlns:inp="http://www.coda.com/efinance/schemas/input" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:elm="http://www.coda.com/efinance/schemas/elementmaster" xmlns:doc="http://www.coda.com/efinance/schemas/documentmaster" xmlns:itm="http://www.coda.com/efinance/schemas/inputtemplate" xmlns:txn="http://www.coda.com/efinance/schemas/transaction" targetNamespace="http://www.coda.com/efinance/schemas/inputext" elementFormDefault="qualified" version="11.3">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/service.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/inputtemplate" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/finance/inputtemplate/inputtemplate.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/documentmaster" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/documentmaster/documentmaster.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/transaction" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/transaction/transaction.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/elementmaster" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/elementmaster/elementmaster.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/input" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/input/inputservice.xsd"/>
+  <xsd:include schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/finance/inputext/input.xsd"/>
+
+  <xsd:complexType name="SelectTemplateRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="com:Key">
+            <xsd:annotation>
+              <xsd:documentation>This element is a key consisting of a company code and an input template master code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DocCode" type="com:typeGeneralCode" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The code of the document master you wish to use. This is only relevant if the specified input template master is linked to more than one document master.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectTemplateRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the specified input template master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="inx:SelectTemplateRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectTemplateResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="InputTemplate" type="itm:InputTemplate" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the input template master you specified in the request corresponding to this response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DocumentMaster" type="doc:DocumentMaster" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the document master linked to the specified input template master. If the input template master is linked to multiple document masters, the document masters are returned in DocCodeList. You should repeat the SelectTemplateRequest, supplying the code of the document master you wish to use.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Transaction" type="txn:Transaction" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the default transaction details as determined by the input template master.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AddedLine" type="txn:Line" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the default additional line values as determined by the input template master.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PostData" type="inx:PostData" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains details that are used when the document is posted, or when checking that the document is postable.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DocCodeList" type="itm:DocCodeList" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>When the specified input template master is linked to multiple document masters, this element lists the codes of the linked document masters. If this list is returned, you should repeat the SelectTemplateRequest, supplying the code of the document master you wish to use.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectTemplateResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="inx:SelectTemplateResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SetHeaderRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="NewHeader" type="txn:Header">
+            <xsd:annotation>
+              <xsd:documentation>Contains the new document header information.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="NewDocWideData" type="inx:DocumentWideData">
+            <xsd:annotation>
+              <xsd:documentation>Contains the new document-wide data consisting of due date, value date and external references.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PostData" type="inx:PostData">
+            <xsd:annotation>
+              <xsd:documentation>Contains details that are used when the document is posted, or when checking that the document is postable.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Transaction" type="txn:Transaction">
+            <xsd:annotation>
+              <xsd:documentation>Contains the transaction details.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SetHeaderRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Changes the header information on a document.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="inx:SetHeaderRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SetHeaderResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Transaction" type="txn:Transaction" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the transaction details, with the new header information.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PostData" type="inx:PostData" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains details that are used when the document is posted, or when checking that the document is postable.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="NumberOfDecimals" type="com:typeDecPlace" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The number of decimal places in the document currency.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="SelectedValue" type="com:typeMoneyB" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The SelectedValue supplied in the request corresponding to this response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SetHeaderResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Response" type="inx:SetHeaderResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CheckPostRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Transaction" type="txn:Transaction">
+            <xsd:annotation>
+              <xsd:documentation>Contains the transaction details.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PostData" type="inx:PostData">
+            <xsd:annotation>
+              <xsd:documentation>Contains details that are used when the document is posted, or when checking that the document is postable.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="SelectedValue" type="com:typeMoneyB" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains a value selected from the database using the selector defined on the input template and is in the currency defined on the input template. Other fields may be derived from the SelectedValue which is why it should be supplied.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CheckPostRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Checks whether the specified document is valid for posting to the Books or the Intray.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="inx:CheckPostRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="postto" type="com:typeCtDocPost" use="required">
+          <xsd:annotation>
+            <xsd:documentation>Specify whether the document should be checked for posting to the Books or the Intray.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="ignoresurplusdata" type="xsd:boolean" use="optional">
+          <xsd:annotation>
+            <xsd:documentation>Instructs the server to ignore certain irrelevant data, such as 1099 codes on lines that do not have an account that uses 1099. When TRUE, the server ignores data in the following structures: ExtraPayData, ExtraQty, ExtraTax, ExtraTen99 and ExtraDiscount. When FALSE, the server populates these structures and returns them to the client.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CheckPostResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Problems" type="inx:Problems" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains details of any problems that invalidate the specified document for posting to the Books or the Intray.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CheckPostResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Response" type="inx:CheckPostResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CheckPostWithoutTemplateRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Transaction" type="txn:Transaction">
+            <xsd:annotation>
+              <xsd:documentation>Contains the transaction details.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PostData" type="inx:PostData">
+            <xsd:annotation>
+              <xsd:documentation>Contains details that are used when the document is posted, or when checking that the document is postable.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CheckPostWithoutTemplateRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>As per CheckPost with the exception that the document does not need to have a Financials input template.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="inx:CheckPostWithoutTemplateRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="postto" type="com:typeCtDocPost" use="required">
+          <xsd:annotation>
+            <xsd:documentation>Specify whether the document should be checked for posting to the Books or the Intray.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="ignoresurplusdata" type="xsd:boolean" use="optional">
+          <xsd:annotation>
+            <xsd:documentation>Instructs the server to ignore certain irrelevant data, such as 1099 codes on lines that do not have an account that uses 1099. When TRUE, the server ignores data in the following structures: ExtraPayData, ExtraQty, ExtraTax, ExtraTen99 and ExtraDiscount. When FALSE, the server populates these structures and returns them to the client.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CheckPostWithoutTemplateResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Problems" type="inx:Problems" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains details of any problems that invalidate the specified document for posting to the Books or the Intray.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CheckPostWithoutTemplateResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Response" type="inx:CheckPostWithoutTemplateResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PostRequest">
+    <xsd:complexContent>
+      <xsd:extension base="inp:PostRequest">
+        <xsd:sequence>
+          <xsd:element name="PostData" type="inx:PostData" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains details that are used when the document is posted, or when checking that the document is postable.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="SelectedValue" type="com:typeMoneyB" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains a value selected from the database using the selector defined on the input template and is in the currency defined on the input template. Other fields may be derived from the SelectedValue which is why it should be supplied.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PostRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Posts the specified document to the Books or the Intray.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="inx:PostRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="postto" type="com:typeCtDocDest" use="optional">
+          <xsd:annotation>
+            <xsd:documentation>Specify whether the document should be posted to the Books or the Intray.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="ignoresurplusdata" type="xsd:boolean" use="optional">
+          <xsd:annotation>
+            <xsd:documentation>Instructs the server to ignore certain irrelevant data, such as 1099 codes on lines that do not have an account that uses 1099. When TRUE, the server ignores data in the following structures: ExtraPayData, ExtraQty, ExtraTax, ExtraTen99 and ExtraDiscount. When FALSE, the server populates these structures and returns them to the client.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="relaxtriangulation" type="xsd:boolean" use="optional">
+          <xsd:annotation>
+            <xsd:documentation>When TRUE, allows values which do not correspond with the fixed rates between triangulated currencies to be set and/or a rate different from the fixed rate to be set. You would typically use this to allow a document to be fed into the Financials database from an external system that has already applied rounding to the values.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="warningsareerrors" type="xsd:boolean" use="optional">
+          <xsd:annotation>
+            <xsd:documentation>When TRUE, causes warning situations to be interpreted as errors and cause the document to fail to post.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="stoponerror" type="xsd:boolean" use="optional">
+          <xsd:annotation>
+            <xsd:documentation>When TRUE, causes an error in one document to stop the rest of the posting run. This may be used when multiple documents are being posted in the same Post verb. Documents that were earlier in the request will have already been posted.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="logerrorsonly" type="xsd:boolean" use="optional">
+          <xsd:annotation>
+            <xsd:documentation>When TRUE, only errors are reported in the log. Success messages, general messages and warnings are not logged.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="reportallerrors" type="xsd:boolean" use="optional">
+          <xsd:annotation>
+            <xsd:documentation>When TRUE, the Post service will attempt to continue creating document lines even after an error is encountered in one document line. Therefore if more than one document line causes an error, the error for each invalid document line (not just the first) will be logged.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="reusemissingnumber" type="xsd:boolean" use="optional">
+          <xsd:annotation>
+            <xsd:documentation>When TRUE, the Post service will attempt to post the document reusing a missing document number.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="postponeworkflow" type="xsd:boolean" use="optional">
+          <xsd:annotation>
+            <xsd:documentation>When TRUE, the Post service will postpone starting the workflow.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="restartworkflow" type="com:typeCtWorkflowRestart" use="optional">
+          <xsd:annotation>
+            <xsd:documentation>When TRUE, the Post service will restart the workflow.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PostResponse">
+    <xsd:complexContent>
+      <xsd:extension base="inp:PostResponse">
+        <xsd:sequence>
+          <xsd:element name="Problems" type="inx:Problems" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains details of any problems that invalidate the specified document for posting to the Books or the Intray.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PostResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Response" type="inx:PostResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PostToXRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Posts the specified document to the Intray.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="inx:PostRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="ignoresurplusdata" type="xsd:boolean" use="optional">
+          <xsd:annotation>
+            <xsd:documentation>Instructs the server to ignore certain irrelevant data, such as 1099 codes on lines that do not have an account that uses 1099. When TRUE, the server ignores data in the following structures: ExtraPayData, ExtraQty, ExtraTax, ExtraTen99 and ExtraDiscount. When FALSE, the server populates these structures and returns them to the client.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="relaxtriangulation" type="xsd:boolean" use="optional">
+          <xsd:annotation>
+            <xsd:documentation>When TRUE, allows values which do not correspond with the fixed rates between triangulated currencies to be set and/or a rate different from the fixed rate to be set. You would typically use this to allow a document to be fed into the Financials database from an external system that has already applied rounding to the values.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="warningsareerrors" type="xsd:boolean" use="optional">
+          <xsd:annotation>
+            <xsd:documentation>When TRUE, causes warning situations to be interpreted as errors and cause the document to fail to post.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="stoponerror" type="xsd:boolean" use="optional">
+          <xsd:annotation>
+            <xsd:documentation>When TRUE, causes an error in one document to stop the rest of the posting run. This may be used when multiple documents are being posted in the same Post verb. Documents that were earlier in the request will have already been posted.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="logerrorsonly" type="xsd:boolean" use="optional">
+          <xsd:annotation>
+            <xsd:documentation>When TRUE, only errors are reported in the log. Success messages, general messages and warnings are not logged.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="reportallerrors" type="xsd:boolean" use="optional">
+          <xsd:annotation>
+            <xsd:documentation>When TRUE, the Post service will attempt to continue creating document lines even after an error is encountered in one document line. Therefore if more than one document line causes an error, the error for each invalid document line (not just the first) will be logged.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="reusemissingnumber" type="xsd:boolean" use="optional">
+          <xsd:annotation>
+            <xsd:documentation>When TRUE, the Post service will attempt to post the document reusing a missing document number.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="postponeworkflow" type="xsd:boolean" use="optional">
+          <xsd:annotation>
+            <xsd:documentation>When TRUE, the Post service will postpone starting the workflow.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="restartworkflow" type="com:typeCtWorkflowRestart" use="optional">
+          <xsd:annotation>
+            <xsd:documentation>When TRUE, the Post service will restart the workflow.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PostToXResponse">
+    <xsd:complexContent>
+      <xsd:extension base="inp:PostToXResponse">
+        <xsd:sequence>
+          <xsd:element name="Problems" type="inx:Problems" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains details of any problems that invalidate the specified document for posting to the Books or the Intray.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PostToXResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Response" type="inx:PostToXResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CalcCurrRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Transaction" type="txn:Transaction">
+            <xsd:annotation>
+              <xsd:documentation>Contains the transaction details.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PostData" type="inx:PostData">
+            <xsd:annotation>
+              <xsd:documentation>Contains details that are used for posting the document, or when checking that the document is postable.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="SelectedValue" type="com:typeMoneyB" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains a value selected from the database using the selector defined on the input template and is in the currency defined on the input template. Other fields may be derived from the SelectedValue which is why it should be supplied.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="LineNumber" type="com:typeLong">
+            <xsd:annotation>
+              <xsd:documentation>The number of the document line to which you want to make currency edits.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Edits" type="inx:CurrEdits" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the currency edits.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CalcCurrRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Calculates the value of a specified line following currency edits.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="inx:CalcCurrRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CalcCurrResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Transaction" type="txn:Transaction" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the transaction details, including any changes resulting from the currency edits.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CurrData" type="inx:CurrData" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains information about the currencies edited in the request corresponding to this response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CalcCurrResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Response" type="inx:CalcCurrResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="RefreshTotalsRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Transaction" type="txn:Transaction">
+            <xsd:annotation>
+              <xsd:documentation>Contains the transaction details.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PostData" type="inx:PostData">
+            <xsd:annotation>
+              <xsd:documentation>Contains details that are used when the document is posted, or when checking that the document is postable.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="SelectedValue" type="com:typeMoneyB" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains a value selected from the database using the selector defined on the input template and is in the currency defined on the input template. Other fields may be derived from the SelectedValue which is why it should be supplied.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="RefreshTotalsRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Calculates the values to be displayed in the footer fields based on the current information on the document.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="inx:RefreshTotalsRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="RefreshTotalsResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Totals" type="inx:DocTotals" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the document totals in document, home and dual currencies.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="RefreshTotalsResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Response" type="inx:RefreshTotalsResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectIntrayRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="IntrayFilter" type="inx:IntrayFilter">
+            <xsd:annotation>
+              <xsd:documentation>Contains criteria for selecting documents on the Intray.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectIntrayRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Selects documents on the Intray, using the specified filter.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="inx:SelectIntrayRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectIntrayResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Items" type="inx:IntrayItems" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the documents on the Intray that have been returned by the request corresponding to this response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SelectIntrayResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="inx:SelectIntrayResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="IntrayAutoPostRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="IntrayAutoPostInfo" type="inx:IntrayAutoPostInfo">
+            <xsd:annotation>
+              <xsd:documentation>Contains information used for posting the documents on the Intray, to the Books.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Keys" type="inx:IntrayPostKeys">
+            <xsd:annotation>
+              <xsd:documentation>Contains key information identifying which document(s) on the Intray will be posted to the Books.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="IntrayAutoPostRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Posts the specified documents on the Intray, to the Books.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="inx:IntrayAutoPostRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="IntrayAutoPostResults">
+    <xsd:annotation>
+      <xsd:documentation>Contains results information for the documents posted by the IntrayAutoPost request corresponding to this response.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="IntrayResult" type="inx:IntrayPostResult" maxOccurs="unbounded">
+            <xsd:annotation>
+              <xsd:documentation>Contains results information for one of the documents posted by the IntrayAutoPost request corresponding to this response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="IntrayAutoPostResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="IntrayResults" type="inx:IntrayAutoPostResults" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains results information for the documents posted by the IntrayAutoPost request corresponding to this response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="IntrayAutoPostResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="inx:IntrayAutoPostResponse" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="IntrayDeleteRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="IntrayDeleteInfo" type="inx:IntrayDeleteInfo">
+            <xsd:annotation>
+              <xsd:documentation>Contains the reason why the document on the Intray is being deleted.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Keys" type="inx:IntrayKeys">
+            <xsd:annotation>
+              <xsd:documentation>Contains key information identifying which document(s) on the Intray will be deleted.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="IntrayDeleteRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Deletes the specified document(s) on the Intray.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="inx:IntrayDeleteRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="IntrayDeleteResults">
+    <xsd:annotation>
+      <xsd:documentation>Contains results information for the documents deleted by the IntrayDelete request corresponding to this response</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="IntrayResult" type="inx:IntrayResult" maxOccurs="unbounded">
+            <xsd:annotation>
+              <xsd:documentation>Contains results information for one of the documents deleted by the IntrayDelete request corresponding to this response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="IntrayDeleteResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="IntrayResults" type="inx:IntrayDeleteResults" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains results information for the documents deleted by the IntrayDelete request corresponding to this response</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="IntrayDeleteResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="inx:IntrayDeleteResponse" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="IntrayLoadRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="TemplateCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the input template master used to input the document that you want to load.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Key" type="txn:txnKey">
+            <xsd:annotation>
+              <xsd:documentation>A key identifying the document on the Intray that will be loaded.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="IntrayLoadRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Loads the specified document on the Intray.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="inx:IntrayLoadRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="IntrayLoadResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="InputTemplate" type="itm:InputTemplate" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the input template master you specified in the request corresponding to this response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DocumentMaster" type="doc:DocumentMaster" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the document master linked to the specified input template master, and used when inputting the document.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Transaction" type="txn:Transaction" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the transaction details.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AddedLine" type="txn:Line" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the default additional line values as determined by the input template master.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PostData" type="inx:PostData" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains details that are used when the document is posted, or when checking that the document is postable.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="IntrayLoadResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="inx:IntrayLoadResponse" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="IntrayUnAuthoriseRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Keys" type="inx:IntrayKeys">
+            <xsd:annotation>
+              <xsd:documentation>Contains key information identifying which document(s) on the Intray will be unauthorised.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="IntrayUnAuthoriseRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Removes authorisation from a document that has completed its associated workflow.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="inx:IntrayUnAuthoriseRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="IntrayUnAuthoriseResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="UnAuthorisedKeys" type="inx:IntrayKeys" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the keys information you supplied in the request corresponding to this response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="IntrayUnAuthoriseResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="inx:IntrayUnAuthoriseResponse" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GenerateTaxRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Transaction" type="txn:Transaction">
+            <xsd:annotation>
+              <xsd:documentation>Contains the transaction details.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PostData" type="inx:PostData">
+            <xsd:annotation>
+              <xsd:documentation>Contains details that are used when the document is posted, or when checking that the document is postable.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="SelectedValue" type="com:typeMoneyB" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains a value selected from the database using the selector defined on the input template and is in the currency defined on the input template. Other fields may be derived from the SelectedValue which is why it should be supplied.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GenerateTaxRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Generates tax lines for the specified document.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="inx:GenerateTaxRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GenerateTaxResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Transaction" type="txn:Transaction" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the transaction details, including the generated tax lines.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GenerateTaxResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="inx:GenerateTaxResponse" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GenerateTaxWithoutTemplateRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Transaction" type="txn:Transaction">
+            <xsd:annotation>
+              <xsd:documentation>Contains the transaction details.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PostData" type="inx:PostData">
+            <xsd:annotation>
+              <xsd:documentation>Contains details that are used when the document is posted, or when checking that the document is postable.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GenerateTaxWithoutTemplateRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>As per GenerateTax with the exception that the document does not need to have a Financials input template.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="inx:GenerateTaxWithoutTemplateRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GenerateTaxWithoutTemplateResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Transaction" type="txn:Transaction" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the transaction details, including the generated tax lines.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GenerateTaxWithoutTemplateResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="inx:GenerateTaxWithoutTemplateResponse" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AutoBalanceTaxRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Transaction" type="txn:Transaction">
+            <xsd:annotation>
+              <xsd:documentation>Contains the transaction details.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PostData" type="inx:PostData">
+            <xsd:annotation>
+              <xsd:documentation>Contains details that are used when the document is posted, or when checking that the document is postable.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="SelectedValue" type="com:typeMoneyB" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains a value selected from the database using the selector defined on the input template and is in the currency defined on the input template. Other fields may be derived from the SelectedValue which is why it should be supplied.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AutoBalanceTaxRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Balances the specified document by editing the generated tax line to bring the document into balance in document currency.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="inx:AutoBalanceTaxRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AutoBalanceTaxResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Transaction" type="txn:Transaction" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the transaction details, including the adjusted tax line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AutoBalanceTaxResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="inx:AutoBalanceTaxResponse" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CancelDocRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="CancelDoc" type="inx:CancelDoc">
+            <xsd:annotation>
+              <xsd:documentation>Contains parameters which can be specified when cancelling a single document or multiple documents.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CancelDocRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Posts cancelling documents to cancel the specified document(s) in the Books.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="inx:CancelDocRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CancelDocResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CancelDoc" type="inx:CancelDocResults" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains results information for the CancelDoc request corresponding to this response</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CancelDocResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="inx:CancelDocResponse" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GenerateBalancingLinesRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Transaction" type="txn:Transaction">
+            <xsd:annotation>
+              <xsd:documentation>Contains the transaction details.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PostData" type="inx:PostData">
+            <xsd:annotation>
+              <xsd:documentation>Contains details that are used when the document is posted, or when checking that the document is postable.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="SelectedValue" type="com:typeMoneyB" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains a value selected from the database using the selector defined on the input template and is in the currency defined on the input template. Other fields may be derived from the SelectedValue which is why it should be supplied.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GenerateBalancingLinesRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Generates balancing lines on the specified document.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="inx:GenerateBalancingLinesRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GenerateBalancingLinesResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Transaction" type="txn:Transaction" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the transaction details, including the balancing lines.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GenerateBalancingLinesResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="inx:GenerateBalancingLinesResponse" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="BalancingReviewRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Transaction" type="txn:Transaction">
+            <xsd:annotation>
+              <xsd:documentation>Contains the transaction details.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PostData" type="inx:PostData">
+            <xsd:annotation>
+              <xsd:documentation>Contains details that are used when the document is posted, or when checking that the document is postable.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="SelectedValue" type="com:typeMoneyB" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains a value selected from the database using the selector defined on the input template and is in the currency defined on the input template. Other fields may be derived from the SelectedValue which is why it should be supplied.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="BalancingReviewRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Returns the sum of values on the specified document for each balancing element and the whole document (in document, home and dual currencies).</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="inx:BalancingReviewRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="BalancingReviewResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Results" type="inx:BalancingReview" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains results information for the BalancingReview request corresponding to this response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="BalancingReviewResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="inx:BalancingReviewResponse" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CurrReviewRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Transaction" type="txn:Transaction">
+            <xsd:annotation>
+              <xsd:documentation>Contains the transaction details.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PostData" type="inx:PostData">
+            <xsd:annotation>
+              <xsd:documentation>Contains details that are used when the document is posted, or when checking that the document is postable.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="SelectedValue" type="com:typeMoneyB" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains a value selected from the database using the selector defined on the input template and is in the currency defined on the input template. Other fields may be derived from the SelectedValue which is why it should be supplied.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CurrReviewRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Returns the currency rates and currency values of all lines in the specified document.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="inx:CurrReviewRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CurrReviewResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Results" type="inx:CurrReview" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains results information for the CurrReview request corresponding to this response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CurrReviewResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="inx:CurrReviewResponse" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetHardenedDatesRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Params" type="inx:HardenedDatesParams">
+            <xsd:annotation>
+              <xsd:documentation>Contains parameters which can be specified when resolving soft dates.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetHardenedDatesRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Resolves soft dates set for due date, value date and discount dates in the specified element master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="inx:GetHardenedDatesRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetHardenedDatesResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Results" type="inx:HardenedDatesResults" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains results information for the GetHardenedDates request corresponding to this response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetHardenedDatesResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="inx:GetHardenedDatesResponse" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetElmBanksRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Transaction" type="txn:Transaction">
+            <xsd:annotation>
+              <xsd:documentation>Contains the transaction details.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PostData" type="inx:PostData">
+            <xsd:annotation>
+              <xsd:documentation>Contains details that are used when the document is posted, or when checking that the document is postable.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="LineNumber" type="com:typeLong">
+            <xsd:annotation>
+              <xsd:documentation>The number of the document line featuring the element whose bank details you want to retrieve.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetElmBanksRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the specified element's bank details.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="inx:GetElmBanksRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetElmBanksResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Banks" type="elm:BankData" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains details of the specified element's banks.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetElmBanksResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="inx:GetElmBanksResponse" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetElmAddressesRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Transaction" type="txn:Transaction">
+            <xsd:annotation>
+              <xsd:documentation>Contains the transaction details.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PostData" type="inx:PostData">
+            <xsd:annotation>
+              <xsd:documentation>Contains details that are used when the document is posted, or when checking that the document is postable.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="LineNumber" type="com:typeLong">
+            <xsd:annotation>
+              <xsd:documentation>The number of the document line featuring the element whose address details you want to retrieve.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetElmAddressesRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the specified element's address details.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="inx:GetElmAddressesRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetElmAddressesResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Addresses" type="elm:AddressData" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains details of the specified element's addresses.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetElmAddressesResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="inx:GetElmAddressesResponse" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetCustomerSupplierElmSummaryRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Transaction" type="txn:Transaction">
+            <xsd:annotation>
+              <xsd:documentation>Contains the transaction details.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PostData" type="inx:PostData">
+            <xsd:annotation>
+              <xsd:documentation>Contains details that are used when the document is posted, or when checking that the document is postable.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="SelectedValue" type="com:typeMoneyB" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains a value selected from the database using the selector defined on the input template and is in the currency defined on the input template. Other fields may be derived from the SelectedValue which is why it should be supplied.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetCustomerSupplierElmSummaryRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Returns summary information for the customer/supplier elements in the specified document.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="inx:GetCustomerSupplierElmSummaryRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetCustomerSupplierElmSummaryResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Results" type="inx:CustomerSupplierElmSummary" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains results information for the GetCustomerSupplierElmSummary request corresponding to this response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetCustomerSupplierElmSummaryResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="inx:GetCustomerSupplierElmSummaryResponse" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetMissingDocNumbersRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeCodeWild">
+            <xsd:annotation>
+              <xsd:documentation>The code of the country in which to search for missing document numbers. This can be wildcarded.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DocCode" type="com:typeCodeWild">
+            <xsd:annotation>
+              <xsd:documentation>The code of the document master to search for missing document numbers. This can be wildcarded.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DocNum" type="com:typeDocNumWild" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The missing document number to search for. This can be wildcarded.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Period" type="com:typePeriodAny" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The year/period to search for missing document numbers. This can be wildcarded.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Description" type="com:typeTextAny" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The reason why the document number was not used. This can be wildcarded.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetMissingDocNumbersRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves any missing document numbers from the database using the information you provide.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="inx:GetMissingDocNumbersRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetMissingDocNumbersResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeCodeWild">
+            <xsd:annotation>
+              <xsd:documentation>The code of the country in which you attempted to search for missing document numbers.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DocCode" type="com:typeCodeWild">
+            <xsd:annotation>
+              <xsd:documentation>The code of the document master you attempted to search for missing document numbers.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DocNum" type="com:typeDocNumWild" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The missing document number you attempted to search for.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Period" type="com:typePeriodAny" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The year/period you attempted to search for missing document numbers.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Description" type="com:typeTextAny" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The reason why the document number was not used.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="MissingDocNumbers" type="inx:MissingDocNumbers" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the missing document numbers retrieved by the GetMissingDocNumbersRequest.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetMissingDocNumbersResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="inx:GetMissingDocNumbersResponse" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetMissingStatusRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the company in which the document exists.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DocCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the document master.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DocNum" type="com:typeDocNumAlpha">
+            <xsd:annotation>
+              <xsd:documentation>The document number.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetMissingStatusRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Validates whether the specified document number is a missing document number.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="inx:GetMissingStatusRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetMissingStatusResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="CmpCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the company in which the document exists.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DocCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the document master.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DocNum" type="com:typeDocNumAlpha">
+            <xsd:annotation>
+              <xsd:documentation>The document number.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="IsMissing" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:documentation>Indicates whether the document is a missing document number.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetMissingStatusResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="inx:GetMissingStatusResponse" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ResolveRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Transaction" type="txn:Transaction">
+            <xsd:annotation>
+              <xsd:documentation>Contains the transaction details.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PostData" type="inx:PostData">
+            <xsd:annotation>
+              <xsd:documentation>Contains details that are used when the document is posted, or when checking that the document is postable.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="SelectedValue" type="com:typeMoneyB" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains a value selected from the database using the selector defined on the input template and is in the currency defined on the input template. Other fields may be derived from the SelectedValue which is why it should be supplied.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ResolveRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Completes any missing transaction data that can be derived from the account code or from the document value.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="inx:ResolveRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ResolveResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Transaction" type="txn:Transaction" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the transaction details, including the resolved data.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ResolveResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="inx:ResolveResponse" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetUserStatusRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Transaction" type="txn:Transaction">
+            <xsd:annotation>
+              <xsd:documentation>Contains the transaction details.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PostData" type="inx:PostData">
+            <xsd:annotation>
+              <xsd:documentation>Contains details that are used when the document is posted, or when checking that the document is postable.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="SelectedValue" type="com:typeMoneyB" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains a value selected from the database using the selector defined on the input template and is in the currency defined on the input template. Other fields may be derived from the SelectedValue which is why it should be supplied.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="LineNumber" type="com:typeLong">
+            <xsd:annotation>
+              <xsd:documentation>The number of the document line where the user status needs to be resolved.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetUserStatusRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Derives the user status from the driving element on the specified document line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="inx:GetUserStatusRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetUserStatusResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="UserStatus" type="com:typeStatUserB" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The user status value that has been derived.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetUserStatusResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="inx:GetUserStatusResponse" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetCopyDocParamsRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="txn:txnKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains a key uniquely identifying a document within the Financials database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetCopyDocParamsRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves the document date, posting period, and input template master for a document created using the CopyDocRequest.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="inx:GetCopyDocParamsRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetCopyDocParamsResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Key" type="txn:txnKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains a key uniquely identifying the new document.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="NewDate" type="com:typeDate" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The document date of the new document.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="NewPeriod" type="com:typePeriod" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The year/period to which the new document should be posted.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="InputTemplateCode" type="com:typeGeneralCode" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The code of the input template master associated with the new document.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetCopyDocParamsResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="inx:GetCopyDocParamsResponse" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CopyDocRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="txn:txnKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains a key uniquely identifying a document within the Financials database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="NewDate" type="com:typeDate">
+            <xsd:annotation>
+              <xsd:documentation>The document date for the new document.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="NewPeriod" type="com:typePeriod">
+            <xsd:annotation>
+              <xsd:documentation>The year/period to which the new document should be posted.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="InputTemplateCode" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the input template master to associate with the new document.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CopyDocRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Creates a new document by copying an existing document and using the details you specify.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="inx:CopyDocRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CopyDocResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="InputTemplate" type="itm:InputTemplate" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The code of the input template master associated with the new document.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DocumentMaster" type="doc:DocumentMaster" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The document master of the new document.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Transaction" type="txn:Transaction" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the new document's transaction details.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AddedLine" type="txn:Line" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the default additional line values as determined by the input template master.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PostData" type="inx:PostData" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains details that are used when the document is posted, or when checking that the document is postable.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CopyDocResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="inx:CopyDocResponse" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="InputRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to post financial documents to the Books or the Intray.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element name="SelectTemplate" type="inx:SelectTemplateRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves the specified input template master.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="SetHeader" type="inx:SetHeaderRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Changes the header information on a document.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CheckPost" type="inx:CheckPostRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Checks whether the specified document is valid for posting to the Books or the Intray.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CheckPostWithoutTemplate" type="inx:CheckPostWithoutTemplateRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>As per CheckPost with the exception that the document does not need to have a Financials input template.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Post" type="inx:PostRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Posts the specified document to the Books or the Intray.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PostToIntray" type="inx:PostToXRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Posts the specified document to the Intray.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PostToBooks" type="inx:PostToXRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Posts the specified document to the Books.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CalcCurrencies" type="inx:CalcCurrRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Calculates the value of a specified line following currency edits.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="RefreshTotals" type="inx:RefreshTotalsRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Calculates the values to be displayed in the footer fields based on the current information on the document.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="SelectIntray" type="inx:SelectIntrayRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Selects documents on the Intray, using the specified filter.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="IntrayAutoPost" type="inx:IntrayAutoPostRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Posts the specified documents on the Intray, to the Books.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="IntrayDelete" type="inx:IntrayDeleteRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Deletes the specified document(s) on the Intray.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="IntrayLoad" type="inx:IntrayLoadRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Loads the specified document on the Intray.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="IntrayUnAuthorise" type="inx:IntrayUnAuthoriseRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Removes authorisation from a document that has completed its associated workflow.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GenerateTax" type="inx:GenerateTaxRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Generates tax lines for the specified document.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GenerateTaxWithoutTemplate" type="inx:GenerateTaxWithoutTemplateRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>As per GenerateTax with the exception that the document does not need to have a Financials input template.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AutoBalanceTax" type="inx:AutoBalanceTaxRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Balances the specified document by editing the generated tax line to bring the document into balance in document currency.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CancelDoc" type="inx:CancelDocRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Posts cancelling documents to cancel the specified document(s) in the Books.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GenerateBalancingLines" type="inx:GenerateBalancingLinesRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Generates balancing lines on the specified document.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="BalancingReview" type="inx:BalancingReviewRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Returns the sum of values on the specified document for each balancing element and the whole document (in document, home and dual currencies).</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CurrReview" type="inx:CurrReviewRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Returns the currency rates and currency values of all lines in the specified document.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetHardenedDates" type="inx:GetHardenedDatesRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Resolves soft dates set for due date, value date and discount dates in the specified element master.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetElmBanks" type="inx:GetElmBanksRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves the specified element's bank details.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetElmAddresses" type="inx:GetElmAddressesRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves the specified element's address details.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetCustomerSupplierElmSummary" type="inx:GetCustomerSupplierElmSummaryRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Returns summary information for the customer/supplier elements in the specified document.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetMissingDocNumbers" type="inx:GetMissingDocNumbersRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves any missing document numbers from the database using the information you provide.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetMissingStatus" type="inx:GetMissingStatusRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Validates whether the specified document number is a missing document number.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Resolve" type="inx:ResolveRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Completes any missing transaction data that can be derived from the account code or from the document value.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetUserStatus" type="inx:GetUserStatusRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Derives the user status from the driving element on the specified document line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CopyDoc" type="inx:CopyDocRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Creates a new document by copying an existing document and using the details you specify.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetCopyDocParams" type="inx:GetCopyDocParamsRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Retrieves the document date, posting period, and input template master for a document created using the CopyDocRequest.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="InputResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you post financial documents to the Books or the Intray.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element name="SelectTemplate" type="inx:SelectTemplateResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="SetHeader" type="inx:SetHeaderResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CheckPost" type="inx:CheckPostResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CheckPostWithoutTemplate" type="inx:CheckPostWithoutTemplateResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Post" type="inx:PostResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PostToIntray" type="inx:PostToXResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PostToBooks" type="inx:PostToXResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CalcCurrencies" type="inx:CalcCurrResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="RefreshTotals" type="inx:RefreshTotalsResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="SelectIntray" type="inx:SelectIntrayResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="IntrayAutoPost" type="inx:IntrayAutoPostResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="IntrayDelete" type="inx:IntrayDeleteResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="IntrayLoad" type="inx:IntrayLoadResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="IntrayUnAuthorise" type="inx:IntrayUnAuthoriseResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GenerateTax" type="inx:GenerateTaxResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GenerateTaxWithoutTemplate" type="inx:GenerateTaxWithoutTemplateResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AutoBalanceTax" type="inx:AutoBalanceTaxResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CancelDoc" type="inx:CancelDocResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GenerateBalancingLines" type="inx:GenerateBalancingLinesResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="BalancingReview" type="inx:BalancingReviewResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CurrReview" type="inx:CurrReviewResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetHardenedDates" type="inx:GetHardenedDatesResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetElmBanks" type="inx:GetElmBanksResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetElmAddresses" type="inx:GetElmAddressesResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetCustomerSupplierElmSummary" type="inx:GetCustomerSupplierElmSummaryResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetMissingDocNumbers" type="inx:GetMissingDocNumbersResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetMissingStatus" type="inx:GetMissingStatusResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Resolve" type="inx:ResolveResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetUserStatus" type="inx:GetUserStatusResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CopyDoc" type="inx:CopyDocResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="GetCopyDocParams" type="inx:GetCopyDocParamsResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="InputRequest" type="inx:InputRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to post financial documents to the Books or the Intray.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="InputResponse" type="inx:InputResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you post financial documents to the Books or the Intray.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

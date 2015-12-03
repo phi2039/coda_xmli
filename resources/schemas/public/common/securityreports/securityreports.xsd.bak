@@ -1,0 +1,839 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:cap="http://www.coda.com/common/schemas/capabilitymaster" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:secrpt="http://www.coda.com/common/schemas/securityreports" elementFormDefault="qualified" targetNamespace="http://www.coda.com/common/schemas/securityreports">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types2.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/capabilitymaster" schemaLocation="s:/schemas/public/common/capabilitymaster/capabilitymaster.xsd"/>
+
+  <xsd:simpleType name="SecurityReportOrientation">
+    <xsd:annotation>
+      <xsd:documentation>This element contains report orientation details.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="com:typeBaseEnum">
+      <xsd:enumeration value="by_user">
+        <xsd:annotation>
+          <xsd:documentation>For example, a roles by user report.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="by_entity">
+        <xsd:annotation>
+          <xsd:documentation>For example, a users by role report.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="SecRptCapabilityLevel">
+    <xsd:annotation>
+      <xsd:documentation>A capability level from 1 to 7 (1 is lowest).</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:int">
+      <xsd:minInclusive value="1"/>
+      <xsd:maxInclusive value="8"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:complexType name="DomainUserItem">
+    <xsd:annotation>
+      <xsd:documentation>The user's logon name.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The CODA user code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DomainUserList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of domain users.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="DomainUser" type="secrpt:DomainUserItem">
+        <xsd:annotation>
+          <xsd:documentation>The user's logon name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserSelectionItem">
+    <xsd:annotation>
+      <xsd:documentation>The list of selected users.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="UserCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The user code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="UserShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The user's short name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="CapCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The user's capability code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="CapShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The short name of the user's capability.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="CapSecurityLevel" type="secrpt:SecRptCapabilityLevel">
+        <xsd:annotation>
+          <xsd:documentation>The security level associated with this capability.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="DomainUserList" type="secrpt:DomainUserList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of domain users.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ValueItem">
+    <xsd:annotation>
+      <xsd:documentation>A value for this property.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:string">
+        <xsd:attribute name="UserCode" type="com:typeGeneralCode">
+          <xsd:annotation>
+            <xsd:documentation>The CODA user code.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserSelection">
+    <xsd:annotation>
+      <xsd:documentation>The user list.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="SelectedUser" type="secrpt:UserSelectionItem">
+        <xsd:annotation>
+          <xsd:documentation>The list of selected users.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Values">
+    <xsd:annotation>
+      <xsd:documentation>The list of values for this property.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Value" type="secrpt:ValueItem">
+        <xsd:annotation>
+          <xsd:documentation>A value for this property.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType abstract="true" name="SecurityEntityList">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="UserList" type="secrpt:UserSelection">
+        <xsd:annotation>
+          <xsd:documentation>The user list.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CapabilityEntityItem">
+    <xsd:annotation>
+      <xsd:documentation>The capability property.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Values" type="secrpt:Values">
+        <xsd:annotation>
+          <xsd:documentation>The list of values for this property.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CapCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The capability code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="CapShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The capability short name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CapSecurityLevel" type="secrpt:SecRptCapabilityLevel">
+        <xsd:annotation>
+          <xsd:documentation>The security level associated with this capability.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CapabilityEntityList">
+    <xsd:annotation>
+      <xsd:documentation>The list of capability properties.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="CapEntityItem" type="secrpt:CapabilityEntityItem">
+        <xsd:annotation>
+          <xsd:documentation>The capability property.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CapabilityReport">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a users by capability report.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="secrpt:SecurityEntityList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="CapEntityList" type="secrpt:CapabilityEntityList">
+            <xsd:annotation>
+              <xsd:documentation>The list of capability properties.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="RoleEntityItem">
+    <xsd:annotation>
+      <xsd:documentation>The role property.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Values" type="secrpt:Values">
+        <xsd:annotation>
+          <xsd:documentation>The list of values for this property.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RoleCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The role code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="RoleShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The role short name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RoleEntityList">
+    <xsd:annotation>
+      <xsd:documentation>The list of role properties.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="RoleEntityItem" type="secrpt:RoleEntityItem">
+        <xsd:annotation>
+          <xsd:documentation>The role property.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RoleReport">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a users by role report.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="secrpt:SecurityEntityList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="RoleEntityList" type="secrpt:RoleEntityList">
+            <xsd:annotation>
+              <xsd:documentation>The list of role properties.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CompanyEntityItem">
+    <xsd:annotation>
+      <xsd:documentation>The company property.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Values" type="secrpt:Values">
+        <xsd:annotation>
+          <xsd:documentation>The list of values for this property.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The company code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="CmpShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The company short name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CompanyEntityList">
+    <xsd:annotation>
+      <xsd:documentation>The list of company properties.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="CompanyEntityItem" type="secrpt:CompanyEntityItem">
+        <xsd:annotation>
+          <xsd:documentation>The company property.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CompanyReport">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a users by company report.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="secrpt:SecurityEntityList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="CmpEntityList" type="secrpt:CompanyEntityList">
+            <xsd:annotation>
+              <xsd:documentation>The list of company properties.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ApplicationEntityItem">
+    <xsd:annotation>
+      <xsd:documentation>The application property.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Values" type="secrpt:Values">
+        <xsd:annotation>
+          <xsd:documentation>The list of values for this property.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AppCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The application identifier such as Financials or Invoice Matching.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ApplicationEntityList">
+    <xsd:annotation>
+      <xsd:documentation>The list of application properties.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="AppEntityItem" type="secrpt:ApplicationEntityItem">
+        <xsd:annotation>
+          <xsd:documentation>The application property.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ApplicationReport">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a users by application report.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="secrpt:SecurityEntityList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="AppEntityList" type="secrpt:ApplicationEntityList">
+            <xsd:annotation>
+              <xsd:documentation>The list of application properties.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ApplicationListItem">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of an application</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ApplicationName" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The name of the application.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ApplicationDescription" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The description of the application.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ApplicationList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of application names.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Application" type="secrpt:ApplicationListItem">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of an application</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="FunctionalSecurityEntityItem">
+    <xsd:annotation>
+      <xsd:documentation>This is a element reserved for CODA use only.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Values" type="secrpt:Values">
+        <xsd:annotation>
+          <xsd:documentation>This is a element reserved for CODA use only.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="FuncSecNode" type="cap:FunctionalSecurityItem">
+        <xsd:annotation>
+          <xsd:documentation>This is a element reserved for CODA use only.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="FunctionalSecurityEntityList">
+    <xsd:annotation>
+      <xsd:documentation>This is a element reserved for CODA use only.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="FncSecEntityItem" type="secrpt:FunctionalSecurityEntityItem">
+        <xsd:annotation>
+          <xsd:documentation>This is a element reserved for CODA use only.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="FunctionalSecurityReport">
+    <xsd:annotation>
+      <xsd:documentation>This is a element reserved for CODA use only.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="secrpt:SecurityEntityList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="FncSecEntityList" type="secrpt:FunctionalSecurityEntityList">
+            <xsd:annotation>
+              <xsd:documentation>This is a element reserved for CODA use only.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="MasterAccountEntityItem">
+    <xsd:annotation>
+      <xsd:documentation>The master account property.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Values" type="secrpt:Values">
+        <xsd:annotation>
+          <xsd:documentation>The list of values for this property.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MasterAccountCode" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The master code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="MasAccountShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The master's short name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MasterAccountEntityList">
+    <xsd:annotation>
+      <xsd:documentation>The list of master account properties.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="MasAccEntityItem" type="secrpt:MasterAccountEntityItem">
+        <xsd:annotation>
+          <xsd:documentation>The master account property.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MasterAccountReport">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a users by master security report.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="secrpt:SecurityEntityList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="MasAccEntityList" type="secrpt:MasterAccountEntityList">
+            <xsd:annotation>
+              <xsd:documentation>The list of master account properties.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AbilityEntityItem">
+    <xsd:annotation>
+      <xsd:documentation>The ability property.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Values" type="secrpt:Values">
+        <xsd:annotation>
+          <xsd:documentation>The list of values for this property.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="VocabID" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The vocabulary ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AbilityEntityList">
+    <xsd:annotation>
+      <xsd:documentation>The list of ability properties.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="AbilityEntityItem" type="secrpt:AbilityEntityItem">
+        <xsd:annotation>
+          <xsd:documentation>The ability property.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AbilityReport">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a users by ability report.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="secrpt:SecurityEntityList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="AbilityEntityList" type="secrpt:AbilityEntityList">
+            <xsd:annotation>
+              <xsd:documentation>The list of ability properties.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProcessMasterEntityItem">
+    <xsd:annotation>
+      <xsd:documentation>Report details for one process master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Values" type="secrpt:Values">
+        <xsd:annotation>
+          <xsd:documentation>The list of values for this process master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CmpCode" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The company in which this process master exists.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ProcessMasterCode" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this process master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="ProcessMasterShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The short name for this process master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProcessMasterEntityList">
+    <xsd:annotation>
+      <xsd:documentation>The list of report details for the selected users and process masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ProcessMasterEntityItem" type="secrpt:ProcessMasterEntityItem">
+        <xsd:annotation>
+          <xsd:documentation>Report details for one process master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProcessMasterReport">
+    <xsd:annotation>
+      <xsd:documentation>This element holds details of a users by process master report.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="secrpt:SecurityEntityList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="ProcessMasterEntityList" type="secrpt:ProcessMasterEntityList">
+            <xsd:annotation>
+              <xsd:documentation>The list of report details for the selected users and process masters.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType abstract="true" name="BaseCriteria">
+    <xsd:sequence>
+      <xsd:element name="UserCode" type="com:typeCodeWild">
+        <xsd:annotation>
+          <xsd:documentation>The CODA user codes.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Orientation" type="secrpt:SecurityReportOrientation">
+        <xsd:annotation>
+          <xsd:documentation>The orientation of the report (where the user codes are listed).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IncludeShortNames" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, indicates short names are included.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IncludeDomainUsers" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, indicates that domain users are included.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IncludeEmptyItems" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, indicates that empty items are included.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CapabilityCriteria">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the criteria used to generate the users by capability report.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="secrpt:BaseCriteria">
+        <xsd:sequence>
+          <xsd:element name="Code" type="com:typeCodeWild">
+            <xsd:annotation>
+              <xsd:documentation>The capability code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Level" type="secrpt:SecRptCapabilityLevel">
+            <xsd:annotation>
+              <xsd:documentation>The security level associated with this capability.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="RoleCriteria">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the criteria used to generate the users by role report.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="secrpt:BaseCriteria">
+        <xsd:sequence>
+          <xsd:element name="Code" type="com:typeCodeWild">
+            <xsd:annotation>
+              <xsd:documentation>The role code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CompanyCriteria">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the criteria used to generate the users by company report.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="secrpt:BaseCriteria">
+        <xsd:sequence>
+          <xsd:element name="Code" type="com:typeCodeWild">
+            <xsd:annotation>
+              <xsd:documentation>The company code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ApplicationCriteria">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the criteria used to generate the users by application report.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="secrpt:BaseCriteria">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="AppName" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the requested application name or "All" for every application.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AppList" type="secrpt:ApplicationList">
+            <xsd:annotation>
+              <xsd:documentation>This element contains a list of application names.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="FunctionalSecurityCriteria">
+    <xsd:annotation>
+      <xsd:documentation>This is a element reserved for CODA use only.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="secrpt:BaseCriteria">
+        <xsd:sequence>
+          <xsd:element name="FuncSecNodeList" type="cap:FunctionalSecurityList">
+            <xsd:annotation>
+              <xsd:documentation>This is a element reserved for CODA use only.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="MasterAccountCriteria">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the criteria used to generate the users by master security report.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="secrpt:BaseCriteria">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="ItemVocab" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>The vocabulary name of the master you want to include or exclude from the selection.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="OperatorVocab" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>The relational operator used in the selection.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="FromValue" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>The From value in a range.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ToValue" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>The To value in a range.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="DocCode" type="com:typeCodeWild">
+            <xsd:annotation>
+              <xsd:documentation>The document code (Master Security).</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="AccountCode" type="com:typeAcCodeWild">
+            <xsd:annotation>
+              <xsd:documentation>The account code (Account Security).</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="SelectionLimit" type="xsd:int">
+            <xsd:annotation>
+              <xsd:documentation>The maximum number of rows that will be returned.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="VocabList">
+    <xsd:annotation>
+      <xsd:documentation>A list of vocabulary items.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="VocabID" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>A vocabulary item in the list.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AbilityCriteria">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the criteria used to generate the users by ability report.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="secrpt:BaseCriteria">
+        <xsd:sequence>
+          <xsd:element name="AbilityVocabList" type="secrpt:VocabList">
+            <xsd:annotation>
+              <xsd:documentation>A list of ability vocabulary items.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProcessMasterCriteria">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the criteria used to generate the users by process master report.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="secrpt:BaseCriteria">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="CmpCode" type="com:typeCodeWild">
+            <xsd:annotation>
+              <xsd:documentation>The company in which the process masters exist.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ProcessType" type="com:typeGenericOon">
+            <xsd:annotation>
+              <xsd:documentation>The type of process master that you want to report on.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ProcessCode" type="com:typeCodeWild">
+            <xsd:annotation>
+              <xsd:documentation>The code for the process masters that you want to report on. Wildcards are allowed.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SecurityReport">
+    <xsd:sequence>
+      <xsd:element name="SelectionCriteria" type="secrpt:BaseCriteria"/>
+      <xsd:element name="SecurityData" type="secrpt:SecurityEntityList"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

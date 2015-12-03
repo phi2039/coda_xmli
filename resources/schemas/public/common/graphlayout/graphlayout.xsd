@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:gra="http://www.coda.com/common/schemas/graphlayout" elementFormDefault="qualified" targetNamespace="http://www.coda.com/common/schemas/graphlayout">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types2.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="Point">
+    <xsd:annotation>
+      <xsd:documentation>The coordinates of a graphic object.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="X" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>The x coordinate.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Y" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>The y coordinate.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Size">
+    <xsd:annotation>
+      <xsd:documentation>The size of a graphic object.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Width" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>Width</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Height" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>Height</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Layout">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Type" type="com:typeLong"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Id" type="com:typeText"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="View" type="com:typeCode"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Name" type="com:typeName"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Zoom" type="com:typeWord"/>
+      <xsd:element name="NodeList" type="gra:NodeList"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TimeStamp" type="xsd:short"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="LayoutList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Layout" type="gra:Layout"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="LayoutKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Layout" type="gra:LayoutKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="LayoutKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Type" type="com:typeLong"/>
+      <xsd:element minOccurs="0" name="Id" type="com:typeText"/>
+      <xsd:element minOccurs="0" name="View" type="com:typeCode"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Node">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Name" type="com:typeName"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Icon" type="com:typeText"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="BoundingBox" type="gra:Size"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="TopLeft" type="gra:Point"/>
+      <xsd:element name="EdgeList" type="gra:EdgeList"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="NodeList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Node" type="gra:Node"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="NodeKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Node" type="gra:NodeKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="NodeKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Type" type="com:typeLong"/>
+      <xsd:element minOccurs="0" name="Id" type="com:typeText"/>
+      <xsd:element minOccurs="0" name="View" type="com:typeCode"/>
+      <xsd:element minOccurs="0" name="Name" type="com:typeName"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Edge">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Sequence" type="com:typeWord"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Label" type="com:typeText"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="StartHandle" type="com:typeWord"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="EndHandle" type="com:typeWord"/>
+      <xsd:element name="PointList" type="gra:EdgePointList"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Target" type="gra:NodeKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="EdgePointList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Point" type="gra:Point"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="EdgeList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Edge" type="gra:Edge"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="EdgeKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Edge" type="gra:EdgeKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="EdgeKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Type" type="com:typeLong"/>
+      <xsd:element minOccurs="0" name="Id" type="com:typeText"/>
+      <xsd:element minOccurs="0" name="View" type="com:typeCode"/>
+      <xsd:element minOccurs="0" name="Name" type="com:typeName"/>
+      <xsd:element minOccurs="0" name="Sequence" type="com:typeWord"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

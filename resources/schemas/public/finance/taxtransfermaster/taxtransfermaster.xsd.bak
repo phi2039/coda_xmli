@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:txm="http://www.coda.com/efinance/schemas/taxtransfermaster" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/efinance/schemas/taxtransfermaster" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="TaxTransferMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a tax transfer master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the tax transfer master is being maintained.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this tax transfer master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TimeStamp" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this tax transfer master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name for this tax transfer master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortName" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for this tax transfer master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DeferredTaxFromDate" type="com:typeHSDate">
+        <xsd:annotation>
+          <xsd:documentation>When transferring deferred VAT the process is initiated by a date range. All lines whose paid date or undo-match date is later than this date, and earlier than the date set in the DeferredTaxToDate element will be selected for processing.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DeferredTaxToDate" type="com:typeHSDate">
+        <xsd:annotation>
+          <xsd:documentation>When transferring deferred VAT the process is initiated by a date range. All lines whose paid date or undo-match date is earlier than this date, and later than the date set in the DeferredTaxFromDate element will be selected for processing.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SelCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the selector master which the transfer process uses.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TransferDocCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the document master used to create the transfer documents.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TransferDocDate" type="com:typeHSDate">
+        <xsd:annotation>
+          <xsd:documentation>The date of the transfer documents.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TransferDocPeriod" type="com:typeSoftPeriod">
+        <xsd:annotation>
+          <xsd:documentation>The year and period of the transfer documents.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ProtectPeriodAndDate" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies that users cannot edit the transfer document date and period at run time.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Description" type="com:typeDescr" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The default description for the transfer document lines.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="TaxTransferMaster" type="txm:TaxTransferMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a tax transfer master.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

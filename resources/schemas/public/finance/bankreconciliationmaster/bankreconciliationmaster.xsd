@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:aso="http://www.coda.com/efinance/schemas/association" xmlns:brm="http://www.coda.com/efinance/schemas/bankreconciliationmaster" targetNamespace="http://www.coda.com/efinance/schemas/bankreconciliationmaster" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/association" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/finance/association/association.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="Basics">
+    <xsd:annotation>
+      <xsd:documentation>This element contains parameters that determine which document lines are selected for reconciliation, and how reconciliation is performed</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CurrRule" type="com:typeCtHomeOrElmCur">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the reconciliation currency is the currency of the element or the currency of the posted document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElmLevel" type="com:typeElmLevel" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The level of the element at which the reconciliation currency is held. This is a number from 1-8 inclusive.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CurrCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The currency code that specifies the currency of document lines selected for reconciliation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AllowInteractive" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether this reconciliation master can be used for Interactive Reconciliation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AllowBackground" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether this reconciliation master can be used for Background Reconciliation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AllowAssistant" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether this reconciliation master can be used for Assisted Reconciliation. This cannot be set if AllowInteractive is set to FALSE.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LogInteractive" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates that a log should be written during Interactive Reconciliation using this master. This can only be set when AllowInteractive is set to TRUE.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LogBackground" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates that a log should be written during Background Reconciliation using this master. This can only be set when AllowBackground is set to TRUE.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RuntimeModifyBasics" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether Basics elements can be modified at run time. When TRUE, only CurrRule, ElmLevel and CurrCode may be modified.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RuntimeModifyPosting" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether Posting elements can be modified at run time. When TRUE, only DebitAcc and CreditAcc may be modified; write-off tolerances cannot be changed.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RuntimeModifyAssistant" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the Assistant script can be modified at run time.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Folder" abstract="true">
+    <xsd:sequence>
+      <xsd:element name="TabName" type="com:typeDescr">
+        <xsd:annotation>
+          <xsd:documentation>The name of this folder.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SelCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the selector master that you want to use to retrieve the Financials lines.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PresCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the presenter master that you want to use to display the Financials lines.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SingleLineSelection" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates that only one Financials line is included in each reconciliation group.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="FinancialsFolder">
+    <xsd:annotation>
+      <xsd:documentation>This element contains parameters to set up the folder that will hold the Financials lines.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="brm:Folder">
+        <xsd:sequence>
+          <xsd:element name="AllowWriteOff" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:documentation>Indicates that write-offs are allowed using this reconciliation master, subject to the tolerances specified in the Posting parameters.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="AllowIntrayReconciliation" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:documentation>Indicates that document lines on the Intray can be reconciled using this reconciliation master, subject to settings on the company and capability masters.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StatementFolder">
+    <xsd:annotation>
+      <xsd:documentation>This element contains parameters to set up the folder that will hold the statement lines.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="brm:Folder">
+        <xsd:sequence>
+          <xsd:element name="ReverseValues" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:documentation>Indicates that positive statement values become negative, and negative values become positive. You would be likely to use this setting for statements whose debits and credits are defined from the opposite point of view to your own.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="Folders">
+    <xsd:annotation>
+      <xsd:documentation>This element contains parameters to set up the folders that will hold the Financials lines and the statement lines for reconciliation.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="FinancialsFolder" type="brm:FinancialsFolder">
+        <xsd:annotation>
+          <xsd:documentation>This element contains parameters to set up the folder that will hold the Financials lines.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StatementFolder" type="brm:StatementFolder">
+        <xsd:annotation>
+          <xsd:documentation>This element contains parameters to set up the folder that will hold the statement lines.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WriteOffValue">
+    <xsd:annotation>
+      <xsd:documentation>This element contains parameters for setting up the maximum debit write-off tolerance as a value.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Enabled" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether debit write-offs, as values, are permitted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Value" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The maximum debit write-off that can be made, expressed as an absolute value in home currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WriteOffPercent">
+    <xsd:annotation>
+      <xsd:documentation>This element contains parameters for setting up the maximum debit write-off tolerance as a percentage.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Enabled" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether debit write-offs, as percentages, are permitted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Percentage" type="com:typePercent">
+        <xsd:annotation>
+          <xsd:documentation>The maximum debit write-off that you can make, expressed as a percentage of the value of the Financials line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Posting">
+    <xsd:annotation>
+      <xsd:documentation>This element contains parameters for the write-off accounts and tolerances that apply when reconciling document lines using this reconciliation master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="DebitValue" type="brm:WriteOffValue" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element contains parameters for setting up the maximum debit write-off tolerance as a value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CreditValue" type="brm:WriteOffValue" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element contains parameters for setting up the maximum credit write-off tolerance as a value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DebitPercent" type="brm:WriteOffPercent" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element contains parameters for setting up the maximum debit write-off tolerance as a percentage.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CreditPercent" type="brm:WriteOffPercent" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element contains parameters for setting up the maximum credit write-off tolerance as a percentage.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DebitAcc" type="com:typeAcCodeWild" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The write-off account to which debit write-offs are made.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CreditAcc" type="com:typeAcCodeWild" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The write-off account to which credit write-offs are made.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="BankReconciliationMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a bank reconciliation master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the reconciliation master is being maintained.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this reconciliation master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this reconciliation master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name for this reconciliation master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for this reconciliation master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Basics" type="brm:Basics">
+        <xsd:annotation>
+          <xsd:documentation>This element contains parameters that determine which document lines are selected for reconciliation, and how reconciliation is performed</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Folders" type="brm:Folders">
+        <xsd:annotation>
+          <xsd:documentation>This element contains parameters to set up the folders that will hold the Financials lines and the statement lines for reconciliation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Posting" type="brm:Posting">
+        <xsd:annotation>
+          <xsd:documentation>This element contains parameters for the write-off accounts and tolerances that apply when reconciling document lines using this reconciliation master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Assistant" type="aso:AssistantScript">
+        <xsd:annotation>
+          <xsd:documentation>This element holds a script for use in Assisted Reconciliation or Background Reconciliation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="BankReconciliationMaster" type="brm:BankReconciliationMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a bank reconciliation master.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

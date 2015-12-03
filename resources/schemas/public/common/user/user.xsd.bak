@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:usr="http://www.coda.com/efinance/schemas/user" targetNamespace="http://www.coda.com/efinance/schemas/user" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+
+  <xsd:simpleType name="typeUserCode">
+    <xsd:annotation>
+      <xsd:documentation>An alternative user name that can be up to 128 characters long, allowing users to log on to the Administration Console using their e-mail address.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1"/>
+      <xsd:maxLength value="128"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:complexType name="UsrKey">
+    <xsd:annotation>
+      <xsd:documentation>This element is a key consisting of a code.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this user master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UsrReqKeys">
+    <xsd:annotation>
+      <xsd:documentation>This element is a key for requesting a number of user masters from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MaxKeys" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The maximum number of user masters to be selected. A value of zero indicates no limit.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Key" type="usr:UsrKey">
+        <xsd:annotation>
+          <xsd:documentation>This element is a key consisting of a code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UsrKeyDataElement">
+    <xsd:sequence>
+      <xsd:element name="Code" type="xsd:string"/>
+      <xsd:element name="ShortName" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UsrKeyData">
+    <xsd:sequence>
+      <xsd:element name="KeyDataElement" type="usr:UsrKeyDataElement" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Master" abstract="true">
+    <xsd:sequence>
+      <xsd:element name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this user master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this user master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="FrameworkCode" type="usr:typeUserCode">
+        <xsd:annotation>
+          <xsd:documentation>An alternative user name that can be up to 128 characters long. This allows users to log on to the Administration Console using their e-mail address.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name for this user master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for this user master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CapCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the capability master assigned to this user master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DefaultCmpCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of this user master's default company.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DefaultLanguage" type="com:typeLanguage" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The default language for this user master. This controls the language used for the screen, help, and message text.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OpenDocLimit" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The number of documents the user may have open at one time (1 to 99).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Password" type="com:typePassword" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The password (in un-encrypted form) to use with this user master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="EncryptedPassword" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The password (in encrypted form) to use with this user master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="EMailAddress" type="com:typeEMailAddr" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The e-mail address for this user.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DefaultElementLevel" type="com:typeElmLevel" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The element level of the first default element for this user.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DefaultElementCode" type="com:typeElmCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The element code of the first default element (at the DefaultElementLevel) for this user.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DefaultElementLevel2" type="com:typeElmLevel" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The element level of the second default element for this user.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DefaultElementCode2" type="com:typeElmCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The element code of the second default element (at the DefaultElementLevel2) for this user.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DefaultElementLevel3" type="com:typeElmLevel" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The element level of the third default element for this user.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DefaultElementCode3" type="com:typeElmCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The element code of the third default element (at the DefaultElementLevel3) for this user.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MobilePhoneNumber" type="com:typeTel" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The mobile phone number for the user.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DisablePasswordExpiry" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the password expiry option is disabled. When set to True, the password will not expire.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="User">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a user master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="usr:Master">
+        <xsd:sequence>
+          <xsd:element name="AccessibleCompanies" type="com:KeyData">
+            <xsd:annotation>
+              <xsd:documentation>The list of companies which are accessible by this user.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ReqComments">
+    <xsd:sequence>
+      <xsd:element name="Comment" type="xsd:string" minOccurs="0" maxOccurs="5"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Req">
+    <xsd:sequence>
+      <xsd:element name="Name" type="com:typeName"/>
+      <xsd:element name="EMail" type="com:typeEMailAddr"/>
+      <xsd:element name="CompanyName" type="com:typeName"/>
+      <xsd:element name="Telephone" type="xsd:string"/>
+      <xsd:element name="Comments" type="usr:ReqComments"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="FullUserList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the user master data being imported or exported.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="User" type="usr:User" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element holds a user master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="UsrReqKeys" type="usr:UsrReqKeys">
+    <xsd:annotation>
+      <xsd:documentation>This element is a key for requesting a number of user masters from the database.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

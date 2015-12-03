@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsr="http://www.coda.com/efinance/schemas/externalxmlserver" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/efinance/schemas/externalxmlserver" elementFormDefault="qualified" version="1.0">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/service.xsd"/>
+  <xsd:include schemaLocation="s:/schemas/public/finance/externalxmlserver/externalxmlserver.xsd"/>
+
+  <xsd:complexType name="DetectActiveRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Key" type="xsr:XMLActiveServerKey">
+            <xsd:annotation>
+              <xsd:documentation>Contains the key identifying the application server you want to detect.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DetectActiveRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Detects whether the specified application server is active.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="xsr:DetectActiveRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DetectActiveResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Info" type="xsr:XMLActiveServer" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains information on the presence and status of the application server specified in the corresponding request.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DetectActiveResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="xsr:DetectActiveResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ExternalXMLServerRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to detect the presence of application servers such as Purchasing.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element name="DetectActive" type="xsr:DetectActiveRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Detects whether the specified application server is active.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ExternalXMLServerResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element name="DetectActive" type="xsr:DetectActiveResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="ExternalXMLServerRequest" type="xsr:ExternalXMLServerRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to detect the presence of application servers such as Purchasing.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="ExternalXMLServerResponse" type="xsr:ExternalXMLServerResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

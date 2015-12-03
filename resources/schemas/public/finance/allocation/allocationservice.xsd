@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:txn="http://www.coda.com/efinance/schemas/transaction" xmlns:bal="http://www.coda.com/efinance/schemas/balance" xmlns:all="http://www.coda.com/efinance/schemas/allocation" xmlns:prg="http://www.coda.com/efinance/schemas/progress" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:sel="http://www.coda.com/efinance/schemas/selector" targetNamespace="http://www.coda.com/efinance/schemas/allocation" elementFormDefault="qualified" version="11.2">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/service.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/progress" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/progress/progress.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/selector" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/selector/selector.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/transaction" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/transaction/transaction.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/balance" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/balance/balance.xsd"/>
+  <xsd:include schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/finance/allocation/allocation.xsd"/>
+
+  <xsd:complexType name="PrepareRuleRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="RuleData" type="all:RuleParams">
+            <xsd:annotation>
+              <xsd:documentation>Contains the information required to start an Allocation process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PrepareRuleRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Submits the basic information required to start an Allocation process.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="all:PrepareRuleRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PrepareRuleResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="RuleData" type="all:RuleParams">
+            <xsd:annotation>
+              <xsd:documentation>Contains the information required to start an Allocation process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ProgressKey" type="prg:ProgressKey" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The key, or special reference, given to you for requesting information about the progress of Allocation.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Requirements" type="all:AllocationRequirements" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains details of parameters which are still required for this allocation rule.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PreCode" type="com:typeGeneralCode" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The code of the presenter you want Alloction to use.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PrepareRuleResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="all:PrepareRuleResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="RunRuleAndPostRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="RuleData" type="all:RuleParams">
+            <xsd:annotation>
+              <xsd:documentation>Contains the information required to start an Allocation process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PromptData" type="all:AllocationPrompts" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains those values which have not been specified in the rule master, but are required by the Allocation run.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ProgressKey" type="prg:ProgressKey" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The key, or special reference, given to you for requesting information about the progress of Allocation.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="RunRuleAndPostRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Starts the Allocation process, using the parameters you provide, and posts the allocation documents without allowing you to view them.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="all:RunRuleAndPostRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="RunRuleAndPostResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="ProgressKey" type="prg:ProgressKey">
+            <xsd:annotation>
+              <xsd:documentation>The key, or special reference, given to you for requesting information about the progress of Allocation.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="RunRuleAndPostResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="all:RunRuleAndPostResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="RunRuleAndViewRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="RuleData" type="all:RuleParams">
+            <xsd:annotation>
+              <xsd:documentation>Contains the information required to start an Allocation process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PromptData" type="all:AllocationPrompts" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains those values which have not been specified in the rule master, but are required by the Allocation process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ProgressKey" type="prg:ProgressKey">
+            <xsd:annotation>
+              <xsd:documentation>The key, or special reference, given to you for requesting information about the progress of Allocation.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Columns" type="sel:VocabIDList">
+            <xsd:annotation>
+              <xsd:documentation>The list of vocabulary items you want to look at when you receive the response.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="RunRuleAndViewRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Starts the Allocation process, using the parameters you provide, but does not post the allocation document until you have checked the transactions.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="all:RunRuleAndViewRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="RunRuleAndViewResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Selection" type="sel:Selection" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The list of accounts or balances selected for updating, when the allocation rule was run.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Transaction" type="txn:Transaction" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The allocation document containing details of the proposed allocation values.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Balances" type="bal:BalanceList" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The list of balances, containing details of the proposed allocation values.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Warning" type="com:Reason" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>A message indicating that the update failed and giving a detailed reason for the failure.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="RunRuleAndViewResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="all:RunRuleAndViewResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PostRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="RuleData" type="all:RuleParams">
+            <xsd:annotation>
+              <xsd:documentation>Contains the information required to start an Allocation process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Transaction" type="txn:Transaction" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The allocation document listing the proposed allocation values, produced by RunRuleAndView.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Balances" type="bal:BalanceList" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The list of balances which will be updated, produced by RunRuleAndView.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PostRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Posts the allocation documents produced by RunRuleAndView, after you have checked them.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="all:PostRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PostResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PostResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="all:PostResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PrepareChainRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="ChainData" type="all:ChainParams">
+            <xsd:annotation>
+              <xsd:documentation>Contains the information required to start an allocation chain.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PrepareChainRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Submits the parameters for running an allocation chain, using the information you provide.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="all:PrepareChainRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PrepareChainResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="ChainData" type="all:ChainParams">
+            <xsd:annotation>
+              <xsd:documentation>Contains the information required to start an allocation chain.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ProgressKey" type="prg:ProgressKey" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The key, or special reference, given to you for requesting information about the progress of Allocation.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="RequirementsList" type="all:AllocationRequirementsList" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains details of parameters which are still required, for each rule within the chain.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PrepareChainResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="all:PrepareChainResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="RunChainRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="ChainData" type="all:ChainParams">
+            <xsd:annotation>
+              <xsd:documentation>Contains the information required to start an allocation chain.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PromptList" type="all:AllocationPromptsList" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains those values which have not been specified in any rule masters in the chain, but are required by the allocation process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ProgressKey" type="prg:ProgressKey" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The key, or special reference, given to you for requesting information about the progress of Allocation.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="RunChainRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Starts an allocation chain, using the information you provide, and updates the values.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element name="Request" type="all:RunChainRequest" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="RunChainResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="ProgressKey" type="prg:ProgressKey">
+            <xsd:annotation>
+              <xsd:documentation>The key, or special reference, given to you for requesting information about the progress of Allocation.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="RunChainResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element name="Response" type="all:RunChainResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AllocationRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to run and monitor Allocation.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element name="PrepareRule" type="all:PrepareRuleRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Submits the basic information required to start an Allocation process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="RunRuleAndPost" type="all:RunRuleAndPostRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Starts the Allocation process, using the parameters you provide, and posts the allocation documents without allowing you to view them.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="RunRuleAndView" type="all:RunRuleAndViewRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Starts the Allocation process, using the parameters you provide, but does not post the allocation document until you have checked the transactions.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Post" type="all:PostRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Posts the allocation documents produced by RunRuleAndView, after you have checked them.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PrepareChain" type="all:PrepareChainRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Submits the parameters for running an allocation chain, using the information you provide.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="RunChain" type="all:RunChainRequestVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Starts an allocation chain, using the information you provide, and updates the values.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="AllocationResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you run and monitor Allocation.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element name="PrepareRule" type="all:PrepareRuleResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="RunRuleAndPost" type="all:RunRuleAndPostResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="RunRuleAndView" type="all:RunRuleAndViewResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Post" type="all:PostResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PrepareChain" type="all:PrepareChainResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="RunChain" type="all:RunChainResponseVerb" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="AllocationRequest" type="all:AllocationRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to run and monitor Allocation.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="AllocationResponse" type="all:AllocationResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you run and monitor Allocation.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

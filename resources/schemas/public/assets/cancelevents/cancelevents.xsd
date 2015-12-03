@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:canevt="http://www.coda.com/eassets/schemas/cancelevents" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:gsl="http://www.coda.com/efinance/schemas/selectormaster" xmlns:ass="http://www.coda.com/eassets/schemas/asset" targetNamespace="http://www.coda.com/eassets/schemas/cancelevents" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/eassets/schemas/asset" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/assets/asset/asset.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/selectormaster" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/selectormaster/selectormaster.xsd"/>
+
+  <xsd:complexType name="CancelEvents">
+    <xsd:annotation>
+      <xsd:documentation>This element contains parameters specifying which events should be cancelled.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="SelectorCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the selector master that you want to use to select assets for event cancellation. Only assets selectors can be specified.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SelectorMaster" type="gsl:SelectorMaster" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element holds the selector master specified by SelectorCode.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AssetCodes" type="ass:AssetKeyList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element lists the assets that meet the selection criteria and will be subject to event cancellation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CancelToYearPeriod" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The period up to which events will be cancelled. All events in the selected period and later will be cancelled. For example, if the current year and period is 2008/6 and you specify 2008/4 in this field, then any events that took place in 2008 periods 4-6 inclusive (excluding capitalisation) will be cancelled.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UseSpecifiedPeriod" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>When TRUE, the transaction will be posted to the year/period specified in the DocYearPeriod element. When FALSE, it will be posted to the year/period of the transaction itself.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocYearPeriod" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The year and period to which the cancelling transactions are posted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocumentDate" type="xsd:dateTime">
+        <xsd:annotation>
+          <xsd:documentation>The date of the document which posts the cancelling financial transactions to the Financials Books.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LogTitle" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The title of the log file storing details of the cancellation process. This is mandatory.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which events are being cancelled.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RunNumber" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>A number identifying this cancellation process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AssetList">
+    <xsd:sequence>
+      <xsd:element name="AssetListElement" type="canevt:AssetListElement" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AssetListElement">
+    <xsd:sequence>
+      <xsd:element name="AssetCode" type="com:typeGeneralCode"/>
+      <xsd:element name="BookCode" type="com:typeGeneralCode"/>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode"/>
+      <xsd:element name="OrigLastRunYear" type="xsd:int"/>
+      <xsd:element name="OrigLastRunPeriod" type="xsd:int"/>
+      <xsd:element name="LastRunYear" type="xsd:int"/>
+      <xsd:element name="LastRunPeriod" type="xsd:int"/>
+      <xsd:element name="DepnStartYear" type="xsd:int"/>
+      <xsd:element name="DepnStartPeriod" type="xsd:int"/>
+      <xsd:element name="CapnYear" type="xsd:int"/>
+      <xsd:element name="CapnPeriod" type="xsd:int"/>
+      <xsd:element name="AssetBookStatus" type="com:typeCtAssetBookStatus"/>
+      <xsd:element name="Cost" type="com:typeMoney"/>
+      <xsd:element name="NetBookValue" type="com:typeMoney"/>
+      <xsd:element name="ResidualValue" type="com:typeMoney"/>
+      <xsd:element name="ResidualPercent" type="com:typeMoney"/>
+      <xsd:element name="IsPercentage" type="com:typeCtResidValueOrPercent"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="CancelEvents" type="canevt:CancelEvents">
+    <xsd:annotation>
+      <xsd:documentation>This element contains parameters specifying which events should be cancelled.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

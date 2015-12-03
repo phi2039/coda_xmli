@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:acm="http://www.coda.com/efinance/schemas/archivemaster" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/efinance/schemas/archivemaster" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/service.xsd"/>
+
+  <xsd:complexType name="ArchiveHeaderMasterCommon">
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company where the header master exists.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the archive header master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DatabaseConnection">
+    <xsd:annotation>
+      <xsd:documentation>The element contains the database settings for a CODA-Procurement external archive.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Username" type="com:typeDBConnectionField">
+        <xsd:annotation>
+          <xsd:documentation>The name of the database user, which must be entered for external archives.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DatabaseName" type="com:typeDBConnectionField" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The name of the database, which is mandatory for some databases.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Password" type="com:typeDBConnectionFieldB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The database password, which is mandatory for some databases.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PasswordUnset" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that the password for this database in not set.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TableOwner" type="com:typeDBConnectionField">
+        <xsd:annotation>
+          <xsd:documentation>The name of the table owner, which is mandatory for all databases.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="JournalDetails">
+    <xsd:annotation>
+      <xsd:documentation>This element contains settings for the archive journal.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="NormalJournal" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The journal code used for non-turnover documents.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TurnoverJournal" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The journal code used for turnover documents.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Description" type="com:typeDescr" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>A description that appears on all journal lines.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PauseRequestSize" type="com:typePauseRequestSize" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The number of documents selected before the system checks to see if a request to pause the Archive process has been issued. The default size is 5000, and 1000 is the smallest number allowable.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SuppressZeroLines" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE specifies that lines with a line value and quantity of zero will not be stored on the archive journal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProcurementDetails">
+    <xsd:annotation>
+      <xsd:documentation>If TRUE specifies that you want to run Archive for Purchasing and Sales Invoicing.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="DisposalOfDocuments" type="com:typeCtAhmArchType">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the documents to be archived are moved from the main CODA-Procurement database into archive tables, or whether they are purged from the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExternalDatabase" type="acm:DatabaseConnection" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The element contains the database settings for a CODA-Procurement external archive.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ArchiveHeaderMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds an archive header master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="acm:ArchiveHeaderMasterCommon">
+        <xsd:sequence>
+          <xsd:element name="TimeStamp" type="xsd:short" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The TimeStamp value for this archive header master in the database.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Name" type="com:typeName">
+            <xsd:annotation>
+              <xsd:documentation>The full name for the archive header master.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ShortName" type="com:typeShortName" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The abbreviated name for the archive header master.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ExternalArchive" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:documentation>If TRUE specifies that an external archive process is required for Financials data.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="JournalDetails" type="acm:JournalDetails" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>This element contains settings for the archive journal.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ClusterSize" type="com:typeClusterSize">
+            <xsd:annotation>
+              <xsd:documentation>The number of documents processed into a single archive journal. This must be set to at least 10.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DefaultSelector" type="com:typeGeneralCode" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The selector master code used as the default when starting to archive documents. This field may be left blank to select all appropriate documents.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="SingleYear" type="xsd:short" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Indicates whether more than one year can be added to the same archive database. To specify a single year, enter the appropriate year. To allow more than one year, leave the field blank.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DeleteComments" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:documentation>If TRUE specifies that comments will be deleted from the Books without copying them to the archive.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DeleteDiscounts" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:documentation>If TRUE specifies that discount information will be deleted from the Books without copying it to the archive.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DeleteDiaryEvents" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:documentation>If TRUE specifies that diary events and comments will be deleted from the Books without copying them to the archive.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DeleteTax" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:documentation>If TRUE specifies that tax information will be deleted from the Books without copying it to the archive. This affects any VAT contributions memos, 1099 tax memos and tax turnover information.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="DeletePay" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:documentation>If TRUE specifies that payment information will be deleted from the Books without copying it to the archive.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ProcurementDetails" type="acm:ProcurementDetails" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>If TRUE specifies that you want to run Archive for Purchasing and Sales Invoicing.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CoreExternalDatabase" type="acm:DatabaseConnection" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the database settings for a Financials external archive.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ArchiveHeaderMasterStatus">
+    <xsd:annotation>
+      <xsd:documentation>This element holds information about the current status of the header, and the documents which have been archived using this archive header.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="acm:ArchiveHeaderMasterCommon">
+        <xsd:sequence>
+          <xsd:element name="CurrentState" type="com:typeCtArchiveState">
+            <xsd:annotation>
+              <xsd:documentation>The current state of the archive header master, whether it is available, or already active.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CurrentUser" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The user currently using this header master for an Archive process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="FromYearsAndPeriods" type="com:typePeriod" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The earliest year and period for the documents in the archive.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ToYearsAndPeriods" type="com:typePeriod" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The latest year and period for the documents in the archive.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="FromDocumentDates" type="com:typeDate" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The dates of the earliest archive documents.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ToDocumentDates" type="com:typeDate" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The dates of the latest archive documents.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="FromInputDates" type="com:typeDate" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The earliest input dates in the archive</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ToInputDates" type="com:typeDate" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The latest input dates in the archive.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="FromPaymentDates" type="com:typeDate" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The earliest payment dates in the archive.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ToPaymentDates" type="com:typeDate" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The latest payment dates in the archive.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ArchiveCreated" type="com:typeDate" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The date and time when the first journal was created.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="LastUpdated" type="com:typeDate" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The date and time when the latest journal was created.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="FirstNormalJournal" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the first journal written.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="FirstNormalJournalNumber" type="com:typeDocNum">
+            <xsd:annotation>
+              <xsd:documentation>The number of the first journal written.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="FirstTurnoverJournal" type="com:typeGeneralCode">
+            <xsd:annotation>
+              <xsd:documentation>The code of the first turnover journal written.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="FirstTurnoverJournalNumber" type="com:typeDocNum">
+            <xsd:annotation>
+              <xsd:documentation>The number of the first turnover journal written.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="NumberOfDocsArchived" type="com:typeLong">
+            <xsd:annotation>
+              <xsd:documentation>The total number of documents archived.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Paused" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:documentation>If true, indicates that the Archive process using this header is paused.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="ArchiveHeaderMaster" type="acm:ArchiveHeaderMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds an archive header master.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

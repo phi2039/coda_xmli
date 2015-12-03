@@ -1,0 +1,605 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:build="http://www.coda.com/common/schemas/funcsec" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:secrpt="http://www.coda.com/common/schemas/securityreports" elementFormDefault="qualified" targetNamespace="http://www.coda.com/common/schemas/securityreports" version="1.0">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types2.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/service.xsd"/>
+  <xsd:include schemaLocation="s:/schemas/public/common/securityreports/securityreports.xsd"/>
+
+  <xsd:complexType name="UsersByCapabilityRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Criteria" type="secrpt:CapabilityCriteria">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the criteria used to generate the report.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UsersByCapabilityRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>The request to the users by capability function.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" name="Request" type="secrpt:UsersByCapabilityRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UsersByCapabilityResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Criteria" type="secrpt:CapabilityCriteria">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the criteria specified in the request.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Results" type="secrpt:CapabilityReport">
+            <xsd:annotation>
+              <xsd:documentation>Contains the results retrieved by the request.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UsersByCapabilityResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="secrpt:UsersByCapabilityResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UsersByRoleRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Criteria" type="secrpt:RoleCriteria">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the criteria used to generate the report.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UsersByRoleRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>The request to the users by role function.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" name="Request" type="secrpt:UsersByRoleRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UsersByRoleResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Criteria" type="secrpt:RoleCriteria">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the criteria specified in the request.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Results" type="secrpt:RoleReport">
+            <xsd:annotation>
+              <xsd:documentation>Contains the results retrieved by the request.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UsersByRoleResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="secrpt:UsersByRoleResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UsersByCompanyRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Criteria" type="secrpt:CompanyCriteria">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the criteria used to generate the report.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UsersByCompanyRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>The request to the users by company function.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" name="Request" type="secrpt:UsersByCompanyRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UsersByCompanyResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Criteria" type="secrpt:CompanyCriteria">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the criteria specified in the request.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Results" type="secrpt:CompanyReport">
+            <xsd:annotation>
+              <xsd:documentation>Contains the results retrieved by the request.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UsersByCompanyResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="secrpt:UsersByCompanyResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UsersByApplicationRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Criteria" type="secrpt:ApplicationCriteria">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the criteria used to generate the report.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UsersByApplicationRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Creates a users by application report.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" name="Request" type="secrpt:UsersByApplicationRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UsersByApplicationResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Criteria" type="secrpt:ApplicationCriteria">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the criteria specified in the request.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Results" type="secrpt:ApplicationReport">
+            <xsd:annotation>
+              <xsd:documentation>Contains the results retrieved by the request.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UsersByApplicationResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="secrpt:UsersByApplicationResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UsersByFunctionalSecurityRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Criteria" type="secrpt:FunctionalSecurityCriteria">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the criteria used to generate the report.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UsersByFunctionalSecurityRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>The request to the users by functional security function.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" name="Request" type="secrpt:UsersByFunctionalSecurityRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UsersByFunctionalSecurityResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Criteria" type="secrpt:FunctionalSecurityCriteria">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the criteria specified in the request.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Results" type="secrpt:FunctionalSecurityReport">
+            <xsd:annotation>
+              <xsd:documentation>Contains the results retrieved by the request.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UsersByFunctionalSecurityResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="secrpt:UsersByFunctionalSecurityResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UsersByMasterAccountSecurityRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Criteria" type="secrpt:MasterAccountCriteria">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the criteria used to generate the report.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UsersByMasterAccountSecurityRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>The request to the users by master security function.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" name="Request" type="secrpt:UsersByMasterAccountSecurityRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UsersByMasterAccountSecurityResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Criteria" type="secrpt:MasterAccountCriteria">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the criteria specified in the request.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Results" type="secrpt:MasterAccountReport">
+            <xsd:annotation>
+              <xsd:documentation>Contains the results retrieved by the request.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UsersByMasterAccountSecurityResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="secrpt:UsersByMasterAccountSecurityResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetAvailableAbilityVocabsRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetAvailableAbilityVocabsRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>Retrieves a list of vocabulary items available to the logged on user.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" name="Request" type="secrpt:GetAvailableAbilityVocabsRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetAvailableAbilityVocabsResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="AbilityVocabList" type="secrpt:VocabList">
+            <xsd:annotation>
+              <xsd:documentation>A list of vocabulary items returned by the request.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetAvailableAbilityVocabsResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="secrpt:GetAvailableAbilityVocabsResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UsersByAbilityRequest">
+    <xsd:complexContent>
+      <xsd:extension base="com:Request">
+        <xsd:sequence>
+          <xsd:element name="Criteria" type="secrpt:AbilityCriteria">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the criteria used to generate the report.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UsersByAbilityRequestVerb">
+    <xsd:annotation>
+      <xsd:documentation>The request to the users by ability function.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:RequestVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" name="Request" type="secrpt:UsersByAbilityRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UsersByAbilityResponse">
+    <xsd:complexContent>
+      <xsd:extension base="com:Response">
+        <xsd:sequence>
+          <xsd:element name="Criteria" type="secrpt:AbilityCriteria">
+            <xsd:annotation>
+              <xsd:documentation>This element contains the criteria specified in the request.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Results" type="secrpt:AbilityReport">
+            <xsd:annotation>
+              <xsd:documentation>Contains the results retrieved by the request.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UsersByAbilityResponseVerb">
+    <xsd:annotation>
+      <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ResponseVerb">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Response" type="secrpt:UsersByAbilityResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SecurityReportsRequest">
+    <xsd:annotation>
+      <xsd:appinfo build:funcSecValue="435" build:readOnly="true"/>
+      <xsd:documentation>This service allows you to generate security reports.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceRequest">
+        <xsd:all>
+          <xsd:element minOccurs="0" name="UsersByCapability" type="secrpt:UsersByCapabilityRequestVerb">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="1" build:readOnly="true"/>
+              <xsd:documentation>The request to the users by capability function.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="UsersByRole" type="secrpt:UsersByRoleRequestVerb">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="2" build:readOnly="true"/>
+              <xsd:documentation>The request to the users by role function.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="UsersByCompany" type="secrpt:UsersByCompanyRequestVerb">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="3" build:readOnly="true"/>
+              <xsd:documentation>The request to the users by company function.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="UsersByApplication" type="secrpt:UsersByApplicationRequestVerb">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="4" build:readOnly="true"/>
+              <xsd:documentation>Creates a users by application report.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="UsersByFunctionalSecurity" type="secrpt:UsersByFunctionalSecurityRequestVerb">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="5" build:readOnly="true"/>
+              <xsd:documentation>The request to the users by functional security function.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="UsersByMasterSecurity" type="secrpt:UsersByMasterAccountSecurityRequestVerb">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="6" build:readOnly="true"/>
+              <xsd:documentation>The request to the users by master security function.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="UsersByAccountSecurity" type="secrpt:UsersByMasterAccountSecurityRequestVerb">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="7" build:readOnly="true"/>
+              <xsd:documentation>The request to the users by account security function.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="UsersByAbility" type="secrpt:UsersByAbilityRequestVerb">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="8" build:readOnly="true"/>
+              <xsd:documentation>The request to the users by ability function.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="GetAvailableAbilityVocabs" type="secrpt:GetAvailableAbilityVocabsRequestVerb">
+            <xsd:annotation>
+              <xsd:appinfo build:funcSecValue="9" build:readOnly="true"/>
+              <xsd:documentation>Retrieves a list of vocabulary items available to the logged on user.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SecurityReportsResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you generate security reports.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ServiceResponse">
+        <xsd:all>
+          <xsd:element minOccurs="0" name="UsersByCapability" type="secrpt:UsersByCapabilityResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="UsersByRole" type="secrpt:UsersByRoleResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="UsersByCompany" type="secrpt:UsersByCompanyResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="UsersByApplication" type="secrpt:UsersByApplicationResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="UsersByFunctionalSecurity" type="secrpt:UsersByFunctionalSecurityResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="UsersByMasterSecurity" type="secrpt:UsersByMasterAccountSecurityResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="UsersByAccountSecurity" type="secrpt:UsersByMasterAccountSecurityResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="UsersByAbility" type="secrpt:UsersByAbilityResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="GetAvailableAbilityVocabs" type="secrpt:GetAvailableAbilityVocabsResponseVerb">
+            <xsd:annotation>
+              <xsd:documentation>Contains the responses to your requests with this verb.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="SecurityReportsRequest" type="secrpt:SecurityReportsRequest">
+    <xsd:annotation>
+      <xsd:documentation>This service allows you to generate security reports.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="SecurityReportsResponse" type="secrpt:SecurityReportsResponse">
+    <xsd:annotation>
+      <xsd:documentation>This is the response that is returned when you generate security reports.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

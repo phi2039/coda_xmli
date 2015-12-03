@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:rev="http://www.coda.com/efinance/schemas/revaluation" xmlns:com="http://www.coda.com/efinance/schemas/common" targetNamespace="http://www.coda.com/efinance/schemas/revaluation" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="RevaluationRequirements">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the parameters for running a Currency Revaluation rule.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="RuleCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the revaluation rule master you want to use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NeedRateDate" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that you will use the currency exchange rate on a specified date.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NeedForeignRate" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that revaluation will be based on a foreign currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NeedForeignParentRate" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that revaluation will be based on the rate of a foreign currency's parent currency, for example the euro.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NeedDualRate" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that revaluation will be based on the company's dual currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NeedDualParentRate" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, specifies that revaluation will be based on the dual currency's parent currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ForeignCurCode" type="com:typeGeneralCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The code of the foreign currency on which revaluation will be based.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DualCurCode" type="com:typeGeneralCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The code of the dual currency on which revaluation will be based.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ParentCurCode" type="com:typeGeneralCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The code of the parent currency on which revaluation will be based.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RevaluationRequirementsList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the requirements set up in the rule masters listed in a currency revaluation chain master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Requirements" type="rev:RevaluationRequirements" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>The parameters for revaluation contained in one rule master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RevaluationPrompts">
+    <xsd:annotation>
+      <xsd:documentation>This element contains prompts for those values which have not been specified in the rule master, but are required by Currency Revaluation.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="RuleCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the rule master you want to use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RateDate" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date of the currency exchange rate you want to use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ForeignRate" type="com:typeRate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The exchange rate of the foreign currency which you want to use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ForeignParentRate" type="com:typeRate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The exchange rate of the foreign currency's parent currency, which you want to use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DualRate" type="com:typeRate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The exchange rate of the dual currency which you want to use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DualParentRate" type="com:typeRate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The exchange rate of the dual currency's parent currency, which you want to use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RevaluationPromptsList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains prompts for those values which have not been specified in one or more rule masters listed in a revaluation chain master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="PromptData" type="rev:RevaluationPrompts" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>The values which are required by one revaluation rule in the chain master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

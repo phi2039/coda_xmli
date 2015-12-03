@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:rev="http://www.coda.com/eassets/schemas/revaluation" xmlns:ass="http://www.coda.com/eassets/schemas/asset" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:asscom="http://www.coda.com/eassets/schemas/common" targetNamespace="http://www.coda.com/eassets/schemas/revaluation" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/eassets/schemas/asset" schemaLocation="s:/schemas/public/assets/asset/asset.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/eassets/schemas/common" schemaLocation="s:/schemas/public/assets/common/types.xsd"/>
+
+  <xsd:complexType name="RevaluationPostings">
+    <xsd:annotation>
+      <xsd:documentation>Contains the postings that will be generated (or have been generated) by the current revaluation request.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="PostingDetails" type="rev:PostingDetails" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Contains revaluation postings. The asset and other parameters used to calculate these postings are contained within this element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PostingDetails">
+    <xsd:annotation>
+      <xsd:documentation>Contains revaluation postings. The asset and other parameters used to calculate these postings are contained within this element.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="RunID" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>A string that uniquely identifies this revaluation process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the asset is being maintained.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AssetCode" type="com:typeAstCode">
+        <xsd:annotation>
+          <xsd:documentation>The asset code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BookCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the asset book in which the specified asset will be (or has been) revalued.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostRuleCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the posting rule master used by this revaluation process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CostRevaluationAmount" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The amount by which the asset's capital cost is revalued.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DepreciationRevaluationAmount" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The amount by which the asset's accumulated depreciation is revalued.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Postings" type="rev:PostingValues">
+        <xsd:annotation>
+          <xsd:documentation>Contains the values that will be posted (or have been posted) to the Books to record this revaluation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IsPostingBook" type="com:typeBool">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the asset book specified by the AssetCode element is set up to be the posting book.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Book" type="ass:AssetBooks">
+        <xsd:annotation>
+          <xsd:documentation>This element holds the details held about the asset in the specified asset book.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DepreciationLock" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>If true, indicates that the asset is locked by a depreciation process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DepreciationRunNumber" type="xsd:int" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>A number identifying the depreciation process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OriginalHomeCost" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The asset's cost in home currency before being revalued.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PostingValues">
+    <xsd:annotation>
+      <xsd:documentation>Contains the values that will be posted (or have been posted) to the Books to record this revaluation.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CapitalCostRevaluation" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The amount by which the asset's capital cost is revalued.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AccumulatedDepreciationRevaluation" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The amount by which the asset's accumulated depreciation is revalued.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RevaluationReserve" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The amount that is posted to the revaluation reserve account. This is the revalued capital cost amount, minus the revalued accumulated depreciation amount.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="RevaluationPostings" type="rev:RevaluationPostings">
+    <xsd:annotation>
+      <xsd:documentation>Contains the postings that will be generated (or have been generated) by the current revaluation request.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

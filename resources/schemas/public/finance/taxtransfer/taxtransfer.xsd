@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:gsl="http://www.coda.com/efinance/schemas/selectormaster" xmlns:ttr="http://www.coda.com/efinance/schemas/taxtransfer" targetNamespace="http://www.coda.com/efinance/schemas/taxtransfer" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/selectormaster" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/selectormaster/selectormaster.xsd"/>
+
+  <xsd:complexType name="StartParams">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the required parameters from running the tax transfer process.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the tax transfer process is started.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TaxTransferMasterCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the tax transfer master used to run Tax Transfer.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DeferredTaxFromDate" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>When transferring deferred VAT the process is initiated by a date range. All lines whose paid date or undo-match date is later than this date, and earlier than the date set in the DeferredTaxToDate element will be selected for processing.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DeferredTaxToDate" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>When transferring deferred VAT the process is initiated by a date range. All lines whose paid date or undo-match date is earlier than this date, and later than the date set in the DeferredTaxFromDate element will be selected for processing.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SelCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code for the selector master which the tax transfer process uses.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SelectorVocabList" type="gsl:VocListData" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The list of vocabulary items defined in the selector master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ReportOnly" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies that this is a 'report only' run. Meaning that you can see what values would be transferred if you ran a full transfer process, but the database is not updated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TransferDocDate" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date of the generated transfer documents.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TransferDocPeriod" type="com:typePeriod" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The year and period of the generated transfer documents.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Description" type="com:typeDescr" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The default description for the generated transfer document lines.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LogTitle" type="com:typeLogTitle">
+        <xsd:annotation>
+          <xsd:documentation>The title of the log, entered by the user who ran the transfer process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LogLevel" type="com:typeCtLogLevel">
+        <xsd:annotation>
+          <xsd:documentation>The amount of information you want to display in the log. You can set this element to Summary, Detailed or Highly detailed.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProgressStatistics">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the statistics for the progress made with the tax transfer process currently running.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="LinesToProcess" type="com:typeULong" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The total number of customer/supplier lines to be processed.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LinesProcessed" type="com:typeULong">
+        <xsd:annotation>
+          <xsd:documentation>The number of customer/supplier lines processed so far.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LinesRejected" type="com:typeULong">
+        <xsd:annotation>
+          <xsd:documentation>The number of lines which have been processed and rejected.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Sorting" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Sorts the selected documents into a transfer summary order. When this process is running, the Sorting element is true.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TransferSummariesToProcess" type="com:typeULong" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The total number of transfer documents to be processed.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TransferSummariesProcessed" type="com:typeULong">
+        <xsd:annotation>
+          <xsd:documentation>The number of transfer documents processed so far.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TransferSummariesRejected" type="com:typeULong">
+        <xsd:annotation>
+          <xsd:documentation>The number of transfer documents which have been processed and rejected.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="StartParams" type="ttr:StartParams">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the required parameters from running the tax transfer process.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="ProgressStatistics" type="ttr:ProgressStatistics">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the statistics for the progress made with the tax transfer process currently running.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:sel="http://www.coda.com/efinance/schemas/selector" xmlns:txn="http://www.coda.com/efinance/schemas/transaction" xmlns:wfl="http://www.coda.com/efinance/schemas/workflow" targetNamespace="http://www.coda.com/efinance/schemas/workflow" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types2.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/transaction" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/transaction/transaction.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/selector" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/selector/selector.xsd"/>
+
+  <xsd:complexType name="DocWorkflowKey">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the key to a workflow document.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="txn:txnKey">
+        <xsd:sequence>
+          <xsd:element name="WorkflowId" type="com:typeDbGuid" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>The unique identifier of this workflow instance.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowParameters">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the parameters for a workflow request.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="wfl:DocWorkflowKey">
+        <xsd:annotation>
+          <xsd:documentation>This element contains the key to a workflow document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocumentLocation" type="com:typeCtDocPost" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The location of the document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="WorkflowCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The workflow process definition code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="WorkflowCodeProtected" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the WorkflowCode is protected.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PositionHierarchyCode" type="com:typeGeneralCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The position hierarchy code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PositionCode" type="com:typeGeneralCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The position within the hierarchy.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PendingCancellationDetails">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of documents pending cancellation.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The company master code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CancellingDocCode" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the cancelling document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UseDocumentDate" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether to use the document date on the original document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocumentDate" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The document date.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UseYearPeriod" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether to use the year/period on the original document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="YearPeriod" type="com:typePeriod" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The year/period.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocumentsToCancel" type="wfl:DocumentsPendingCancellation">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DocumentsPendingCancellation">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Document" type="wfl:DocumentPendingCancellation" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of a document pending cancellation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DocumentPendingCancellation">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a document pending cancellation.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="txn:txnKey">
+        <xsd:annotation>
+          <xsd:documentation>The key to a document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ValueCells" type="sel:CellList">
+        <xsd:annotation>
+          <xsd:documentation>A list of cell values.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowHistory">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of workflow history events.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Event" type="wfl:WorkflowHistoryEntry" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of a workflow history event.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorkflowHistoryEntry">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a workflow history event.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="DocumentLocation" type="com:typeCtDocPost">
+        <xsd:annotation>
+          <xsd:documentation>The location of the document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="WorkflowId" type="com:typeDbGuid">
+        <xsd:annotation>
+          <xsd:documentation>The unique identifier for a workflow instance.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Status" type="com:typeComWorkflowInstanceStatus">
+        <xsd:annotation>
+          <xsd:documentation>The current status of this workflow instance.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="EventDate" type="com:typeDate">
+        <xsd:annotation>
+          <xsd:documentation>The date of the event.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="EventTime" type="com:typeTime">
+        <xsd:annotation>
+          <xsd:documentation>The time of the event.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

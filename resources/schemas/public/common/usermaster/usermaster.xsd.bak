@@ -1,0 +1,972 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:secv="http://www.coda.com/common/schemas/securityvariables" xmlns:usr="http://www.coda.com/common/schemas/usermaster" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:mes="http://www.coda.com/common/schemas/messagetransport" targetNamespace="http://www.coda.com/common/schemas/usermaster" elementFormDefault="qualified" version="4.0">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types2.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/securityvariables" schemaLocation="s:/schemas/public/common/securityvariables/securityvariables.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/messagetransport" schemaLocation="s:/schemas/public/common/messagetransport/messagetransport.xsd"/>
+
+  <xsd:complexType name="User">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a user master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="TimeStamp" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this user master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this user master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="FrameworkCode" type="com:typeUserCode">
+        <xsd:annotation>
+          <xsd:documentation>An alternative user code that can be up to 128 characters long.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name for this user master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for this user master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Password" type="com:typePassword" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The password (in un-encrypted form) to use with this user master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="EncryptedPassword" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The password (in encrypted form) to use with this user master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CapabilityCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code for the capability master assigned to this user master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="EMail" type="com:typeEMailAddrB">
+        <xsd:annotation>
+          <xsd:documentation>The e-mail address for this user.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Scheme" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The default scheme for this user. The scheme controls the 'look' of the Administration Console, for example, the fonts and colours that are used.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Language" type="com:typeLanguage" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The default language for this user master. This controls the language used for the screen, help, and message text.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Applications" type="usr:UserApplications" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element contains user master settings for other applications.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Finance" type="usr:Finance" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element contains the user master settings for Finance.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Procurement" type="usr:Procurement" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Not used in this version.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="HomePage" type="usr:HomePage" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of the Homepage template assigned to this user master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Preferences" type="com:typeUserCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the preferences master assigned to this user. The preferences master personalises the Administration Console header and the colours used in KPI content providers.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MobilePhoneNumber" type="com:typeTel" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The user's mobile telephone number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DisablePasswordExpiry" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>If true, prevents password expiry.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NTUserLogon" type="usr:NTUserLogon" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Not used in this version.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Timezone" type="com:typeText" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The user's timezone.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="EnableAlerts" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>If set, alerts are enabled for this user.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AlertWindowFrom" type="com:typeDateTimeb" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The start of the user's working week during which they are available to receive alerts.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AlertWindowTo" type="com:typeDateTimeb" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The end of the user's working week during which they are available to receive alerts.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AlertDays" type="com:typeWord" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The days of the week the user is available to receive alerts.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AlertInterval" type="com:typeComUserAlertInterval" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The frequency with which alerts should be sent to this user.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AlertIntervalPeriod" type="com:typeWord" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The interval value if alerts are sent according to a schedule.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AlertIntervalUnits" type="com:typeComUserAlertUnits" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The units for the AlertIntervalPeriod value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AlertTriggerVolume" type="com:typeWord" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The number of alerts to accumulate before being sent to this user.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AlertScheduledTaskId" type="com:typeDbGuid" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The ID of the process managing alert scheduling.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AlertCatchUpTaskId" type="com:typeDbGuid" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The ID of the process managing alert catchup.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Country" type="com:typeIsoCountryCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The user's country code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BrowseWorkListSettingList" type="usr:BrowseWorkListSettingList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of browse work list settings.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OutOfOfficeStatus" type="com:typeBaseEnum" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>If set, this user is out of office for the specified time period.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OutOfOfficeFrom" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The first date this user will be out of office.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OutOfOfficeTo" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The final date this user will be out of office.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StoreAlerts" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>If set, alerts are accumulated until the user returns.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DelegateTo" type="com:typeUserCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The ID of an alternative user to re-route alerts and work items to.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SecurityVariables" type="secv:SecurityVariables" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Reserved for future use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Roles" type="usr:UserRoleList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The user's roles.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MessageTransports" type="mes:MessageTransportKeyList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of message transports available for the user.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DomainUserMappings" type="usr:DomainUserMappingList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of mappings between this user and domain user IDs.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ApplyMyPreferences" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>If set, the user's customised display preferences are used.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MyPreferences" type="usr:MyPreferences" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element contains user preferences details.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PhoneNumber" type="com:typeTel" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The telephone number for the user.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Fax" type="com:typeTel" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The fax number for the user.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OutputDevice" type="com:typeCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the default output device for the user.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElementResponsibilities" type="usr:ElementResponsibilities" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of a user's element responsibilities.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BatchSlot" type="com:typeULong">
+        <xsd:annotation>
+          <xsd:documentation>The index of the batch licence slot assigned to this user.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="OutOfOffice">
+    <xsd:annotation>
+      <xsd:documentation>This element contains out of office details.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="OutOfOfficeStatus" type="com:typeBaseEnum" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The out of office status.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OutOfOfficeFrom" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The first date this user will be out of office.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OutOfOfficeTo" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The final date this user will be out of office.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StoreAlerts" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>If set, alerts are accumulated until the user returns.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DelegateTo" type="com:typeUserCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The ID of an alternative user to re-route alerts and work items to.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="BrowseWorkListSetting">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the details of the browse workflow masters specified for a user's worklist.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="DisplayName" type="com:typeDescription">
+        <xsd:annotation>
+          <xsd:documentation>The panel title to appear in the work list.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BrowseWorkflowMasterCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The browse workflow master code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="BrowseWorkListSettingList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of browse work list settings.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Tab" type="usr:BrowseWorkListSetting" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains the details of the browse workflow masters specified for a user's worklist.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ElementResponsibilities">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of a user's element responsibilities.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ElementResponsiblilityCurCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The currency code for the user's element responsibility.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElementResponsibilityList" type="usr:ElementResponsibilityList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>A list of element responsibilities.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ResponsibilityList">
+    <xsd:annotation>
+      <xsd:documentation>A list of responsibilities.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Responsibility" type="usr:Responsibility" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>The details of a responsibility.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Responsibility">
+    <xsd:annotation>
+      <xsd:documentation>The details of a responsibility.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ParentIndex" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The parent index.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Index" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>An index.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Logical" type="com:typeCtAccessLog">
+        <xsd:annotation>
+          <xsd:documentation>The logical connective combining this data element with the preceding data element. There is no logical connective on the first data element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LBracket" type="com:typeCtLeftBracketVocab">
+        <xsd:annotation>
+          <xsd:documentation>The number of opening brackets.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Operator" type="com:typeCtAccessOp">
+        <xsd:annotation>
+          <xsd:documentation>The symbol signifying the operation to be performed on the selected vocabulary item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CmpCode" type="com:typeGeneralCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>A company code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Vocab" type="com:typeComResponsibility">
+        <xsd:annotation>
+          <xsd:documentation>The type of user responsibility.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElementLevel" type="com:typeElmLevel" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The element level for the responsibility.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ValueFrom" type="com:typeElmCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The first value in the range, if applicable.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ValueTo" type="com:typeElmCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The last value in the range, if applicable.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RBracket" type="com:typeCtRightBracketVocab">
+        <xsd:annotation>
+          <xsd:documentation>The number of closing brackets.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Reserved" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Reserved for future use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ElementResponsibility">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of an element responsibility.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Index" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>An index.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Description" type="com:typeDescription">
+        <xsd:annotation>
+          <xsd:documentation>A description of the responsibility.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ResponsibilityList" type="usr:ResponsibilityList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>A list of responsibilities.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Tolerance" type="com:typeCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>A tolerance master code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ReasonCode" type="com:typeCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>An Invoice Matching discrepancy reason code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Value" type="com:typeMoney" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>A monetary value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UseGeneral" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, the user's responsibilities apply to all application areas.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UseFinancials" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, the user's responsibilities apply to the Financials application.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UseInvoiceMatching" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, the user's responsibilities apply to the Invoice Matching application.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UseProcurementEntry" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, the user's responsibilities apply to Purchasing document entry.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UseProcurementAuthorisation" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, the user's responsibilities apply to Purchasing document authorisation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UseProcurementReceiving" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If set, the user's responsibilities apply to Purchasing receiving.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Reserved" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Reserved for future use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ElementResponsibilityList">
+    <xsd:annotation>
+      <xsd:documentation>A list of element responsibilities.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ElementResponsibility" type="usr:ElementResponsibility" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of an element responsibility.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MyPreferences">
+    <xsd:annotation>
+      <xsd:documentation>This element contains user preferences details.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MenuPosition" type="com:typeComUserPrefMenuPosition" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The menu bar position.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Menu" type="com:MenuItems" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of customised menu items for this user.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RemoveTableActionButtons" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>If set, removes all row and column action buttons associated with any table that has a shortcut menu.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DomainUserMappingList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of mappings between this user and domain user IDs.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="DomainUserMapping" type="usr:DomainUserMapping" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of a mapping between this user and a domain user.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DomainUserMapping">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of a mapping between this user and a domain user.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="DomainUser" type="com:typeDomainUser">
+        <xsd:annotation>
+          <xsd:documentation>The domain user ID.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SecondaryPasswordRequired" type="xsd:boolean" default="false">
+        <xsd:annotation>
+          <xsd:documentation>If set, indicates that a secondary password is required.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DefaultMapping" type="xsd:boolean" default="false">
+        <xsd:annotation>
+          <xsd:documentation>If set, indicates that this is the default mapping for the user.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserRoleList">
+    <xsd:annotation>
+      <xsd:documentation>The user's roles.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Role" type="usr:UserRole" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>A role description.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserRole">
+    <xsd:annotation>
+      <xsd:documentation>A role description.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="RoleCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>A role code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="NTUserLogon">
+    <xsd:annotation>
+      <xsd:documentation>Not used in this version.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="UserName" type="com:typeNtUserName" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Not used in this version.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Password" type="com:typeNtUserPassword" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Not used in this version.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Property">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a setting for the current application.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Name" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The name of this setting.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Value" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The value of this setting.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PropertyList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains settings for the current application.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Property" type="usr:Property" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a setting for the current application.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CompanyItem">
+    <xsd:annotation>
+      <xsd:documentation>A company to which this user has access.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CompanyCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The company code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CapabilityCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Reserved for future use.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CompanyList">
+    <xsd:annotation>
+      <xsd:documentation>The list of companies to which this user has access.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CompanyItem" type="usr:CompanyItem" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>A company to which this user has access.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Finance">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the user master settings for Finance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="DefaultCompany" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company to which the user will be connected automatically when logging on to Administration Console. If blank, the user must select a company at log on.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OpenDocumentLimit" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The maximum number of documents the user may have open at one time.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DefaultElementLevel" type="usr:UserMasterElmLevel" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Used in conjunction with DefaultElementCode, specifies the default element at this element level for this user.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DefaultElementCode" type="com:typeElmCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Used in conjunction with DefaultElementLevel, specifies the default element at the specified element level for this user.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DefaultElementLevel2" type="usr:UserMasterElmLevel" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Used in conjunction with DefaultElementCode2, specifies the default element at this element level for this user.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DefaultElementCode2" type="com:typeElmCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Used in conjunction with DefaultElementLevel2, specifies the default element at the specified element level for this user.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DefaultElementLevel3" type="usr:UserMasterElmLevel" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Used in conjunction with DefaultElementCode3, specifies the default element at this element level for this user.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DefaultElementCode3" type="com:typeElmCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Used in conjunction with DefaultElementLevel3, specifies the default element at the specified element level for this user.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CompanyList" type="usr:CompanyList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The list of companies to which this user has access.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:simpleType name="UserMasterElmLevel">
+    <xsd:annotation>
+      <xsd:documentation>The element level of a default element specified on the user master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:short">
+      <xsd:minInclusive value="0"/>
+      <xsd:maxInclusive value="8"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:complexType name="UserApplications">
+    <xsd:annotation>
+      <xsd:documentation>This element contains user master settings for other applications.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Application" type="usr:UserApplication" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains user master settings for another application.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserApplication">
+    <xsd:annotation>
+      <xsd:documentation>This element contains user master settings for another application.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Name" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The application name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Properties" type="usr:PropertyList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element contains settings for the current application.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AuthenticateArgs">
+    <xsd:sequence>
+      <xsd:element name="Arg" type="usr:AuthenticateArg" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AuthenticateArg">
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:string">
+        <xsd:attribute name="name" type="xsd:string"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="HomePage">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of the Homepage template assigned to this user master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="TemplateCode" type="com:typeCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the Homepage template assigned to this user.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Procurement">
+    <xsd:annotation>
+      <xsd:documentation>Not used in this version.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Companies" type="usr:ProcurementCompanies" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Not used in this version.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProcurementCompanies">
+    <xsd:annotation>
+      <xsd:documentation>Not used in this version.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Company" type="usr:ProcurementCompany" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Not used in this version.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProcurementCompany">
+    <xsd:annotation>
+      <xsd:documentation>Not used in this version.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="TemplateCode" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>Not used in this version.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>Not used in this version.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserKey">
+    <xsd:annotation>
+      <xsd:documentation>This element is a key consisting of a code.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this user master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserList">
+    <xsd:annotation>
+      <xsd:documentation>Contains key information for a list of user masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="User" type="usr:UserListItem" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Contains key information for a user master in the list.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserListItem">
+    <xsd:annotation>
+      <xsd:documentation>Contains key information for a user master in the list.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the user master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="FrameworkCode" type="com:typeUserCode">
+        <xsd:annotation>
+          <xsd:documentation>An alternative user code that can be up to 128 characters long.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortName">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for the user master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TemplateCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the Homepage template assigned to the user master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="FullUserList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the user master data being imported or exported.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="User" type="usr:User" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element holds a user master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Groups">
+    <xsd:annotation>
+      <xsd:documentation>The user groups to which the specified user master belongs.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Group" type="xsd:string" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>A user group to which the user master belongs.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Positions">
+    <xsd:annotation>
+      <xsd:documentation>A list of position masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Position" type="xsd:string" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>The code for a position master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Hierarchies">
+    <xsd:annotation>
+      <xsd:documentation>A list of position hierarchy masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Hierarchy" type="xsd:string" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>The code for a position hierarchy master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ListFilter">
+    <xsd:annotation>
+      <xsd:documentation>A filter that selects the user masters to be listed.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="com:ListFilter">
+        <xsd:sequence>
+          <xsd:element name="FrameworkCode" type="com:typeUserCode" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>An alternative user code that can be up to 128 characters long.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="MinPasswdExpdate" type="com:typeDate" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Use with MaxPasswdExpdate to filter for user masters whose password expires within a particular date range. Supply the start date here.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="MaxPasswdExpdate" type="com:typeDate" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Use with MinPasswdExpdate to filter for user masters whose password expires within a particular date range. Supply the end date here.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+
+</xsd:schema>

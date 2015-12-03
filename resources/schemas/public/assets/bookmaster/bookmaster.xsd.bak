@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:bkms="http://www.coda.com/eassets/schemas/bookmaster" xmlns:asscom="http://www.coda.com/eassets/schemas/common" targetNamespace="http://www.coda.com/eassets/schemas/bookmaster" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/eassets/schemas/common" schemaLocation="s:/schemas/public/assets/common/types.xsd"/>
+
+  <xsd:complexType name="BookMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a book master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the book master is being maintained.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this book master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LongName" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name for this book master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortName">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for this book master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this book master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostingBook" type="com:typeBool">
+        <xsd:annotation>
+          <xsd:documentation>Defines this book master as the posting book for the company.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Posted" type="com:typeBool">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether or not, this book has been used to post assets.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BookType" type="asscom:typeBook" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether this book master is the primary (posting) book, a secondary book or a currency book.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AssociatedBookCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>When BookType is currency, this is the code of the primary book or the secondary book with which this currency book is associated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CurCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>When BookType is currency, this identifies the currency in which values in this currency book will be held.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="bkmsReqKeys">
+    <xsd:annotation>
+      <xsd:documentation>Contains key information for requesting a number of book masters from the database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MaxKeys" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The maximum number of items to be returned.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The short name of the book master that you want to select. This can be wildcarded to return multiple book masters.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Key" type="com:Key">
+        <xsd:annotation>
+          <xsd:documentation>Contains key information for the specified book masters.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="BookMaster" type="bkms:BookMaster">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a book master.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

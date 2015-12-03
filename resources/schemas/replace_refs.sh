@@ -1,0 +1,1 @@
+$ find ./ -type f -iname '*.xsd' -exec sed -i.bak 's/s:\/schemas/http:\/\/cda-dev.aws3.liiaws.net\/xmli-schemas/' {} \;

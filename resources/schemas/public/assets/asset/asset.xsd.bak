@@ -1,0 +1,1668 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:ass="http://www.coda.com/eassets/schemas/asset" targetNamespace="http://www.coda.com/eassets/schemas/asset" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="AssetBookSummary">
+    <xsd:annotation>
+      <xsd:documentation>This element contains details of an asset book.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The company code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AssetCode" type="com:typeAstCode">
+        <xsd:annotation>
+          <xsd:documentation>The asset code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BookCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The asset book code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CurrencyCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The currency code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CostAtStartOfTheYear" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The cost of the asset at the start of the year.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AdditionsInTheYear" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The value of any late adjustments made during the year.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DisposalsInTheYear" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The value of any disposals made during the year.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Revaluation" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The value of any revaluations made during the year.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CurrentCostBalance" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The current cost balance.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DepreciationAtStartOfTheYear" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The depreciation value for the asset at the start of the year.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DepreciationYearToDate" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The depreciation value for the asset during the year.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DepreciationDisposalsInTheYear" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The value of the depreciation of any disposals made against this asset during the year.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DepreciationRevaluation" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The value of the depreciation of any revaluation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CurrentDepreciationBalance" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The current depreciation balance.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NetBookValue" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The net book value of the asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AssetSummary">
+    <xsd:annotation>
+      <xsd:documentation>This element contains asset summary information.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Book" type="ass:AssetBookSummary" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains details of an asset book.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AssetUserData">
+    <xsd:annotation>
+      <xsd:documentation>Contains an item in the specified list.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="StringData" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The data held for this item if it is a string value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DateData" type="xsd:dateTime">
+        <xsd:annotation>
+          <xsd:documentation>The data held for this item if it is a date value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AssetUserDataList">
+    <xsd:annotation>
+      <xsd:documentation>Contains the list associated with the specified user defined field.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="UserDataList" type="ass:AssetUserData" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Contains an item in the specified list.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Asset">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the details for an asset.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="TimeStamp" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the asset is being maintained.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeAstCode">
+        <xsd:annotation>
+          <xsd:documentation>The asset code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Description" type="com:typeDescr" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>A description of the asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Comment" type="com:typeTextB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>A comment stored with the asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Url" type="com:typeTextB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>A URL to a location which may contain a picture of the asset or other details.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OldAsset" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>If the asset has been copied from another system, this element contains the asset's code from the old system. This element is ignored by the Bulk Upload service.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CategoryCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the category to which this asset belongs.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostingRuleCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the posting rule master used by this asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LocationCode" type="com:typeElmCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of this asset's location.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ParentAssetCode" type="com:typeAstCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the parent asset (if any).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CanBeParent" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether this asset can be a parent asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Quantity" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>The quantity of this asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CostCentre" type="com:typeElmCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the element that is this asset's cost centre. The Bulk Upload service does not validate the data supplied in this element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CostCentreLevel" type="com:typeElmLevel" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The element level of this asset's cost centre element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Status" type="com:typeCtAssetStatus">
+        <xsd:annotation>
+          <xsd:documentation>The asset's status. The status can be not capitalised (on the Intray), capitalised or sold.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TempCode" type="com:typeAstCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Holds a temporary asset code. This is used when an asset is being created but has not yet been assigned a code. This element is ignored by the Bulk Upload service.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Books" type="ass:AssetBooksList">
+        <xsd:annotation>
+          <xsd:documentation>This element holds the details held about this asset in each asset book.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserString1" type="com:typeTextB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>User defined text field, 1.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserString2" type="com:typeTextB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>User defined text field, 2.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserString3" type="com:typeTextB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>User defined text field, 3.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserString4" type="com:typeTextB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>User defined text field, 4.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserString5" type="com:typeTextB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>User defined text field, 5.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserString6" type="com:typeTextB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>User defined text field, 6.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserString7" type="com:typeTextB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>User defined text field, 7.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserString8" type="com:typeTextB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>User defined text field, 8.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserString9" type="com:typeTextB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>User defined text field, 9.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserString10" type="com:typeTextB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>User defined text field, 10.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserValue1" type="com:typeMoney" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>User defined value field, 1. (A monetary value.)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserValue2" type="com:typeMoney" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>User defined value field, 2. (A monetary value.)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserValue3" type="com:typeMoney" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>User defined value field, 3. (A monetary value.)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserValue4" type="com:typeMoney" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>User defined value field, 4. (A monetary value.)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserValue5" type="com:typeMoney" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>User defined value field, 5. (A monetary value.)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserValue6" type="com:typeMoney" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>User defined value field, 6. (A monetary value.)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserValue7" type="com:typeMoney" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>User defined value field, 7. (A monetary value.)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserValue8" type="com:typeMoney" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>User defined value field, 8. (A monetary value.)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserValue9" type="com:typeMoney" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>User defined value field, 9. (A monetary value.)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserValue10" type="com:typeMoney" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>User defined value field, 10. (A monetary value.)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDate1" type="xsd:dateTime" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>User defined date field, 1.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDate2" type="xsd:dateTime" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>User defined date field, 2.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDate3" type="xsd:dateTime" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>User defined date field, 3.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDate4" type="xsd:dateTime" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>User defined date field, 4.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDate5" type="xsd:dateTime" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>User defined date field, 5.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDate6" type="xsd:dateTime" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>User defined date field, 6.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDate7" type="xsd:dateTime" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>User defined date field, 7.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDate8" type="xsd:dateTime" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>User defined date field, 8.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDate9" type="xsd:dateTime" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>User defined date field, 9.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDate10" type="xsd:dateTime" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>User defined date field, 10.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserStringNo1" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The label for user defined text field, 1.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserStringNo2" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The label for user defined text field, 2.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserStringNo3" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The label for user defined text field, 3.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserStringNo4" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The label for user defined text field, 4.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserStringNo5" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The label for user defined text field, 5.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserStringNo6" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The label for user defined text field, 6.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserStringNo7" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The label for user defined text field, 7.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserStringNo8" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The label for user defined text field, 8.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserStringNo9" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The label for user defined text field, 9.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserStringNo10" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The label for user defined text field, 10.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserValueNo1" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The label for user defined value field, 1.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserValueNo2" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The label for user defined value field, 2.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserValueNo3" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The label for user defined value field, 3.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserValueNo4" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The label for user defined value field, 4.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserValueNo5" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The label for user defined value field, 5.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserValueNo6" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The label for user defined value field, 6.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserValueNo7" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The label for user defined value field, 7.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserValueNo8" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The label for user defined value field, 8.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserValueNo9" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The label for user defined value field, 9.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserValueNo10" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The label for user defined value field, 10.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDateNo1" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The label for user defined date field, 1.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDateNo2" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The label for user defined date field, 2.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDateNo3" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The label for user defined date field, 3.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDateNo4" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The label for user defined date field, 4.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDateNo5" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The label for user defined date field, 5.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDateNo6" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The label for user defined date field, 6.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDateNo7" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The label for user defined date field, 7.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDateNo8" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The label for user defined date field, 8.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDateNo9" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The label for user defined date field, 9.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDateNo10" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The label for user defined date field, 10.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDataStringList1" type="ass:AssetUserDataList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the list of choices available for UserString1. This data is only returned in a CreateResponse; the list should not be populated in any Requests.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDataStringList2" type="ass:AssetUserDataList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the list of choices available for UserString2. This data is only returned in a CreateResponse; the list should not be populated in any Requests.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDataStringList3" type="ass:AssetUserDataList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the list of choices available for UserString3. This data is only returned in a CreateResponse; the list should not be populated in any Requests.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDataStringList4" type="ass:AssetUserDataList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the list of choices available for UserString4. This data is only returned in a CreateResponse; the list should not be populated in any Requests.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDataStringList5" type="ass:AssetUserDataList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the list of choices available for UserString5. This data is only returned in a CreateResponse; the list should not be populated in any Requests.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDataStringList6" type="ass:AssetUserDataList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the list of choices available for UserString6. This data is only returned in a CreateResponse; the list should not be populated in any Requests.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDataStringList7" type="ass:AssetUserDataList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the list of choices available for UserString7. This data is only returned in a CreateResponse; the list should not be populated in any Requests.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDataStringList8" type="ass:AssetUserDataList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the list of choices available for UserString8. This data is only returned in a CreateResponse; the list should not be populated in any Requests.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDataStringList9" type="ass:AssetUserDataList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the list of choices available for UserString9. This data is only returned in a CreateResponse; the list should not be populated in any Requests.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDataStringList10" type="ass:AssetUserDataList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the list of choices available for UserString10. This data is only returned in a CreateResponse; the list should not be populated in any Requests.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDataValueList1" type="ass:AssetUserDataList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the list of choices available for UserValue1. This data is only returned in a CreateResponse; the list should not be populated in any Requests.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDataValueList2" type="ass:AssetUserDataList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the list of choices available for UserValue2. This data is only returned in a CreateResponse; the list should not be populated in any Requests.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDataValueList3" type="ass:AssetUserDataList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the list of choices available for UserValue3. This data is only returned in a CreateResponse; the list should not be populated in any Requests.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDataValueList4" type="ass:AssetUserDataList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the list of choices available for UserValue4. This data is only returned in a CreateResponse; the list should not be populated in any Requests.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDataValueList5" type="ass:AssetUserDataList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the list of choices available for UserValue5. This data is only returned in a CreateResponse; the list should not be populated in any Requests.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDataValueList6" type="ass:AssetUserDataList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the list of choices available for UserValue6. This data is only returned in a CreateResponse; the list should not be populated in any Requests.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDataValueList7" type="ass:AssetUserDataList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the list of choices available for UserValue7. This data is only returned in a CreateResponse; the list should not be populated in any Requests.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDataValueList8" type="ass:AssetUserDataList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the list of choices available for UserValue8. This data is only returned in a CreateResponse; the list should not be populated in any Requests.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDataValueList9" type="ass:AssetUserDataList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the list of choices available for UserValue9. This data is only returned in a CreateResponse; the list should not be populated in any Requests.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDataValueList10" type="ass:AssetUserDataList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the list of choices available for UserValue10. This data is only returned in a CreateResponse; the list should not be populated in any Requests.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDataDateList1" type="ass:AssetUserDataList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the list of choices available for UserDate1. This data is only returned in a CreateResponse; the list should not be populated in any Requests.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDataDateList2" type="ass:AssetUserDataList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the list of choices available for UserDate2. This data is only returned in a CreateResponse; the list should not be populated in any Requests.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDataDateList3" type="ass:AssetUserDataList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the list of choices available for UserDate3. This data is only returned in a CreateResponse; the list should not be populated in any Requests.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDataDateList4" type="ass:AssetUserDataList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the list of choices available for UserDate4. This data is only returned in a CreateResponse; the list should not be populated in any Requests.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDataDateList5" type="ass:AssetUserDataList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the list of choices available for UserDate5. This data is only returned in a CreateResponse; the list should not be populated in any Requests.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDataDateList6" type="ass:AssetUserDataList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the list of choices available for UserDate6. This data is only returned in a CreateResponse; the list should not be populated in any Requests.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDataDateList7" type="ass:AssetUserDataList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the list of choices available for UserDate7. This data is only returned in a CreateResponse; the list should not be populated in any Requests.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDataDateList8" type="ass:AssetUserDataList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the list of choices available for UserDate8. This data is only returned in a CreateResponse; the list should not be populated in any Requests.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDataDateList9" type="ass:AssetUserDataList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the list of choices available for UserDate9. This data is only returned in a CreateResponse; the list should not be populated in any Requests.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserDataDateList10" type="ass:AssetUserDataList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the list of choices available for UserDate10. This data is only returned in a CreateResponse; the list should not be populated in any Requests.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DepreciationLock" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>If true, indicates that the asset is locked by a depreciation process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DepreciationRunNum" type="com:typeLong" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the run number of the depreciation process that is locking the asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="WIPAssetList" type="ass:WIPAssetList">
+        <xsd:annotation>
+          <xsd:documentation>If the asset was created from WIP assets, this element contains the list of WIP assets.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WIPAssetList">
+    <xsd:annotation>
+      <xsd:documentation>If the asset was created from WIP assets, this element contains the list of WIP assets.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="WIPAsset" type="ass:WIPAsset" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Identifies a WIP asset from which this asset was created.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WIPAsset">
+    <xsd:annotation>
+      <xsd:documentation>Identifies a WIP asset from which this asset was created.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="WIPAsset" type="com:typeAstCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the WIP asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AssetList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of assets and their details.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Asset" type="ass:Asset" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element holds the details for an asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AssetKeyList">
+    <xsd:annotation>
+      <xsd:documentation>Contains a list of key information for the specified assets.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="KeyList" type="ass:AssetKey" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Contains key information for the specified asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AssetBooksList">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the details held about this asset in each asset book.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Book" type="ass:AssetBooks" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element holds the details held about this asset in the specified asset book.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CapitaliseDetailsList">
+    <xsd:annotation>
+      <xsd:documentation>Contains details that will be stored when the specified assets are capitalised.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CapitaliseDetails" type="ass:CapitaliseDetails" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Contains details that will be stored when the specified asset is capitalised.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AssetBooks">
+    <xsd:annotation>
+      <xsd:documentation>This element holds the details held about this asset in the specified asset book.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="BookCode" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of this asset book.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Status" type="com:typeCtAssetBookStatus">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the asset is not depreciated, partly depreciated or fully depreciated in this asset book.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AssetLife" type="ass:typeAssetLife">
+        <xsd:annotation>
+          <xsd:documentation>The number of periods over which the asset will be written off.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StandardDepnCode" type="com:typeCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the depreciation rule master used in this asset book for calculating standard depreciation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SpecialDepnCode" type="com:typeCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the depreciation rule master used in this asset book for calculating special depreciation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StartYear" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The year when the asset starts to depreciate. The Bulk Upload service does not validate the data supplied in this element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StartPeriod" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The period when the asset starts to depreciate. The Bulk Upload service does not validate the data supplied in this element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StartYearPeriod" type="com:typeBaseYearPeriod" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The year and period when the asset starts to depreciate.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ResidualPercent" type="com:typeMoneyB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The asset's residual value as a percentage of its original capital cost.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ResidualValue" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The asset's residual value as an absolute value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IsPercentage" type="com:typeCtResidValueOrPercent">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the asset's residual worth is held as a percentage or a value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PurchaseDate" type="xsd:dateTime">
+        <xsd:annotation>
+          <xsd:documentation>The date and time when the asset was purchased.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CapitalisationDate" type="xsd:dateTime">
+        <xsd:annotation>
+          <xsd:documentation>The date and time when the asset was capitalised.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CapitalisationYear" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The year when the asset was capitalised.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CapitalisationPeriod" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The period when the asset was capitalised.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NetBookValue" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The net book value of the asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PendingTransactionValue" type="com:typeMoney" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The difference between the current net book value and any outstanding transactions that have been posted up to the current period; typically this will be any late adjustments that depreciation has not included yet.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AccumulatedDepreciation" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The amount of depreciation that has accumulated on this asset to date.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="YTDDepreciation" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The amount of depreciation that has accumulated on this asset during the year to date.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Cost" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The original cost of the asset. This is known as the asset's capital cost.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LastDepreciationYear" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The last year for which depreciation has been calculated for the asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LastDepreciationPeriod" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The last period for which depreciation has been calculated for the asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Revalue" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the asset may be revalued.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Flags" type="xsd:int" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the asset has been revalued. This flag is for CODA's internal use and should not be changed.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TimeStamp" type="xsd:short" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this asset in this asset book.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CurCode" type="com:typeCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the currency that these asset values are held in.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NumberOfDecimals" type="com:typeDecPlace">
+        <xsd:annotation>
+          <xsd:documentation>The number of decimal places that these values are stored to.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DepreciationStartDate" type="xsd:dateTime">
+        <xsd:annotation>
+          <xsd:documentation>The date when the asset starts to depreciate.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DisposalDate" type="xsd:dateTime" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date the asset is fully disposed.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DisposalCost" type="com:typeMoney" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The total cost disposed of for the asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DisposalAccumulatedDepreciation" type="com:typeMoney" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The total accumulated depreciation disposed of for the asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DisposalNetBookValue" type="com:typeMoney" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The NBV of the asset at the point of disposal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AssetBookDepreciate">
+    <xsd:sequence>
+      <xsd:element name="Status" type="com:typeCtAssetBookStatus"/>
+      <xsd:element name="DepValue" type="com:typeMoney"/>
+      <xsd:element name="LastDepreciationYear" type="xsd:short"/>
+      <xsd:element name="LastDepreciationPeriod" type="xsd:int"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AssetBookDispose">
+    <xsd:sequence>
+      <xsd:element name="DisposalValue" type="com:typeMoney"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AssetBookTransfer">
+    <xsd:sequence>
+      <xsd:element name="TransferValue" type="com:typeMoney"/>
+      <xsd:element name="DepreciationTransferValue" type="com:typeMoney"/>
+      <xsd:element name="YTDDepreciationTransferValue" type="com:typeMoney" minOccurs="0"/>
+      <xsd:element name="ResidualValue" type="com:typeMoney" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AssetBookRevalue">
+    <xsd:sequence>
+      <xsd:element name="CostRevaluation" type="com:typeMoney"/>
+      <xsd:element name="DepreciationRevaluation" type="com:typeMoney"/>
+      <xsd:element name="NewYTDDepn" type="com:typeMoney" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ParentWithOveridesKey">
+    <xsd:annotation>
+      <xsd:documentation>Contains parameters for you to specify the parent asset, the attributes that the child asset inherits from its parent, and the capital cost of the new child asset.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="ass:AssetKey">
+        <xsd:annotation>
+          <xsd:documentation>Contains the key identifying the parent asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CategoryCode" type="com:typeCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The code of the category to use for the child asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="InheritRemainingAssetLife" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the child asset inherits the parent's asset life.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="InheritCostCentre" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the child asset inherits the parent's cost centre.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="InheritLocation" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Inherits whether the child asset inherits the parent's location.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Cost" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The capital cost of the child asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StartDepreciationYearPeriod" type="com:typeBaseYearPeriod" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The year/period when the child starts to depreciate.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PurchaseDate" type="xsd:dateTime" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date the child asset was acquired.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StartDepreciationDate" type="xsd:dateTime" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date when the child asset starts to depreciate.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OverrideAssetCode" type="com:typeAstCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>An optional asset code to use for the child asset. If specified, this asset code will be used instead of one being generated automatically by the number rule.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CapitaliseDetails">
+    <xsd:annotation>
+      <xsd:documentation>Contains details that will be stored when the specified asset is capitalised.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="ass:AssetKey" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains key information for the specified asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Asset" type="ass:Asset" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element holds the details for an asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NewAssetCode" type="com:typeAstCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>A new asset code to assign to the asset upon capitalisation. You may only assign a new asset code if the number rule permits.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Cost" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The cost of the asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Expense" type="com:typeMoney" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Any further expense associated with the asset. For example, a delivery charge.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SuspenseAccount" type="com:typeAcCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The suspense account to which capitalisation postings should be made for this asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CapYearPeriod" type="com:typeBaseYearPeriod">
+        <xsd:annotation>
+          <xsd:documentation>The year and period to which capitalisation postings for this asset will be made.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CapDate" type="xsd:dateTime">
+        <xsd:annotation>
+          <xsd:documentation>The date and time when this asset is capitalised. This date must fall within the CapYearPeriod.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocYearPeriod" type="com:typeBaseYearPeriod" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The year and period to which the document is posted in Financials. This field is only valid when capitalising an asset from the Intray.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CurrencyBookExpense" type="ass:AssetCurrencyDataList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element contains the asset's expense value in associated currencies.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IncludeExpenseInCost" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether any expense value is included in the asset's capital cost, or is additional to the asset's capital cost.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AssetKey">
+    <xsd:annotation>
+      <xsd:documentation>Contains key information for the specified asset.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the asset is being maintained.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeAstCode">
+        <xsd:annotation>
+          <xsd:documentation>The asset code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CreateDetails">
+    <xsd:annotation>
+      <xsd:documentation>Contains parameters for you to specify a code for the new asset, the company in which the asset is created, and the capital cost of the asset.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Key" type="com:Key">
+        <xsd:annotation>
+          <xsd:documentation>Contains parameters for you to specify the company in which the asset is created and a code for the asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Cost" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The capital cost of the asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PurchaseDate" type="xsd:dateTime" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date the asset was purchased.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DepnStartYearPeriod" type="com:typeBaseYearPeriod" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The start year and period for asset depreciation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AssetCode" type="com:typeAstCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The asset code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DepnStartDate" type="xsd:dateTime" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date when the asset starts to depreciate.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CreateGeneralDetails">
+    <xsd:annotation>
+      <xsd:documentation>Contains information that is used when checking that an asset can be created.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company in which the asset would be created.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CategoryCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the category that would be used to create the asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AssetCode" type="com:typeAstCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The asset code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ParentAssetCode" type="com:typeAstCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The code of the parent asset (if any).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CreateOnRegister" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the asset would be created directly onto the Asset Register, or onto the Asset Intray.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="InheritRemaingLife" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the asset would inherit the parent's asset life.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="InheritCostCentre" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the asset would inherit the parent's cost centre.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="InheritLocation" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Inherits whether the asset would inherit the parent's location.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Addition" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether the asset would be created as an addition.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CalculateDepreciation" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Indicates whether depreciation that may have already accrued for the asset should be calculated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Cost" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The capital cost of the asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CapYearPeriod" type="com:typeBaseYearPeriod">
+        <xsd:annotation>
+          <xsd:documentation>The year and period to which capitalisation postings for the asset would be made.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CapDate" type="xsd:dateTime">
+        <xsd:annotation>
+          <xsd:documentation>The date and time when the asset would be capitalised. This date must fall within the CapYearPeriod.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DepnStartYearPeriod" type="com:typeBaseYearPeriod">
+        <xsd:annotation>
+          <xsd:documentation>The year and period when the asset starts to depreciate.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DepnStartDate" type="xsd:dateTime">
+        <xsd:annotation>
+          <xsd:documentation>The date when the asset starts to depreciate.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CapitaliseAsset">
+    <xsd:annotation>
+      <xsd:documentation>Contains the costs, accounts and posting details for capitalising the specified assets.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company in which the asset is capitalised.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CapitaliseDetailsList" type="ass:CapitaliseDetailsList">
+        <xsd:annotation>
+          <xsd:documentation>Contains details that will be stored when the specified assets are capitalised.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SuspenseAccount" type="com:typeAcCode">
+        <xsd:annotation>
+          <xsd:documentation>The suspense account to which postings should be made for this asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AggregateAsset" type="ass:Asset" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains a single asset that has been created from multiple asset lines on the Asset Intray.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Cost" type="com:typeMoney" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The cost of the asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Expense" type="com:typeMoney" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Any further expense associated with the asset. For example, a delivery charge.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="FromIntrayOrManualEntry" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indicates how the asset has been capitalised. When TRUE, the asset has come from the Asset Intray or from manual entry; when FALSE the asset has come from Input in Financials or Financials.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExpenseAccount" type="com:typeAcCode">
+        <xsd:annotation>
+          <xsd:documentation>The account to which the Expense value is posted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CapitaliseReviewAsset">
+    <xsd:annotation>
+      <xsd:documentation>Contains the costs, accounts and posting details for capitalising the specified assets. This information is used by the CapitaliseReview request.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="ass:CapitaliseAsset">
+        <xsd:sequence>
+          <xsd:element name="RunNum" type="xsd:int">
+            <xsd:annotation>
+              <xsd:documentation>A number that uniquely identifies the current process.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CancelReviewAsset">
+    <xsd:annotation>
+      <xsd:documentation>Contains the costs, accounts and posting details for the asset review to be cancelled.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the asset is being maintained.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RunNum" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>A number that uniquely identifies the current process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AggregateAsset" type="ass:Asset" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains a single asset that has been created from multiple asset lines on the Asset Intray.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="LateAdjustmentAsset">
+    <xsd:annotation>
+      <xsd:documentation>Contains the value, suspense account and posting details for making a late adjustment.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the late adjustment is being made.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeAstCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the asset to which the late adjustment is being made.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Value" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The capital cost of the late adjustment.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SuspenseAccount" type="com:typeAcCode">
+        <xsd:annotation>
+          <xsd:documentation>The account to which the late adjustment's Value (with the opposite sign) should be posted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="YearPeriod" type="com:typeBaseYearPeriod">
+        <xsd:annotation>
+          <xsd:documentation>The year/period in which the late adjustment is being made.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocDate" type="xsd:dateTime">
+        <xsd:annotation>
+          <xsd:documentation>The date of the capitalisation document posted to record this transaction.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LogTitle" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The title of a log in which details of the late adjustment are recorded.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AdjustmentCurrencies" type="ass:AssetCurrencyDataList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element contains the asset's late adjustment value in associated currencies.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PostCancelReviewedLateAdjustmentAsset">
+    <xsd:annotation>
+      <xsd:documentation>Contains posting details for the specified late adjustment.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the late adjustment is being made.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RunNum" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>A number that uniquely identifies this late adjustment process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeAstCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the asset to which the late adjustment is being made.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="YearPeriod" type="com:typeBaseYearPeriod">
+        <xsd:annotation>
+          <xsd:documentation>The year/period in which the late adjustment is being made.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocDate" type="xsd:dateTime">
+        <xsd:annotation>
+          <xsd:documentation>The date of the capitalisation document posted to record this transaction.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AssetBookKey">
+    <xsd:annotation>
+      <xsd:documentation>This element contains information uniquely identifying an asset book.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The company code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeAstCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The asset code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BookCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The asset book code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AssetBookKeyList">
+    <xsd:sequence>
+      <xsd:element name="AssetBookKey" type="ass:AssetBookKey" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:simpleType name="typeAssetLife">
+    <xsd:annotation>
+      <xsd:documentation>The number of periods over which the asset will be written off.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:int">
+      <xsd:minInclusive value="0"/>
+      <xsd:maxInclusive value="30000"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:complexType name="AddMappingList">
+    <xsd:annotation>
+      <xsd:documentation>Contains any mappings between fields used in CODA-Financials and the e-Assets fields to be used upon capitalisation.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="AddMapping" type="ass:AddMapping" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Contains a mapping between a field in CODA-Financials and an e-Assets field to be used upon capitalisation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AddMapping">
+    <xsd:annotation>
+      <xsd:documentation>Contains a mapping between a field in CODA-Financials and an e-Assets field to be used upon capitalisation.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Mapping" type="com:typeCtOneOfN">
+        <xsd:annotation>
+          <xsd:documentation>The field in e-Assets which is mapped to a field in CODA-Financials.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Value" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>The value of the field in CODA-Financials.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DoclineList">
+    <xsd:annotation>
+      <xsd:documentation>Contains the document lines which will result in assets being created.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Docline" type="ass:Docline" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Contains a document line which will result in an asset being created.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Docline">
+    <xsd:annotation>
+      <xsd:documentation>Contains a document line which will result in an asset being created.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="DocCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The document code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocNum" type="com:typeDocNum">
+        <xsd:annotation>
+          <xsd:documentation>The document number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocLineNum" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The document line number.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Value" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The line value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AccountCode" type="com:typeAcCodeB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The account code on the document line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AssetCurrencies" type="ass:AssetCurrencies" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the asset value in different currencies.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CreateFullAsset">
+    <xsd:annotation>
+      <xsd:documentation>Contains the information (including document line details) for the asset you want to create.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CreateGeneralDetails" type="ass:CreateGeneralDetails">
+        <xsd:annotation>
+          <xsd:documentation>Contains general information used when creating assets from document lines and when checking that assets can be created from the given information.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MappingList" type="ass:AddMappingList">
+        <xsd:annotation>
+          <xsd:documentation>Contains any mappings between fields used in CODA-Financials and the e-Assets fields to be used upon capitalisation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DoclineList" type="ass:DoclineList">
+        <xsd:annotation>
+          <xsd:documentation>Contains the document lines which will result in assets being created.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AssetCurrencyDataList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the asset's expense value in associated currencies.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="AssetCurrencyData" type="ass:AssetCurrencyData" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element contains the asset's expense value in an associated currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AssetCurrencyData">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the asset's expense value in an associated currency.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="BookCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the currency book.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BookCurrencyCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The currency code associated with this book.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Value" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The asset value in this currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Rate" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The currency exchange rate.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NumberOfDecimals" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The number of decimal places that the asset value is held to.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CurrencyParentCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The parent currency of the currency specified in BookCurrencyCode.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AssetCategoryKey">
+    <xsd:annotation>
+      <xsd:documentation>Contains a key identifying an asset and the category used to create it.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the asset is held.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AssetCode" type="com:typeAstCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The asset code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CatCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The category code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AssetCategoryKeyList">
+    <xsd:annotation>
+      <xsd:documentation>Contains a list of keys identifying assets and the categories used to create them.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="AssetCategoryKey" type="ass:AssetCategoryKey" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Contains a key identifying an asset and the category used to create it.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AssetCurrencies">
+    <xsd:annotation>
+      <xsd:documentation>Contains the asset value in different currencies.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="AssetCurrency" type="ass:AssetCurrency" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>The asset value in one particular currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AssetCurrency">
+    <xsd:annotation>
+      <xsd:documentation>The asset value in one particular currency.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CurCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The currency code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Value" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The asset value in this currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

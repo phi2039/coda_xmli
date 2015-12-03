@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:asscom="http://www.coda.com/eassets/schemas/common" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:ass="http://www.coda.com/eassets/schemas/asset" xmlns:trn="http://www.coda.com/eassets/schemas/transfer" targetNamespace="http://www.coda.com/eassets/schemas/transfer" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/eassets/schemas/asset" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/assets/asset/asset.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/eassets/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/assets/common/types.xsd"/>
+  <xsd:include schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/assets/transfer/transferpostings.xsd"/>
+
+  <xsd:complexType name="Transfer">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the parameters which can be specified when transferring assets.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="TransferLog" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The name for a log file to store details of this transfer process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AssetKeys" type="trn:AssetKeyList">
+        <xsd:annotation>
+          <xsd:documentation>Contains a list of key information for the specified assets.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Assets" type="trn:AssetList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of assets and their details.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TransferType" type="asscom:typeTransfer">
+        <xsd:annotation>
+          <xsd:documentation>Specify whether to transfer the asset from one cost centre to another, or whether to transfer the asset to another asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CurrentCostCentre" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the asset's current cost centre element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NewCostCentreLevel" type="com:typeElmLevel">
+        <xsd:annotation>
+          <xsd:documentation>The element level in the account code at which the cost centre element is found.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NewCostCentreValue" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the element you wish to use as the asset's new cost centre.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NewCostCentreSettings" type="trn:UDFTransferList" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>If element user-defined fields are set up for inclusion in cost centre transfers, this contains details of the current cost centre and the new cost centre.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TransferToAssetKey" type="ass:AssetKey">
+        <xsd:annotation>
+          <xsd:documentation>Contains key information identifying the asset to which this asset will be transferred.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TransferToNewAsset" type="ass:Asset">
+        <xsd:annotation>
+          <xsd:documentation>This element holds the details of the new asset that will be created if appropriate.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TransferDepreciation" type="com:typeBool">
+        <xsd:annotation>
+          <xsd:documentation>When performing a cost centre transfer, set this to TRUE to transfer the asset's year-to-date depreciation to the new cost centre as a profit and loss depreciation charge; set this to FALSE if you do not want to transfer the asset's year-to-date depreciation. The asset's accumulated depreciation is always transferred to the new cost centre, irrespective of this setting.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TransferChildren" type="com:typeBool">
+        <xsd:annotation>
+          <xsd:documentation>Set this to TRUE to transfer child assets along with their parent asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AssetToAssetTransferType" type="asscom:typeToAssetTransfer">
+        <xsd:annotation>
+          <xsd:documentation>Specify whether to transfer the asset to a new asset (creating a new standalone asset), or to transfer it to another existing asset (making an asset addition).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PartialTransferType" type="asscom:typeTransferDetails">
+        <xsd:annotation>
+          <xsd:documentation>When making a partial transfer, specify whether the partial amount will be set as a monetary value, a percentage, or a quantity of the selected asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PartialTransferValue" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The partial transfer amount as a monetary value. Supply this amount if PartialTransferType is set to value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PartialTransferPercentage" type="com:typePercent">
+        <xsd:annotation>
+          <xsd:documentation>The partial transfer amount as a percentage. Supply this amount if PartialTransferType is set to percentage.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PartialTransferQuantity" type="com:typeULong">
+        <xsd:annotation>
+          <xsd:documentation>The partial transfer amount as a quantity. Supply this amount if PartialTransferType is set to quantity.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostingYearPeriod" type="com:typePeriod">
+        <xsd:annotation>
+          <xsd:documentation>The year and period to which the transfer postings will be made.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostingDocumentDate" type="com:typeDate">
+        <xsd:annotation>
+          <xsd:documentation>The document date that will be used for the postings.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostingTerminalDepreciation" type="asscom:typeDisposalDepreciation">
+        <xsd:annotation>
+          <xsd:documentation>Specify the method for calculating the asset's final amount of depreciation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostingAggregatePostings" type="com:typeBool">
+        <xsd:annotation>
+          <xsd:documentation>Set to TRUE if you want the posting lines to be aggregated when they are posted to the CODA-Financials database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostingRunID" type="trn:RunIdList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of companies in which the transfer process will be run.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostingInformation" type="trn:TransferPostings">
+        <xsd:annotation>
+          <xsd:documentation>This element contains the values that will be posted by the transfer process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IsReviewed" type="com:typeBool">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the transfer values are reviewed before being posted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CapitalisationYearPeriod" type="com:typePeriod">
+        <xsd:annotation>
+          <xsd:documentation>The capitalisation year and period for transferred WIP assets.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CapitalisationCost" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The capital cost of transferred WIP assets.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MultipleAssets" type="com:typeBool">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether multiple WIP assets are being transferred.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NewAssetsFromWIP" type="trn:AssetList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains the new assets that will be created from the transferred WIP assets.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DepreciationStartYearPeriod" type="com:typePeriod">
+        <xsd:annotation>
+          <xsd:documentation>The depreciation start year and period for transferred WIP assets.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DepreciationStartDate" type="com:typeDate">
+        <xsd:annotation>
+          <xsd:documentation>The depreciation start date for transferred WIP assets.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AssetList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of assets and their details.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Asset" type="ass:Asset" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This element holds the details for an asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="AssetKeyList">
+    <xsd:annotation>
+      <xsd:documentation>Contains a list of key information for the specified assets.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="AssetKey" type="ass:AssetKey" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Contains key information for the specified asset.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RunIdList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of companies in which the transfer process will be run.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="List" type="trn:RunDetails" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Contains details of a company in which the transfer process will be run.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RunDetails">
+    <xsd:annotation>
+      <xsd:documentation>Contains details of a company in which the transfer process will be run.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Company" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company in which the transfer process will be run.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RunID" type="com:typeULong">
+        <xsd:annotation>
+          <xsd:documentation>A number identifying the transfer process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UDFTransferList">
+    <xsd:annotation>
+      <xsd:documentation>If element user-defined fields are set up for inclusion in cost centre transfers, this contains details of the current cost centre and the new cost centre.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="UDFTransfer" type="trn:UDFTransferItem" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>This contains details of the current cost centre and the new cost centre when element user-defined fields are set up for inclusion in cost centre transfers.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UDFTransferItem">
+    <xsd:annotation>
+      <xsd:documentation>This contains details of the current cost centre and the new cost centre when element user-defined fields are set up for inclusion in cost centre transfers.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ElementLevel" type="com:typeElmLevel">
+        <xsd:annotation>
+          <xsd:documentation>The element level at which the element is found.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CurrentSetting" type="com:typeElmCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the element at the specified element level.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NewSetting" type="com:typeElmCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the element you wish to use in the asset's new cost centre at the specified element level.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserFieldIndex" type="xsd:integer">
+        <xsd:annotation>
+          <xsd:documentation>A unique index for this UDFTransfer element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="Transfer" type="trn:Transfer">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the parameters which can be specified when transferring assets.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:cpc="http://www.coda.com/common/schemas/copycompany" xmlns:tasks="http://www.coda.com/common/schemas/tasks" elementFormDefault="qualified" targetNamespace="http://www.coda.com/common/schemas/copycompany">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types2.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/common/schemas/tasks" schemaLocation="s:/schemas/public/common/tasks/tasks.xsd"/>
+
+  <xsd:complexType name="MasterTypeKey">
+    <xsd:annotation>
+      <xsd:documentation>A key to the master type.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Product" type="com:typeApplicationName">
+        <xsd:annotation>
+          <xsd:documentation>A CODA application name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Name" type="com:typeTextAny">
+        <xsd:annotation>
+          <xsd:documentation>The key name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MasterTypeKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="MasterTypeKey" type="cpc:MasterTypeKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CustomisableMaster">
+    <xsd:annotation>
+      <xsd:documentation>The definition of a customisable master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="MasterType" type="cpc:MasterTypeKey">
+        <xsd:annotation>
+          <xsd:documentation>A key to the master type.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="PatternFormat" type="com:typeTextAnyDb">
+        <xsd:annotation>
+          <xsd:documentation>A wildcard pattern.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="CompanyCodeGroup" type="com:typeULong">
+        <xsd:annotation>
+          <xsd:documentation>A company code group.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="MasterCodeGroup" type="com:typeULong">
+        <xsd:annotation>
+          <xsd:documentation>A master code group.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MasterCodeList" type="cpc:CustomisableMasterMasterCodeList">
+        <xsd:annotation>
+          <xsd:documentation>A list of master codes.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CustomisableMasterMasterCodeList">
+    <xsd:annotation>
+      <xsd:documentation>A list of master codes.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="MasterCode" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>A master code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CustomisableMasterList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="CustomisableMaster" type="cpc:CustomisableMaster">
+        <xsd:annotation>
+          <xsd:documentation>The definition of a customisable master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Range">
+    <xsd:annotation>
+      <xsd:documentation>The definition of a range.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Logical" type="com:typeLogicalOperator">
+        <xsd:annotation>
+          <xsd:documentation>A logical connective combining the row with the preceding row</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="OpenBracket" type="com:typeLeftBrackets">
+        <xsd:annotation>
+          <xsd:documentation>The opening parenthesis.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="VocabID" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>A vocabulary item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="OperatorID" type="com:typeCopyCompanyVocabOpList">
+        <xsd:annotation>
+          <xsd:documentation>A comparison operator used to compare actual values to target values.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="From" type="com:typeTextWild">
+        <xsd:annotation>
+          <xsd:documentation>The first item in the range.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="To" type="com:typeTextWild">
+        <xsd:annotation>
+          <xsd:documentation>The final item in the range.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="CloseBracket" type="com:typeRightBrackets">
+        <xsd:annotation>
+          <xsd:documentation>The closing parenthesis.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RangeList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Range" type="cpc:Range">
+        <xsd:annotation>
+          <xsd:documentation>The definition of a range.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MasterTypeRange">
+    <xsd:annotation>
+      <xsd:documentation>The details of master type ranges.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Key" type="cpc:MasterTypeKey">
+        <xsd:annotation>
+          <xsd:documentation>A key to the master type.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RangeList" type="cpc:MasterTypeRangeRangeList">
+        <xsd:annotation>
+          <xsd:documentation>A list of ranges.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MasterTypeRangeRangeList">
+    <xsd:annotation>
+      <xsd:documentation>A list of ranges.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" name="Range" type="cpc:Range">
+        <xsd:annotation>
+          <xsd:documentation>The definition of a range.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MasterTypeRangeList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="MasterTypeRange" type="cpc:MasterTypeRange"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MasterTypeProviders">
+    <xsd:annotation>
+      <xsd:documentation>The details of master type providers.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MasterTypeProviderList" type="cpc:MasterTypeProvidersMasterTypeProviderList">
+        <xsd:annotation>
+          <xsd:documentation>A list of master type providers.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MasterTypeProvidersMasterTypeProviderList">
+    <xsd:annotation>
+      <xsd:documentation>A list of master type providers.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="MasterTypeProvider" type="cpc:MasterTypeProvider">
+        <xsd:annotation>
+          <xsd:documentation>The definition of a master type provider.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MasterTypeProvidersList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="MasterTypeProviders" type="cpc:MasterTypeProviders"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ExternalDatabaseDetails">
+    <xsd:annotation>
+      <xsd:documentation>The details of an external database.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="JdbcDriver" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The class path for the database driver.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="JdbcConnectionUrl" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The database connection URL.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Username" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>A database user name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Password" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The password for the database user name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ExternalDatabaseDetailsList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ExternalDatabaseDetails" type="cpc:ExternalDatabaseDetails"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MasterTypeProvider">
+    <xsd:annotation>
+      <xsd:documentation>The definition of a master type provider.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Product" type="com:typeApplicationName">
+        <xsd:annotation>
+          <xsd:documentation>A CODA application name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MasterTypeList" type="cpc:MasterTypeProviderMasterTypeList">
+        <xsd:annotation>
+          <xsd:documentation>A list of master types.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MasterTypeProviderMasterTypeList">
+    <xsd:annotation>
+      <xsd:documentation>A list of master types.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="MasterType" type="cpc:MasterType">
+        <xsd:annotation>
+          <xsd:documentation>A master type definition.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MasterTypeProviderList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="MasterTypeProvider" type="cpc:MasterTypeProvider">
+        <xsd:annotation>
+          <xsd:documentation>The definition of a master type provider.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MasterType">
+    <xsd:annotation>
+      <xsd:documentation>A master type definition.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Key" type="cpc:MasterTypeKey">
+        <xsd:annotation>
+          <xsd:documentation>A key to the master type.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="DataViewCode" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>A data view code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Singleton" type="com:typeBoolean">
+        <xsd:annotation>
+          <xsd:documentation>If TRUE, this is a single master type value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MasterTypeList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="MasterType" type="cpc:MasterType">
+        <xsd:annotation>
+          <xsd:documentation>A master type definition.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CustomisableMasters">
+    <xsd:annotation>
+      <xsd:documentation>The details of customisable masters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CustomisableMasterList" type="cpc:CustomisableMastersCustomisableMasterList">
+        <xsd:annotation>
+          <xsd:documentation>A list of customisable master definitions.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CustomisableMastersCustomisableMasterList">
+    <xsd:annotation>
+      <xsd:documentation>A list of customisable master definitions.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="CustomisableMaster" type="cpc:CustomisableMaster">
+        <xsd:annotation>
+          <xsd:documentation>The definition of a customisable master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CustomisableMastersList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="CustomisableMasters" type="cpc:CustomisableMasters"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

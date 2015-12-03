@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:spr="http://www.coda.com/efinance/schemas/statement" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:txn="http://www.coda.com/efinance/schemas/transaction" targetNamespace="http://www.coda.com/efinance/schemas/statement" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/transaction" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/transaction/transaction.xsd"/>
+
+  <xsd:complexType name="StatementLineKey">
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode"/>
+      <xsd:element name="StatementMasterCode" type="com:typeGeneralCode"/>
+      <xsd:element name="ReferenceNumberCode" type="com:typeGeneralCode"/>
+      <xsd:element name="DocCode" type="com:typeGeneralCode"/>
+      <xsd:element name="DocNumber" type="com:typeDocNum"/>
+      <xsd:element name="DocLineNumber" type="xsd:int"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Tax">
+    <xsd:annotation>
+      <xsd:documentation>An item on the list of tax details.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Code" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the tax master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Value" type="com:typeMoney" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The value of the tax payable, in document currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Taxes">
+    <xsd:annotation>
+      <xsd:documentation>Contains the tax details if this is a tax line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Tax" type="spr:Tax" minOccurs="0" maxOccurs="9">
+        <xsd:annotation>
+          <xsd:documentation>An item on the list of tax details.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Currency">
+    <xsd:annotation>
+      <xsd:documentation>One currency value held against this line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="ElmLevel" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The level at which the element exists.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CurrCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Value" type="com:typeMoneyB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The value of the line in this currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Rate" type="com:typeRateB" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The exchange rate for this currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Currencies">
+    <xsd:annotation>
+      <xsd:documentation>The list of values in other currencies held for the account code on this line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Currency" type="spr:Currency" minOccurs="0" maxOccurs="8">
+        <xsd:annotation>
+          <xsd:documentation>One currency value held against this line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Discount">
+    <xsd:sequence>
+      <xsd:element name="Date" type="com:typeDate" minOccurs="0"/>
+      <xsd:element name="Rate" type="com:typeMoney" minOccurs="0"/>
+      <xsd:element name="Value" type="com:typeMoney" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Discounts">
+    <xsd:annotation>
+      <xsd:documentation>The list of discounts held for this line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Discount" type="txn:Discount" minOccurs="0" maxOccurs="5">
+        <xsd:annotation>
+          <xsd:documentation>One discount held for this line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Ten99Taxes">
+    <xsd:annotation>
+      <xsd:documentation>Contains details of 1099 tax associated with this line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Ten99Tax" type="spr:Tax" minOccurs="0" maxOccurs="3">
+        <xsd:annotation>
+          <xsd:documentation>One 1099 tax item.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="StatementLine">
+    <xsd:annotation>
+      <xsd:documentation>Contains details of a statement line.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="StatementMasterCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the statement master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StatementNumber" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The reference number of the statement you want to post.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Version" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The version of the statement.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company to which the line will be posted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the document containing this line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocNumber" type="com:typeDocNum">
+        <xsd:annotation>
+          <xsd:documentation>The number of the document containing this line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocLineNumber" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>The number of this line within the document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TransactionCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The external party's code for this transaction line. The transaction type master tells the system how to process lines containing this code. This entry is used to identify a line in the oas_trantype table through the externalcode entry.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AccountLookup" type="com:typeAcCodeLookup" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>A free-format lookup code, which, depending on the transaction type set up, is used by the system to look up the account code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AccountCode" type="com:typeAcCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The account code for this line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SourceOrContra" type="com:typeCtSprSource">
+        <xsd:annotation>
+          <xsd:documentation>Is this a source line or a contra line?</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StatementValue" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The value of the line in the statement currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RecReference" type="xsd:int" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The reconciliation integer. This starts at 0 and is then system maintained.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RecStatus" type="com:typeCtStatRec" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The reconciliation status of this statement line: Reconciled, Available or Null.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocValue" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The value of the line in document currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocRate" type="com:typeRate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The currency exchange rate used to produce the home value from the document value.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="HomeValue" type="com:typeMoney" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The value of the line in home currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DualValue" type="com:typeMoney" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The value of the line in dual currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DualRate" type="com:typeRate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The currency exchange rate used to produce the dual currency from the home currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserStatus" type="com:typeStatUser" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>A single character user identifier.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LineType" type="com:typeCtRecLineType" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The type of line: summary, analysis or tax.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DebitCredit" type="com:typeCtDocLineDrCr" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Whether the sense of this line is Debit or Credit.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DueDate" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date the amount is due.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ValueDate" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date the amount clears.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Taxes" type="spr:Taxes" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains the tax details if this is a tax line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Description" type="com:typeDescr" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The document line description.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExtRef1" type="com:typeExtRef" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The document line's external reference 1.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExtRef2" type="com:typeExtRef" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The document line's external reference 2.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExtRef3" type="com:typeExtRef" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The document line's external reference 3.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExtRef4" type="com:typeExtRef" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The document line's external reference 4.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExtRef5" type="com:typeExtRef" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The document line's external reference 5.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExtRef6" type="com:typeExtRef" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The document line's external reference 6.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserRef1" type="com:typeUserRef" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The first free-format string available on this line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserRef2" type="com:typeUserRef" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The second free-format string available on this line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UserRef3" type="com:typeUserRef" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The third free-format string available on this line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Currencies" type="spr:Currencies" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The list of values in other currencies held for the account code on this line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Discounts" type="spr:Discounts" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The list of discounts held for this line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocSumTax" type="com:typeMoney" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The sum of tax values in the document currency. This is the total tax on the document line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TaxLineCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code that identifies a tax master, if this is a tax line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocTaxTurnover" type="com:typeMoney" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The tax turnover in the document currency, if this is a tax line. It is the sum of document line values for the tax code held in the TaxLineCode field.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Ten99Taxes" type="spr:Ten99Taxes" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Contains details of 1099 tax associated with this line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MediaCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code that identifies the media master used by the pay line if the account code contains a matchable element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BankCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code that identifies the company bank master if the account code contains a matchable element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElmBankTag" type="com:typeUWord" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The number that identifies which element bank to use in the bank list attached to the matchable element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ElmAddrTag" type="com:typeUWord" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The number that identifies which element address to use in the address list attached to the matchable element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Posted" type="com:typeCtStmPosted" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The posting status of the line: not yet posted, posted to Books or Intray, or failed.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Period" type="com:typePeriod" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The period to which the document was posted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocDate" type="com:typeDate" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The date of the document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Authoriser" type="com:typeAuthInit" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The user name of the authoriser.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocCurrCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the document currency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostedDocCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the posted document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostedDocNumber" type="com:typeDocNum" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The number of the posted document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostedDocLineNumber" type="xsd:int" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The number of this line on the posted document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TraderCode" type="com:typeTraderCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The code of the temporary supplier or customer on this line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

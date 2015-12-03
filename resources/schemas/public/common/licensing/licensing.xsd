@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:lic="http://www.coda.com/common/schemas/licensing" elementFormDefault="qualified" targetNamespace="http://www.coda.com/common/schemas/licensing">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types2.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="ResourceKey">
+    <xsd:sequence>
+      <xsd:element name="Product" type="com:typeApplicationName"/>
+      <xsd:element name="Access" type="com:typeCapReadonly"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="LicenceAllocationKey">
+    <xsd:sequence>
+      <xsd:element name="Product" type="com:typeApplicationName"/>
+      <xsd:element name="Slot" type="com:typeLong"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ResourceLicenceEvent">
+    <xsd:complexContent>
+      <xsd:extension base="lic:LicenceEvent">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Access" type="com:typeCapReadonly"/>
+          <xsd:element name="ResourceDataList" type="lic:ResourceLicenceDataList"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ResourceLicenceEventList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ResourceLicenceEvent" type="lic:ResourceLicenceEvent"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ResourceLicenceEventKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ResourceLicenceEvent" type="lic:ResourceLicenceEventKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ResourceLicenceEventKey">
+    <xsd:complexContent>
+      <xsd:extension base="lic:LicenceEventKey">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SlotUsage">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="UserCode" type="com:typeCode"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="UserIP" type="com:typeInetAddress"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Slot" type="com:typeULong"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Product" type="com:typeApplicationName"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="ProjectedEndTime" type="com:typePosixTime"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SlotUsageList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="SlotUsage" type="lic:SlotUsage"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SlotUsageKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="SlotUsage" type="lic:SlotUsageKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SlotUsageKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="UserCode" type="com:typeCode"/>
+      <xsd:element minOccurs="0" name="UserIP" type="com:typeInetAddress"/>
+      <xsd:element minOccurs="0" name="Slot" type="com:typeULong"/>
+      <xsd:element minOccurs="0" name="Product" type="com:typeApplicationName"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SlotLicenceEvent">
+    <xsd:complexContent>
+      <xsd:extension base="lic:LicenceEvent">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" name="User" type="com:typeUserCode"/>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Ip" type="com:typeInetAddress"/>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Slot" type="com:typeLong"/>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Used" type="com:typeULong"/>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Unlimited" type="com:typeBoolean"/>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Available" type="com:typeULong"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="Overdraft" type="com:typeULong"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SlotLicenceEventList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="SlotLicenceEvent" type="lic:SlotLicenceEvent"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SlotLicenceEventKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="SlotLicenceEvent" type="lic:SlotLicenceEventKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SlotLicenceEventKey">
+    <xsd:complexContent>
+      <xsd:extension base="lic:LicenceEventKey">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ResourceLicenceData">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Seq" type="com:typeULong"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="ParentSeq" type="com:typeULong"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Name" type="com:typeTextAnyDb255"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Product" type="com:typeApplicationName"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Access" type="com:typeCapReadonly"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Promotion" type="com:typeULong"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Used" type="com:typeULong"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Unlimited" type="com:typeBoolean"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Available" type="com:typeULong"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Overdraft" type="com:typeULong"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="SumOfChildPromotions" type="com:typeULong"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ResourceLicenceDataList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ResourceLicenceData" type="lic:ResourceLicenceData"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ResourceLicenceDataKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ResourceLicenceData" type="lic:ResourceLicenceDataKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ResourceLicenceDataKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Id" type="com:typeDbGuid"/>
+      <xsd:element minOccurs="0" name="Seq" type="com:typeULong"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="LicenceEvent">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Id" type="com:typeDbGuid"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Time" type="com:typePosixTime"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="SnapshotTime" type="com:typePosixTime"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Product" type="com:typeApplicationName"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Result" type="com:typeComLicLogResult"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="LicenceEventList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="LicenceEvent" type="lic:LicenceEvent"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="LicenceEventKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="LicenceEvent" type="lic:LicenceEventKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="LicenceEventKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Id" type="com:typeDbGuid"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="LicenceUsage">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="SessionId" type="com:typeDbGuid"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Product" type="com:typeApplicationName"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Access" type="com:typeCapReadonly"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="LicenceUsageList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="LicenceUsage" type="lic:LicenceUsage"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="LicenceUsageKeyList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="LicenceUsage" type="lic:LicenceUsageKey"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="LicenceUsageKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="SessionId" type="com:typeDbGuid"/>
+      <xsd:element minOccurs="0" name="Product" type="com:typeApplicationName"/>
+      <xsd:element minOccurs="0" name="Access" type="com:typeCapReadonly"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="BatchSlot">
+    <xsd:annotation>
+      <xsd:documentation>For CODA internal use only.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Index" type="com:typeLong">
+        <xsd:annotation>
+          <xsd:documentation>For CODA internal use only.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="1" name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>For CODA internal use only.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="BatchSlotList">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="BatchSlot" type="lic:BatchSlot"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

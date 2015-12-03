@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:tlk="http://www.coda.com/efinance/schemas/tablelink" targetNamespace="http://www.coda.com/efinance/schemas/tablelink" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="DTLStartParams">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the parameters for the Table Link document transfer process.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The company code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The document code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocStartNumber" type="com:typeDocNum" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The number of the first document in the selection range.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocEndNumber" type="com:typeDocNum" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The number of the last document in the selection range.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LinkCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The linkcode entry in the oas_linkhead table that identifies a document or group of documents.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TreatWarningsAsErrors" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If true, specifies that warnings should be handled as if they were errors.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StopRunOnError" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If true, stops the Table Link process if an error occurs transferring a document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ReportMode" type="com:typeCtLinkReportMode">
+        <xsd:annotation>
+          <xsd:documentation>The type of log to generate.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Destination" type="com:typeCtDocDest">
+        <xsd:annotation>
+          <xsd:documentation>The destination for the transferred documents.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LogTitle" type="com:typeTitle">
+        <xsd:annotation>
+          <xsd:documentation>A title for the log generated when you run the Table Link process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BreakTriangulation" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If true, specifies that triangulation rules should be ignored.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LogOnlyFailures" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>If true, specifies that the log will contain only failures and end-of-run statistics.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DLNStartParams">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the parameters for the Table Link document line comments or document line description transfer process.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The company code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The document code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocNumFrom" type="com:typeDocNum" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The number of the first document in the selection range.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DocNumTo" type="com:typeDocNum" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The number of the last document in the selection range.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LinkCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The linkcode entry in the oas_linkcomment table (comments) or in the oas_linkdesc table (line descriptions).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LogTitle" type="com:typeTitle">
+        <xsd:annotation>
+          <xsd:documentation>A title for the log generated when you run the Table Link process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ETLStartParams">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the parameters for the Table Link element transfer process.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The company code.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LinkCode" type="com:typeGeneralCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The linkcode entry in the oas_linkelement table that identifies an element or group of elements.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LogTitle" type="com:typeTitle">
+        <xsd:annotation>
+          <xsd:documentation>A title for the log generated when you run the Table Link process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+</xsd:schema>

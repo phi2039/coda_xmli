@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:gsl="http://www.coda.com/efinance/schemas/selectormaster" xmlns:ass="http://www.coda.com/eassets/schemas/asset" xmlns:asscom="http://www.coda.com/eassets/schemas/common" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:rvl="http://www.coda.com/eassets/schemas/revaluation" targetNamespace="http://www.coda.com/eassets/schemas/revaluation" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="s:/schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/eassets/schemas/common" schemaLocation="s:/schemas/public/assets/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/selectormaster" schemaLocation="s:/schemas/public/common/selectormaster/selectormaster.xsd"/>
+  <xsd:import namespace="http://www.coda.com/eassets/schemas/asset" schemaLocation="s:/schemas/public/assets/asset/asset.xsd"/>
+  <xsd:include schemaLocation="s:/schemas/public/assets/revaluation/revaluationpostings.xsd"/>
+
+  <xsd:complexType name="Revaluation">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the parameters which can be specified when revaluing assets.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Selector" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The selector master that you want to use to select assets for revaluation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="SelectorMaster" type="gsl:SelectorMaster" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This element holds the selector master specified by Selector.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RevaluationType" type="asscom:typeRevaluationDetails">
+        <xsd:annotation>
+          <xsd:documentation>Specify whether you want to revalue the selected assets by a value, a percentage, or using a custom calculation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Value" type="com:typeMoney">
+        <xsd:annotation>
+          <xsd:documentation>The amount by which the selected asset(s) should be revalued. This will be a negative amount if the asset's value has decreased.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Percent" type="com:typePercent">
+        <xsd:annotation>
+          <xsd:documentation>The percentage by which the selected asset(s) should be revalued. This will be a negative amount if the asset's value has decreased.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Custom" type="com:typeText">
+        <xsd:annotation>
+          <xsd:documentation>The custom revaluation rule to use for revaluing the selected asset(s).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostingYearPeriod" type="com:typeBaseYearPeriod">
+        <xsd:annotation>
+          <xsd:documentation>The year and period to which the revaluation postings will be made.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostingDocumentDate" type="com:typeDate">
+        <xsd:annotation>
+          <xsd:documentation>The document date that will be used for the revaluation postings.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RevalueChildren" type="com:typeBool">
+        <xsd:annotation>
+          <xsd:documentation>Set this to TRUE to revalue dependent child assets along with their parents. Set this to FALSE to revalue the parent assets but not their dependent children.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CapitalCostRevaluation" type="com:typeBool">
+        <xsd:annotation>
+          <xsd:documentation>Set this to TRUE to aggregate document lines with the same account code for capital cost revaluation into a single line. Document lines with the same account code but using different documents cannot be aggregated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AccumulatedDepreciationRevaluation" type="com:typeBool">
+        <xsd:annotation>
+          <xsd:documentation>Set this to TRUE to aggregate document lines with the same account code for accumulated depreciation revaluation into a single line. Document lines with the same account code but using different documents cannot be aggregated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RevaluationReserve" type="com:typeBool">
+        <xsd:annotation>
+          <xsd:documentation>Set this to TRUE to aggregate document lines with the same account code for the revaluation reserve into a single line. Document lines with the same account code but using different documents cannot be aggregated.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostingDetails" type="rvl:RevaluationPostings">
+        <xsd:annotation>
+          <xsd:documentation>Contains the values that will be posted by the revaluation process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IsReviewed" type="com:typeBool">
+        <xsd:annotation>
+          <xsd:documentation>Specifies whether the revaluation values are reviewed before being posted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PostingRunID" type="rvl:RunIdList">
+        <xsd:annotation>
+          <xsd:documentation>This element contains a list of companies in which the revaluation process will be run.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="LogTitle" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The log file in which details of this revaluation process will be stored. This field is mandatory.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RevaluationDate" type="com:typeDate">
+        <xsd:annotation>
+          <xsd:documentation>The date of the revaluation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RunIdList">
+    <xsd:annotation>
+      <xsd:documentation>This element contains a list of companies in which the revaluation process will be run.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="List" type="rvl:RunDetails" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Contains details of a company in which the revaluation process will be run.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RunDetails">
+    <xsd:annotation>
+      <xsd:documentation>Contains details of a company in which the revaluation process will be run.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Company" type="com:typeCode">
+        <xsd:annotation>
+          <xsd:documentation>The code of the company in which the revaluation process will be run.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RunID" type="com:typeULong">
+        <xsd:annotation>
+          <xsd:documentation>A number identifying the revaluation process.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="Revaluation" type="rvl:Revaluation">
+    <xsd:annotation>
+      <xsd:documentation>This element contains the parameters which can be specified when revaluing assets.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

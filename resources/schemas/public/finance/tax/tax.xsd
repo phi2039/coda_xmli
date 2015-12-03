@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:com="http://www.coda.com/efinance/schemas/common" xmlns:tax="http://www.coda.com/efinance/schemas/tax" targetNamespace="http://www.coda.com/efinance/schemas/tax" elementFormDefault="qualified">
+
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/types.xsd"/>
+  <xsd:import namespace="http://www.coda.com/efinance/schemas/common" schemaLocation="http://cda-dev.aws3.liiaws.net/xmli-schemas/public/common/common/common.xsd"/>
+
+  <xsd:complexType name="Master">
+    <xsd:sequence>
+      <xsd:element name="TimeStamp" type="xsd:short">
+        <xsd:annotation>
+          <xsd:documentation>The TimeStamp value for this tax transfer master in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CmpCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for the company in which the tax transfer master is being maintained.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Code" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The code for this tax transfer master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="com:typeName">
+        <xsd:annotation>
+          <xsd:documentation>The full name for this tax transfer master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ShortName" type="com:typeShortNameB">
+        <xsd:annotation>
+          <xsd:documentation>The abbreviated name for this tax transfer master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RecoveryScope" type="com:typeCtTaxRecovery">
+        <xsd:annotation>
+          <xsd:documentation>The recoverable tax type setting applied to the tax.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Rev" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies that this tax is reversing.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RecoverAcc" type="com:typeAcCodeSubstB">
+        <xsd:annotation>
+          <xsd:documentation>Specifies the account to which recoverable tax is posted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RecoverRevAcc" type="com:typeAcCodeSubstB">
+        <xsd:annotation>
+          <xsd:documentation>The account to which reversing recoverable tax is posted. This account must not be the same as the account to which you post non-reversing recoverable tax.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IrrecoverToGoods" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies that irrecoverable tax will be posted to the goods line on the document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IrrecoverAcc" type="com:typeAcCodeSubstB">
+        <xsd:annotation>
+          <xsd:documentation>The code of the account to which irrecoverable tax is posted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IrrecoverRevToGoods" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies that reversing irrecoverable tax will be posted to the goods line on the document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IrrecoverRevAcc" type="com:typeAcCodeSubstB">
+        <xsd:annotation>
+          <xsd:documentation>The account to which reversing irrecoverable tax is posted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DestCode" type="com:typeGeneralCode">
+        <xsd:annotation>
+          <xsd:documentation>The destination code to be used on InterCompany tax lines.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Intercompany" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies that you want to take the InterCompany destination from the goods line.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IsDeferredVAT" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Specifies that you want to enable deferred tax with this master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DeferredAccount" type="com:typeAcCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The account to which you want to post deferred tax.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CollectionAccount" type="com:typeAcCodeB">
+        <xsd:annotation>
+          <xsd:documentation>The account to which you want to post collected tax.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RateInfoItem">
+    <xsd:annotation>
+      <xsd:documentation>Contains rate information for the tax rates currently setup for this master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="EffectiveDate" type="com:typeDate">
+        <xsd:annotation>
+          <xsd:documentation>The date from which this tax rate will apply.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Rate" type="com:typeTaxRate">
+        <xsd:annotation>
+          <xsd:documentation>The percentage rate, up to nine decimal places.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RecoveryPercentage" type="com:typeRecPercent">
+        <xsd:annotation>
+          <xsd:documentation>The percentage of tax that is recoverable.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RateInfoList">
+    <xsd:annotation>
+      <xsd:documentation>The list of tax rates currently setup for this master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="RateInfo" type="tax:RateInfoItem" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Contains rate information for the tax rates currently setup for this master.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Tax">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a tax master.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="tax:Master">
+        <xsd:sequence>
+          <xsd:element name="RateInfoList" type="tax:RateInfoList">
+            <xsd:annotation>
+              <xsd:documentation>The list of tax rates currently setup for this master.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="TaxTypes">
+    <xsd:annotation>
+      <xsd:documentation>This element holds tax master attribute details.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="NonReversing" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Non-reversing tax.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Reversing" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Reversing.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="FullyRecoverable" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Fully recoverable.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PartlyRecoverable" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Partly recoverable.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NotRecoverable" type="xsd:boolean">
+        <xsd:annotation>
+          <xsd:documentation>Not recoverable.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="Tax" type="tax:Tax">
+    <xsd:annotation>
+      <xsd:documentation>This element holds a tax master.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+</xsd:schema>

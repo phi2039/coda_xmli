@@ -1,0 +1,8 @@
+<!DOCTYPE catalog
+    PUBLIC "-//OASIS//DTD Entity Resolution XML Catalog V1.0//EN"
+           "http://www.oasis-open.org/committees/entity/release/1.0/catalog.dtd">
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+
+<rewriteSystem systemIdStartString="http://cda-dev.aws3.liiaws.net/xmli-schemas/"
+          rewritePrefix="file:/C:/Users/CLANCE/Documents/Syncplicity Folders/Livingston/Source Code/Development/CODAClient/xml-resources/schemas/"/>  
+</catalog>
